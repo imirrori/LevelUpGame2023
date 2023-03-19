@@ -1,9 +1,12 @@
-#include <iostream>
-
-using namespace std;
+//dsd
+#include "Game.h"
+/*
+    Dev. version
+*/
 
 int main()
 {
-    cout << "Hello World!!!!!" << endl;
+    Game game;
+    game.Run();
     return 0;
 }
