@@ -13,6 +13,15 @@ message(STATUS "Mario Output directory: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 ############################################################
 
 #Generate the shared library from the library sources
+find_package(GLEW REQUIRED)
+
+if (GLEW_FOUND)
+    message(STATUS "GLEW found")
+    include_directories(${GLEW_INCLUDE_DIRS})
+    link_libraries(${GLEW_LIBRARIES})
+else ()
+    message(STATUS "GLEW not found")
+endif ()
 
 add_library(Mario_Lib SHARED
             src/Game.cpp
