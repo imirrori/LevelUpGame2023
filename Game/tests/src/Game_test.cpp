@@ -2,7 +2,7 @@
 // Created by Dmitry Morozov on 20/3/23.
 //
 
-#include "Game.h"
+#include "Game.hpp"
 
 #include <gtest/gtest.h>
 
