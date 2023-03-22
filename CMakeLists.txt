@@ -77,19 +77,49 @@ add_definitions(
 
 add_subdirectory(Game)
 
+############################################################
+# Create a library
+############################################################
+
+# Generate the shared library from the library sources
+
+
+#add_library(Mario_Lib SHARED
+#            Game/src/Game.cpp
+#
+#            )
+#
+#
+#add_library(mario::lib ALIAS Mario_Lib)
+#
+#target_include_directories(Mario_Lib
+#                           PUBLIC
+#                           ${PROJECT_SOURCE_DIR}/Game/include
+#                           )
+
+
 # Add an executable with the above sources
 
-add_executable(Mario Game/App/main.cpp
-               common/shader.cpp
-               common/shader.hpp
+include_directories(Game/include)
 
-               Game/src/SimpleFragmentShader.fragmentshader
-               Game/src/SimpleVertexShader.vertexshader
-               )
+set(SOURCE_FILES
+    Game/App/main.cpp
+    Game/src/Game.cpp
+    common/shader.cpp
+
+    Game/src/SimpleFragmentShader.fragmentshader
+    Game/src/SimpleVertexShader.vertexshader
+    )
+
+set(HEADER_FILES
+    Game/include/Game.hpp
+    common/shader.hpp
+    )
+
+add_executable(Mario ${SOURCE_FILES} ${HEADER_FILES})
 
 target_link_libraries(Mario PRIVATE
                       ${ALL_LIBS}
-                      mario::lib
                       )
 
 set_target_properties(Mario PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${Mario_SOURCE_DIR}/bin")

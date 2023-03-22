@@ -15,7 +15,6 @@ target_include_directories(Mario_test PRIVATE
                            )
 
 target_link_libraries(Mario_test
-                      mario::lib
                       GTest::gtest_main
                       )
 
