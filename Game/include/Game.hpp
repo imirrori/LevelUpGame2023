@@ -4,6 +4,10 @@
 class Game
 {
 public:
+    Game();
+	~Game();
+
+	bool Initialize();
     void Run();
 };
 
