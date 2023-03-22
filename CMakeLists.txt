@@ -74,8 +74,41 @@ add_definitions(
         -D_CRT_SECURE_NO_WARNINGS
 )
 
-SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*")
-SOURCE_GROUP(shaders REGULAR_EXPRESSION ".*/.*shader$")
 
 add_subdirectory(Game)
 
+# Add an executable with the above sources
+
+add_executable(Mario Game/App/main.cpp
+               common/shader.cpp
+               common/shader.hpp
+
+               Game/src/SimpleFragmentShader.fragmentshader
+               Game/src/SimpleVertexShader.vertexshader
+               )
+
+target_link_libraries(Mario PRIVATE
+                      ${ALL_LIBS}
+                      mario::lib
+                      )
+
+set_target_properties(Mario PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${Mario_SOURCE_DIR}/bin")
+create_target_launcher(Mario WORKING_DIRECTORY "${Mario_SOURCE_DIR}/bin")
+create_default_target_launcher(Mario WORKING_DIRECTORY "${Mario_SOURCE_DIR}/bin")
+
+SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*")
+SOURCE_GROUP(shaders REGULAR_EXPRESSION ".*/.*shader$")
+
+if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
+
+    add_custom_command(
+            TARGET Mario POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/Mario${CMAKE_EXECUTABLE_SUFFIX}"
+            "${CMAKE_CURRENT_SOURCE_DIR}/bin/"
+    )
+
+
+elseif (${CMAKE_GENERATOR} MATCHES "Xcode")
+
+endif (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
