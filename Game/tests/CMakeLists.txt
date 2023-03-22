@@ -1,7 +1,7 @@
 ### Add Tests
 
 enable_testing()
-include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR} ../include)
 
 
 add_executable(Mario_test
@@ -16,6 +16,7 @@ target_include_directories(Mario_test PRIVATE
 
 target_link_libraries(Mario_test
                       GTest::gtest_main
+                      mario::lib
                       )
 
 include(GoogleTest)
