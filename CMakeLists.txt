@@ -78,6 +78,9 @@ set(SOURCE_FILES
     Game/App/main.cpp
     Game/src/Game.cpp
     Game/src/Entity.cpp
+    Game/src/Level.cpp
+    Game/src/Map.cpp
+
     common/shader.cpp
 
     Game/src/SimpleFragmentShader.fragmentshader
@@ -88,6 +91,8 @@ set(HEADER_FILES
     Game/include/Game.hpp
     Game/include/IEntity.hpp
     Game/include/Entity.hpp
+    Game/include/Level.hpp
+    Game/include/Map.hpp
 
     common/shader.hpp
     )
