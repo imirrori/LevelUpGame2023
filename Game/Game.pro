@@ -8,4 +8,4 @@ SOURCES += \
         main.cpp
 
 HEADERS += \
-        Game.h
+    Game.h
