@@ -10,6 +10,8 @@ class Visualizer
 {
 public:
     void make_window();
+    void init();
+    void mainloop();
 };
 }
 
