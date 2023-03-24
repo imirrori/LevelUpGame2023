@@ -80,6 +80,11 @@ set(SOURCE_FILES
     Game/src/Entity.cpp
     Game/src/Level.cpp
     Game/src/Map.cpp
+    Game/src/EntityStar.cpp
+    Game/src/EntityCoin.cpp
+    Game/src/EntityMushroom.cpp
+    Game/src/EntityPipe.cpp
+    Game/src/EntityBlock.cpp
 
     common/shader.cpp
 
@@ -93,6 +98,11 @@ set(HEADER_FILES
     Game/include/Entity.hpp
     Game/include/Level.hpp
     Game/include/Map.hpp
+    Game/include/EntityStar.hpp
+    Game/include/EntityCoin.hpp
+    Game/include/EntityMushroom.hpp
+    Game/include/EntityPipe.hpp
+    Game/include/EntityBlock.hpp
 
     common/shader.hpp
     )

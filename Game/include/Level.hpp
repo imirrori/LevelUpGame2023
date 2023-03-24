@@ -6,6 +6,7 @@
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_LEVEL_HPP_
 
 #include "Entity.hpp"
+#include "Map.hpp"
 
 #include <string>
 #include <vector>
@@ -20,8 +21,9 @@ class Level : public Entity {
   void onCollision() override;
 
  private:
-  std::vector<Entity> map_entities;
-  const std::string map_;
+  void Init();
+  std::vector<std::shared_ptr<Entity>> map_entities;
+  Map map_;
 
 
 

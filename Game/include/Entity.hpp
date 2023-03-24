@@ -6,15 +6,25 @@
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITY_HPP_
 
 #include "IEntity.hpp"
+#include "glm/vec2.hpp"
 
-class Entity : public IEntity{
+class Entity : public IEntity {
  public:
-  Entity() = default;
+  Entity(glm::vec2 coord, glm::vec2 size) : coord_(coord), size_(size) {
+  }
+
   ~Entity() override = default;
 
   void onUpdate() override;
   void onRender() override;
   void onCollision() override;
+
+  [[nodiscard]] glm::vec2 GetCoord() const { return coord_; };
+  [[nodiscard]] glm::vec2 GetSize() const { return size_; };
+
+ protected:
+  glm::vec2 coord_;
+  glm::vec2 size_;
 
 };
 

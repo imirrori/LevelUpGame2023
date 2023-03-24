@@ -13,14 +13,15 @@ class Map {
   Map();
   explicit Map(const std::string &file_name);
   ~Map() = default;
+  [[nodiscard]] std::size_t width() const { return width_; };
+  [[nodiscard]] std::size_t height() const { return height_; };
+  [[nodiscard]] const std::string &GetMap() const { return map_; };
 
  private:
   std::size_t width_;
   std::size_t height_;
 
   std::string map_;
-
-
 
   // Debug purposes only
   const std::string default_map_ =
