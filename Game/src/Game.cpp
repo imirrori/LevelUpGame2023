@@ -24,7 +24,14 @@ Game::Game() {
   std::cout << "Game initialized" << std::endl;
 
 }
+
 bool Game::TestInitialize() {
+  bool run_with_graphics = false; // Change it to true to run with graphics
+
+  if (not run_with_graphics) {
+	std::cout << "Running without graphics" << std::endl;
+	return true;
+  }
 
   GLFWwindow *window;
 
