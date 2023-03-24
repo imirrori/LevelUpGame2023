@@ -5,12 +5,11 @@
     Dev. version
 */
 
-int main(int argc, char **argv) // добавлены argc argv для работы openGL
+int main()
 {
     Game game;
+    game.Init();
     game.Run();
-    glutInit(&argc, argv);  //возможно внести в часть класса?
-    Visual::Visualizer vis;
-    vis.make_window();
+
     return 0;
 }

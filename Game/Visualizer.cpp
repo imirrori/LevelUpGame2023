@@ -15,12 +15,24 @@ void Reshape(int, int)
 
 void Visualizer::make_window()
 {
-//    glutInit(&argc, argv);
+    int argc = 0;  // это тоже магические числа получаются?
+    char* argv[1];  // это тоже магические числа получаются?
+    glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB);
     glutInitWindowSize(640,480);
     glutCreateWindow("Wind");
     glutDisplayFunc(&DisplayRender);
     glutReshapeFunc(&Reshape);
+}
+
+void Visualizer::init()
+{
+    make_window();
+}
+
+void Visualizer::mainloop()
+{
     glutMainLoop();
 }
+
 }
