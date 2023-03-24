@@ -58,4 +58,11 @@ void Level::Init() {
 	}
   }
 }
+Level::~Level() {
+
+  for (auto &entity : map_entities) {
+	entity.reset();
+  }
+
+}
 

@@ -11,10 +11,10 @@
 #include <string>
 #include <vector>
 
-class Level : public Entity {
+class Level : public IEntity {
  public:
   Level() = default;
-  ~Level() override = default;
+  ~Level() override;
 
   void onUpdate() override;
   void onRender() override;
