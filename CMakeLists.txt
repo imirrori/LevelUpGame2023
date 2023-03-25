@@ -39,6 +39,8 @@ endif ()
 # Compile external dependencies
 add_subdirectory(external)
 
+add_subdirectory(box2d)
+
 # On Visual 2005 and above, this module can set the debug working directory
 cmake_policy(SET CMP0026 OLD)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/external/rpavlik-cmake-modules-fe2273")
@@ -146,6 +148,8 @@ add_executable(Mario Game/App/main.cpp)
 target_link_libraries(Mario PRIVATE
                       mario::lib
                       ${ALL_LIBS}
+                        box2d
+
                       )
 
 set_target_properties(Mario PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${Mario_SOURCE_DIR}/bin")
