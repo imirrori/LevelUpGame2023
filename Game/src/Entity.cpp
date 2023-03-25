@@ -4,7 +4,7 @@
 
 #include "Entity.hpp"
 
-void Entity::onUpdate() {
+void Entity::onUpdate(double delta) {
 
 }
 
@@ -13,6 +13,6 @@ void Entity::onRender() {
 
 }
 
-void Entity::onCollision() {
+void Entity::onCollision(std::shared_ptr<IEntity> collision_entity) {
 
 }

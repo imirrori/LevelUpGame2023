@@ -12,13 +12,13 @@
 
 #include <memory>
 
-void Level::onUpdate() {
+void Level::onUpdate(double delta) {
 
 }
 void Level::onRender() {
 
 }
-void Level::onCollision() {
+void Level::onCollision(std::shared_ptr<IEntity> collision_entity) {
 
 }
 void Level::Init() {

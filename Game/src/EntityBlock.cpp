@@ -3,14 +3,14 @@
 //
 
 #include "EntityBlock.hpp"
-void EntityBlock::onUpdate() {
-  Entity::onUpdate();
+void EntityBlock::onUpdate(double delta) {
+  Entity::onUpdate(delta);
 }
 void EntityBlock::onRender() {
   Entity::onRender();
 }
-void EntityBlock::onCollision() {
-  Entity::onCollision();
+void EntityBlock::onCollision(std::shared_ptr<IEntity> collision_entity) {
+  Entity::onCollision(collision_entity);
 }
 void EntityBlock::Init() {
 

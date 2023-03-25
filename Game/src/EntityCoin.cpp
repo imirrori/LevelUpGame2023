@@ -3,14 +3,14 @@
 //
 
 #include "EntityCoin.hpp"
-void EntityCoin::onUpdate() {
-  Entity::onUpdate();
+void EntityCoin::onUpdate(double delta) {
+  Entity::onUpdate(delta);
 }
 void EntityCoin::onRender() {
   Entity::onRender();
 }
-void EntityCoin::onCollision() {
-  Entity::onCollision();
+void EntityCoin::onCollision(std::shared_ptr<IEntity> collision_entity) {
+  Entity::onCollision(collision_entity);
 }
 void EntityCoin::Init() {
 

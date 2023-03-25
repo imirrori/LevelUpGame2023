@@ -15,9 +15,9 @@ class EntityPipe : public Entity {
 
   ~EntityPipe() override = default;
 
-  void onUpdate() override;
+  void onUpdate(double delta) override;
   void onRender() override;
-  void onCollision() override;
+  void onCollision(std::shared_ptr<IEntity> collision_entity) override;
 
  private:
   void Init();

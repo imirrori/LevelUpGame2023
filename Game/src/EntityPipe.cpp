@@ -3,14 +3,14 @@
 //
 
 #include "EntityPipe.hpp"
-void EntityPipe::onUpdate() {
-  Entity::onUpdate();
+void EntityPipe::onUpdate(double delta) {
+  Entity::onUpdate(delta);
 }
 void EntityPipe::onRender() {
   Entity::onRender();
 }
-void EntityPipe::onCollision() {
-  Entity::onCollision();
+void EntityPipe::onCollision(std::shared_ptr<IEntity> collision_entity) {
+  Entity::onCollision(collision_entity);
 }
 void EntityPipe::Init() {
 

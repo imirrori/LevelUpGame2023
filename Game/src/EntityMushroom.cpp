@@ -3,14 +3,14 @@
 //
 
 #include "EntityMushroom.hpp"
-void EntityMushroom::onUpdate() {
-  Entity::onUpdate();
+void EntityMushroom::onUpdate(double delta) {
+  Entity::onUpdate(delta);
 }
 void EntityMushroom::onRender() {
   Entity::onRender();
 }
-void EntityMushroom::onCollision() {
-  Entity::onCollision();
+void EntityMushroom::onCollision(std::shared_ptr<IEntity> collision_entity) {
+  Entity::onCollision(collision_entity);
 }
 void EntityMushroom::Init() {
 

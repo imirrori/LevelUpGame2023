@@ -15,9 +15,9 @@ class Entity : public IEntity {
 
   ~Entity() override = default;
 
-  void onUpdate() override;
+  void onUpdate(double delta) override;
   void onRender() override;
-  void onCollision() override;
+  void onCollision(std::shared_ptr<IEntity> collision_entity) override;
 
   [[nodiscard]] glm::vec2 GetCoord() const { return coord_; };
   [[nodiscard]] glm::vec2 GetSize() const { return size_; };

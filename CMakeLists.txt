@@ -85,6 +85,7 @@ set(SOURCE_FILES
     Game/src/EntityMushroom.cpp
     Game/src/EntityPipe.cpp
     Game/src/EntityBlock.cpp
+    Game/src/EntityGround.cpp
 
     common/shader.cpp
 
@@ -103,6 +104,7 @@ set(HEADER_FILES
     Game/include/EntityMushroom.hpp
     Game/include/EntityPipe.hpp
     Game/include/EntityBlock.hpp
+    Game/include/EntityGround.hpp
 
     common/shader.hpp
     )
