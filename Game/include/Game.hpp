@@ -1,15 +1,18 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef GAME_HPP
+#define GAME_HPP
 
-class Game {
- public:
-  Game();
-  ~Game();
+#include "Visualizer.hpp"
+#include <memory>
 
-  void Run();
+class Game
+{
+private:
+    std::shared_ptr<Visual::Visualizer>_viz;
+public:
+    void Init(int& argc, char **argv);
+    void Run();
 
- private:
-  bool TestInitialize();
+    Game();
 };
 
-#endif // GAME_H
+#endif // GAME_HPP

@@ -1,18 +1,15 @@
-#include "Game.hpp"
+#include "include/Game.hpp"
 
-#include <iostream>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include <glm/glm.hpp>
-using namespace glm;
-
-#include <common/shader.hpp>
-
-void Game::Run() {
-
+void Game::Run()
+{
+    _viz->mainloop();
 }
 
+<<<<<<< HEAD
+void Game::Init(int& argc, char **argv)
+{
+    _viz->init(argc, argv);
+=======
 Game::Game() {
 
   if (not TestInitialize()) {
@@ -135,6 +132,10 @@ bool Game::TestInitialize() {
   glfwTerminate();
 
   return true;
+>>>>>>> bfcd0c90d5b73f2cb5273fbb83d8ac000de85762
 }
 
-Game::~Game() = default;
+Game::Game()
+{
+    _viz = std::make_shared<Visual::Visualizer>(Visual::Visualizer());
+}
