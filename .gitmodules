@@ -1,0 +1,3 @@
+[submodule "Box2D-CMake"]
+	path = Box2D-CMake
+	url = https://github.com/mlomb/Box2D-CMake.git
