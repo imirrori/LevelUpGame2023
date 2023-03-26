@@ -3,3 +3,15 @@
 //
 
 #include "EntityGround.hpp"
+void EntityGround::onInit() {
+
+}
+void EntityGround::onUpdate(double delta) {
+
+}
+void EntityGround::onRender() {
+
+}
+void EntityGround::onCollision(std::shared_ptr<IEntity> collision_entity) {
+
+}

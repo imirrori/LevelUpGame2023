@@ -11,6 +11,7 @@ class IEntity {
  public:
   virtual ~IEntity() = default;
 
+  virtual void onInit() = 0;
   virtual void onUpdate(double delta) = 0;
   virtual void onRender() = 0;
   virtual void onCollision(std::shared_ptr<IEntity> collision_entity) = 0;

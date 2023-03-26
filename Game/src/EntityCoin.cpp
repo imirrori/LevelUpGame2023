@@ -15,3 +15,6 @@ void EntityCoin::onCollision(std::shared_ptr<IEntity> collision_entity) {
 void EntityCoin::Init() {
 
 }
+void EntityCoin::onInit() {
+  Entity::onInit();
+}

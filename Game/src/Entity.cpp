@@ -16,3 +16,6 @@ void Entity::onRender() {
 void Entity::onCollision(std::shared_ptr<IEntity> collision_entity) {
 
 }
+void Entity::onInit() {
+
+}

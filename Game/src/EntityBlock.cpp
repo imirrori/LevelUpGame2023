@@ -15,3 +15,6 @@ void EntityBlock::onCollision(std::shared_ptr<IEntity> collision_entity) {
 void EntityBlock::Init() {
 
 }
+void EntityBlock::onInit() {
+  Entity::onInit();
+}
