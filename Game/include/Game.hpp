@@ -4,15 +4,18 @@
 #include "Visualizer.hpp"
 #include <memory>
 
-class Game
-{
+class Game {
 private:
-    std::shared_ptr<Visual::Visualizer>_viz;
-public:
-    void Init(int& argc, char **argv);
-    void Run();
 
-    Game();
+  std::shared_ptr<Visual::Visualizer>_viz;
+
+public:
+
+  void Init(int  & argc,
+            char **argv);
+  void Run();
+
+  Game();
 };
 
 #endif // GAME_HPP
