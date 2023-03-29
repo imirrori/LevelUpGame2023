@@ -88,6 +88,7 @@ set(SOURCE_FILES
     Game/src/EntityPipe.cpp
     Game/src/EntityBlock.cpp
     Game/src/EntityGround.cpp
+    Game/src/View.cpp
 
     common/shader.cpp
 
@@ -107,6 +108,7 @@ set(HEADER_FILES
     Game/include/EntityPipe.hpp
     Game/include/EntityBlock.hpp
     Game/include/EntityGround.hpp
+    Game/include/View.hpp
 
     common/shader.hpp
     )
@@ -148,7 +150,7 @@ add_executable(Mario Game/App/main.cpp)
 target_link_libraries(Mario PRIVATE
                       mario::lib
                       ${ALL_LIBS}
-                        box2d
+                      box2d
 
                       )
 

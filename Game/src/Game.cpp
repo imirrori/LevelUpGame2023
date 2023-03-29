@@ -136,5 +136,14 @@ bool Game::TestInitialize() {
 
   return true;
 }
+void Game::OnInit() {
+
+}
+void Game::OnUpdate(double delta) {
+
+}
+void Game::OnRender() {
+
+}
 
 Game::~Game() = default;
