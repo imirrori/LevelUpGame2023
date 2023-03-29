@@ -47,6 +47,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/external/rpavlik-cmake-module
 include(CreateLaunchers)
 include(MSVCMultipleProcessCompile) # /MP
 
+
 if (INCLUDE_DISTRIB)
     add_subdirectory(distrib)
 endif (INCLUDE_DISTRIB)
@@ -130,6 +131,7 @@ add_library(mario::lib ALIAS Mario_Lib)
 target_include_directories(Mario_Lib
                            PUBLIC
                            ${PROJECT_SOURCE_DIR}/Game/include
+                           ${PROJECT_SOURCE_DIR}/lib
                            )
 
 target_link_libraries(Mario_Lib
