@@ -4,58 +4,76 @@
 
 #include "Texture.hpp"
 
-
+#include <array>
 
 void Texture::LoadTexture(const std::string &name, const std::string &file, bool isAlpha) {
-  Texture texture;
+  Texture texture{};
 
   if (isAlpha) {
 	texture.image_format = GL_RGBA;
 	texture.internal_format = GL_RGBA;
   }
 
-  int w, h, c;
+  int width;
+  int height;
+  int channels;
 
   stbi_set_flip_vertically_on_load(true);
 
-  unsigned char *data = stbi_load(file, &w, &h, &c, 0);
+  auto data = stbi_load(file.c_str(), &width, &height, &channels, 0);
 
   if (data) {
-	texture.Gernerate(w, h, data);
+	texture.Generate(width, height, data);
 	glGenerateMipmap(GL_TEXTURE_2D);
-	Texture::Textures[name] = texture;
+	Texture::Textures_[name] = texture;
 	stbi_image_free(data);
   } else {
 	std::cout << "Load Texture Error ! " << std::endl;
   }
+
 }
 
-Texture &Texture::GetTexture(const char *name) {
-  return Texture::Textures[name];
+Texture &Texture::GetTexture(const std::string &name) {
+  try {
+
+	if (Texture::Textures_.at(name).m_Id==0) {
+	  std::cerr << "Texture " << name << " not found" << std::endl;
+	  throw std::runtime_error("Texture not found");
+	}
+  } catch (std::exception &e) {
+	std::cerr << e.what() << std::endl;
+
+  }
+  return Texture::Textures_[name];
 }
 
-void Texture::Gernerate(unsigned int width, unsigned int height, unsigned char *data) {
+void Texture::Generate(unsigned int width_, unsigned int height_, auto data) {
+
   glGenTextures(1, &m_Id);
+
   this->wrap_s = GL_REPEAT;
   this->wrap_t = GL_REPEAT;
   this->filter_min = GL_LINEAR;
   this->filter_max = GL_LINEAR;
 
-  this->width = width;
-  this->height = height;
+  this->width = width_;
+  this->height = height_;
 
   glBindTexture(GL_TEXTURE_2D, m_Id);
   glTexImage2D(GL_TEXTURE_2D, 0, internal_format, width, height, 0, image_format, GL_UNSIGNED_BYTE, data);
 
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, this->wrap_s);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, this->wrap_t);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, this->filter_min);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, this->filter_max);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, static_cast<GLint>(this->wrap_s));
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, static_cast<GLint>(this->wrap_t));
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, static_cast<GLint>(this->filter_min));
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, static_cast<GLint>(this->filter_max));
 
   glBindTexture(GL_TEXTURE_2D, 0);
+
 }
 
 void Texture::Bind(unsigned int slot) const {
+
   glActiveTexture(GL_TEXTURE0 + slot);
   glBindTexture(GL_TEXTURE_2D, m_Id);
+
 }

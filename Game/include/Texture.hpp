@@ -14,18 +14,19 @@
 
 class Texture {
  public:
+  Texture() = default;
+  ~Texture() = default;
+
   static void LoadTexture(const std::string &name, const std::string &file, bool isAlpha);
   static Texture &GetTexture(const std::string &name);
+  void Generate(unsigned int width, unsigned int height, auto data);
+  void Bind(unsigned int slot = 0) const;
+
+  [[nodiscard]] inline unsigned int GetWidth() const { return width; }
+  [[nodiscard]] inline unsigned int GetHeight() const { return height; }
+
  private:
   static std::unordered_map<std::string, Texture> Textures_;
-
- public:
-  void Gernerate(unsigned int width, unsigned int height, unsigned char *data);
-  void Bind(unsigned int slot = 0) const;
-  inline unsigned int GetWidth() { return width; }
-  inline unsigned int GetHeight() { return height; }
-
- private:
   unsigned int m_Id;
   unsigned int width, height;
   unsigned int internal_format;
