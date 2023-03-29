@@ -1,10 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "View.hpp"
 #include "IEntity.hpp"
-#include <vector>
+#include "View.hpp"
+
 #include <Box2D/Box2D.h>
+#include <vector>
 
 class Game {
  public:
@@ -17,21 +18,21 @@ class Game {
   void OnUpdate(double delta);
   void OnRender();
 
- private:
-  bool TestInitialize();
+
  public:
   void RegisterGameEvent(IEntity &entity);
-  void UnRegisterGameEvent(IEntity &entity);
+  void ClearGameEvent(IEntity &entity);
 
   void LoadAllShader();
   void LoadAllTexture();
 
-  static float PIXEL_TO_M;
+  static float PIXEL_TO_MARIO;
 
  private:
   View view;
 
   unsigned int width, height;
+
   std::vector<std::shared_ptr<IEntity>> scene_objects;
 
   Mario *mario;

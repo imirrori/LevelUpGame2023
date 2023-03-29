@@ -88,12 +88,10 @@ set(SOURCE_FILES
     Game/src/EntityPipe.cpp
     Game/src/EntityBlock.cpp
     Game/src/EntityGround.cpp
+    Game/src/EntityMario.cpp
     Game/src/View.cpp
+    Game/src/Texture.cpp
 
-    common/shader.cpp
-
-    Game/src/SimpleFragmentShader.fragmentshader
-    Game/src/SimpleVertexShader.vertexshader
     )
 
 set(HEADER_FILES
@@ -108,9 +106,11 @@ set(HEADER_FILES
     Game/include/EntityPipe.hpp
     Game/include/EntityBlock.hpp
     Game/include/EntityGround.hpp
+    Game/include/EntityMario.hpp
     Game/include/View.hpp
+    Game/include/Texture.hpp
 
-    common/shader.hpp
+
     )
 ############################################################
 # Create a library
