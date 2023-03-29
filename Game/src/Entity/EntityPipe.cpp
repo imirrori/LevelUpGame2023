@@ -2,7 +2,7 @@
 // Created by Dmitry Morozov on 25/3/23.
 //
 
-#include "EntityPipe.hpp"
+#include "Entity/EntityPipe.hpp"
 void EntityPipe::onUpdate(double delta) {
   Entity::onUpdate(delta);
 }

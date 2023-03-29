@@ -2,7 +2,7 @@
 // Created by Dmitry Morozov on 25/3/23.
 //
 
-#include "EntityMushroom.hpp"
+#include "Entity/EntityMushroom.hpp"
 void EntityMushroom::onUpdate(double delta) {
   Entity::onUpdate(delta);
 }

@@ -2,7 +2,7 @@
 // Created by Dmitry Morozov on 25/3/23.
 //
 
-#include "EntityCoin.hpp"
+#include "Entity/EntityCoin.hpp"
 void EntityCoin::onUpdate(double delta) {
   Entity::onUpdate(delta);
 }

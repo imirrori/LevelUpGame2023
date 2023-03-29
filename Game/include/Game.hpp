@@ -1,7 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "IEntity.hpp"
+#include "Entity/IEntity.hpp"
 #include "View.hpp"
 
 #include <Box2D/Box2D.h>

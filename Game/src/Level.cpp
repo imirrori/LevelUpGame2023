@@ -2,12 +2,12 @@
 // Created by Dmitry Morozov on 24/3/23.
 //
 
-#include "Entity.hpp"
-#include "EntityBlock.hpp"
-#include "EntityCoin.hpp"
-#include "EntityMushroom.hpp"
-#include "EntityPipe.hpp"
-#include "EntityStar.hpp"
+#include "Game/include/Entity/Entity.hpp"
+#include "Game/include/Entity/EntityBlock.hpp"
+#include "Game/include/Entity/EntityCoin.hpp"
+#include "Game/include/Entity/EntityMushroom.hpp"
+#include "Game/include/Entity/EntityPipe.hpp"
+#include "Game/include/Entity/EntityStar.hpp"
 #include "Level.hpp"
 
 #include <memory>

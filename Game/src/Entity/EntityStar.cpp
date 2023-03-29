@@ -2,7 +2,7 @@
 // Created by Dmitry Morozov on 25/3/23.
 //
 
-#include "EntityStar.hpp"
+#include "Entity/EntityStar.hpp"
 void EntityStar::onUpdate(double delta) {
   Entity::onUpdate(delta);
 }

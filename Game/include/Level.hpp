@@ -5,7 +5,7 @@
 #ifndef LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_LEVEL_HPP_
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_LEVEL_HPP_
 
-#include "Entity.hpp"
+#include "Entity/Entity.hpp"
 #include "Map.hpp"
 
 #include <string>

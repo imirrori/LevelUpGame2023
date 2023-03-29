@@ -2,7 +2,7 @@
 // Created by Dmitry Morozov on 25/3/23.
 //
 
-#include "EntityBlock.hpp"
+#include "Entity/EntityBlock.hpp"
 void EntityBlock::onUpdate(double delta) {
   Entity::onUpdate(delta);
 }

@@ -1,25 +1,18 @@
 #include "Game.hpp"
 
-#include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-
 #include <glm/glm.hpp>
-using namespace glm;
 
-#include <common/shader.hpp>
+#include <iostream>
+
+using namespace glm;
 
 void Game::Run() {
 
 }
 
 Game::Game() {
-
-  if (not TestInitialize()) {
-	std::cerr << "Failed to initialize Game" << std::endl;
-
-	throw std::runtime_error("Failed to initialize Game");
-  }
 
   std::cout << "Game initialized" << std::endl;
 

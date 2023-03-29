@@ -79,16 +79,16 @@ add_definitions(
 set(SOURCE_FILES
     Game/App/main.cpp
     Game/src/Game.cpp
-    Game/src/Entity.cpp
+    Game/src/Entity/Entity.cpp
     Game/src/Level.cpp
     Game/src/Map.cpp
-    Game/src/EntityStar.cpp
-    Game/src/EntityCoin.cpp
-    Game/src/EntityMushroom.cpp
-    Game/src/EntityPipe.cpp
-    Game/src/EntityBlock.cpp
-    Game/src/EntityGround.cpp
-    Game/src/EntityMario.cpp
+    Game/src/Entity/EntityStar.cpp
+    Game/src/Entity/EntityCoin.cpp
+    Game/src/Entity/EntityMushroom.cpp
+    Game/src/Entity/EntityPipe.cpp
+    Game/src/Entity/EntityBlock.cpp
+    Game/src/Entity/EntityGround.cpp
+    Game/src/Entity/EntityMario.cpp
     Game/src/View.cpp
     Game/src/Texture.cpp
 
@@ -96,17 +96,17 @@ set(SOURCE_FILES
 
 set(HEADER_FILES
     Game/include/Game.hpp
-    Game/include/IEntity.hpp
-    Game/include/Entity.hpp
+    Game/include/Entity/IEntity.hpp
+    Game/include/Entity/Entity.hpp
     Game/include/Level.hpp
     Game/include/Map.hpp
-    Game/include/EntityStar.hpp
-    Game/include/EntityCoin.hpp
-    Game/include/EntityMushroom.hpp
-    Game/include/EntityPipe.hpp
-    Game/include/EntityBlock.hpp
-    Game/include/EntityGround.hpp
-    Game/include/EntityMario.hpp
+    Game/include/Entity/EntityStar.hpp
+    Game/include/Entity/EntityCoin.hpp
+    Game/include/Entity/EntityMushroom.hpp
+    Game/include/Entity/EntityPipe.hpp
+    Game/include/Entity/EntityBlock.hpp
+    Game/include/Entity/EntityGround.hpp
+    Game/include/Entity/EntityMario.hpp
     Game/include/View.hpp
     Game/include/Texture.hpp
 
