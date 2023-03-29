@@ -18,7 +18,6 @@ class Game {
   void OnUpdate(double delta);
   void OnRender();
 
-
  public:
   void RegisterGameEvent(IEntity &entity);
   void ClearGameEvent(IEntity &entity);
@@ -35,15 +34,13 @@ class Game {
 
   std::vector<std::shared_ptr<IEntity>> scene_objects;
 
-  Mario *mario;
-  Ground *ground;
-  Level *level;
+  std::unique_ptr<Mario> mario;
+  std::unique_ptr<Ground> ground;
+  std::unique_ptr<Level> level;
 
   // physics
   b2World *physicsWorld;
-  ContactListener *contactListener;
-
-};
+  std::unique_ptr<contactListener> contact_listener;
 
 };
 

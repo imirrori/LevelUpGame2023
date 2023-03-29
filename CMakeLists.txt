@@ -132,6 +132,7 @@ target_include_directories(Mario_Lib
                            PUBLIC
                            ${PROJECT_SOURCE_DIR}/Game/include
                            ${PROJECT_SOURCE_DIR}/lib
+                           ${PROJECT_SOURCE_DIR}/box2d/include
                            )
 
 target_link_libraries(Mario_Lib

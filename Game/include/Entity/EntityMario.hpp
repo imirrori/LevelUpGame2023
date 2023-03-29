@@ -6,12 +6,13 @@
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITYMARIO_HPP_
 
 #include "IEntity.hpp"
+#include "Texture.hpp"
 
 #include <Box2D/Box2D.h>
 
 class EntityMario : public IEntity {
  public:
-  EntityMario(b2World &physicsWorld);
+  EntityMario(b2World &MarioWorld);
   ~EntityMario();
   void onUpdate(double delta) override;
   void onRender() override;
@@ -43,8 +44,6 @@ class EntityMario : public IEntity {
 
   // Physics
   b2Body *mp_Body;
-};
-
 };
 
 #endif //LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITYMARIO_HPP_
