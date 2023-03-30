@@ -25,8 +25,6 @@ class Level : public IEntity {
   std::vector<std::shared_ptr<Entity>> map_entities;
   Map map_;
 
-
-
 };
 
 #endif //LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_LEVEL_HPP_

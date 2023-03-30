@@ -27,10 +27,10 @@ class EntityMario : public Entity {
   void RunAnimation(float delta);
   void Jump(b2Vec2 &vel);
   void LittleJump();
-  [[nodiscard]] float pixel_to_m() const { return pixelToM_; }
+
 
  private:
-  float pixelToM_;
+
   float speed = 5.f;
   bool jumping = false;
   float jumpForce = 17;
@@ -45,7 +45,7 @@ class EntityMario : public Entity {
   Texture::TexturePtr jumpTexture;
   std::array<Texture::TexturePtr, 3> runTexture;
 
-  b2Body *mp_Body;
+  b2Body *mp_Body; // Make shared
 };
 
 #endif //LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITYMARIO_HPP_

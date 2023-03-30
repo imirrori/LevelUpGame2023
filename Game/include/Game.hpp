@@ -2,9 +2,12 @@
 #define GAME_H
 
 #include "Entity/IEntity.hpp"
+#include "Entity/EntityGround.hpp"
+#include "Entity/EntityMario.hpp"
+#include "Level.hpp"
 #include "View.hpp"
 
-#include <Box2D/Box2D.h>
+#include <box2d/box2d.h>
 #include <vector>
 
 class Game {
@@ -19,7 +22,7 @@ class Game {
   void OnRender();
 
  public:
-  void RegisterGameEvent(IEntity &entity);
+  void SetGameEvent(IEntity &entity);
   void ClearGameEvent(IEntity &entity);
 
   void LoadAllShader();
@@ -34,12 +37,12 @@ class Game {
 
   std::vector<std::shared_ptr<IEntity>> scene_objects;
 
-  std::unique_ptr<Mario> mario;
-  std::unique_ptr<Ground> ground;
+  std::unique_ptr<EntityMario> mario;
+  std::unique_ptr<EntityGround> ground;
   std::unique_ptr<Level> level;
 
   // physics
-  b2World *physicsWorld;
+  b2World *MarioWorld;
   std::unique_ptr<contactListener> contact_listener;
 
 };
