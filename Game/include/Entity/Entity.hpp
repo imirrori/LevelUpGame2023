@@ -8,6 +8,9 @@
 #include "IEntity.hpp"
 #include "glm/vec2.hpp"
 
+#include <memory>
+#include <string>
+
 class Entity : public IEntity {
  public:
   Entity(glm::vec2 coord, glm::vec2 size) : coord_(coord), size_(size) {
@@ -20,12 +23,24 @@ class Entity : public IEntity {
   void onRender() override;
   void onCollision(std::shared_ptr<IEntity> collision_entity) override;
 
+  [[nodiscard]] std::string GetTag() const override { return vTag; };
+  [[nodiscard]] glm::vec2 GetPosition() const override { return vPosition; };
+  [[nodiscard]] float GetRotation() const override { return vRotation; };
+  [[nodiscard]] glm::vec2 GetScale() const override { return vScale; };
+
   [[nodiscard]] glm::vec2 GetCoord() const { return coord_; };
   [[nodiscard]] glm::vec2 GetSize() const { return size_; };
+
+  std::shared_ptr<IEntity> GetEventHandler() override { return std::make_shared<Entity>(*this); };
 
  protected:
   glm::vec2 coord_;
   glm::vec2 size_;
+
+  std::string vTag = "default";
+  glm::vec2 vPosition;
+  float vRotation = 0.0f;
+  glm::vec2 vScale;
 
 };
 

@@ -4,13 +4,13 @@
 
 #include "Entity/EntityMario.hpp"
 
-EntityMario::EntityMario(b2World& physicsWorld)
-{
-  m_Position = glm::vec2(800, 2000);
-  m_Rotation = 0;
-  m_Scale = glm::vec2(100, 100);
-  tag = "mario";
-  game.RegisterGameEvent(*this);
+EntityMario::EntityMario(b2World &MarioWorld) : Entity({0, 0}, {100, 100}) {
+
+  vPosition = glm::vec2(800, 2000);
+  vRotation = 0;
+  vScale = glm::vec2(100, 100);
+  vTag = "mario";
+
 
   // textures init
   idle_texture = &Texture::GetTexture("mario-idle");
@@ -27,12 +27,12 @@ EntityMario::EntityMario(b2World& physicsWorld)
   b_def.type = b2_dynamicBody;
   b_def.fixedRotation = true;
   b_def.gravityScale = 2.f;
-  b_def.position.Set(m_Position.x / Game::PIXEL_TO_M, m_Position.y / Game::PIXEL_TO_M);
+  b_def.position.Set(m_Position.x/Game::PIXEL_TO_M, m_Position.y/Game::PIXEL_TO_M);
   b_def.angle = glm::radians(m_Rotation);
 
   this->mp_Body = physicsWorld.CreateBody(&b_def);
   b2PolygonShape box_shape;
-  box_shape.SetAsBox(m_Scale.x / 2.f / Game::PIXEL_TO_M, m_Scale.y / 2.f / Game::PIXEL_TO_M);
+  box_shape.SetAsBox(m_Scale.x/2.f/Game::PIXEL_TO_M, m_Scale.y/2.f/Game::PIXEL_TO_M);
 
   b2FixtureDef fixDef;
   fixDef.shape = &box_shape;
@@ -41,8 +41,7 @@ EntityMario::EntityMario(b2World& physicsWorld)
   this->mp_Body->CreateFixture(&fixDef);
 }
 
-Mario::~Mario()
-{
+Mario::~Mario() {
   delete idle_texture;
   delete current_texture;
   delete jump_texture;
@@ -50,10 +49,9 @@ Mario::~Mario()
 	delete run_texture[i];
 }
 
-void Mario::OnUpdate(float ts)
-{
+void Mario::OnUpdate(float ts) {
   // Getting imformation from box2D's world and translate to world space.
-  m_Position = { mp_Body->GetPosition().x * 150, mp_Body->GetPosition().y * 150 };
+  m_Position = {mp_Body->GetPosition().x*150, mp_Body->GetPosition().y*150};
   m_Rotation = glm::degrees(mp_Body->GetAngle());
   ////////////////////////////////////////////////////////////////////////
 
@@ -62,16 +60,11 @@ void Mario::OnUpdate(float ts)
 
 
   // Animation
-  if ((Input::GetKey(GLFW_KEY_LEFT) || Input::GetKey(GLFW_KEY_RIGHT)) != 0 && !jumping)
-  {
+  if ((Input::GetKey(GLFW_KEY_LEFT) || Input::GetKey(GLFW_KEY_RIGHT))!=0 && !jumping) {
 	RunAnimation(ts);
-  }
-  else if (jumping)
-  {
+  } else if (jumping) {
 	current_texture = jump_texture;
-  }
-  else if(current_texture != idle_texture && !jumping)
-  {
+  } else if (current_texture!=idle_texture && !jumping) {
 	current_texture = idle_texture;
   }
 
@@ -82,14 +75,11 @@ void Mario::OnUpdate(float ts)
 	Flip();
 }
 
-void Mario::OnRender()
-{
+void Mario::OnRender() {
   Renderer2D::DrawTexture(m_Position, m_Rotation, m_Scale, *current_texture);
 }
 
-
-void Mario::Movement(float ts)
-{
+void Mario::Movement(float ts) {
   b2Vec2 vel = mp_Body->GetLinearVelocity();
   if (Input::GetKey(GLFW_KEY_LEFT))
 	vel.x = -speed;
@@ -103,54 +93,38 @@ void Mario::Movement(float ts)
   mp_Body->SetLinearVelocity(vel);
 }
 
-void Mario::Jump(b2Vec2& vel)
-{
-  if (!jumping)
-  {
+void Mario::Jump(b2Vec2 &vel) {
+  if (!jumping) {
 	jumping = true;
 	vel.y = jumpForce;
 	current_texture = jump_texture;
   }
 }
 
-void Mario::LittleJump()
-{
+void Mario::LittleJump() {
   b2Vec2 vel = mp_Body->GetLinearVelocity();
   vel.y = 10;
   current_texture = jump_texture;
   mp_Body->SetLinearVelocity(vel);
 }
 
-
-void Mario::OnTriggerEnter(IObject* collider)
-{
+void Mario::OnTriggerEnter(IObject *collider) {
   jumping = false;
-  if (collider->tag == "mushroom")
+  if (collider->tag=="mushroom")
 	LittleJump();
 }
 
-
-
-
-
-
-
-void Mario::Flip()
-{
+void Mario::Flip() {
   faceRight = !faceRight;
   m_Scale.x *= -1;
 }
 
-void Mario::RunAnimation(float ts)
-{
+void Mario::RunAnimation(float ts) {
   current_texture = run_texture[texture_index];
 
-  if (animation_time_btw > 0)
-  {
+  if (animation_time_btw > 0) {
 	animation_time_btw -= ts;
-  }
-  else
-  {
+  } else {
 	animation_time_btw = animation_speed;
 	texture_index++;
 	if (texture_index >= 3)
