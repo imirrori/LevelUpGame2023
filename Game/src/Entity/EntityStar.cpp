@@ -3,7 +3,7 @@
 //
 
 #include "Entity/EntityStar.hpp"
-void EntityStar::onUpdate(double delta) {
+void EntityStar::onUpdate(float delta) {
   Entity::onUpdate(delta);
 }
 void EntityStar::onRender() {

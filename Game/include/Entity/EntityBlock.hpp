@@ -17,7 +17,7 @@ class EntityBlock : public Entity {
   ~EntityBlock() override = default;
 
   void onInit() override;
-  void onUpdate(double delta) override;
+  void onUpdate(float delta) override;
   void onRender() override;
   void onCollision(std::shared_ptr<IEntity> collision_entity) override;
 

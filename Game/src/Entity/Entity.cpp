@@ -4,7 +4,7 @@
 
 #include "Entity/Entity.hpp"
 
-void Entity::onUpdate(double delta) {
+void Entity::onUpdate(float delta) {
 
 }
 

@@ -12,7 +12,7 @@
 
 #include <memory>
 
-void Level::onUpdate(double delta) {
+void Level::onUpdate(float delta) {
 
 }
 void Level::onRender() {

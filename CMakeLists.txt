@@ -92,6 +92,9 @@ set(SOURCE_FILES
     Game/src/Entity/EntityMario.cpp
     Game/src/View.cpp
     Game/src/Texture.cpp
+    Game/src/Input.cpp
+    Game/src/Graphics/Render.cpp
+    Game/src/Graphics/Shader.cpp
 
     )
 
@@ -110,7 +113,9 @@ set(HEADER_FILES
     Game/include/Entity/EntityMario.hpp
     Game/include/View.hpp
     Game/include/Texture.hpp
-
+    Game/include/Input.hpp
+    Game/include/Graphics/Render.hpp
+    Game/include/Graphics/Shader.hpp
 
     )
 ############################################################

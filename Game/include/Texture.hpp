@@ -17,8 +17,10 @@ class Texture {
   Texture() = default;
   ~Texture() = default;
 
+  using TexturePtr = std::shared_ptr<Texture>;
+
   static void LoadTexture(const std::string &name, const std::string &file, bool isAlpha);
-  static Texture &GetTexture(const std::string &name);
+  static TexturePtr GetTexture(const std::string &name);
   void Generate(unsigned int width, unsigned int height, auto data);
   void Bind(unsigned int slot = 0) const;
 

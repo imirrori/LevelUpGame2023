@@ -3,7 +3,7 @@
 //
 
 #include "Entity/EntityPipe.hpp"
-void EntityPipe::onUpdate(double delta) {
+void EntityPipe::onUpdate(float delta) {
   Entity::onUpdate(delta);
 }
 void EntityPipe::onRender() {

@@ -3,23 +3,26 @@
 //
 
 #include "Entity/EntityMario.hpp"
+#include "Input.hpp"
+#include "Graphics/Render.hpp"
 
-EntityMario::EntityMario(b2World &MarioWorld) : Entity({0, 0}, {100, 100}) {
+#include <GLM/glm.hpp>
+#include <memory>
+
+EntityMario::EntityMario(b2World &MarioWorld) : Entity() {
 
   vPosition = glm::vec2(800, 2000);
   vRotation = 0;
   vScale = glm::vec2(100, 100);
   vTag = "mario";
 
+  idleTexture = Texture::GetTexture("mario-idle");
+  jumpTexture = Texture::GetTexture("mario-jump");
+  runTexture[0] = Texture::GetTexture("mario-run-0");
+  runTexture[1] = Texture::GetTexture("mario-run-1");
+  runTexture[2] = Texture::GetTexture("mario-run-2");
 
-  // textures init
-  idle_texture = &Texture::GetTexture("mario-idle");
-  jump_texture = &Texture::GetTexture("mario-jump");
-  run_texture[0] = &Texture::GetTexture("mario-run-0");
-  run_texture[1] = &Texture::GetTexture("mario-run-1");
-  run_texture[2] = &Texture::GetTexture("mario-run-2");
-
-  current_texture = idle_texture;
+  currentTexture = idleTexture;
 
   // physics init
   b2BodyDef b_def;
@@ -27,12 +30,12 @@ EntityMario::EntityMario(b2World &MarioWorld) : Entity({0, 0}, {100, 100}) {
   b_def.type = b2_dynamicBody;
   b_def.fixedRotation = true;
   b_def.gravityScale = 2.f;
-  b_def.position.Set(m_Position.x/Game::PIXEL_TO_M, m_Position.y/Game::PIXEL_TO_M);
-  b_def.angle = glm::radians(m_Rotation);
+  b_def.position.Set(vPosition.x/pixel_to_m(), vPosition.y/pixel_to_m());
+  b_def.angle = glm::radians(vRotation);
 
-  this->mp_Body = physicsWorld.CreateBody(&b_def);
+  this->mp_Body = MarioWorld.CreateBody(&b_def);
   b2PolygonShape box_shape;
-  box_shape.SetAsBox(m_Scale.x/2.f/Game::PIXEL_TO_M, m_Scale.y/2.f/Game::PIXEL_TO_M);
+  box_shape.SetAsBox(vScale.x/2.f/pixel_to_m(), vScale.y/2.f/pixel_to_m());
 
   b2FixtureDef fixDef;
   fixDef.shape = &box_shape;
@@ -41,42 +44,44 @@ EntityMario::EntityMario(b2World &MarioWorld) : Entity({0, 0}, {100, 100}) {
   this->mp_Body->CreateFixture(&fixDef);
 }
 
-Mario::~Mario() {
-  delete idle_texture;
-  delete current_texture;
-  delete jump_texture;
-  for (int i = 0; i < 3; i++)
-	delete run_texture[i];
+EntityMario::~EntityMario() {
+  mp_Body->GetWorld()->DestroyBody(mp_Body);
+
+  // Delete textures
+  idleTexture.reset();
+  jumpTexture.reset();
+  runTexture[0].reset();
+  runTexture[1].reset();
+  runTexture[2].reset();
+  currentTexture.reset();
+
 }
 
-void Mario::OnUpdate(float ts) {
-  // Getting imformation from box2D's world and translate to world space.
-  m_Position = {mp_Body->GetPosition().x*150, mp_Body->GetPosition().y*150};
-  m_Rotation = glm::degrees(mp_Body->GetAngle());
-  ////////////////////////////////////////////////////////////////////////
+void EntityMario::onUpdate(float delta) {
 
-  Movement(ts);
+  vPosition = {mp_Body->GetPosition().x*150, mp_Body->GetPosition().y*150};
+  vRotation = glm::degrees(mp_Body->GetAngle());
 
-
+  Movement(delta);
 
   // Animation
   if ((Input::GetKey(GLFW_KEY_LEFT) || Input::GetKey(GLFW_KEY_RIGHT))!=0 && !jumping) {
-	RunAnimation(ts);
+	RunAnimation(delta);
   } else if (jumping) {
-	current_texture = jump_texture;
-  } else if (current_texture!=idle_texture && !jumping) {
-	current_texture = idle_texture;
+	currentTexture = jumpTexture;
+  } else if (currentTexture!=idleTexture && !jumping) {
+	currentTexture = idleTexture;
   }
 
-  // For Flip Character
-  if (Input::GetKey(GLFW_KEY_LEFT) && faceRight)
+  // Flipping
+  if ((Input::GetKey(GLFW_KEY_LEFT) && faceRight) || (Input::GetKey(GLFW_KEY_RIGHT) && !faceRight)) {
 	Flip();
-  else if (Input::GetKey(GLFW_KEY_RIGHT) && !faceRight)
-	Flip();
+  }
+
 }
 
-void Mario::OnRender() {
-  Renderer2D::DrawTexture(m_Position, m_Rotation, m_Scale, *current_texture);
+void EntityMario::onRender() {
+  Render::DrawTexture(m_Position, m_Rotation, m_Scale, *current_texture);
 }
 
 void Mario::Movement(float ts) {

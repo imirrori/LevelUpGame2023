@@ -13,13 +13,11 @@
 
 class Entity : public IEntity {
  public:
-  Entity(glm::vec2 coord, glm::vec2 size) : coord_(coord), size_(size) {
-  }
 
   ~Entity() override = default;
 
   void onInit() override;
-  void onUpdate(double delta) override;
+  void onUpdate(float delta) override;
   void onRender() override;
   void onCollision(std::shared_ptr<IEntity> collision_entity) override;
 

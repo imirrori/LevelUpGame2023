@@ -3,7 +3,7 @@
 //
 
 #include "Entity/EntityMushroom.hpp"
-void EntityMushroom::onUpdate(double delta) {
+void EntityMushroom::onUpdate(float delta) {
   Entity::onUpdate(delta);
 }
 void EntityMushroom::onRender() {

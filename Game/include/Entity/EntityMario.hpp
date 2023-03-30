@@ -8,13 +8,14 @@
 #include "Entity/Entity.hpp"
 #include "Texture.hpp"
 
+#include <array>
 #include <Box2D/Box2D.h>
 
 class EntityMario : public Entity {
  public:
   EntityMario(b2World &MarioWorld);
   ~EntityMario();
-  void onUpdate(double delta) override;
+  void onUpdate(float delta) override;
   void onRender() override;
 
   // physics
@@ -26,8 +27,10 @@ class EntityMario : public Entity {
   void RunAnimation(double delta);
   void Jump(b2Vec2 &vel);
   void LittleJump();
+  [[nodiscard]] float pixel_to_m() const { return pixelToM_; }
 
  private:
+  float pixelToM_;
   float speed = 5.f;
   bool jumping = false;
   float jumpForce = 17;
@@ -37,12 +40,11 @@ class EntityMario : public Entity {
   float animation_speed = 0.1f;
   float animation_time_btw = animation_speed;
 
-  Texture *current_texture;
-  Texture *idle_texture;
-  Texture *jump_texture;
-  Texture *run_texture[3];
+  Texture::TexturePtr currentTexture;
+  Texture::TexturePtr idleTexture;
+  Texture::TexturePtr jumpTexture;
+  std::array<Texture::TexturePtr, 3> runTexture;
 
-  // Physics
   b2Body *mp_Body;
 };
 

@@ -3,7 +3,7 @@
 //
 
 #include "Entity/EntityBlock.hpp"
-void EntityBlock::onUpdate(double delta) {
+void EntityBlock::onUpdate(float delta) {
   Entity::onUpdate(delta);
 }
 void EntityBlock::onRender() {

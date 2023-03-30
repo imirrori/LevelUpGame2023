@@ -6,7 +6,7 @@
 void EntityGround::onInit() {
 
 }
-void EntityGround::onUpdate(double delta) {
+void EntityGround::onUpdate(float delta) {
 
 }
 void EntityGround::onRender() {

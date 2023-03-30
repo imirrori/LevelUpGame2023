@@ -3,7 +3,7 @@
 //
 
 #include "Entity/EntityCoin.hpp"
-void EntityCoin::onUpdate(double delta) {
+void EntityCoin::onUpdate(float delta) {
   Entity::onUpdate(delta);
 }
 void EntityCoin::onRender() {

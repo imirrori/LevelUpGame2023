@@ -28,12 +28,12 @@ void Texture::LoadTexture(const std::string &name, const std::string &file, bool
 	Texture::Textures_[name] = texture;
 	stbi_image_free(data);
   } else {
-	std::cout << "Load Texture Error ! " << std::endl;
+	std::cerr << "Load Texture Error ! " << std::endl;
   }
 
 }
 
-Texture &Texture::GetTexture(const std::string &name) {
+Texture::TexturePtr Texture::GetTexture(const std::string &name) {
   try {
 
 	if (Texture::Textures_.at(name).m_Id==0) {
@@ -44,7 +44,7 @@ Texture &Texture::GetTexture(const std::string &name) {
 	std::cerr << e.what() << std::endl;
 
   }
-  return Texture::Textures_[name];
+  return std::make_shared<Texture>(Texture::Textures_.at(name));
 }
 
 void Texture::Generate(unsigned int width_, unsigned int height_, auto data) {
