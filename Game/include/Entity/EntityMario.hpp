@@ -13,8 +13,8 @@
 
 class EntityMario : public Entity {
  public:
-  EntityMario(b2World &MarioWorld);
-  ~EntityMario();
+  explicit EntityMario(b2World &MarioWorld);
+  ~EntityMario() override;
   void onUpdate(float delta) override;
   void onRender() override;
 
@@ -22,9 +22,9 @@ class EntityMario : public Entity {
   void onCollision(std::shared_ptr<IEntity> collider) override;
 
  private:
-  void Movement(double delta);
+  void Movement(float delta);
   void Flip();
-  void RunAnimation(double delta);
+  void RunAnimation(float delta);
   void Jump(b2Vec2 &vel);
   void LittleJump();
   [[nodiscard]] float pixel_to_m() const { return pixelToM_; }

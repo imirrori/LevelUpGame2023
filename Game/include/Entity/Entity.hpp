@@ -29,6 +29,7 @@ class Entity : public IEntity {
   [[nodiscard]] glm::vec2 GetCoord() const { return coord_; };
   [[nodiscard]] glm::vec2 GetSize() const { return size_; };
 
+
   std::shared_ptr<IEntity> GetEventHandler() override { return std::make_shared<Entity>(*this); };
 
  protected:

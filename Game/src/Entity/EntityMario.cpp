@@ -6,7 +6,6 @@
 #include "Input.hpp"
 #include "Graphics/Render.hpp"
 
-#include <GLM/glm.hpp>
 #include <memory>
 
 EntityMario::EntityMario(b2World &MarioWorld) : Entity() {
@@ -81,10 +80,10 @@ void EntityMario::onUpdate(float delta) {
 }
 
 void EntityMario::onRender() {
-  Render::DrawTexture(m_Position, m_Rotation, m_Scale, *current_texture);
+  Render::DrawTexture(vPosition, vRotation, vScale, currentTexture);
 }
 
-void Mario::Movement(float ts) {
+void EntityMario::Movement(float delta) {
   b2Vec2 vel = mp_Body->GetLinearVelocity();
   if (Input::GetKey(GLFW_KEY_LEFT))
 	vel.x = -speed;
@@ -98,37 +97,37 @@ void Mario::Movement(float ts) {
   mp_Body->SetLinearVelocity(vel);
 }
 
-void Mario::Jump(b2Vec2 &vel) {
+void EntityMario::Jump(b2Vec2 &vel) {
   if (!jumping) {
 	jumping = true;
 	vel.y = jumpForce;
-	current_texture = jump_texture;
+	currentTexture = jumpTexture;
   }
 }
 
-void Mario::LittleJump() {
+void EntityMario::LittleJump() {
   b2Vec2 vel = mp_Body->GetLinearVelocity();
   vel.y = 10;
-  current_texture = jump_texture;
+  currentTexture = jumpTexture;
   mp_Body->SetLinearVelocity(vel);
 }
 
-void Mario::OnTriggerEnter(IObject *collider) {
+void EntityMario::onCollision(std::shared_ptr<IEntity> collider) {
   jumping = false;
-  if (collider->tag=="mushroom")
+  if (collider->GetTag()=="mushroom")
 	LittleJump();
 }
 
-void Mario::Flip() {
+void EntityMario::Flip() {
   faceRight = !faceRight;
-  m_Scale.x *= -1;
+  vScale.x *= -1;
 }
 
-void Mario::RunAnimation(float ts) {
-  current_texture = run_texture[texture_index];
+void EntityMario::RunAnimation(float delta) {
+  currentTexture = runTexture[texture_index];
 
   if (animation_time_btw > 0) {
-	animation_time_btw -= ts;
+	animation_time_btw -= delta;
   } else {
 	animation_time_btw = animation_speed;
 	texture_index++;
