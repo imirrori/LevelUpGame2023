@@ -7,19 +7,19 @@
 #include "GL/glew.h"
 
 #include "View.hpp"
-#include "Shader.h"
+#include "Graphics/Shader.hpp"
 #include "Texture.hpp"
+
 class Render {
  public:
   static void onInit();
   static void onShutDown();
 
-  static void BeginScene(View& view_cam);
+  static void BeginScene(View &view_cam);
   static void EndScene();
 
-
   static void DrawQuad(glm::vec2 position, float rotation, glm::vec2 scale, glm::vec4 color);
-  static void DrawTexture(glm::vec2 position, float rotation, glm::vec2 scale, Texture::TexturePtr texture);
+  static void DrawTexture(glm::vec2 position, float rotation, glm::vec2 scale, const Texture::TexturePtr& texture);
 
 };
 
