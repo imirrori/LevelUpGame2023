@@ -6,6 +6,7 @@
 #include "Entity/EntityMario.hpp"
 #include "Level.hpp"
 #include "View.hpp"
+#include "ContactListener.hpp"
 
 #include <box2d/box2d.h>
 #include <vector>
@@ -22,8 +23,8 @@ class Game {
   void OnRender();
 
  public:
-  void SetGameEvent(IEntity &entity);
-  void ClearGameEvent(IEntity &entity);
+  void SetGameEvent(std::shared_ptr<IEntity> &entity);
+  void ClearGameEvent(std::shared_ptr<IEntity> &entity);
 
   void LoadAllShader();
   void LoadAllTexture();
@@ -41,9 +42,8 @@ class Game {
   std::unique_ptr<EntityGround> ground;
   std::unique_ptr<Level> level;
 
-  // physics
   b2World *MarioWorld;
-  std::unique_ptr<contactListener> contact_listener;
+  std::unique_ptr<ContactListener> contact_listener;
 
 };
 

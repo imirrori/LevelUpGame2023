@@ -24,7 +24,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/DmitrTRC/dsfd.git">
-    <img src="img/logo.webp" alt="Logo" width="520" height="292">
+    <img src="../img/logo.webp" alt="Logo" width="520" height="292">
   </a>
 
 <h3 align="center">LevelUP C/C++ Course Project Simple File System</h3>
@@ -253,7 +253,7 @@ Project Link: [https://github.com/DmitrTRC/dsfs.git](https://github.com/DmitrTRC
 
 [license-url]: https://github.com/DmitrTRC/dsfs/blob/main/LICENSE
 
-[product-screenshot]: img/Struct.svg
+[product-screenshot]: ../img/Struct.svg
 
 [status-url]: https://github.com/DmitrTRC/dsfs/actions/workflows/CMake.yml/badge.svghttps://github.com/DmitrTRC/dsfs/actions/workflows/CMake
 
