@@ -21,7 +21,7 @@ void Level::onRender() {
 void Level::onCollision(std::shared_ptr<IEntity> collision_entity) {
 
 }
-void Level::Init() {
+void Level::onInit() {
 
   for (std::size_t i = 0; i < map_.height(); ++i) {
 
@@ -63,6 +63,9 @@ Level::~Level() {
   for (auto &entity : map_entities) {
 	entity.reset();
   }
+
+}
+Level::Level(b2World &MArioWorld) {
 
 }
 

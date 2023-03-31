@@ -23,8 +23,8 @@ class Game {
   void OnRender();
 
  public:
-  void SetGameEvent(std::shared_ptr<IEntity> &entity);
-  void ClearGameEvent(std::shared_ptr<IEntity> &entity);
+  void SetGameEvent(const std::shared_ptr<Entity>& entity);
+  void ClearGameEvent(const std::shared_ptr<Entity> &entity);
 
   void LoadAllShader();
   void LoadAllTexture();
@@ -38,9 +38,9 @@ class Game {
 
   std::vector<std::shared_ptr<IEntity>> scene_objects;
 
-  std::unique_ptr<EntityMario> mario;
-  std::unique_ptr<EntityGround> ground;
-  std::unique_ptr<Level> level;
+  std::shared_ptr<Entity> mario;
+  std::unique_ptr<Entity> ground;
+  std::unique_ptr<Entity> level;
 
   b2World *MarioWorld;
   std::unique_ptr<ContactListener> contact_listener;

@@ -8,20 +8,21 @@
 #include "Entity/Entity.hpp"
 #include "Map.hpp"
 
+#include <box2d/box2d.h>
 #include <string>
 #include <vector>
 
-class Level : public IEntity {
+class Level : public Entity {
  public:
-  Level() = default;
+  explicit Level(b2World& MArioWorld) ;
   ~Level() override;
 
+  void onInit() override;
   void onUpdate(float delta) override;
   void onRender() override;
   void onCollision(std::shared_ptr<IEntity> collision_entity) override;
 
  private:
-  void Init();
   std::vector<std::shared_ptr<Entity>> map_entities;
   Map map_;
 
