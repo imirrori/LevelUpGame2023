@@ -18,21 +18,21 @@ class Game {
 
   void Run();
 
-  void OnInit();
-  void OnUpdate(double delta);
-  void OnRender();
+  void onInit();
+  void onUpdate(float delta);
+  void onRender();
 
  public:
-  void SetGameEvent(const std::shared_ptr<Entity>& entity);
+  void SetGameEvent(const std::shared_ptr<Entity> &entity);
   void ClearGameEvent(const std::shared_ptr<Entity> &entity);
 
-  void LoadAllShader();
-  void LoadAllTexture();
+  static void LoadAllShader();
+  static void LoadAllTexture();
 
-  static float PIXEL_TO_MARIO;
+  static constexpr float PIXEL_TO_M = 150.f;
 
  private:
-  View view;
+  View view_cam;
 
   unsigned int width, height;
 
