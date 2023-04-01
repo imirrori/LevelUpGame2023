@@ -9,11 +9,12 @@
 #include "ContactListener.hpp"
 
 #include <box2d/box2d.h>
+#include <GLFW/glfw3.h>
 #include <vector>
 
 class Game {
  public:
-  Game();
+  Game(unsigned int width, unsigned int height);
   ~Game();
 
   bool Run();
@@ -44,6 +45,9 @@ class Game {
 
   b2World *MarioWorld;
   std::unique_ptr<ContactListener> contact_listener;
+
+  static void key_callback_(GLFWwindow *window, int key, int scancode, int action, int mods);
+  static void framebuffer_size_callback_(GLFWwindow *window, int width, int height);
 
 };
 

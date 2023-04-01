@@ -3,6 +3,7 @@
 #include "Graphics/Render.hpp"
 #include "Entity/EntityGround.hpp"
 #include "Entity/EntityMario.hpp"
+#include "Input.hpp"
 #include "Level.hpp"
 
 #include <GL/glew.h>
@@ -14,61 +15,65 @@
 
 using namespace glm;
 
-bool Game::Run() {
-  constexpr int GAME_WIDTH = 1920;
-  constexpr int GAME_EIGHT = 1080;
+Game::Game(unsigned int width_, unsigned int height_) :
+	width(width_), height(height_), view_cam(0, static_cast <float>(width_), 0, static_cast<float>(height_)) {
 
-  GLFWwindow *window;
+  std::cout << "Game initialized" << std::endl;
+
+}
+
+bool Game::Run() {
+
+  GLFWwindow *main_window;
 
   if (!glfwInit())
 	return false;
 
-  window = glfwCreateWindow(width, height, "Super Mario", NULL, NULL);
-  if (!window) {
+  main_window = glfwCreateWindow(static_cast<int>(width), static_cast<int>(height), "Super Mario", nullptr, nullptr);
+
+  if (!main_window) {
 	glfwTerminate();
-	return -1;
+
+	return false;
   }
 
-  glfwSetKeyCallback(window, key_callback);
-  glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-  glfwMakeContextCurrent(window);
+  glfwSetKeyCallback(main_window, key_callback_);
+  glfwSetFramebufferSizeCallback(main_window, framebuffer_size_callback_);
+  glfwMakeContextCurrent(main_window);
 
   GLenum err = glewInit();
-  if (GLEW_OK!=err)
-	std::cout << "error init glew !";
 
-  Game game = Game(width, height);
-  game.OnInit();
+  if (GLEW_OK!=err) {
+	std::cerr << "GLEW Init Error!";
+	return false;
+  }
+
+  onInit();
 
   float currentTime = 0.f;
   float lastTime = 0.f;
   float delta;
 
-  while (!glfwWindowShouldClose(window)) {
-	currentTime = glfwGetTime();
+  while (!glfwWindowShouldClose(main_window)) {
+
+	currentTime = static_cast<float>(glfwGetTime());
+
 	delta = currentTime - lastTime;
 	lastTime = currentTime;
 
 	glClearColor(0.363f, 0.914f, 0.937f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	game.OnUpdate(delta);
-	game.OnRender();
+	onUpdate(delta);
+	onRender();
 
-	glfwSwapBuffers(window);
+	glfwSwapBuffers(main_window);
 	glfwPollEvents();
   }
 
   glfwTerminate();
-  return 0;
-}
 
-}
-
-Game::Game() {
-
-  std::cout << "Game initialized" << std::endl;
-
+  return true;
 }
 
 void Game::onInit() {
@@ -81,6 +86,7 @@ void Game::onInit() {
   b2Vec2 gravity(0, -20);
 
   this->MarioWorld = new b2World(gravity);
+
   contact_listener = std::make_unique<ContactListener>(ContactListener(*MarioWorld));
 
   mario = std::make_shared<Entity>(EntityMario(*MarioWorld));
@@ -93,6 +99,7 @@ void Game::onInit() {
   SetGameEvent(level->GetEventHandler());
 
 }
+
 void Game::onUpdate(float delta) {
 
   for (const auto &entity : scene_objects) {
@@ -105,12 +112,19 @@ void Game::onUpdate(float delta) {
 }
 
 void Game::onRender() {
+  Render::BeginScene(view_cam);
 
+  for (auto object : scene_objects) {
+	object->onRender();
+  }
+
+  Render::EndScene();
 }
 
 void Game::SetGameEvent(const std::shared_ptr<Entity> &entity) {
   scene_objects.push_back(entity);
 }
+
 void Game::ClearGameEvent(const std::shared_ptr<Entity> &entity) {
 
   for (auto it = scene_objects.begin(); it!=scene_objects.end(); ++it) {
@@ -178,5 +192,25 @@ Game::~Game() {
   level.reset();
 
   delete MarioWorld; //TODO:  Refactor to smart pointer
+
+}
+void Game::key_callback_(GLFWwindow *window, int key, int scancode, int action, int mods) {
+
+  if (key==GLFW_KEY_ESCAPE && action==GLFW_PRESS)
+	glfwSetWindowShouldClose(window, true);
+
+  if (key >= 0 && key < 1024 && action==GLFW_PRESS) {
+	Input::keys[key] = true;
+  }
+
+  if (key >= 0 && key < 1024 && action==GLFW_RELEASE) {
+	Input::keys[key] = false;
+	Input::keyUp[key] = false;
+  }
+
+}
+void Game::framebuffer_size_callback_(GLFWwindow *window, int width, int height) {
+
+  glViewport(0, 0, width, height);
 
 }
