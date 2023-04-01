@@ -37,8 +37,12 @@ void Game::OnInit() {
 
   mario = std::make_shared<Entity>(EntityMario(*MarioWorld));
   SetGameEvent(mario->GetEventHandler());
+
   ground = std::make_unique<Entity>(EntityGround(*MarioWorld));
+  SetGameEvent(ground->GetEventHandler());
+
   level = std::make_unique<Entity>(Level(*MarioWorld));
+  SetGameEvent(level->GetEventHandler());
 
 }
 void Game::OnUpdate(double delta) {
@@ -47,7 +51,7 @@ void Game::OnUpdate(double delta) {
 void Game::OnRender() {
 
 }
-void Game::SetGameEvent(const std::shared_ptr<Entity>& entity) {
+void Game::SetGameEvent(const std::shared_ptr<Entity> &entity) {
   scene_objects.push_back(entity);
 }
 void Game::ClearGameEvent(const std::shared_ptr<Entity> &entity) {
