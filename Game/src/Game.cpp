@@ -14,7 +14,54 @@
 
 using namespace glm;
 
-void Game::Run() {
+bool Game::Run() {
+  constexpr int GAME_WIDTH = 1920;
+  constexpr int GAME_EIGHT = 1080;
+
+  GLFWwindow *window;
+
+  if (!glfwInit())
+	return false;
+
+  window = glfwCreateWindow(width, height, "Super Mario", NULL, NULL);
+  if (!window) {
+	glfwTerminate();
+	return -1;
+  }
+
+  glfwSetKeyCallback(window, key_callback);
+  glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+  glfwMakeContextCurrent(window);
+
+  GLenum err = glewInit();
+  if (GLEW_OK!=err)
+	std::cout << "error init glew !";
+
+  Game game = Game(width, height);
+  game.OnInit();
+
+  float currentTime = 0.f;
+  float lastTime = 0.f;
+  float delta;
+
+  while (!glfwWindowShouldClose(window)) {
+	currentTime = glfwGetTime();
+	delta = currentTime - lastTime;
+	lastTime = currentTime;
+
+	glClearColor(0.363f, 0.914f, 0.937f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	game.OnUpdate(delta);
+	game.OnRender();
+
+	glfwSwapBuffers(window);
+	glfwPollEvents();
+  }
+
+  glfwTerminate();
+  return 0;
+}
 
 }
 

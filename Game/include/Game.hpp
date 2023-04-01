@@ -16,7 +16,7 @@ class Game {
   Game();
   ~Game();
 
-  void Run();
+  bool Run();
 
   void onInit();
   void onUpdate(float delta);
