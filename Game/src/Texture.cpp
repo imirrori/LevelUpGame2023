@@ -33,7 +33,7 @@ void Texture::LoadTexture(const std::string &name, const std::string &file, bool
 	Texture::Textures_[name] = texture;
 	stbi_image_free(data);
   } else {
-	std::cerr << "Load Texture Error ! " << std::endl;
+	std::cerr << "Load Texture Error ! :  " << stbi_failure_reason() << std::endl;
   }
 
 }
