@@ -5,6 +5,8 @@
 #include "Texture.hpp"
 #include "GL/glew.h"
 
+#include "lib/stb/stb_image.h"
+
 #include <array>
 
 std::unordered_map<std::string, Texture> Texture::Textures_;

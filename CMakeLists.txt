@@ -80,6 +80,7 @@ add_definitions(
 )
 
 set(SOURCE_FILES
+    lib/STBI/stbi_image.cpp
     Game/src/Input.cpp
     Game/src/Game.cpp
     Game/src/Entity/Entity.cpp
@@ -102,6 +103,7 @@ set(SOURCE_FILES
     )
 
 set(HEADER_FILES
+    lib/STBI/stbi_image.h
     Game/include/Game.hpp
     Game/include/Input.hpp
     Game/include/Entity/IEntity.hpp
@@ -162,7 +164,7 @@ target_include_directories(Mario
                            ${PROJECT_SOURCE_DIR}/Game/include
                            ${PROJECT_SOURCE_DIR}/lib
                            ${PROJECT_SOURCE_DIR}/box2d/include
-                           ${PROJECT_SOURCE_DIR}/lib/stb
+                           ${PROJECT_SOURCE_DIR}/lib/STBI
                            )
 
 target_link_libraries(Mario PRIVATE
