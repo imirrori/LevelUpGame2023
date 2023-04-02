@@ -10,14 +10,17 @@ SOURCES += \
 
 HEADERS += \
        include/Game.hpp \
+       include/GlobalSettings.hpp \
        include/Visualizer.hpp
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/libs/glut/freeglut/freeglut/lib/x64/ -lfreeglut
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/libs/glut/freeglut/freeglut/lib/x64/ -lfreeglut
-
-INCLUDEPATH += $$PWD/libs/glut/freeglut/freeglut/include
 INCLUDEPATH += $$PWD/include
-DEPENDPATH += $$PWD/libs/glut/freeglut/freeglut/include
 
-LIBS += -lopengl32
-LIBS += -lglu32
+win32: LIBS += -L$$PWD/libs/glfw-3.3.8.bin.WIN64/lib-mingw-w64/ -lglfw3
+win32: LIBS += -L$$PWD/libs/glfw-3.3.8.bin.WIN64/lib-mingw-w64/ -lglfw3dll
+
+win32: INCLUDEPATH += $$PWD/libs/glfw-3.3.8.bin.WIN64/include
+win32: DEPENDPATH += $$PWD/libs/glfw-3.3.8.bin.WIN64/include
+
+win32: LIBS += -lopengl32
+
+linux: LIBS += -lglfw -lGL

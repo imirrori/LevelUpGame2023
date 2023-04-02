@@ -1,34 +1,50 @@
+#include "GlobalSettings.hpp"
+#include "Player.hpp"
 #include "Visualizer.hpp"
 
+#include <stdlib.h>
+#include <stdio.h>
+
 namespace Visual {
-void DisplayRender()
+Visualizer::Visualizer(const Settings::GlobalSettings& settings)
+  : settings_(settings)
 {
-  glClear(GL_COLOR_BUFFER_BIT);
-  glFlush();
+  if (!glfwInit()) {
+    throw std::exception{};
+  }
+
+  window_ = glfwCreateWindow(settings_.window_width,
+                             settings_.window_height,
+                             settings_.window_name,
+                             NULL,
+                             NULL);
+
+  if (!window_)
+  {
+    glfwTerminate();
+    throw std::exception{};
+  }
+
+  glfwMakeContextCurrent(window_);
 }
 
-void Reshape(int, int)
+Visualizer::~Visualizer()
 {
-  glOrtho(0, 640, 0, 480, 1, 0);
+  glfwTerminate();
 }
 
-void Visualizer::make_window(int argc, char **argv)
+void Visualizer::Mainloop()
 {
-  glutInit(&argc, argv);
-  glutInitDisplayMode(GLUT_RGB);
-  glutInitWindowSize(640, 480);
-  glutCreateWindow("Wind");
-  glutDisplayFunc(&DisplayRender);
-  glutReshapeFunc(&Reshape);
-}
+  while (!glfwWindowShouldClose(window_))
+  {
+    /* Render here */
+    glClear(GL_COLOR_BUFFER_BIT);
 
-void Visualizer::init(int argc, char **argv)
-{
-  make_window(argc, argv);
-}
+    /* Swap front and back buffers */
+    glfwSwapBuffers(window_);
 
-void Visualizer::mainloop()
-{
-  glutMainLoop();
+    /* Poll for and process events */
+    glfwPollEvents();
+  }
 }
-}
+} // Visual

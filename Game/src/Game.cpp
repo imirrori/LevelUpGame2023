@@ -2,15 +2,13 @@
 
 void Game::Run()
 {
-  _viz->mainloop();
+  viz_->Mainloop();
 }
 
-void Game::Init(int& argc, char **argv)
-{
-  _viz->init(argc, argv);
-}
+void Game::Init()
+{}
 
 Game::Game()
 {
-  _viz = std::make_shared<Visual::Visualizer>(Visual::Visualizer());
+  viz_ = std::make_shared<Visual::Visualizer>(setting);
 }
