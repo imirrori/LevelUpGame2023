@@ -1,17 +1,24 @@
 #ifndef VISUALIZER_HPP
 #define VISUALIZER_HPP
 
+#include "GlobalSettings.hpp"
+
 #include <GLFW/glfw3.h>
 
 namespace Visual {
 class Visualizer {
 public:
 
-  void make_window();
+  Visualizer(const Settings::GlobalSettings& settings);
+  ~Visualizer();
 
-  //  void init();
-  //  void mainloop();
+  void Mainloop();
+
+private:
+
+  const Settings::GlobalSettings& settings_;
+  GLFWwindow *window_;
 };
-}
+} // Visual
 
 #endif // VISUALIZER_HPP

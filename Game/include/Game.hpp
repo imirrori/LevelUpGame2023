@@ -1,21 +1,23 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
+#include "GlobalSettings.hpp"
 #include "Visualizer.hpp"
+
 #include <memory>
 
 class Game {
-private:
-
-  std::shared_ptr<Visual::Visualizer>_viz;
-
 public:
 
-  void Init();
+  Game();
 
+  void Init();
   void Run();
 
-  Game();
+private:
+
+  Settings::GlobalSettings setting;
+  std::shared_ptr<Visual::Visualizer>viz_;
 };
 
 #endif // GAME_HPP

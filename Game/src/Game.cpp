@@ -2,14 +2,13 @@
 
 void Game::Run()
 {
+  viz_->Mainloop();
 }
 
 void Game::Init()
-{
-  _viz->make_window();
-}
+{}
 
 Game::Game()
 {
-  _viz = std::make_shared<Visual::Visualizer>(Visual::Visualizer());
+  viz_ = std::make_shared<Visual::Visualizer>(setting);
 }
