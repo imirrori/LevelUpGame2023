@@ -5,7 +5,7 @@
 #include "Texture.hpp"
 #include "GL/glew.h"
 
-#include "lib/stb/stb_image.h"
+#include "lib/STBI/stbi_image.h"
 
 #include <array>
 

@@ -131,19 +131,26 @@ set(HEADER_FILES
 # Generate the shared library from the library sources
 
 
-#add_library(Mario_Lib SHARED
-#            ${SOURCE_FILES}
-#            ${HEADER_FILES}
-#            )
-#
-#
-#add_library(mario::lib ALIAS Mario_Lib)
+add_library(Mario_Lib SHARED
+            ${SOURCE_FILES}
+            ${HEADER_FILES}
+            )
 
 
-#target_link_libraries(Mario_Lib
-#                      PRIVATE
-#                      ${ALL_LIBS}
-#                      )
+add_library(mario::lib ALIAS Mario_Lib)
+
+target_include_directories(Mario_Lib
+                           PUBLIC
+                           ${PROJECT_SOURCE_DIR}/Game/include
+                           ${PROJECT_SOURCE_DIR}/lib
+                           ${PROJECT_SOURCE_DIR}/box2d/include
+                           ${PROJECT_SOURCE_DIR}/lib/STBI
+                           )
+
+target_link_libraries(Mario_Lib
+                      PRIVATE
+                      ${ALL_LIBS}
+                      )
 
 
 # Add an executable with the above sources
@@ -153,42 +160,31 @@ include_directories(Game/include)
 
 add_subdirectory(Game)
 
-add_executable(Mario
-               ${SOURCE_FILES}
-               ${HEADER_FILES}
-               Game/App/main.cpp
-               )
+add_executable(Mario Game/App/main.cpp)
 
-target_include_directories(Mario
-                           PUBLIC
-                           ${PROJECT_SOURCE_DIR}/Game/include
-                           ${PROJECT_SOURCE_DIR}/lib
-                           ${PROJECT_SOURCE_DIR}/box2d/include
-                           ${PROJECT_SOURCE_DIR}/lib/STBI
-                           )
 
 target_link_libraries(Mario PRIVATE
-                      ${ALL_LIBS}
+                      mario::lib
                       )
 
 
-#set_target_properties(Mario PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${Mario_SOURCE_DIR}/bin")
-#create_target_launcher(Mario WORKING_DIRECTORY "${Mario_SOURCE_DIR}/bin")
-#create_default_target_launcher(Mario WORKING_DIRECTORY "${Mario_SOURCE_DIR}/bin")
-#
-#SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*")
-#SOURCE_GROUP(shaders REGULAR_EXPRESSION ".*/.*shader$")
-#
-#if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
-#
-#    add_custom_command(
-#            TARGET Mario POST_BUILD
-#            COMMAND ${CMAKE_COMMAND} -E copy
-#            "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/Mario${CMAKE_EXECUTABLE_SUFFIX}"
-#            "${CMAKE_CURRENT_SOURCE_DIR}/bin/"
-#    )
-#
-#
-#elseif (${CMAKE_GENERATOR} MATCHES "Xcode")
-#
-#endif (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
+set_target_properties(Mario PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${Mario_SOURCE_DIR}/bin")
+create_target_launcher(Mario WORKING_DIRECTORY "${Mario_SOURCE_DIR}/bin")
+create_default_target_launcher(Mario WORKING_DIRECTORY "${Mario_SOURCE_DIR}/bin")
+
+SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*")
+SOURCE_GROUP(shaders REGULAR_EXPRESSION ".*/.*shader$")
+
+if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
+
+    add_custom_command(
+            TARGET Mario POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/Mario${CMAKE_EXECUTABLE_SUFFIX}"
+            "${CMAKE_CURRENT_SOURCE_DIR}/bin/"
+    )
+
+
+elseif (${CMAKE_GENERATOR} MATCHES "Xcode")
+
+endif (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
