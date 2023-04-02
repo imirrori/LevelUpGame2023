@@ -80,7 +80,7 @@ add_definitions(
 )
 
 set(SOURCE_FILES
-    #    Game/src/Input.cpp
+    Game/src/Input.cpp
     Game/src/Game.cpp
     Game/src/Entity/Entity.cpp
     Game/src/Level.cpp
@@ -103,7 +103,7 @@ set(SOURCE_FILES
 
 set(HEADER_FILES
     Game/include/Game.hpp
-    #    Game/include/Input.hpp
+    Game/include/Input.hpp
     Game/include/Entity/IEntity.hpp
     Game/include/Entity/Entity.hpp
     Game/include/Level.hpp

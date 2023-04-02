@@ -7,6 +7,8 @@
 
 #include <array>
 
+std::unordered_map<std::string, Texture> Texture::Textures_;
+
 void Texture::LoadTexture(const std::string &name, const std::string &file, bool isAlpha) {
   Texture texture{};
 

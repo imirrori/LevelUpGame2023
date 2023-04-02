@@ -4,14 +4,15 @@
 
 #include "Input.hpp"
 
- bool Input::GetKey(int key) {
-   return keys[key];
- }
+bool Input::keys[1024];
+bool Input::keyUp[1024];
 
-bool Input::GetKeyDown(int key)
-{
-  if (!keyUp[key] && keys[key])
-  {
+bool Input::GetKey(int key) {
+  return keys[key];
+}
+
+bool Input::GetKeyDown(int key) {
+  if (!keyUp[key] && keys[key]) {
 	keyUp[key] = true;
 	return true;
   }

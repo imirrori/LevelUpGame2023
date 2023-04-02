@@ -8,6 +8,8 @@
 #include <sstream>
 #include <iostream>
 
+std::unordered_map<std::string, Shader> Shader::Shaders_;
+
 void Shader::LoadShader(const char *name, const char *vertFile, const char *fragFile) {
   std::string vertCode, fragCode;
   try {
