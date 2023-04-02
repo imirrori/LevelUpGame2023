@@ -11,6 +11,8 @@ SOURCES += \
 HEADERS += \
        include/Game.hpp \
        include/GlobalSettings.hpp \
+       include/IMenu.hpp \
+       include/IPlayer.hpp \
        include/Visualizer.hpp
 
 INCLUDEPATH += $$PWD/include
