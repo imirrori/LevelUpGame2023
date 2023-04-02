@@ -8,7 +8,7 @@
 
 #include <memory>
 
-EntityMario::EntityMario(b2World &MarioWorld) : Entity() {
+EntityMario::EntityMario(b2World &world) : Entity() {
 
   vPosition = glm::vec2(800, 2000);
   vRotation = 0;
@@ -32,7 +32,7 @@ EntityMario::EntityMario(b2World &MarioWorld) : Entity() {
   b_def.position.Set(vPosition.x/pixel_to_m(), vPosition.y/pixel_to_m());
   b_def.angle = glm::radians(vRotation);
 
-  this->mp_Body = MarioWorld.CreateBody(&b_def);
+  this->mp_Body = world.CreateBody(&b_def);
   b2PolygonShape box_shape;
   box_shape.SetAsBox(vScale.x/2.f/pixel_to_m(), vScale.y/2.f/pixel_to_m());
 

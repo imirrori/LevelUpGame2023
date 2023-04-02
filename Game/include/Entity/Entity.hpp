@@ -8,11 +8,17 @@
 #include "IEntity.hpp"
 #include "glm/vec2.hpp"
 
+#include <box2d/box2d.h>
 #include <memory>
 #include <string>
 
 class Entity : public IEntity {
  public:
+
+  Entity(b2World &world, glm::vec2 coord, glm::vec2 size) : coord_(coord), size_(size) {
+
+  }
+  Entity();
 
   ~Entity() override = default;
 
@@ -31,12 +37,13 @@ class Entity : public IEntity {
   [[nodiscard]] glm::vec2 GetSize() const { return size_; };
   [[nodiscard]] float pixel_to_m() const { return pixelToM_; }
 
-  std::shared_ptr<Entity> GetEventHandler() { return std::make_shared<Entity>(*this); }
+  virtual std::vector<std::shared_ptr<Entity>> GetEventHandlers();
 
  protected:
   glm::vec2 coord_;
   glm::vec2 size_;
-  float pixelToM_;
+
+  static constexpr float pixelToM_ = 150.f;
 
   std::string vTag = "default";
   glm::vec2 vPosition;

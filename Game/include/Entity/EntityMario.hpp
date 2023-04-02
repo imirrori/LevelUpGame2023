@@ -13,7 +13,7 @@
 
 class EntityMario : public Entity {
  public:
-  explicit EntityMario(b2World &MarioWorld);
+  explicit EntityMario(b2World &world);
   ~EntityMario() override;
   void onUpdate(float delta) override;
   void onRender() override;
@@ -43,6 +43,7 @@ class EntityMario : public Entity {
   Texture::TexturePtr currentTexture;
   Texture::TexturePtr idleTexture;
   Texture::TexturePtr jumpTexture;
+
   std::array<Texture::TexturePtr, 3> runTexture;
 
   b2Body *mp_Body; // Make shared

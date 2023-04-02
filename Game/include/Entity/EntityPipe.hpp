@@ -9,7 +9,7 @@
 
 class EntityPipe : public Entity {
  public:
-  EntityPipe(glm::vec2 coord, glm::vec2 size) : Entity(coord, size) {
+  EntityPipe(b2World &world, glm::vec2 coord, glm::vec2 size) : Entity(world, coord, size) {
 	Init();
   }
 

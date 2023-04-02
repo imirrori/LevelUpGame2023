@@ -8,7 +8,6 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
 
 #include <iostream>
 #include <memory>
@@ -87,16 +86,25 @@ void Game::onInit() {
 
   this->MarioWorld = new b2World(gravity);
 
+  if (not MarioWorld) {
+	throw std::runtime_error("Failed to create b2World");
+  }
+
   contact_listener = std::make_unique<ContactListener>(ContactListener(*MarioWorld));
 
   mario = std::make_shared<Entity>(EntityMario(*MarioWorld));
-  SetGameEvent(mario->GetEventHandler());
+  SetGameEvent(mario->GetEventHandlers()); //TODO: Refactoring to Event class
 
   ground = std::make_unique<Entity>(EntityGround(*MarioWorld));
-  SetGameEvent(ground->GetEventHandler());
+  SetGameEvent(ground->GetEventHandlers());
 
   level = std::make_unique<Entity>(Level(*MarioWorld));
-  SetGameEvent(level->GetEventHandler());
+
+  if (MarioWorld) {
+	SetGameEvent(level->GetEventHandlers());
+  } else {
+	throw std::runtime_error("Error loading world");
+  }
 
 }
 
@@ -121,11 +129,7 @@ void Game::onRender() {
   Render::EndScene();
 }
 
-void Game::SetGameEvent(const std::shared_ptr<Entity> &entity) {
-  scene_objects.push_back(entity);
-}
-
-void Game::ClearGameEvent(const std::shared_ptr<Entity> &entity) {
+void Game::ClearGameEvent(std::shared_ptr<Entity> &entity) {
 
   for (auto it = scene_objects.begin(); it!=scene_objects.end(); ++it) {
 
@@ -212,5 +216,14 @@ void Game::key_callback_(GLFWwindow *window, int key, int scancode, int action, 
 void Game::framebuffer_size_callback_(GLFWwindow *window, int width, int height) {
 
   glViewport(0, 0, width, height);
+
+}
+void Game::SetGameEvent(std::vector<std::shared_ptr<Entity>> entities) {
+
+  for (const auto &entity : entities) {
+
+	scene_objects.push_back(entity);
+
+  }
 
 }

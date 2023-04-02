@@ -12,8 +12,8 @@
 
 class EntityGround : public Entity {
  public:
-  explicit EntityGround( b2World &MarioWorld);
-  ~EntityGround() override ;
+  explicit EntityGround(b2World &world);
+  ~EntityGround() override;
 
   void onInit() override;
   void onUpdate(float delta) override;

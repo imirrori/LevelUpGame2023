@@ -14,10 +14,9 @@
 
 class Level : public Entity {
  public:
-  explicit Level(b2World& MArioWorld) ;
+  explicit Level(b2World &world);
   ~Level() override;
 
-  void onInit() override;
   void onUpdate(float delta) override;
   void onRender() override;
   void onCollision(std::shared_ptr<IEntity> collision_entity) override;
@@ -25,6 +24,8 @@ class Level : public Entity {
  private:
   std::vector<std::shared_ptr<Entity>> map_entities;
   Map map_;
+
+  void buildMap(b2World &world);
 
 };
 

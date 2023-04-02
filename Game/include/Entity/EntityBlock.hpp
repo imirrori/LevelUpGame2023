@@ -7,22 +7,30 @@
 
 #include "Entity.hpp"
 #include "glm/vec2.hpp"
+#include "Texture.hpp"
+
+#include <box2d/box2d.h>
 
 class EntityBlock : public Entity {
  public:
-  EntityBlock(glm::vec2 coord, glm::vec2 size) : Entity(coord, size) {
-	Init();
-  }
+
+  EntityBlock(b2World &world, glm::vec2 position, glm::vec2 scale);
 
   ~EntityBlock() override = default;
 
-  void onInit() override;
   void onUpdate(float delta) override;
   void onRender() override;
   void onCollision(std::shared_ptr<IEntity> collision_entity) override;
 
  private:
-  void Init();
+  const void const Shake_(float delta);
+
+  int hp_ = 3;
+
+  Texture::TexturePtr current_texture;
+  Texture::TexturePtr textures[3];
+
+  b2Body *mp_Body;
 
 };
 

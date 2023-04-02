@@ -7,10 +7,11 @@
 
 #include "Entity.hpp"
 class EntityCoin : public Entity {
+
  public:
-  EntityCoin(glm::vec2 coord, glm::vec2 size) : Entity(coord, size) {
-	Init();
-  }
+
+  EntityCoin(b2World &world, glm::vec2 coord, glm::vec2 size) : Entity(world, coord, size) { Init(); }
+
   ~EntityCoin() override = default;
 
   void onInit() override;

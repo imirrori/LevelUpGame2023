@@ -10,9 +10,7 @@
 class EntityStar : public Entity {
  public:
 
-  EntityStar(glm::vec2 coord, glm::vec2 size) : Entity(coord, size) {
-	Init();
-  }
+  EntityStar(b2World &world, glm::vec2 coord, glm::vec2 size) : Entity(world, coord, size) { Init(); }
 
   ~EntityStar() override = default;
 

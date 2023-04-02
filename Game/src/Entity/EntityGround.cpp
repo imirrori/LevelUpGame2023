@@ -5,7 +5,7 @@
 #include "Entity/EntityGround.hpp"
 #include "Graphics/Render.hpp"
 
-EntityGround::EntityGround(b2World &MarioWorld) {
+EntityGround::EntityGround(b2World &world) {
 
   vTag = "ground";
   texture = Texture::GetTexture("ground");
@@ -13,7 +13,7 @@ EntityGround::EntityGround(b2World &MarioWorld) {
   b2BodyDef bodyDef;
   bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
   bodyDef.position.Set(tile_width*static_cast<float>(width_count)/2/pixel_to_m(), 100/pixel_to_m());
-  mp_Body = MarioWorld.CreateBody(&bodyDef);
+  mp_Body = world.CreateBody(&bodyDef);
 
   b2PolygonShape groundShape;
   groundShape.SetAsBox(tile_width*static_cast<float>(width_count)/2/pixel_to_m(), 50/pixel_to_m());
