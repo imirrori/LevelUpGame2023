@@ -5,13 +5,19 @@ CONFIG -= qt
 
 SOURCES += \
        src/Game.cpp \
+       src/Player.cpp \
        src/Visualizer.cpp \
        App/main.cpp
 
 HEADERS += \
        include/Game.hpp \
        include/GlobalSettings.hpp \
-       include/Visualizer.hpp
+       include/interface/IMenu.hpp \
+       include/interface/IPlayer.hpp \
+       include/Menu.hpp \
+       include/Player.hpp \
+       include/Visualizer.hpp \
+
 
 INCLUDEPATH += $$PWD/include
 
@@ -22,5 +28,6 @@ win32: INCLUDEPATH += $$PWD/libs/glfw-3.3.8.bin.WIN64/include
 win32: DEPENDPATH += $$PWD/libs/glfw-3.3.8.bin.WIN64/include
 
 win32: LIBS += -lopengl32
+win32: LIBS += -lglfw3
 
 linux: LIBS += -lglfw -lGL

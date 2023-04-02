@@ -15,7 +15,8 @@ public:
 
   const char *window_name = "Mario";
 
-  static constexpr int player_size = 1;
+  static constexpr int player_size   = 1;
+  static constexpr int menu_str_size = 3;
 };
 } // Settings
 
