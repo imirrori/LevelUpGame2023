@@ -60,6 +60,7 @@ include_directories(
         external/glew-1.13.0/include/
         external/assimp-3.0.1270/include/
         external/bullet-2.81-rev2613/src/
+        Game/include
         .
 )
 
@@ -67,6 +68,7 @@ set(ALL_LIBS
     ${OPENGL_LIBRARY}
     glfw
     GLEW_1130
+    box2d
     )
 
 add_definitions(
@@ -78,7 +80,7 @@ add_definitions(
 )
 
 set(SOURCE_FILES
-    Game/App/main.cpp
+    #    Game/src/Input.cpp
     Game/src/Game.cpp
     Game/src/Entity/Entity.cpp
     Game/src/Level.cpp
@@ -88,11 +90,11 @@ set(SOURCE_FILES
     Game/src/Entity/EntityMushroom.cpp
     Game/src/Entity/EntityPipe.cpp
     Game/src/Entity/EntityBlock.cpp
+    Game/App/main.cpp
     Game/src/Entity/EntityGround.cpp
     Game/src/Entity/EntityMario.cpp
     Game/src/View.cpp
     Game/src/Texture.cpp
-    Game/src/Input.cpp
     Game/src/Graphics/Render.cpp
     Game/src/Graphics/Shader.cpp
     Game/src/ContactListener.cpp
@@ -101,6 +103,7 @@ set(SOURCE_FILES
 
 set(HEADER_FILES
     Game/include/Game.hpp
+    #    Game/include/Input.hpp
     Game/include/Entity/IEntity.hpp
     Game/include/Entity/Entity.hpp
     Game/include/Level.hpp
@@ -114,7 +117,6 @@ set(HEADER_FILES
     Game/include/Entity/EntityMario.hpp
     Game/include/View.hpp
     Game/include/Texture.hpp
-    Game/include/Input.hpp
     Game/include/Graphics/Render.hpp
     Game/include/Graphics/Shader.hpp
     Game/include/ContactListener.hpp
@@ -127,25 +129,19 @@ set(HEADER_FILES
 # Generate the shared library from the library sources
 
 
-add_library(Mario_Lib SHARED
-            ${SOURCE_FILES}
-            ${HEADER_FILES}
-            )
+#add_library(Mario_Lib SHARED
+#            ${SOURCE_FILES}
+#            ${HEADER_FILES}
+#            )
+#
+#
+#add_library(mario::lib ALIAS Mario_Lib)
 
 
-add_library(mario::lib ALIAS Mario_Lib)
-
-target_include_directories(Mario_Lib
-                           PUBLIC
-                           ${PROJECT_SOURCE_DIR}/Game/include
-                           ${PROJECT_SOURCE_DIR}/lib
-                           ${PROJECT_SOURCE_DIR}/box2d/include
-                           )
-
-target_link_libraries(Mario_Lib
-                      PRIVATE
-                      ${ALL_LIBS}
-                      )
+#target_link_libraries(Mario_Lib
+#                      PRIVATE
+#                      ${ALL_LIBS}
+#                      )
 
 
 # Add an executable with the above sources
@@ -155,32 +151,42 @@ include_directories(Game/include)
 
 add_subdirectory(Game)
 
-add_executable(Mario Game/App/main.cpp)
+add_executable(Mario
+               ${SOURCE_FILES}
+               ${HEADER_FILES}
+               Game/App/main.cpp
+               )
+
+target_include_directories(Mario
+                           PUBLIC
+                           ${PROJECT_SOURCE_DIR}/Game/include
+                           ${PROJECT_SOURCE_DIR}/lib
+                           ${PROJECT_SOURCE_DIR}/box2d/include
+                           ${PROJECT_SOURCE_DIR}/lib/stb
+                           )
 
 target_link_libraries(Mario PRIVATE
-                      mario::lib
                       ${ALL_LIBS}
-                      box2d
-
                       )
 
-set_target_properties(Mario PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${Mario_SOURCE_DIR}/bin")
-create_target_launcher(Mario WORKING_DIRECTORY "${Mario_SOURCE_DIR}/bin")
-create_default_target_launcher(Mario WORKING_DIRECTORY "${Mario_SOURCE_DIR}/bin")
 
-SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*")
-SOURCE_GROUP(shaders REGULAR_EXPRESSION ".*/.*shader$")
-
-if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
-
-    add_custom_command(
-            TARGET Mario POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy
-            "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/Mario${CMAKE_EXECUTABLE_SUFFIX}"
-            "${CMAKE_CURRENT_SOURCE_DIR}/bin/"
-    )
-
-
-elseif (${CMAKE_GENERATOR} MATCHES "Xcode")
-
-endif (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
+#set_target_properties(Mario PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${Mario_SOURCE_DIR}/bin")
+#create_target_launcher(Mario WORKING_DIRECTORY "${Mario_SOURCE_DIR}/bin")
+#create_default_target_launcher(Mario WORKING_DIRECTORY "${Mario_SOURCE_DIR}/bin")
+#
+#SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*")
+#SOURCE_GROUP(shaders REGULAR_EXPRESSION ".*/.*shader$")
+#
+#if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
+#
+#    add_custom_command(
+#            TARGET Mario POST_BUILD
+#            COMMAND ${CMAKE_COMMAND} -E copy
+#            "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/Mario${CMAKE_EXECUTABLE_SUFFIX}"
+#            "${CMAKE_CURRENT_SOURCE_DIR}/bin/"
+#    )
+#
+#
+#elseif (${CMAKE_GENERATOR} MATCHES "Xcode")
+#
+#endif (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")

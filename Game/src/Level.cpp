@@ -49,7 +49,7 @@ void Level::buildMap(b2World &world) {
 		  break;
 
 		case 's':
-		  map_entities.emplace_back(std::make_shared<Entity>(world, EntityStar({j*100, (map_.height() - i)*100 +
+		  map_entities.emplace_back(std::make_shared<Entity>(EntityStar(world, {j*100, (map_.height() - i)*100 +
 			  100}, {100, 100})));
 
 		default: break;

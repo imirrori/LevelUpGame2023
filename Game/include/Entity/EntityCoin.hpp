@@ -5,6 +5,8 @@
 #ifndef LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITYCOIN_HPP_
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITYCOIN_HPP_
 
+#include "GL/glew.h"
+
 #include "Entity.hpp"
 class EntityCoin : public Entity {
 

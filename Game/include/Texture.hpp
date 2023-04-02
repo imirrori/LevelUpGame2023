@@ -6,7 +6,8 @@
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_TEXTURE_HPP_
 
 #include "GL/glew.h"
-#include "STB/stb_image.h"
+
+#include "lib/stb/stb_image.h"
 
 #include <iostream>
 #include <string>

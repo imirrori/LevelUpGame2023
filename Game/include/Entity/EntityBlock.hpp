@@ -5,6 +5,8 @@
 #ifndef LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITYBLOCK_HPP_
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITYBLOCK_HPP_
 
+#include "GL/glew.h"
+
 #include "Entity.hpp"
 #include "glm/vec2.hpp"
 #include "Texture.hpp"

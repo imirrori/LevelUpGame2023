@@ -3,6 +3,7 @@
 //
 
 #include "Texture.hpp"
+#include "GL/glew.h"
 
 #include <array>
 

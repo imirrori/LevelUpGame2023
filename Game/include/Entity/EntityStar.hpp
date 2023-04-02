@@ -5,6 +5,8 @@
 #ifndef LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITYSTAR_HPP_
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITYSTAR_HPP_
 
+#include "GL/glew.h"
+
 #include "Entity.hpp"
 
 class EntityStar : public Entity {

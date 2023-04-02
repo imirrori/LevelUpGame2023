@@ -4,10 +4,9 @@
 
 #include "Input.hpp"
 
-bool Input::GetKey(int key)
-{
-  return keys[key];
-}
+ bool Input::GetKey(int key) {
+   return keys[key];
+ }
 
 bool Input::GetKeyDown(int key)
 {

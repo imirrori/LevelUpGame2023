@@ -1,6 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "GL/glew.h"
+
+#include "Input.hpp"
 #include "Entity/IEntity.hpp"
 #include "Entity/EntityGround.hpp"
 #include "Entity/EntityMario.hpp"
@@ -8,8 +11,8 @@
 #include "View.hpp"
 #include "ContactListener.hpp"
 
-#include <box2d/box2d.h>
 #include <GLFW/glfw3.h>
+#include <box2d/box2d.h>
 #include <vector>
 
 class Game {

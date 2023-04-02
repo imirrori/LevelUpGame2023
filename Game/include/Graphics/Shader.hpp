@@ -6,6 +6,7 @@
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_GRAPHICS_SHADER_HPP_
 
 #include "GL/glew.h"
+
 #include "glm/glm.hpp"
 #include "glm/gtc/type_ptr.hpp"
 

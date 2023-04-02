@@ -5,6 +5,8 @@
 #ifndef LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_INCLUDE_IENTITY_HPP_
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_INCLUDE_IENTITY_HPP_
 
+#include "GL/glew.h"
+
 #include <glm/vec2.hpp>
 #include <string>
 #include <memory>

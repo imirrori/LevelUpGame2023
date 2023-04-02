@@ -5,11 +5,13 @@
 #ifndef LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITYMARIO_HPP_
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITYMARIO_HPP_
 
+#include "GL/glew.h"
+
 #include "Entity/Entity.hpp"
 #include "Texture.hpp"
 
 #include <array>
-#include <Box2D/Box2D.h>
+#include <box2d/box2d.h>
 
 class EntityMario : public Entity {
  public:
