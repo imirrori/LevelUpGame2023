@@ -11,8 +11,8 @@ private:
 
 public:
 
-  void Init(int  & argc,
-            char **argv);
+  void Init();
+
   void Run();
 
   Game();

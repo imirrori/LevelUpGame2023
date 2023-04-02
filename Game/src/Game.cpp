@@ -2,12 +2,11 @@
 
 void Game::Run()
 {
-  _viz->mainloop();
 }
 
-void Game::Init(int& argc, char **argv)
+void Game::Init()
 {
-  _viz->init(argc, argv);
+  _viz->make_window();
 }
 
 Game::Game()
