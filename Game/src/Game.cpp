@@ -143,49 +143,49 @@ void Game::ClearGameEvent(std::shared_ptr<Entity> &entity) {
 
 void Game::LoadAllShader() {
 
-  Shader::LoadShader("sprite", "Game/Resources/Shader/Sprite.vert.glsl", "Game/Resources/Shader/Sprite.frag.glsl");
-  Shader::LoadShader("flat", "Game/Resources/Shader/FlatColor.vert.glsl", "Game/Resources/Shader/FlatColor.frag.glsl");
+  Shader::LoadShader("sprite", "Resources/Shader/Sprite.vert.glsl", "Resources/Shader/Sprite.frag.glsl");
+  Shader::LoadShader("flat", "Resources/Shader/FlatColor.vert.glsl", "Resources/Shader/FlatColor.frag.glsl");
 
 }
 void Game::LoadAllTexture() {
 
   // Mario
-  Texture::LoadTexture("mario-idle", "Game/Resources/Texture/Mario/mario-idle.png", true);
-  Texture::LoadTexture("mario-run-0", "Game/Resources/Texture/Mario/mario-run0.png", true);
-  Texture::LoadTexture("mario-run-1", "Game/Resources/Texture/Mario/mario-run1.png", true);
-  Texture::LoadTexture("mario-run-2", "Game/Resources/Texture/Mario/mario-run2.png", true);
-  Texture::LoadTexture("mario-jump", "Game/Resources/Texture/Mario/mario-jump.png", true);
+  Texture::LoadTexture("mario-idle", "Resources/Texture/Mario/mario-idle.png", true);
+  Texture::LoadTexture("mario-run-0", "Resources/Texture/Mario/mario-run0.png", true);
+  Texture::LoadTexture("mario-run-1", "Resources/Texture/Mario/mario-run1.png", true);
+  Texture::LoadTexture("mario-run-2", "Resources/Texture/Mario/mario-run2.png", true);
+  Texture::LoadTexture("mario-jump", "Resources/Texture/Mario/mario-jump.png", true);
 
   // Ground
-  Texture::LoadTexture("ground", "Game/Resources/Texture/ground.png", true);
+  Texture::LoadTexture("ground", "Resources/Texture/ground.png", true);
 
   // Bad Mushroom
-  Texture::LoadTexture("mushroom-run-0", "Game/Resources/Texture/Mushroom/mushroom-run0.png", true);
-  Texture::LoadTexture("mushroom-run-1", "Game/Resources/Texture/Mushroom/mushroom-run1.png", true);
-  Texture::LoadTexture("mushroom-dead", "Game/Resources/Texture/Mushroom/mushroom-dead.png", true);
+  Texture::LoadTexture("mushroom-run-0", "Resources/Texture/Mushroom/mushroom-run0.png", true);
+  Texture::LoadTexture("mushroom-run-1", "Resources/Texture/Mushroom/mushroom-run1.png", true);
+  Texture::LoadTexture("mushroom-dead", "Resources/Texture/Mushroom/mushroom-dead.png", true);
 
   // Brick
-  Texture::LoadTexture("brick-0", "Game/Resources/Texture/Brick/brick-0.png", true);
-  Texture::LoadTexture("brick-1", "Game/Resources/Texture/Brick/brick-1.png", true);
-  Texture::LoadTexture("brick-2", "Game/Resources/Texture/Brick/brick-2.png", true);
+  Texture::LoadTexture("brick-0", "Resources/Texture/Brick/brick-0.png", true);
+  Texture::LoadTexture("brick-1", "Resources/Texture/Brick/brick-1.png", true);
+  Texture::LoadTexture("brick-2", "Resources/Texture/Brick/brick-2.png", true);
 
   // Coin Brick
-  Texture::LoadTexture("coin-brick-idle", "Game/Resources/Texture/CoinBrick/coin-brick.png", true);
-  Texture::LoadTexture("coin-brick-break", "Game/Resources/Texture/CoinBrick/coin-break-brick.png", true);
+  Texture::LoadTexture("coin-brick-idle", "Resources/Texture/CoinBrick/coin-brick.png", true);
+  Texture::LoadTexture("coin-brick-break", "Resources/Texture/CoinBrick/coin-break-brick.png", true);
 
   // Coin
-  Texture::LoadTexture("coin-0", "Game/Resources/Texture/Coin/coin-0.png", true);
-  Texture::LoadTexture("coin-1", "Game/Resources/Texture/Coin/coin-1.png", true);
-  Texture::LoadTexture("coin-2", "Game/Resources/Texture/Coin/coin-2.png", true);
-  Texture::LoadTexture("coin-3", "Game/Resources/Texture/Coin/coin-3.png", true);
-  Texture::LoadTexture("coin-4", "Game/Resources/Texture/Coin/coin-4.png", true);
-  Texture::LoadTexture("coin-5", "Game/Resources/Texture/Coin/coin-5.png", true);
+  Texture::LoadTexture("coin-0", "Resources/Texture/Coin/coin-0.png", true);
+  Texture::LoadTexture("coin-1", "Resources/Texture/Coin/coin-1.png", true);
+  Texture::LoadTexture("coin-2", "Resources/Texture/Coin/coin-2.png", true);
+  Texture::LoadTexture("coin-3", "Resources/Texture/Coin/coin-3.png", true);
+  Texture::LoadTexture("coin-4", "Resources/Texture/Coin/coin-4.png", true);
+  Texture::LoadTexture("coin-5", "Resources/Texture/Coin/coin-5.png", true);
 
   // Pipe
-  Texture::LoadTexture("pipe", "Game/Resources/Texture/pipe.png", true);
+  Texture::LoadTexture("pipe", "Resources/Texture/pipe.png", true);
 
   // Stair Brick
-  Texture::LoadTexture("stair_brick", "Game/Resources/Texture/StairBrick.png", true);
+  Texture::LoadTexture("stair_brick", "Resources/Texture/StairBrick.png", true);
 
 }
 
