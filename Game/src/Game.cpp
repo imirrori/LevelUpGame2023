@@ -28,6 +28,11 @@ bool Game::Run() {
   if (!glfwInit())
 	return false;
 
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
   main_window = glfwCreateWindow(static_cast<int>(width), static_cast<int>(height), "Super Mario", nullptr, nullptr);
 
   if (!main_window) {
@@ -63,7 +68,7 @@ bool Game::Run() {
 	glClearColor(0.363f, 0.914f, 0.937f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	onUpdate(delta);
+	onUpdate(delta); //FIXME:  Fail
 	onRender();
 
 	glfwSwapBuffers(main_window);
@@ -111,7 +116,7 @@ void Game::onInit() {
 void Game::onUpdate(float delta) {
 
   for (const auto &entity : scene_objects) {
-	entity->onUpdate(delta);
+	entity->onUpdate(delta); //Fixme: Fail
   }
 
   view_cam.SetPosition({mario->GetPosition().x - (static_cast<float>(width)/2), view_cam.GetPosition().y});
