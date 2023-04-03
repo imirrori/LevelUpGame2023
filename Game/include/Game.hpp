@@ -12,7 +12,7 @@
 #include "ContactListener.hpp"
 
 #include <GLFW/glfw3.h>
-#include <box2d/box2d.h>
+#include "box2d/box2d.h"
 #include <vector>
 
 class Game {

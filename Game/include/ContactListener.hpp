@@ -12,9 +12,13 @@
 
 class ContactListener : public b2ContactListener {
  public:
-  explicit ContactListener(b2World &MarioWorld);
-  ~ContactListener() override;
+ public:
+  ContactListener(b2World& physicsWorld);
+  ~ContactListener();
 
-  void BeginContact(b2Contact *contact) override;
+  void BeginContact(b2Contact* contact) override;
 };
+
+
+
 #endif //LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_CONTACTLISTENER_HPP_

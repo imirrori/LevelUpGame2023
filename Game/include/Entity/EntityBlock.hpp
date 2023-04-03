@@ -11,7 +11,7 @@
 #include "glm/vec2.hpp"
 #include "Texture.hpp"
 
-#include <box2d/box2d.h>
+#include "box2d/box2d.h"
 
 class EntityBlock : public Entity {
  public:
@@ -25,7 +25,7 @@ class EntityBlock : public Entity {
   void onCollision(std::shared_ptr<IEntity> collision_entity) override;
 
  private:
-  const void const Shake_(float delta);
+  const void  Shake_(float delta);
 
   int hp_ = 3;
 

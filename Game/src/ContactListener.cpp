@@ -4,8 +4,6 @@
 
 #include "ContactListener.hpp"
 
-#include "Entity/EntityMario.hpp"
-
 ContactListener::ContactListener(b2World &MarioWorld) {
   MarioWorld.SetContactListener(this);
 }
