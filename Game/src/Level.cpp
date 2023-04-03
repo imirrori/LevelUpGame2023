@@ -28,10 +28,10 @@ void Level::buildMap(b2World &world) {
 	for (std::size_t j = 0; j < map_.width(); ++j) {
 
 	  switch (map_.GetMap()[i*map_.width() + j]) {
-		case 'b':
-		  map_entities.emplace_back(std::make_shared<Entity>(EntityBlock(world, {j*100, (map_.height() - i)*100 + 100},
-																		 {100, 100})));
-		  break;
+//		case 'b':
+//		  map_entities.emplace_back(std::make_shared<Entity>(EntityBlock(world, {j*100, (map_.height() - i)*100 + 100},
+//																		 {100, 100})));
+//		  break;
 
 		case 'c':
 		  map_entities.emplace_back(std::make_shared<Entity>(EntityCoin(world, {j*100, (map_.height() - i)*100 + 100},
@@ -51,6 +51,7 @@ void Level::buildMap(b2World &world) {
 		case 's':
 		  map_entities.emplace_back(std::make_shared<Entity>(EntityStar(world, {j*100, (map_.height() - i)*100 +
 			  100}, {100, 100})));
+		  break;
 
 		default: break;
 	  }
