@@ -12,7 +12,9 @@ class Map {
  public:
   Map();
   explicit Map(const std::string &file_name);
+
   ~Map() = default;
+
   [[nodiscard]] std::size_t width() const { return width_; };
   [[nodiscard]] std::size_t height() const { return height_; };
   [[nodiscard]] const std::string &GetMap() const { return map_; };

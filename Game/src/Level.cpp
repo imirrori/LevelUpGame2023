@@ -23,33 +23,33 @@ void Level::onCollision(std::shared_ptr<IEntity> collision_entity) {
 }
 void Level::buildMap(b2World &world) {
 
-  for (std::size_t i = 0; i < map_.height(); ++i) {
+  for (std::size_t y = 0; y < map_.height(); ++y) {
 
-	for (std::size_t j = 0; j < map_.width(); ++j) {
+	for (std::size_t x = 0; x < map_.width(); ++x) {
 
-	  switch (map_.GetMap()[i*map_.width() + j]) {
-//		case 'b':
-//		  map_entities.emplace_back(std::make_shared<Entity>(EntityBlock(world, {j*100, (map_.height() - i)*100 + 100},
-//																		 {100, 100})));
-//		  break;
+	  switch (map_.GetMap()[y*map_.width() + x]) {
+		case 'b':
+		  map_entities.emplace_back(std::make_shared<Entity>(EntityBlock(world, {x*100, (map_.height() - y)*100 + 100},
+																		 {100, 100})));
+		  break;
 
 		case 'c':
-		  map_entities.emplace_back(std::make_shared<Entity>(EntityCoin(world, {j*100, (map_.height() - i)*100 + 100},
+		  map_entities.emplace_back(std::make_shared<Entity>(EntityCoin(world, {x*100, (map_.height() - y)*100 + 100},
 																		{100, 100})));
 		  break;
 
 		case 'p':
-		  map_entities.emplace_back(std::make_shared<Entity>(EntityPipe(world, {j*100, (map_.height() - i)*100 +
+		  map_entities.emplace_back(std::make_shared<Entity>(EntityPipe(world, {x*100, (map_.height() - y)*100 +
 			  50}, {200, 200})));
 		  break;
 
 		case 'm':
-		  map_entities.emplace_back(std::make_shared<Entity>(EntityMushroom(world, {j*100, (map_.height() - i)*100 +
+		  map_entities.emplace_back(std::make_shared<Entity>(EntityMushroom(world, {x*100, (map_.height() - y)*100 +
 			  100}, {100, 100})));
 		  break;
 
 		case 's':
-		  map_entities.emplace_back(std::make_shared<Entity>(EntityStar(world, {j*100, (map_.height() - i)*100 +
+		  map_entities.emplace_back(std::make_shared<Entity>(EntityStar(world, {x*100, (map_.height() - y)*100 +
 			  100}, {100, 100})));
 		  break;
 
@@ -61,15 +61,17 @@ void Level::buildMap(b2World &world) {
 }
 Level::~Level() {
 
-  for (auto &entity : map_entities) {
-	entity.reset();
-  }
+//  for (auto &entity : map_entities) {
+//	entity.reset();
+//  }
 
 }
 
 Level::Level(b2World &world) {
 
   buildMap(world);
+
+  std::cout << "Level created" << std::endl;
 
 }
 

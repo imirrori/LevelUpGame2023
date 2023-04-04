@@ -40,7 +40,7 @@ Map::Map(const std::string &file_name) {
 Map::Map() {
 
   map_ = default_map_;
-  width_ = 300;
-  height_ = 10;
+  width_ = 200;
+  height_ = 9;
 
 }
