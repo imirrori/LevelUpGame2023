@@ -96,6 +96,7 @@ set(SOURCE_FILES
     Game/src/Graphics/Render.cpp
     Game/src/Graphics/Shader.cpp
     Game/src/ContactListener.cpp
+    Game/src/EventSystem.cpp
 
     )
 
@@ -119,6 +120,8 @@ set(HEADER_FILES
     Game/include/Graphics/Render.hpp
     Game/include/Graphics/Shader.hpp
     Game/include/ContactListener.hpp
+    Game/include/IEventHandler.hpp
+    Game/include/EventSystem.hpp
 
     )
 ############################################################

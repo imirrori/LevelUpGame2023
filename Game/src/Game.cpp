@@ -3,6 +3,7 @@
 #include "Graphics/Render.hpp"
 #include "Entity/EntityGround.hpp"
 #include "Entity/EntityMario.hpp"
+#include "EventSystem.hpp"
 #include "Input.hpp"
 #include "Level.hpp"
 
@@ -33,7 +34,7 @@ bool Game::Run() {
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-  main_window = glfwCreateWindow(static_cast<int>(width), static_cast<int>(height), "Super Mario", nullptr, nullptr);
+  main_window = glfwCreateWindow(width, height, "Super Mario", nullptr, nullptr);
 
   if (!main_window) {
 	glfwTerminate();
@@ -81,6 +82,7 @@ bool Game::Run() {
 }
 
 void Game::onInit() {
+
   LoadAllShader();
   LoadAllTexture();
 
@@ -96,6 +98,8 @@ void Game::onInit() {
   }
 
   contact_listener = std::make_unique<ContactListener>(ContactListener(*MarioWorld));
+
+  event_handler = std::make_unique<EventSystem>(EventSystem());
 
   mario = std::make_shared<Entity>(EntityMario(*MarioWorld));
   SetGameEvent(mario->GetEventHandlers()); //TODO: Refactoring to Event class
@@ -119,7 +123,7 @@ void Game::onUpdate(float delta) {
 	entity->onUpdate(delta); //Fixme: Fail
   }
 
-  view_cam.SetPosition({mario->GetPosition().x - (static_cast<float>(width)/2), view_cam.GetPosition().y});
+  view_cam.SetPosition({mario->GetPosition().x - (width/2), view_cam.GetPosition().y});
   MarioWorld->Step(delta, 8, 3);
 
 }
@@ -197,7 +201,7 @@ void Game::LoadAllTexture() {
 Game::~Game() {
   Render::onShutDown();
 
-  contact_listener.reset();
+  delete contact_listener;
   level.reset();
 
   delete MarioWorld; //TODO:  Refactor to smart pointer

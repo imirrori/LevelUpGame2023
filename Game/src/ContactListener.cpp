@@ -8,7 +8,9 @@ ContactListener::ContactListener(b2World &MarioWorld) {
   MarioWorld.SetContactListener(this);
 }
 
-ContactListener::~ContactListener() = default;
+ContactListener::~ContactListener() {
+
+}
 
 void ContactListener::BeginContact(b2Contact *contact) {
   b2Body *bodyA = contact->GetFixtureA()->GetBody();

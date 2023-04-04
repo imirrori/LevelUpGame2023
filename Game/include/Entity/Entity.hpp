@@ -39,7 +39,7 @@ class Entity : public IEntity {
   [[nodiscard]] glm::vec2 GetSize() const { return size_; };
   [[nodiscard]] float pixel_to_m() const { return pixelToM_; }
 
-  virtual std::vector<std::shared_ptr<Entity>> GetEventHandlers();
+
 
  protected:
   glm::vec2 coord_;
