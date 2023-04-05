@@ -138,17 +138,7 @@ void Game::onRender() {
   Render::EndScene();
 }
 
-void Game::ClearGameEvent(std::shared_ptr<Entity> &entity) {
 
-  for (auto it = scene_objects.begin(); it!=scene_objects.end(); ++it) {
-
-	if (*it==entity) {
-	  scene_objects.erase(it);
-	}
-
-  }
-
-}
 
 void Game::LoadAllShader() {
 
@@ -201,7 +191,7 @@ void Game::LoadAllTexture() {
 Game::~Game() {
   Render::onShutDown();
 
-  delete contact_listener;
+  contact_listener.reset();
   level.reset();
 
   delete MarioWorld; //TODO:  Refactor to smart pointer
@@ -227,12 +217,6 @@ void Game::framebuffer_size_callback_(GLFWwindow *window, int width, int height)
   glViewport(0, 0, width, height);
 
 }
-void Game::SetGameEvent(std::vector<std::shared_ptr<Entity>> entities) {
 
-  for (const auto &entity : entities) {
-
-	scene_objects.push_back(entity);
-
-  }
 
 }

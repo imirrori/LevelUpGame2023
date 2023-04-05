@@ -12,7 +12,9 @@ int main() {
 
   Game game(width, height);
 
-  game.Run();
+  if (!game.Run()) {
+	std::cerr << "Something went wrong! " << std::endl;
+  };
 
   return 0;
 }
