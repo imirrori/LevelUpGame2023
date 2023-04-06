@@ -25,5 +25,7 @@ class IEntity {
   [[nodiscard]] virtual glm::vec2 GetScale() const = 0;
 
   virtual void SetTag(std::string &tag) = 0;
+
 };
+
 #endif //LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_INCLUDE_IENTITY_HPP_

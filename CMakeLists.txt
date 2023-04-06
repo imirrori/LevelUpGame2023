@@ -80,7 +80,6 @@ set(SOURCE_FILES
     lib/STBI/stbi_image.cpp
     Game/src/Input.cpp
     Game/src/Game.cpp
-    Game/src/Entity/Entity.cpp
     Game/src/Level.cpp
     Game/src/Map.cpp
     Game/src/Entity/EntityStar.cpp

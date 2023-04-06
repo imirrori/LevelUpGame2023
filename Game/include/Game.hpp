@@ -29,9 +29,6 @@ class Game {
   void onRender();
 
  public:
-  void SetGameEvent(std::vector<std::shared_ptr<Entity>> entities);
-
-  void ClearGameEvent(std::shared_ptr<Entity> &entity);
 
   static void LoadAllShader();
   static void LoadAllTexture();

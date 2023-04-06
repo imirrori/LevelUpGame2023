@@ -8,6 +8,7 @@
 #include "GL/glew.h"
 
 #include "Entity.hpp"
+#include "EventSystem.hpp"
 #include "glm/vec2.hpp"
 #include "Texture.hpp"
 
@@ -16,7 +17,7 @@
 class EntityBlock : public Entity {
  public:
 
-  EntityBlock(b2World &world, glm::vec2 position, glm::vec2 scale);
+  EntityBlock(EventSystem &event_handler_, b2World &world, glm::vec2 position, glm::vec2 scale);
 
   ~EntityBlock() override = default;
 
@@ -25,7 +26,7 @@ class EntityBlock : public Entity {
   void onCollision(std::shared_ptr<IEntity> collision_entity) override;
 
  private:
-  const void  Shake_(float delta);
+  const void Shake_(float delta);
 
   int hp_ = 3;
 
