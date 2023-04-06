@@ -26,7 +26,11 @@ class Entity : public IEntity {
   [[nodiscard]] float GetRotation() const override { return vRotation; };
   [[nodiscard]] glm::vec2 GetScale() const override { return vScale; };
 
-  [[nodiscard]] float pixel_to_m() const { return pixelToM_; }
+  void onUpdate(float delta) override {};
+  void onRender() override {};
+  void onCollision(std::shared_ptr<IEntity> collision_entity) override {};
+
+  [[nodiscard]] static float pixel_to_m() ;
 
  protected:
 
@@ -39,5 +43,6 @@ class Entity : public IEntity {
   glm::vec2 vScale = glm::vec2(1.0f, 1.0f);
 
 };
+float Entity::pixel_to_m() { return pixelToM_; }
 
 #endif //LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITY_HPP_

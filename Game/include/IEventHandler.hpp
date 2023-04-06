@@ -13,10 +13,10 @@ class IEventHandler {
  public:
   virtual ~IEventHandler();
 
-  virtual const std::vector<std::shared_ptr<IEntity>> &getEventsList() = 0;
+  virtual const std::vector<IEntity *> getEventsList() = 0;
 
-  virtual void addEventHandler(std::shared_ptr<IEntity> &owner) = 0;
-  virtual void removeEventHandler(std::shared_ptr<IEntity> &owner) = 0;
+  virtual void addEventHandler(IEntity & owner) = 0;
+  virtual void removeEventHandler(IEntity & owner) = 0;
 
 };
 

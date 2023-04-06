@@ -13,15 +13,15 @@
 class EventSystem : public IEventHandler {
  public:
   EventSystem();
-  virtual ~EventSystem() override = default;
+  ~EventSystem() override = default;
 
-  const std::vector<std::shared_ptr<IEntity>> &getEventsList() override{ return m_eventHandlers; }
+  const std::vector<IEntity *> getEventsList() override { return m_eventHandlers; }
 
-  void addEventHandler(std::shared_ptr<IEntity> &owner) override;
-  void removeEventHandler(std::shared_ptr<IEntity> &owner) override;
+  void addEventHandler(IEntity &owner) override;
+  void removeEventHandler(IEntity &owner) override;
 
  private:
-  std::vector<std::shared_ptr<IEntity>> m_eventHandlers;
+  std::vector<IEntity *> m_eventHandlers;
 
 };
 
