@@ -48,9 +48,10 @@ class Entity : public IEntity {
   static constexpr float pixelToM_ = 150.f;
 
   std::string vTag = "default";
-  glm::vec2 vPosition;
+
+  glm::vec2 vPosition{};
   float vRotation = 0.0f;
-  glm::vec2 vScale;
+  glm::vec2 vScale {};
 
 };
 

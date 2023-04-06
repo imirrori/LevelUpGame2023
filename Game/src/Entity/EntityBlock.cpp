@@ -19,6 +19,7 @@ EntityBlock::EntityBlock(b2World &world, glm::vec2 position, glm::vec2 scale) {
   current_texture = textures[2];
 
   b2BodyDef b_def;
+
   b_def.userData.pointer = reinterpret_cast<uintptr_t>(this);
   b_def.position.Set(vPosition.x/Game::PIXEL_TO_M, vPosition.y/Game::PIXEL_TO_M);
   b_def.type = b2_dynamicBody;
@@ -33,7 +34,8 @@ EntityBlock::EntityBlock(b2World &world, glm::vec2 position, glm::vec2 scale) {
 }
 
 void EntityBlock::onUpdate(float delta) {
-  Entity::onUpdate(delta);
+  vPosition = {mp_Body->GetPosition().x*Game::PIXEL_TO_M, mp_Body->GetPosition().y*Game::PIXEL_TO_M};
+  vRotation = mp_Body->GetAngle();
 }
 
 void EntityBlock::onRender() {

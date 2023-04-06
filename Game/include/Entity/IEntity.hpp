@@ -15,16 +15,15 @@ class IEntity {
  public:
   virtual ~IEntity() = default;
 
-  virtual void onInit() = 0;
   virtual void onUpdate(float delta) = 0;
   virtual void onRender() = 0;
   virtual void onCollision(std::shared_ptr<IEntity> collision_entity) = 0;
 
   [[nodiscard]] virtual std::string GetTag() const = 0;
-  virtual void SetTag(std::string &tag) = 0;
   [[nodiscard]] virtual glm::vec2 GetPosition() const = 0;
   [[nodiscard]] virtual float GetRotation() const = 0;
   [[nodiscard]] virtual glm::vec2 GetScale() const = 0;
 
+  virtual void SetTag(std::string &tag) = 0;
 };
 #endif //LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_INCLUDE_IENTITY_HPP_
