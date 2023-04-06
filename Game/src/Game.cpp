@@ -102,15 +102,13 @@ void Game::onInit() {
   event_handler = std::make_unique<EventSystem>(EventSystem());
 
   mario = std::make_shared<Entity>(EntityMario(*MarioWorld));
-  SetGameEvent(mario->GetEventHandlers()); //TODO: Refactoring to Event class
 
   ground = std::make_unique<Entity>(EntityGround(*MarioWorld));
-  SetGameEvent(ground->GetEventHandlers());
 
   level = std::make_unique<Entity>(Level(*MarioWorld));
 
   if (MarioWorld) {
-	SetGameEvent(level->GetEventHandlers());
+	std::cout << "Mario World Created" << std::endl;
   } else {
 	throw std::runtime_error("Error loading world");
   }
@@ -119,8 +117,8 @@ void Game::onInit() {
 
 void Game::onUpdate(float delta) {
 
-  for (const auto &entity : scene_objects) {
-	entity->onUpdate(delta); //Fixme: Fail
+  for (const auto &item : event_handler->getEventsList()) {
+	item->onUpdate(delta);
   }
 
   view_cam.SetPosition({mario->GetPosition().x - (width/2), view_cam.GetPosition().y});
@@ -131,14 +129,12 @@ void Game::onUpdate(float delta) {
 void Game::onRender() {
   Render::BeginScene(view_cam);
 
-  for (auto object : scene_objects) {
-	object->onRender();
+  for (auto &item : event_handler->getEventsList()) {
+	item->onRender();
   }
 
   Render::EndScene();
 }
-
-
 
 void Game::LoadAllShader() {
 
@@ -219,4 +215,3 @@ void Game::framebuffer_size_callback_(GLFWwindow *window, int width, int height)
 }
 
 
-}
