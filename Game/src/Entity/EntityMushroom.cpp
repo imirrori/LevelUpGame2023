@@ -16,10 +16,4 @@ void EntityMushroom::onCollision(std::shared_ptr<IEntity> collision_entity) {
   Entity::onCollision(collision_entity);
 }
 
-void EntityMushroom::Init() {
 
-}
-
-void EntityMushroom::onInit() {
-  Entity::onInit();
-}

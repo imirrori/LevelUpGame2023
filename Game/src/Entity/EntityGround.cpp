@@ -40,6 +40,3 @@ void EntityGround::onRender() {
 void EntityGround::onCollision(std::shared_ptr<IEntity> collision_entity) {
 
 }
-void EntityGround::onInit() {
-  Entity::onInit();
-}

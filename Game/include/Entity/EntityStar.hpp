@@ -12,7 +12,7 @@
 class EntityStar : public Entity {
  public:
 
-  EntityStar(b2World &world, glm::vec2 coord, glm::vec2 size) : Entity(world, coord, size) { Init(); }
+  EntityStar(b2World &world, glm::vec2 coord, glm::vec2 size) {}
 
   ~EntityStar() override = default;
 
@@ -21,7 +21,6 @@ class EntityStar : public Entity {
   void onCollision(std::shared_ptr<IEntity> collision_entity) override;
 
  private:
-  void Init();
 
 };
 

@@ -18,7 +18,6 @@ class EntityGround : public Entity {
   explicit EntityGround(b2World &world);
   ~EntityGround() override;
 
-  void onInit() override;
   void onUpdate(float delta) override;
   void onRender() override;
   void onCollision(std::shared_ptr<IEntity> collision_entity) override;

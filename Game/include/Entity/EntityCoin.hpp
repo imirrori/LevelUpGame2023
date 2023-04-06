@@ -8,21 +8,21 @@
 #include "GL/glew.h"
 
 #include "Entity.hpp"
+#include "EventSystem.hpp"
+
 class EntityCoin : public Entity {
 
  public:
 
-  EntityCoin(b2World &world, glm::vec2 coord, glm::vec2 size) : Entity(world, coord, size) { Init(); }
+  EntityCoin(b2World &world, glm::vec2 coord, glm::vec2 size) {}
 
   ~EntityCoin() override = default;
 
-  void onInit() override;
   void onUpdate(float delta) override;
   void onRender() override;
   void onCollision(std::shared_ptr<IEntity> collision_entity) override;
 
  private:
-  void Init();
 
 };
 

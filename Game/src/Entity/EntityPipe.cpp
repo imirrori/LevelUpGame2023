@@ -15,10 +15,3 @@ void EntityPipe::onRender() {
 void EntityPipe::onCollision(std::shared_ptr<IEntity> collision_entity) {
   Entity::onCollision(collision_entity);
 }
-
-void EntityPipe::Init() {
-
-}
-void EntityPipe::onInit() {
-  Entity::onInit();
-}

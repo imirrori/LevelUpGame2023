@@ -3,6 +3,7 @@
 //
 
 #include "Game.hpp"
+#include "Graphics/Render.hpp"
 #include "Entity/EntityBlock.hpp"
 
 EntityBlock::EntityBlock(EventSystem &event_handler_, b2World &world, glm::vec2 position, glm::vec2 scale) {
@@ -46,11 +47,26 @@ void EntityBlock::onUpdate(float delta) {
 }
 
 void EntityBlock::onRender() {
-  Entity::onRender();
+
+  if (hp_ > 0) {
+	Render::DrawTexture(vPosition, vRotation, vScale, current_texture);
+  }
 }
 
 void EntityBlock::onCollision(std::shared_ptr<IEntity> collision_entity) {
-  Entity::onCollision(collision_entity);
+
+  if (collision_entity->GetTag()=="mario") {
+
+	if (collision_entity->GetPosition().y < vPosition.y) {
+	  hp_--;
+
+	  if (hp_ <= 0) {
+		mp_Body->GetFixtureList()->SetSensor(true);
+	  }
+
+	  current_texture = textures[hp_ - 1];
+	}
+  }
 }
 
 
