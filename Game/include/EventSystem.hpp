@@ -6,6 +6,7 @@
 #define MARIO_GAME_SRC_EVENTSYSTEM_HPP_
 
 #include "Entity/IEntity.hpp"
+#include "Entity/Entity.hpp"
 #include "IEventHandler.hpp"
 
 #include <memory>
@@ -15,13 +16,13 @@ class EventSystem : public IEventHandler {
   EventSystem();
   ~EventSystem()override;
 
-  const std::vector<IEntity *> getEventsList() override { return m_eventHandlers; }
+   std::vector<Entity *>& getEventsList() override { return m_eventHandlers; }
 
-  void addEventHandler(IEntity &owner) override;
-  void removeEventHandler(IEntity &owner) override;
+  void addEventHandler(Entity &owner) override;
+  void removeEventHandler(Entity &owner) override;
 
  private:
-  std::vector<IEntity *> m_eventHandlers;
+  std::vector<Entity *> m_eventHandlers;
 
 };
 

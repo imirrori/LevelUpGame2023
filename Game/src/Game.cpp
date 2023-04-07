@@ -115,7 +115,9 @@ void Game::onInit() {
 
 void Game::onUpdate(float delta) {
 
-  for (const auto &item : event_handler.getEventsList()) {
+  auto ev_list = event_handler.getEventsList();
+  for (const auto item : ev_list) {
+	std::cout << "Item tag: " << item->GetTag() << std::endl;
 	item->onUpdate(delta);
   }
 

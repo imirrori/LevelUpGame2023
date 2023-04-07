@@ -35,13 +35,13 @@ EntityMario::EntityMario(EventSystem &event_handler, b2World &world) {
   b_def.fixedRotation = true;
   b_def.gravityScale = 2.f;
 
-  b_def.position.Set(vPosition.x/pixel_to_m(), vPosition.y/pixel_to_m());
+  b_def.position.Set(vPosition.x/pixelToM_, vPosition.y/pixelToM_);
   b_def.angle = glm::radians(vRotation);
 
   this->mp_Body = world.CreateBody(&b_def);
   b2PolygonShape box_shape;
 
-  box_shape.SetAsBox(vScale.x/2.f/pixel_to_m(), vScale.y/2.f/pixel_to_m());
+  box_shape.SetAsBox(vScale.x/2.f/pixelToM_, vScale.y/2.f/pixelToM_);
 
   b2FixtureDef fixDef;
 

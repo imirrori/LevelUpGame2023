@@ -8,11 +8,11 @@ EventSystem::EventSystem() {
 
 }
 
-void EventSystem::addEventHandler(IEntity &owner) {
+void EventSystem::addEventHandler(Entity &owner) {
   m_eventHandlers.push_back(&owner);
 }
 
-void EventSystem::removeEventHandler(IEntity &owner) {
+void EventSystem::removeEventHandler(Entity &owner) {
 
   for (int i = 0; i < m_eventHandlers.size(); i++) {
 
