@@ -9,20 +9,41 @@
 
 #include "Entity.hpp"
 #include "EventSystem.hpp"
+#include "Texture.hpp"
 
 class EntityCoin : public Entity {
 
  public:
 
-  EntityCoin(b2World &world, glm::vec2 coord, glm::vec2 size) {}
+  EntityCoin(EventSystem event_handler_, b2World &world, glm::vec2 position, glm::vec2 scale);
 
-  ~EntityCoin() override = default;
+  ~EntityCoin() override;
 
   void onUpdate(float delta) override;
   void onRender() override;
   void onCollision(std::shared_ptr<IEntity> collision_entity) override;
 
+  void EngageCoin();
+
  private:
+
+  void Animation(float dt);
+
+  bool isAlive = false;
+  glm::vec2 engage_pos_;
+  bool startCount = false;
+  float show_time = 1.5f;
+  float show_time_btw = show_time;
+
+  int texture_index_ = 0;
+
+  float animation_speed = 0.05f;
+  float animation_time_btw = animation_speed;
+
+  Texture::TexturePtr current_texture;
+  Texture::TexturePtr textures[6];
+
+  b2Body *mp_Body;
 
 };
 

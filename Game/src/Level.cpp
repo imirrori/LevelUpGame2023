@@ -29,8 +29,8 @@ void Level::buildMap(b2World &world) {
 
 	  switch (map_.GetMap()[y*map_.width() + x]) {
 		case 'b':
-		  map_entities.emplace_back(std::make_shared<Entity>(EntityBlock(world, {x*100, (map_.height() - y)*100 + 100},
-																		 {100, 100})));
+		  map_entities.emplace_back(std::make_shared<Entity>(EntityBlock(event_handler_, world, {x*100, (map_.height()
+			  - y)*100 + 100}, {100, 100})));
 		  break;
 
 		case 'c':
@@ -67,7 +67,9 @@ Level::~Level() {
 
 }
 
-Level::Level(b2World &world) {
+Level::Level(EventSystem &event_handler, b2World &world) {
+
+  event_handler_ = event_handler;
 
   buildMap(world);
 

@@ -8,6 +8,7 @@
 #include "GL/glew.h"
 
 #include "Entity/Entity.hpp"
+#include "EventSystem.hpp"
 #include "Map.hpp"
 
 #include "box2d/box2d.h"
@@ -16,7 +17,7 @@
 
 class Level : public Entity {
  public:
-  explicit Level(b2World &world);
+  Level(EventSystem &event_handler, b2World &world);
   ~Level() override;
 
   void onUpdate(float delta) override;
@@ -26,6 +27,8 @@ class Level : public Entity {
  private:
   std::vector<std::shared_ptr<Entity>> map_entities;
   Map map_;
+
+  EventSystem event_handler_;
 
   void buildMap(b2World &world);
 

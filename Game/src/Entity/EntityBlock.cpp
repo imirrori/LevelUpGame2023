@@ -13,7 +13,7 @@ EntityBlock::EntityBlock(EventSystem &event_handler_, b2World &world, glm::vec2 
   vRotation = 0;
   vTag = "brick";
 
-  event_handler_.addEventHandler(*this);
+
 
   textures[0] = Texture::GetTexture("brick-2");
   textures[1] = Texture::GetTexture("brick-1");

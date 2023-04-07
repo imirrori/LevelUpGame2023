@@ -12,7 +12,7 @@
 class EntityMushroom : public Entity {
  public:
 
-  EntityMushroom(b2World &world, glm::vec2 coord, glm::vec2 size) : Entity(world, coord, size) { Init(); }
+  EntityMushroom(b2World &world, glm::vec2 coord, glm::vec2 size) {  }
 
   ~EntityMushroom() override = default;
 
