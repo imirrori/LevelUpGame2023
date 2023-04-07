@@ -5,6 +5,7 @@
 #include "GL/glew.h"
 
 #include "Input.hpp"
+#include "IEventHandler.hpp"
 #include "Entity/IEntity.hpp"
 #include "Entity/EntityGround.hpp"
 #include "Entity/EntityMario.hpp"
@@ -40,13 +41,13 @@ class Game {
 
   unsigned int width, height;
 
-  std::unique_ptr<EventSystem> event_handler;
+  EventSystem event_handler;
 
   std::shared_ptr<Entity> mario;
   std::shared_ptr<Entity> ground;
   std::shared_ptr<Entity> level;
 
-  b2World *MarioWorld{};
+  b2World *MarioWorld = nullptr;
 
   std::shared_ptr<ContactListener> contact_listener;
 

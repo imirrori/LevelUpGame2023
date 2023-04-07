@@ -4,7 +4,9 @@
 
 #include "EventSystem.hpp"
 
-EventSystem::EventSystem() = default;
+EventSystem::EventSystem() {
+
+}
 
 void EventSystem::addEventHandler(IEntity &owner) {
   m_eventHandlers.push_back(&owner);
@@ -19,4 +21,8 @@ void EventSystem::removeEventHandler(IEntity &owner) {
 	}
 
   }
+}
+
+EventSystem::~EventSystem() {
+
 }

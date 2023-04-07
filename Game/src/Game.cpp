@@ -99,13 +99,11 @@ void Game::onInit() {
 
   contact_listener = std::make_shared<ContactListener>(ContactListener(*MarioWorld));
 
-  event_handler = std::make_unique<EventSystem>(EventSystem());
+  mario = std::make_shared<Entity>(EntityMario(event_handler, *MarioWorld));
 
-  mario = std::make_shared<Entity>(EntityMario(*MarioWorld));
+  ground = std::make_unique<Entity>(EntityGround(event_handler, *MarioWorld));
 
-  ground = std::make_unique<Entity>(EntityGround(*MarioWorld));
-
-  level = std::make_shared<Entity>(Level(*event_handler, *MarioWorld));
+  level = std::make_shared<Entity>(Level(event_handler, *MarioWorld));
 
   if (MarioWorld) {
 	std::cout << "Mario World Created" << std::endl;
@@ -117,7 +115,7 @@ void Game::onInit() {
 
 void Game::onUpdate(float delta) {
 
-  for (const auto &item : event_handler->getEventsList()) {
+  for (const auto &item : event_handler.getEventsList()) {
 	item->onUpdate(delta);
   }
 
@@ -129,7 +127,7 @@ void Game::onUpdate(float delta) {
 void Game::onRender() {
   Render::BeginScene(view_cam);
 
-  for (auto &item : event_handler->getEventsList()) {
+  for (auto &item : event_handler.getEventsList()) {
 	item->onRender();
   }
 

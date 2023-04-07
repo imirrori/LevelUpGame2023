@@ -41,13 +41,17 @@ void Level::buildMap(b2World &world) {
 		  break;
 
 		case 'p':
-		  map_entities.emplace_back(std::make_shared<Entity>(EntityPipe(world, {x*100, (map_.height() - y)*100 +
-			  50}, {200, 200})));
+		  map_entities.emplace_back(std::make_shared<Entity>(EntityPipe(event_handler_,
+																		world,
+																		{x*100, (map_.height() - y)*100 + 50},
+																		{200, 200})));
 		  break;
 
 		case 'm':
-		  map_entities.emplace_back(std::make_shared<Entity>(EntityMushroom(world, {x*100, (map_.height() - y)*100 +
-			  100}, {100, 100})));
+		  map_entities.emplace_back(std::make_shared<Entity>(EntityMushroom(event_handler_,
+																			world,
+																			{x*100, (map_.height() - y)*100 + 100},
+																			{100, 100})));
 		  break;
 
 		case 's':

@@ -11,7 +11,7 @@
 
 class IEventHandler {
  public:
-  virtual ~IEventHandler();
+  virtual ~IEventHandler() = default;
 
   virtual const std::vector<IEntity *> getEventsList() = 0;
 

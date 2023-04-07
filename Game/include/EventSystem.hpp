@@ -13,7 +13,7 @@
 class EventSystem : public IEventHandler {
  public:
   EventSystem();
-  ~EventSystem() override = default;
+  ~EventSystem()override;
 
   const std::vector<IEntity *> getEventsList() override { return m_eventHandlers; }
 

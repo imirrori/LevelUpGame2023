@@ -97,6 +97,7 @@ set(SOURCE_FILES
     Game/src/ContactListener.cpp
     Game/src/EventSystem.cpp
     Game/src/Entity/EntityCoinBlock.cpp
+    Game/include/IEventHandler.hpp
 
     )
 
@@ -120,7 +121,6 @@ set(HEADER_FILES
     Game/include/Graphics/Render.hpp
     Game/include/Graphics/Shader.hpp
     Game/include/ContactListener.hpp
-    Game/include/IEventHandler.hpp
     Game/include/EventSystem.hpp
     Game/include/Entity/EntityCoinBlock.hpp
 
