@@ -8,20 +8,21 @@
 #include "GL/glew.h"
 
 #include "Entity.hpp"
+#include "EventSystem.hpp"
+#include "Texture.hpp"
 
 class EntityPipe : public Entity {
  public:
-  EntityPipe(b2World &world, glm::vec2 coord, glm::vec2 size) {
-
-  }
-
-  ~EntityPipe() override = default;
+  EntityPipe(EventSystem &event_holder, b2World &world, glm::vec2 position, glm::vec2 scale);
+  ~EntityPipe() override;
 
   void onUpdate(float delta) override;
   void onRender() override;
   void onCollision(std::shared_ptr<IEntity> collision_entity) override;
 
  private:
+  Texture::TexturePtr texture;
+  b2Body *mp_Body;
 
 };
 
