@@ -2,12 +2,14 @@
 // Created by Dmitry Morozov on 24/3/23.
 //
 
-#include "Game/include/Entity/Entity.hpp"
-#include "Game/include/Entity/EntityBlock.hpp"
-#include "Game/include/Entity/EntityCoin.hpp"
-#include "Game/include/Entity/EntityMushroom.hpp"
-#include "Game/include/Entity/EntityPipe.hpp"
-#include "Game/include/Entity/EntityStar.hpp"
+#include "Entity/Entity.hpp"
+#include "Entity/EntityBlock.hpp"
+#include "Entity/EntityCoin.hpp"
+#include "Entity/EntityCoinBlock.hpp"
+#include "Entity/EntityMushroom.hpp"
+#include "Entity/EntityPipe.hpp"
+#include "Entity/EntityStepBlock.hpp"
+#include "EventSystem.hpp"
 #include "Level.hpp"
 
 #include <memory>
@@ -34,10 +36,8 @@ void Level::buildMap(b2World &world) {
 		  break;
 
 		case 'c':
-		  map_entities.emplace_back(std::make_shared<Entity>(EntityCoinBlock(event_handler_,world, {x*100, (map_
-		  .height()
-		  - y)*100 + 100},
-																		{100, 100})));
+		  map_entities.emplace_back(std::make_shared<Entity>(EntityCoinBlock(event_handler_, world, {x*100, (map_
+			  .height() - y)*100 + 100}, {100, 100})));
 		  break;
 
 		case 'p':
@@ -51,8 +51,10 @@ void Level::buildMap(b2World &world) {
 		  break;
 
 		case 's':
-		  map_entities.emplace_back(std::make_shared<Entity>(EntityStairBlock(world, {x*100, (map_.height() - y)*100 +
-			  100}, {100, 100})));
+		  map_entities.emplace_back(std::make_shared<Entity>(EntityStepBlock(event_handler_,
+																			 world,
+																			 {x*100, (map_.height() - y)*100 + 100},
+																			 {100, 100})));
 		  break;
 
 		default: break;
@@ -63,9 +65,9 @@ void Level::buildMap(b2World &world) {
 }
 Level::~Level() {
 
-//  for (auto &entity : map_entities) {
-//	entity.reset();
-//  }
+  for (auto &entity : map_entities) {
+	entity.reset();
+  }
 
 }
 

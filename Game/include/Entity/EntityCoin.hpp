@@ -15,7 +15,7 @@ class EntityCoin : public Entity {
 
  public:
 
-  EntityCoin(EventSystem event_handler_, b2World &world, glm::vec2 position, glm::vec2 scale);
+  EntityCoin(EventSystem &event_handler_, b2World &world, glm::vec2 position, glm::vec2 scale);
 
   ~EntityCoin() override;
 

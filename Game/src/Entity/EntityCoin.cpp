@@ -36,7 +36,7 @@ void EntityCoin::onRender() {
 
 }
 
-EntityCoin::EntityCoin(EventSystem event_handler_, b2World &world, glm::vec2 position, glm::vec2 scale) {
+EntityCoin::EntityCoin(EventSystem &event_handler_, b2World &world, glm::vec2 position, glm::vec2 scale) {
 
   event_handler_.addEventHandler(*this);
 

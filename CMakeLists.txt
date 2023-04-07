@@ -82,7 +82,7 @@ set(SOURCE_FILES
     Game/src/Game.cpp
     Game/src/Level.cpp
     Game/src/Map.cpp
-    Game/src/Entity/EntityStar.cpp
+    Game/src/Entity/EntityStepBlock.cpp
     Game/src/Entity/EntityCoin.cpp
     Game/src/Entity/EntityMushroom.cpp
     Game/src/Entity/EntityPipe.cpp
@@ -108,7 +108,7 @@ set(HEADER_FILES
     Game/include/Entity/Entity.hpp
     Game/include/Level.hpp
     Game/include/Map.hpp
-    Game/include/Entity/EntityStar.hpp
+    Game/include/Entity/EntityStepBlock.hpp
     Game/include/Entity/EntityCoin.hpp
     Game/include/Entity/EntityMushroom.hpp
     Game/include/Entity/EntityPipe.hpp
