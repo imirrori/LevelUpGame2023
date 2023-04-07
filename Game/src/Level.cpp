@@ -34,7 +34,9 @@ void Level::buildMap(b2World &world) {
 		  break;
 
 		case 'c':
-		  map_entities.emplace_back(std::make_shared<Entity>(EntityCoin(world, {x*100, (map_.height() - y)*100 + 100},
+		  map_entities.emplace_back(std::make_shared<Entity>(EntityCoinBlock(event_handler_,world, {x*100, (map_
+		  .height()
+		  - y)*100 + 100},
 																		{100, 100})));
 		  break;
 
@@ -49,7 +51,7 @@ void Level::buildMap(b2World &world) {
 		  break;
 
 		case 's':
-		  map_entities.emplace_back(std::make_shared<Entity>(EntityStar(world, {x*100, (map_.height() - y)*100 +
+		  map_entities.emplace_back(std::make_shared<Entity>(EntityStairBlock(world, {x*100, (map_.height() - y)*100 +
 			  100}, {100, 100})));
 		  break;
 
