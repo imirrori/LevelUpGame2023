@@ -3,55 +3,66 @@
 //
 
 #include "Entity/EntityMario.hpp"
-#include "Input.hpp"
+#include "EventSystem.hpp"
 #include "Graphics/Render.hpp"
+#include "Input.hpp"
 
 #include <memory>
 
-EntityMario::EntityMario(b2World &world) : Entity() {
+EntityMario::EntityMario(EventSystem &event_handler, b2World &world) {
 
   vPosition = glm::vec2(800, 2000);
   vRotation = 0;
   vScale = glm::vec2(100, 100);
   vTag = "mario";
 
+  event_handler.addEventHandler(*this);
+
   idleTexture = Texture::GetTexture("mario-idle");
   jumpTexture = Texture::GetTexture("mario-jump");
+
   runTexture[0] = Texture::GetTexture("mario-run-0");
   runTexture[1] = Texture::GetTexture("mario-run-1");
   runTexture[2] = Texture::GetTexture("mario-run-2");
 
   currentTexture = idleTexture;
 
-  // physics init
   b2BodyDef b_def;
+
   b_def.userData.pointer = reinterpret_cast<uintptr_t>(this);
+
   b_def.type = b2_dynamicBody;
   b_def.fixedRotation = true;
   b_def.gravityScale = 2.f;
+
   b_def.position.Set(vPosition.x/pixel_to_m(), vPosition.y/pixel_to_m());
   b_def.angle = glm::radians(vRotation);
 
   this->mp_Body = world.CreateBody(&b_def);
   b2PolygonShape box_shape;
+
   box_shape.SetAsBox(vScale.x/2.f/pixel_to_m(), vScale.y/2.f/pixel_to_m());
 
   b2FixtureDef fixDef;
+
   fixDef.shape = &box_shape;
   fixDef.density = 1;
   fixDef.friction = 1.f;
+
   this->mp_Body->CreateFixture(&fixDef);
+
 }
 
 EntityMario::~EntityMario() {
   mp_Body->GetWorld()->DestroyBody(mp_Body);
 
-  // Delete textures
   idleTexture.reset();
   jumpTexture.reset();
+
   runTexture[0].reset();
   runTexture[1].reset();
   runTexture[2].reset();
+
   currentTexture.reset();
 
 }
@@ -65,17 +76,27 @@ void EntityMario::onUpdate(float delta) {
 
   // Animation
   if ((Input::GetKey(GLFW_KEY_LEFT) || Input::GetKey(GLFW_KEY_RIGHT))!=0 && !jumping) {
+
 	RunAnimation(delta);
+
   } else if (jumping) {
+
 	currentTexture = jumpTexture;
+
   } else if (currentTexture!=idleTexture && !jumping) {
+
 	currentTexture = idleTexture;
+
   }
 
   // Flipping
-  if ((Input::GetKey(GLFW_KEY_LEFT) && faceRight) || (Input::GetKey(GLFW_KEY_RIGHT) && !faceRight)) {
+  if (Input::GetKey(GLFW_KEY_LEFT) && faceRight)
+
 	Flip();
-  }
+
+  else if (Input::GetKey(GLFW_KEY_RIGHT) && !faceRight)
+
+	Flip();
 
 }
 

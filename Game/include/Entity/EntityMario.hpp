@@ -9,19 +9,19 @@
 #include "GL/glew.h"
 
 #include "Entity/Entity.hpp"
+#include "EventSystem.hpp"
 #include "Texture.hpp"
-
 
 #include <array>
 
 class EntityMario : public Entity {
+
  public:
-  explicit EntityMario(b2World &world);
+  EntityMario(EventSystem &event_handler, b2World &world);
   ~EntityMario() override;
+
   void onUpdate(float delta) override;
   void onRender() override;
-
-  // physics
   void onCollision(std::shared_ptr<IEntity> collider) override;
 
  private:
@@ -30,9 +30,6 @@ class EntityMario : public Entity {
   void RunAnimation(float delta);
   void Jump(b2Vec2 &vel);
   void LittleJump();
-
-
- private:
 
   float speed = 5.f;
   bool jumping = false;
