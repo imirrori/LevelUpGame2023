@@ -97,7 +97,23 @@ void EntityMushroom::onRender() {
 }
 
 void EntityMushroom::onCollision(std::shared_ptr<IEntity> collision_entity) {
-  Entity::onCollision(collision_entity);
+
+  if (isDie || !isAlive) {
+
+	return;
+  }
+
+  faceRight_ = !faceRight_;
+
+  if (collision_entity->GetTag()=="mario") {
+
+	if (collision_entity->GetPosition().y > vPosition.y) {
+
+	  isDie = true;
+	  current_texture = dead_texture;
+
+	}
+  }
 }
 
 EntityMushroom::~EntityMushroom() {
@@ -107,6 +123,59 @@ EntityMushroom::~EntityMushroom() {
   current_texture.reset();
   dead_texture.reset();
 
+}
+
+void EntityMushroom::CountToDie(float delta) {
+
+  speed_ = 0;
+
+  if (time_to_disappear_ < 0) {
+
+	mp_Body->GetFixtureList()->SetSensor(true);
+
+	isAlive = false;
+
+  } else {
+	time_to_disappear_ -= delta;
+  }
+
+}
+
+void EntityMushroom::RunAnimation(float delta) {
+
+  current_texture = run_texture[texture_index];
+
+  if (animation_time_btw > 0) {
+
+	animation_time_btw -= delta;
+
+  } else {
+
+	animation_time_btw = animation_speed;
+	texture_index++;
+
+	if (texture_index >= 2) {
+
+	  texture_index = 0;
+	}
+  }
+  current_texture = run_texture[texture_index];
+
+  if (animation_time_btw > 0) {
+
+	animation_time_btw -= delta;
+
+  } else {
+
+	animation_time_btw = animation_speed;
+	texture_index++;
+
+	if (texture_index >= 2) {
+
+	  texture_index = 0;
+
+	}
+  }
 }
 
 
