@@ -4,15 +4,15 @@
 #include "box2d/box2d.h"
 #include "GL/glew.h"
 
-#include "Input.hpp"
-#include "IEventHandler.hpp"
-#include "Entity/IEntity.hpp"
+#include "ContactListener.hpp"
 #include "Entity/EntityGround.hpp"
 #include "Entity/EntityMario.hpp"
 #include "EventSystem.hpp"
+#include "Input.hpp"
+#include "interface/IEntity.hpp"
+#include "IEventHandler.hpp"
 #include "Level.hpp"
 #include "View.hpp"
-#include "ContactListener.hpp"
 
 #include <GLFW/glfw3.h>
 #include <memory>

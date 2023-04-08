@@ -6,7 +6,7 @@
 #define MARIO_GAME_INCLUDE_IEVENTHANDLER_HPP_
 
 #include "Entity/Entity.hpp"
-#include "Entity/IEntity.hpp"
+#include "interface/IEntity.hpp"
 
 #include <memory>
 

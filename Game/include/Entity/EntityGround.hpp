@@ -5,13 +5,12 @@
 #ifndef LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITYGROUND_HPP_
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITYGROUND_HPP_
 
+#include "box2d/box2d.h"
 #include "GL/glew.h"
 
 #include "Entity.hpp"
 #include "EventSystem.hpp"
 #include "Texture.hpp"
-
-#include "box2d/box2d.h"
 
 class EntityGround : public Entity {
 

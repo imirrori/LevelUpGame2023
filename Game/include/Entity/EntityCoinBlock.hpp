@@ -5,14 +5,13 @@
 #ifndef MARIO_GAME_SRC_ENTITY_ENTITYCOINBLOCK_HPP_
 #define MARIO_GAME_SRC_ENTITY_ENTITYCOINBLOCK_HPP_
 
+#include "box2d/box2d.h"
+#include "glm/vec2.hpp"
+
 #include "Entity/Entity.hpp"
 #include "Entity/EntityCoin.hpp"
-
 #include "EventSystem.hpp"
-#include "glm/vec2.hpp"
 #include "Texture.hpp"
-
-#include "box2d/box2d.h"
 
 class EntityCoinBlock : public Entity {
  public:

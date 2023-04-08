@@ -6,10 +6,10 @@
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_INCLUDE_IENTITY_HPP_
 
 #include "GL/glew.h"
+#include "glm/vec2.hpp"
 
-#include <glm/vec2.hpp>
-#include <string>
 #include <memory>
+#include <string>
 
 class IEntity {
  public:
@@ -17,7 +17,7 @@ class IEntity {
 
   virtual void onUpdate(float delta) = 0;
   virtual void onRender() = 0;
-  virtual void onCollision(IEntity * collision_entity) = 0;
+  virtual void onCollision(IEntity *collision_entity) = 0;
 
   [[nodiscard]] virtual std::string GetTag() const = 0;
   [[nodiscard]] virtual glm::vec2 GetPosition() const = 0;

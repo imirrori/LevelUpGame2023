@@ -4,11 +4,12 @@
 
 #ifndef LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_GRAPHICS_RENDER_HPP_
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_GRAPHICS_RENDER_HPP_
+
 #include "GL/glew.h"
 
-#include "View.hpp"
 #include "Graphics/Shader.hpp"
 #include "Texture.hpp"
+#include "View.hpp"
 
 class Render {
  public:

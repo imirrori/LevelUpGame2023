@@ -5,8 +5,8 @@
 #ifndef MARIO_GAME_SRC_EVENTSYSTEM_HPP_
 #define MARIO_GAME_SRC_EVENTSYSTEM_HPP_
 
-#include "Entity/IEntity.hpp"
 #include "Entity/Entity.hpp"
+#include "interface/IEntity.hpp"
 #include "IEventHandler.hpp"
 
 #include <memory>

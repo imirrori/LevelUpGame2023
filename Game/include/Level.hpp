@@ -5,13 +5,13 @@
 #ifndef LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_LEVEL_HPP_
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_LEVEL_HPP_
 
+#include "box2d/box2d.h"
 #include "GL/glew.h"
 
 #include "Entity/Entity.hpp"
 #include "EventSystem.hpp"
 #include "Map.hpp"
 
-#include "box2d/box2d.h"
 #include <string>
 #include <vector>
 

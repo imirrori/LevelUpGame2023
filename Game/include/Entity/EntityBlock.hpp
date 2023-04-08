@@ -5,14 +5,14 @@
 #ifndef LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITYBLOCK_HPP_
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITYBLOCK_HPP_
 
+#include "box2d/box2d.h"
 #include "GL/glew.h"
+#include "glm/vec2.hpp"
 
 #include "Entity.hpp"
 #include "EventSystem.hpp"
-#include "glm/vec2.hpp"
 #include "Texture.hpp"
 
-#include "box2d/box2d.h"
 
 class EntityBlock : public Entity {
  public:

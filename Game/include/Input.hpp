@@ -6,7 +6,6 @@
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_INPUT_HPP_
 
 #include "GL/glew.h"
-
 #include "GLFW/glfw3.h"
 
 class Input {

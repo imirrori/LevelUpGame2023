@@ -105,7 +105,7 @@ set(HEADER_FILES
     lib/STBI/stbi_image.h
     Game/include/Game.hpp
     Game/include/Input.hpp
-    Game/include/Entity/IEntity.hpp
+    Game/include/interface/IEntity.hpp
     Game/include/Entity/Entity.hpp
     Game/include/Level.hpp
     Game/include/Map.hpp
