@@ -18,12 +18,12 @@ EntityMario::EntityMario(EventSystem &event_handler, b2World &world) {
 
   event_handler.addEventHandler(*this);
 
-  idleTexture = Texture::GetTexture("mario-idle");
-  jumpTexture = Texture::GetTexture("mario-jump");
+  idleTexture = &Texture::GetTexture("mario-idle");
+  jumpTexture = &Texture::GetTexture("mario-jump");
 
-  runTexture[0] = Texture::GetTexture("mario-run-0");
-  runTexture[1] = Texture::GetTexture("mario-run-1");
-  runTexture[2] = Texture::GetTexture("mario-run-2");
+  runTexture[0] = &Texture::GetTexture("mario-run-0");
+  runTexture[1] = &Texture::GetTexture("mario-run-1");
+  runTexture[2] = &Texture::GetTexture("mario-run-2");
 
   currentTexture = idleTexture;
 
@@ -56,14 +56,14 @@ EntityMario::EntityMario(EventSystem &event_handler, b2World &world) {
 EntityMario::~EntityMario() {
   mp_Body->GetWorld()->DestroyBody(mp_Body);
 
-  idleTexture.reset();
-  jumpTexture.reset();
+  delete idleTexture;
+  delete jumpTexture;
 
-  runTexture[0].reset();
-  runTexture[1].reset();
-  runTexture[2].reset();
+  delete runTexture[0];
+  delete runTexture[1];
+  delete runTexture[2];
 
-  currentTexture.reset();
+  delete currentTexture;
 
 }
 
@@ -101,7 +101,7 @@ void EntityMario::onUpdate(float delta) {
 }
 
 void EntityMario::onRender() {
-  Render::DrawTexture(vPosition, vRotation, vScale, currentTexture);
+  Render::DrawTexture(vPosition, vRotation, vScale, *currentTexture);
 }
 
 void EntityMario::Movement(float delta) {
@@ -133,26 +133,35 @@ void EntityMario::LittleJump() {
   mp_Body->SetLinearVelocity(vel);
 }
 
-void EntityMario::onCollision(std::shared_ptr<IEntity> collider) {
+void EntityMario::onCollision(IEntity * collider) {
   jumping = false;
+
   if (collider->GetTag()=="mushroom")
 	LittleJump();
+
 }
 
 void EntityMario::Flip() {
+
   faceRight = !faceRight;
   vScale.x *= -1;
+
 }
 
 void EntityMario::RunAnimation(float delta) {
+
   currentTexture = runTexture[texture_index];
 
   if (animation_time_btw > 0) {
 	animation_time_btw -= delta;
   } else {
+
 	animation_time_btw = animation_speed;
 	texture_index++;
+
 	if (texture_index >= 3)
+
 	  texture_index = 0;
+
   }
 }

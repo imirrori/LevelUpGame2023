@@ -12,7 +12,8 @@
 
 class View {
  public:
-  View() = default;
+
+  View() {};
   View(float left, float right, float bottom, float top);
 
   inline void SetPosition(glm::vec2 position) {

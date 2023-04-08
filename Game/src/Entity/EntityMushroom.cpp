@@ -15,9 +15,10 @@ EntityMushroom::EntityMushroom(EventSystem &event_handler, b2World &world, glm::
 
   event_handler.addEventHandler(*this);
 
-  run_texture[0] = Texture::GetTexture("mushroom-run-0");
-  run_texture[1] = Texture::GetTexture("mushroom-run-1");
-  dead_texture = Texture::GetTexture("mushroom-dead");
+  run_texture[0] = &Texture::GetTexture("mushroom-run-0");
+  run_texture[1] = &Texture::GetTexture("mushroom-run-1");
+
+  dead_texture = &Texture::GetTexture("mushroom-dead");
 
   current_texture = run_texture[0];
 
@@ -28,9 +29,7 @@ EntityMushroom::EntityMushroom(EventSystem &event_handler, b2World &world, glm::
   b_def.userData.pointer = reinterpret_cast<uintptr_t>(this);
   b_def.type = b2_dynamicBody;
   b_def.fixedRotation = true;
-
   b_def.position.Set(vPosition.x/pixelToM_, vPosition.y/pixelToM_);
-
   b_def.angle = glm::radians(vRotation);
 
   this->mp_Body = world.CreateBody(&b_def);
@@ -92,11 +91,11 @@ void EntityMushroom::onRender() {
 	return;
   }
 
-  Render::DrawTexture(vPosition, vRotation, vScale, current_texture);
+  Render::DrawTexture(vPosition, vRotation, vScale, *current_texture);
 
 }
 
-void EntityMushroom::onCollision(std::shared_ptr<IEntity> collision_entity) {
+void EntityMushroom::onCollision(IEntity * collision_entity) {
 
   if (isDie || !isAlive) {
 
@@ -118,10 +117,12 @@ void EntityMushroom::onCollision(std::shared_ptr<IEntity> collision_entity) {
 
 EntityMushroom::~EntityMushroom() {
 
-  run_texture[0].reset();
-  run_texture[1].reset();
-  current_texture.reset();
-  dead_texture.reset();
+  delete run_texture[0];
+  delete run_texture[1];
+
+  delete current_texture;
+
+  delete dead_texture;
 
 }
 

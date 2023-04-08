@@ -13,11 +13,9 @@ EntityBlock::EntityBlock(EventSystem &event_handler_, b2World &world, glm::vec2 
   vRotation = 0;
   vTag = "brick";
 
-
-
-  textures[0] = Texture::GetTexture("brick-2");
-  textures[1] = Texture::GetTexture("brick-1");
-  textures[2] = Texture::GetTexture("brick-0");
+  textures[0] = &Texture::GetTexture("brick-2");
+  textures[1] = &Texture::GetTexture("brick-1");
+  textures[2] = &Texture::GetTexture("brick-0");
 
   current_texture = textures[2];
 
@@ -49,11 +47,11 @@ void EntityBlock::onUpdate(float delta) {
 void EntityBlock::onRender() {
 
   if (hp_ > 0) {
-	Render::DrawTexture(vPosition, vRotation, vScale, current_texture);
+	Render::DrawTexture(vPosition, vRotation, vScale, *current_texture);
   }
 }
 
-void EntityBlock::onCollision(std::shared_ptr<IEntity> collision_entity) {
+void EntityBlock::onCollision(IEntity *collision_entity) {
 
   if (collision_entity->GetTag()=="mario") {
 

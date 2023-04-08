@@ -187,8 +187,8 @@ void Game::LoadAllTexture() {
 Game::~Game() {
   Render::onShutDown();
 
-  contact_listener.reset();
-  level.reset();
+  delete contact_listener;
+  delete level;
 
   delete MarioWorld; //TODO:  Refactor to smart pointer
 

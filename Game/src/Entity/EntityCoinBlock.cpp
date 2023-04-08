@@ -14,8 +14,8 @@ EntityCoinBlock::EntityCoinBlock(EventSystem &event_handler, b2World &world, glm
   vScale = scale;
   vTag = "coin-brick";
 
-  idle_texture = Texture::GetTexture("coin-brick-idle");
-  break_texture = Texture::GetTexture("coin-brick-break");
+  idle_texture = &Texture::GetTexture("coin-brick-idle");
+  break_texture = &Texture::GetTexture("coin-brick-break");
   current_texture = idle_texture;
 
   b2BodyDef b_def;
@@ -32,13 +32,13 @@ EntityCoinBlock::EntityCoinBlock(EventSystem &event_handler, b2World &world, glm
 
   mp_Body->CreateFixture(&b_shape, 0.0f);
 
-  coin_ = std::make_shared<EntityCoin>(event_handler, world, vPosition, vScale);
+  coin_ = new EntityCoin(event_handler, world, vPosition, vScale);
 }
 
 EntityCoinBlock::~EntityCoinBlock() {
 
   mp_Body->GetWorld()->DestroyBody(mp_Body);
-  coin_.reset();
+  delete coin_;
 
 }
 
@@ -48,11 +48,11 @@ void EntityCoinBlock::onUpdate(float delta) {
 
 void EntityCoinBlock::onRender() {
 
-  Render::DrawTexture(vPosition, vRotation, vScale, current_texture);
+  Render::DrawTexture(vPosition, vRotation, vScale, *current_texture);
 
 }
 
-void EntityCoinBlock::onCollision(std::shared_ptr<IEntity> collision_entity) {
+void EntityCoinBlock::onCollision(IEntity *collision_entity) {
 
   if (collision_entity->GetTag()=="mario" && collision_entity->GetPosition().y < vPosition.y) {
 

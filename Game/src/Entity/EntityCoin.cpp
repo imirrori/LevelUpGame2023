@@ -31,7 +31,9 @@ void EntityCoin::onUpdate(float delta) {
 void EntityCoin::onRender() {
 
   if (isAlive) {
-	Render::DrawTexture(vPosition, vRotation, vScale, current_texture);
+
+	Render::DrawTexture(vPosition, vRotation, vScale, *current_texture);
+
   }
 
 }
@@ -46,12 +48,12 @@ EntityCoin::EntityCoin(EventSystem &event_handler_, b2World &world, glm::vec2 po
 
   engage_pos_ = position;
 
-  textures[0] = Texture::GetTexture("coin-0");
-  textures[1] = Texture::GetTexture("coin-1");
-  textures[2] = Texture::GetTexture("coin-2");
-  textures[3] = Texture::GetTexture("coin-3");
-  textures[4] = Texture::GetTexture("coin-4");
-  textures[5] = Texture::GetTexture("coin-5");
+  textures[0] = &Texture::GetTexture("coin-0");
+  textures[1] = &Texture::GetTexture("coin-1");
+  textures[2] = &Texture::GetTexture("coin-2");
+  textures[3] = &Texture::GetTexture("coin-3");
+  textures[4] = &Texture::GetTexture("coin-4");
+  textures[5] = &Texture::GetTexture("coin-5");
 
   current_texture = textures[0];
 
@@ -93,7 +95,7 @@ void EntityCoin::EngageCoin() {
 
 }
 
-void EntityCoin::onCollision(std::shared_ptr<IEntity> collision_entity) {
+void EntityCoin::onCollision(IEntity *collision_entity) {
 
   // Not necessary
 }

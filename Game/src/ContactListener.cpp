@@ -13,14 +13,17 @@ ContactListener::~ContactListener() {
 }
 
 void ContactListener::BeginContact(b2Contact *contact) {
+
   b2Body *bodyA = contact->GetFixtureA()->GetBody();
   b2Body *bodyB = contact->GetFixtureB()->GetBody();
 
-  auto objA = (Entity *)bodyA->GetUserData().pointer;
-  auto objB = (Entity *)bodyB->GetUserData().pointer;
+  IEntity *objA = (IEntity *)bodyA->GetUserData().pointer;
+  IEntity *objB = (IEntity *)bodyB->GetUserData().pointer;
 
   if (objA && objB) {
-	objA->onCollision(std::make_shared<Entity>(*objB));
-	objB->onCollision(std::make_shared<Entity>(*objA));
+
+	objA->onCollision(objB);
+	objB->onCollision(objA);
+
   }
 }

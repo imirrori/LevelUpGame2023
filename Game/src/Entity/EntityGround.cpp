@@ -12,7 +12,7 @@ EntityGround::EntityGround(EventSystem &event_handler, b2World &world) {
 
   vTag = "ground";
 
-  texture = Texture::GetTexture("ground");
+  texture = &Texture::GetTexture("ground");
 
   b2BodyDef bodyDef;
 
@@ -28,7 +28,9 @@ EntityGround::EntityGround(EventSystem &event_handler, b2World &world) {
 }
 
 EntityGround::~EntityGround() {
-  texture.reset();
+
+  delete texture;
+
 }
 
 void EntityGround::onUpdate(float delta) {
@@ -39,11 +41,11 @@ void EntityGround::onRender() {
 
   for (int i = 0; i < width_count_; i++) {
 	Render::DrawTexture({static_cast<float>(i)*tile_width_, 100}, 0, {tile_width_ + 14.5f, tile_width_ + 20.f},
-						texture);
+						*texture);
   }
 
 }
 
-void EntityGround::onCollision(std::shared_ptr<IEntity> collision_entity) {
+void EntityGround::onCollision(IEntity * collision_entity) {
 
 }

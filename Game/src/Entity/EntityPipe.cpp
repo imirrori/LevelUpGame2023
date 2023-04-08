@@ -11,11 +11,11 @@ void EntityPipe::onUpdate(float delta) {
 
 void EntityPipe::onRender() {
 
-  Render::DrawTexture(vPosition, vRotation, vScale, texture);
+  Render::DrawTexture(vPosition, vRotation, vScale, *texture);
 
 }
 
-void EntityPipe::onCollision(std::shared_ptr<IEntity> collision_entity) {
+void EntityPipe::onCollision(IEntity * collision_entity) {
 
 }
 
@@ -28,7 +28,7 @@ EntityPipe::EntityPipe(EventSystem &event_holder, b2World &world, glm::vec2 posi
   vRotation = 0;
   vTag = "pipe";
 
-  texture = Texture::GetTexture("pipe");
+  texture = &Texture::GetTexture("pipe");
 
   b2BodyDef b_def;
 

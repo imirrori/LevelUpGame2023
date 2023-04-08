@@ -19,7 +19,7 @@ void Level::onUpdate(float delta) {
 void Level::onRender() {
 
 }
-void Level::onCollision(std::shared_ptr<IEntity> collision_entity) {
+void Level::onCollision(IEntity * collision_entity) {
 
 }
 void Level::buildMap(b2World &world) {

@@ -4,27 +4,25 @@
 
 #include "Graphics/Render.hpp"
 
-struct RenderData
-{
+struct RenderData {
   unsigned int vao;
   unsigned int ibo;
   unsigned int vbo;
-  Shader* spriteShader;
-  Shader* flatShader;
+  Shader *spriteShader;
+  Shader *flatShader;
 };
 
-static RenderData* r_Data;
+static RenderData *r_Data;
 
-void Render::onInit()
-{
+void Render::onInit() {
   r_Data = new RenderData();
   r_Data->spriteShader = &Shader::GetShader("sprite");
   r_Data->flatShader = &Shader::GetShader("flat");
 
   float vertices[] = {
 	  -0.5f, -0.5f, 0.f, 0.f,
-	  -0.5f,  0.5f, 0.f, 1.f,
-	  0.5f,  0.5f, 1.f, 1.f,
+	  -0.5f, 0.5f, 0.f, 1.f,
+	  0.5f, 0.5f, 1.f, 1.f,
 	  0.5f, -0.5f, 1.f, 0.f
   };
 
@@ -44,14 +42,13 @@ void Render::onInit()
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (const void*)nullptr);
+  glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(float)*4, (const void *)nullptr);
 
   r_Data->spriteShader->Bind();
   r_Data->spriteShader->SetInt("u_Tex", 0);
 }
 
-void Render::onShutDown()
-{
+void Render::onShutDown() {
   glDeleteVertexArrays(1, &r_Data->vao);
   glDeleteBuffers(1, &r_Data->ibo);
   glDeleteBuffers(1, &r_Data->vbo);
@@ -59,8 +56,7 @@ void Render::onShutDown()
   delete r_Data;
 }
 
-void Render::BeginScene(View& cam_view)
-{
+void Render::BeginScene(View &cam_view) {
   r_Data->spriteShader->Bind();
   r_Data->spriteShader->SetMatrix4("u_View", cam_view.GetViewMatrix());
   r_Data->spriteShader->SetMatrix4("u_Projection", cam_view.GetProjectionMatrix());
@@ -70,17 +66,15 @@ void Render::BeginScene(View& cam_view)
   r_Data->flatShader->SetMatrix4("u_Projection", cam_view.GetProjectionMatrix());
 }
 
-void Render::EndScene()
-{
+void Render::EndScene() {
 
 }
 
-void Render::DrawQuad(glm::vec2 position, float rotation, glm::vec2 scale, glm::vec4 color)
-{
+void Render::DrawQuad(glm::vec2 position, float rotation, glm::vec2 scale, glm::vec4 color) {
   r_Data->flatShader->Bind();
-  glm::mat4 transform = glm::translate(glm::mat4(1), { position.x, position.y, 0 }) *
-	  glm::rotate(glm::mat4(1), glm::radians(rotation), glm::vec3(0, 0, 1)) *
-	  glm::scale(glm::mat4(1), { scale.x, scale.y, 0 });
+  glm::mat4 transform = glm::translate(glm::mat4(1), {position.x, position.y, 0})*
+	  glm::rotate(glm::mat4(1), glm::radians(rotation), glm::vec3(0, 0, 1))*
+	  glm::scale(glm::mat4(1), {scale.x, scale.y, 0});
 
   r_Data->flatShader->SetMatrix4("u_Model", transform);
   r_Data->flatShader->SetVector4("u_Color", color);
@@ -90,19 +84,21 @@ void Render::DrawQuad(glm::vec2 position, float rotation, glm::vec2 scale, glm::
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 }
 
-void Render::DrawTexture(glm::vec2 position, float rotation, glm::vec2 scale, const Texture::TexturePtr& texture)
-{
+void Render::DrawTexture(glm::vec2 position, float rotation, glm::vec2 scale, Texture &texture) {
+
   r_Data->spriteShader->Bind();
-  glm::mat4 transform = glm::translate(glm::mat4(1), { position.x, position.y, 0 }) *
-	  glm::rotate(glm::mat4(1), glm::radians(rotation), glm::vec3(0,0,1)) *
-	  glm::scale(glm::mat4(1), { scale.x, scale.y, 0});
+
+  glm::mat4 transform = glm::translate(glm::mat4(1), {position.x, position.y, 0})*
+	  glm::rotate(glm::mat4(1), glm::radians(rotation), glm::vec3(0, 0, 1))*
+	  glm::scale(glm::mat4(1), {scale.x, scale.y, 0});
 
   r_Data->spriteShader->SetMatrix4("u_Model", transform);
 
-  texture->Bind();
+  texture.Bind();
 
   glBindVertexArray(r_Data->vao);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, r_Data->ibo);
 
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+
 }

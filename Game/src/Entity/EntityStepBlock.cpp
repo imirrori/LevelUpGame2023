@@ -13,7 +13,7 @@ EntityStepBlock::EntityStepBlock(EventSystem &event_handler_, b2World &world, gl
   vRotation = 0;
   vScale = scale;
 
-  texture = Texture::GetTexture("stair_brick");
+  texture = &Texture::GetTexture("stair_brick");
 
   b2BodyDef b_def;
 
@@ -43,11 +43,11 @@ void EntityStepBlock::onUpdate(float dt) {
 
 void EntityStepBlock::onRender() {
 
-  Render::DrawTexture(vPosition, vRotation, vScale, texture);
+  Render::DrawTexture(vPosition, vRotation, vScale, *texture);
 
 }
 
-void EntityStepBlock::onCollision(std::shared_ptr<IEntity> collision_entity) {
+void EntityStepBlock::onCollision(IEntity *collision_entity) {
 
 }
 
