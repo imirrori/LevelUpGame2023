@@ -1,9 +1,8 @@
 #include "ContactListener.hpp"
-#include "Game.hpp"
-#include "Graphics/Render.hpp"
 #include "Entity/EntityGround.hpp"
 #include "Entity/EntityMario.hpp"
-#include "EventSystem.hpp"
+#include "Game.hpp"
+#include "Graphics/Render.hpp"
 #include "Input.hpp"
 #include "Level.hpp"
 

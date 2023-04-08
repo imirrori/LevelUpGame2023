@@ -15,7 +15,7 @@ void EntityPipe::onRender() {
 
 }
 
-void EntityPipe::onCollision(IEntity * collision_entity) {
+void EntityPipe::onCollision(IEntity *collision_entity) {
 
 }
 

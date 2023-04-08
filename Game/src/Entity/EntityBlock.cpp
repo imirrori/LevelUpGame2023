@@ -2,9 +2,8 @@
 // Created by Dmitry Morozov on 25/3/23.
 //
 
-#include "Game.hpp"
-#include "Graphics/Render.hpp"
 #include "Entity/EntityBlock.hpp"
+#include "Graphics/Render.hpp"
 
 EntityBlock::EntityBlock(EventSystem &event_handler_, b2World &world, glm::vec2 position, glm::vec2 scale) {
 

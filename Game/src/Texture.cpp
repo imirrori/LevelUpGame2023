@@ -2,10 +2,10 @@
 // Created by Dmitry Morozov on 29/3/23.
 //
 
-#include "Texture.hpp"
 #include "GL/glew.h"
-
 #include "lib/STBI/stbi_image.h"
+
+#include "Texture.hpp"
 
 #include <array>
 

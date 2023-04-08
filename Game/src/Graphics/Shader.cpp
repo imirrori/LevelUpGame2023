@@ -5,8 +5,8 @@
 #include "Graphics/Shader.hpp"
 
 #include <fstream>
-#include <sstream>
 #include <iostream>
+#include <sstream>
 
 std::unordered_map<std::string, Shader> Shader::Shaders_;
 
