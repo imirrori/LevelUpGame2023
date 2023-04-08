@@ -7,7 +7,7 @@
 
 #include "Entity/Entity.hpp"
 #include "interface/IEntity.hpp"
-#include "IEventHandler.hpp"
+#include "interface/IEventHandler.hpp"
 
 #include <memory>
 

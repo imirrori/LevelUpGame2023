@@ -97,7 +97,7 @@ set(SOURCE_FILES
     Game/src/ContactListener.cpp
     Game/src/EventSystem.cpp
     Game/src/Entity/EntityCoinBlock.cpp
-    Game/include/IEventHandler.hpp
+
 
     )
 
@@ -106,6 +106,8 @@ set(HEADER_FILES
     Game/include/Game.hpp
     Game/include/Input.hpp
     Game/include/interface/IEntity.hpp
+    Game/include/interface/IEventHandler.hpp
+    Game/include/interface/ILevel.hpp
     Game/include/Entity/Entity.hpp
     Game/include/Level.hpp
     Game/include/Map.hpp
@@ -123,8 +125,7 @@ set(HEADER_FILES
     Game/include/ContactListener.hpp
     Game/include/EventSystem.hpp
     Game/include/Entity/EntityCoinBlock.hpp
-
-    )
+    Game/include/interface/IMap.hpp)
 ############################################################
 # Create a library
 ############################################################

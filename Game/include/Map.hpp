@@ -5,19 +5,21 @@
 #ifndef LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_INCLUDE_MAP_HPP_
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_INCLUDE_MAP_HPP_
 
+#include "interface/IMap.hpp"
+
 #include <string>
 #include <vector>
 
-class Map {
+class Map : public IMap {
  public:
   Map();
   explicit Map(const std::string &file_name);
 
-  ~Map() = default;
+  ~Map() override = default;
 
-  [[nodiscard]] std::size_t width() const { return width_; };
-  [[nodiscard]] std::size_t height() const { return height_; };
-  [[nodiscard]] const std::string &GetMap() const { return map_; };
+  [[nodiscard]] std::size_t width() const override { return width_; };
+  [[nodiscard]] std::size_t height() const override { return height_; };
+  [[nodiscard]] const std::string &GetMap() const override { return map_; };
 
  private:
   std::size_t width_;

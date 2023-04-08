@@ -10,22 +10,23 @@
 
 #include "Entity/Entity.hpp"
 #include "EventSystem.hpp"
+#include "interface/ILevel.hpp"
 #include "Map.hpp"
 
 #include <string>
 #include <vector>
 
-class Level : public Entity {
+class Level : public Entity { //TODO: Refactor to ILevel
  public:
   Level(EventSystem &event_handler, b2World &world);
   ~Level() override;
 
   void onUpdate(float delta) override;
   void onRender() override;
-  void onCollision(IEntity* collision_entity) override;
+  void onCollision(IEntity *collision_entity) override;
 
  private:
-  std::vector<Entity *> map_entities;
+  std::vector<IEntity *> map_entities;
   Map map_;
 
   EventSystem event_handler_;

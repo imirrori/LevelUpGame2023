@@ -10,7 +10,7 @@
 #include "EventSystem.hpp"
 #include "Input.hpp"
 #include "interface/IEntity.hpp"
-#include "IEventHandler.hpp"
+#include "interface/IEventHandler.hpp"
 #include "Level.hpp"
 #include "View.hpp"
 
