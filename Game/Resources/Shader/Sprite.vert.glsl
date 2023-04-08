@@ -13,4 +13,4 @@ void main()
 	texCoords = aPos.zw;
 
 	gl_Position = u_Projection * u_View * u_Model * vec4(aPos.xy, 1.0, 1.0);
-};
+}
