@@ -22,7 +22,7 @@ class EntityMario : public Entity {
 
   void onUpdate(float delta) override;
   void onRender() override;
-  void onCollision(std::shared_ptr<IEntity> collider) override;
+  void onCollision(IEntity *collider) override;
 
  private:
   void Movement(float delta);
@@ -40,11 +40,11 @@ class EntityMario : public Entity {
   float animation_speed = 0.1f;
   float animation_time_btw = animation_speed;
 
-  Texture::TexturePtr currentTexture;
-  Texture::TexturePtr idleTexture;
-  Texture::TexturePtr jumpTexture;
+  Texture *currentTexture;
+  Texture *idleTexture;
+  Texture *jumpTexture;
 
-  std::array<Texture::TexturePtr, 3> runTexture;
+  Texture *runTexture[3];
 
   b2Body *mp_Body; // Make shared
 };

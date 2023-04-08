@@ -43,13 +43,13 @@ class Game {
 
   EventSystem event_handler;
 
-  std::shared_ptr<Entity> mario;
-  std::shared_ptr<Entity> ground;
-  std::shared_ptr<Entity> level;
+  EntityMario *mario;
+  EntityGround *ground;
+  Level *level;
 
   b2World *MarioWorld = nullptr;
 
-  std::shared_ptr<ContactListener> contact_listener;
+  ContactListener *contact_listener;
 
   static void key_callback_(GLFWwindow *window, int key, int scancode, int action, int mods);
   static void framebuffer_size_callback_(GLFWwindow *window, int width, int height);

@@ -16,7 +16,7 @@ class EventSystem : public IEventHandler {
   EventSystem();
   ~EventSystem()override;
 
-   std::vector<Entity *>& getEventsList() override { return m_eventHandlers; }
+   std::vector<Entity *> getEventsList() override { return m_eventHandlers; }
 
   void addEventHandler(Entity &owner) override;
   void removeEventHandler(Entity &owner) override;

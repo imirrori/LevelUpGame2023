@@ -14,7 +14,7 @@ class IEventHandler {
  public:
   virtual ~IEventHandler() = default;
 
-  virtual std::vector<Entity *>& getEventsList() = 0;
+  virtual std::vector<Entity *> getEventsList() = 0;
 
   virtual void addEventHandler(Entity & owner) = 0;
   virtual void removeEventHandler(Entity & owner) = 0;

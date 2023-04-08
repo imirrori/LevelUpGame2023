@@ -16,10 +16,11 @@ class EntityStepBlock : public Entity {
 
   void onUpdate(float delta) override;
   void onRender() override;
-  void onCollision(std::shared_ptr<IEntity> collision_entity) override;
+  void onCollision(IEntity *collision_entity) override;
 
  private:
-  Texture::TexturePtr texture;
+  Texture *texture;
+
   b2Body *mp_Body;
 
 };

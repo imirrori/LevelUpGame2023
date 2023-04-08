@@ -17,7 +17,7 @@ class IEntity {
 
   virtual void onUpdate(float delta) = 0;
   virtual void onRender() = 0;
-  virtual void onCollision(std::shared_ptr<IEntity> collision_entity) = 0;
+  virtual void onCollision(IEntity * collision_entity) = 0;
 
   [[nodiscard]] virtual std::string GetTag() const = 0;
   [[nodiscard]] virtual glm::vec2 GetPosition() const = 0;

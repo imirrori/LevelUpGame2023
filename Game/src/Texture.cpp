@@ -38,7 +38,7 @@ void Texture::LoadTexture(const std::string &name, const std::string &file, bool
 
 }
 
-Texture::TexturePtr Texture::GetTexture(const std::string &name) {
+Texture &Texture::GetTexture(const std::string &name) {
   try {
 
 	if (Texture::Textures_.at(name).m_Id==0) {
@@ -49,7 +49,8 @@ Texture::TexturePtr Texture::GetTexture(const std::string &name) {
 	std::cerr << e.what() << std::endl;
 
   }
-  return std::make_shared<Texture>(Texture::Textures_.at(name));
+
+  return Texture::Textures_.at(name);
 }
 
 void Texture::Generate(unsigned int width_, unsigned int height_, auto data) {

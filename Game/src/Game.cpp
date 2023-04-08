@@ -97,13 +97,13 @@ void Game::onInit() {
 	throw std::runtime_error("Failed to create b2World");
   }
 
-  contact_listener = std::make_shared<ContactListener>(ContactListener(*MarioWorld));
+  contact_listener = new ContactListener(*MarioWorld);
 
-  mario = std::make_shared<Entity>(EntityMario(event_handler, *MarioWorld));
+  mario = new EntityMario(event_handler, *MarioWorld);
 
-  ground = std::make_unique<Entity>(EntityGround(event_handler, *MarioWorld));
+  ground = new EntityGround(event_handler, *MarioWorld);
 
-  level = std::make_shared<Entity>(Level(event_handler, *MarioWorld));
+  level = new Level(event_handler, *MarioWorld);
 
   if (MarioWorld) {
 	std::cout << "Mario World Created" << std::endl;

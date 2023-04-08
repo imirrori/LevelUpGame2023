@@ -16,21 +16,21 @@
 
 class EntityCoinBlock : public Entity {
  public:
-  EntityCoinBlock(EventSystem & event_handler, b2World& world, glm::vec2 position, glm::vec2 scale);
+  EntityCoinBlock(EventSystem &event_handler, b2World &world, glm::vec2 position, glm::vec2 scale);
   ~EntityCoinBlock() override;
 
   void onUpdate(float delta) override;
   void onRender() override;
-  void onCollision(std::shared_ptr<IEntity> collision_entity) override;
+  void onCollision(IEntity *collision_entity) override;
 
  private:
-  std::shared_ptr<EntityCoin> coin_;
+  EntityCoin *coin_;
 
-  Texture::TexturePtr current_texture;
-  Texture::TexturePtr idle_texture;
-  Texture::TexturePtr break_texture;
+  Texture *current_texture;
+  Texture *idle_texture;
+  Texture *break_texture;
 
-  b2Body* mp_Body;
+  b2Body *mp_Body;
 };
 
 #endif //MARIO_GAME_SRC_ENTITY_ENTITYCOINBLOCK_HPP_

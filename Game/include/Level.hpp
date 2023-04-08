@@ -25,7 +25,7 @@ class Level : public Entity {
   void onCollision(std::shared_ptr<IEntity> collision_entity) override;
 
  private:
-  std::vector<std::shared_ptr<Entity>> map_entities;
+  std::vector<Entity *> map_entities;
   Map map_;
 
   EventSystem event_handler_;

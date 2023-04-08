@@ -28,7 +28,7 @@ class Entity : public IEntity {
 
   void onUpdate(float delta) override {};
   void onRender() override {};
-  void onCollision(std::shared_ptr<IEntity> collision_entity) override {};
+  void onCollision(IEntity * collision_entity) override {};
 
  protected:
 

@@ -18,7 +18,7 @@ class EntityMushroom : public Entity {
 
   void onUpdate(float delta) override;
   void onRender() override;
-  void onCollision(std::shared_ptr<IEntity> collision_entity) override;
+  void onCollision(IEntity *collision_entity) override;
 
  private:
   void RunAnimation(float delta);
@@ -31,9 +31,9 @@ class EntityMushroom : public Entity {
   float speed_ = 2.f;
   bool faceRight_ = false;
 
-  Texture::TexturePtr current_texture;
-  Texture::TexturePtr run_texture[2];
-  Texture::TexturePtr dead_texture;
+  Texture *current_texture;
+  Texture *run_texture[2];
+  Texture *dead_texture;
 
   // Animations
 

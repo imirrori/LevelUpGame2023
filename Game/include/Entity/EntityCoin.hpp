@@ -21,7 +21,7 @@ class EntityCoin : public Entity {
 
   void onUpdate(float delta) override;
   void onRender() override;
-  void onCollision(std::shared_ptr<IEntity> collision_entity) override;
+  void onCollision(IEntity *collision_entity) override;
 
   void EngageCoin();
 
@@ -40,8 +40,8 @@ class EntityCoin : public Entity {
   float animation_speed = 0.05f;
   float animation_time_btw = animation_speed;
 
-  Texture::TexturePtr current_texture;
-  Texture::TexturePtr textures[6];
+  Texture *current_texture;
+  Texture *textures[6];
 
   b2Body *mp_Body;
 
