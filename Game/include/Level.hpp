@@ -29,7 +29,7 @@ class Level : public Entity { //TODO: Refactor to ILevel
   std::vector<IEntity *> map_entities;
   Map map_;
 
-  EventSystem event_handler_;
+  EventSystem * event_handler_;
 
   void buildMap(b2World &world);
 

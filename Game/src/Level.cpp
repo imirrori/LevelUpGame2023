@@ -30,35 +30,35 @@ void Level::buildMap(b2World &world) {
 
 	  switch (map_.GetMap()[y*map_.width() + x]) {
 		case 'b':
-		  map_entities.emplace_back(new EntityBlock(event_handler_,
+		  map_entities.emplace_back(new EntityBlock(*event_handler_,
 													world,
 													{x*100, (map_.height() - y)*100 + 100},
 													{100, 100}));
 		  break;
 
 		case 'c':
-		  map_entities.emplace_back(new EntityCoinBlock(event_handler_,
+		  map_entities.emplace_back(new EntityCoinBlock(*event_handler_,
 														world,
 														{x*100, (map_.height() - y)*100 + 100},
 														{100, 100}));
 		  break;
 
 		case 'p':
-		  map_entities.emplace_back(new EntityPipe(event_handler_,
+		  map_entities.emplace_back(new EntityPipe(*event_handler_,
 												   world,
 												   {x*100, (map_.height() - y)*100 + 50},
 												   {200, 200}));
 		  break;
 
 		case 'm':
-		  map_entities.emplace_back(new EntityMushroom(event_handler_,
+		  map_entities.emplace_back(new EntityMushroom(*event_handler_,
 													   world,
 													   {x*100, (map_.height() - y)*100 + 100},
 													   {100, 100}));
 		  break;
 
 		case 's':
-		  map_entities.emplace_back(new EntityStepBlock(event_handler_,
+		  map_entities.emplace_back(new EntityStepBlock(*event_handler_,
 														world,
 														{x*100, (map_.height() - y)*100 + 100},
 														{100, 100}));
@@ -80,7 +80,7 @@ Level::~Level() {
 
 Level::Level(EventSystem &event_handler, b2World &world) {
 
-  event_handler_ = event_handler;
+  event_handler_ = &event_handler;
 
   buildMap(world);
 
