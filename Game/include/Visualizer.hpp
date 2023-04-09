@@ -6,6 +6,7 @@
 #include "Player.hpp"
 #include "interface/IMenu.hpp"
 #include "Menu.hpp"
+#include "interface/IMap.hpp"
 
 #include <GLFW/glfw3.h>
 #include <string>
@@ -14,20 +15,27 @@
 namespace Visual {
 class Visualizer :
   public IPlayer
-  , public IMenu {
+  , public IMenu
+  , public IMap {
 public:
 
   Visualizer(const Settings::GlobalSettings& settings);
   ~Visualizer();
 
-  bool Show(const Player& player,
-            const Menu  & menu);
-  void ShowPlayer(int x,
-                  int y) const override;                 // IPlayer
+  bool               Show(const Player& player,
+                          const Menu  & menu);
+  void               ShowPlayer(int x,
+                                int y) const override;     // IPlayer
 
-  void StartPrint(int count) const override;             // IMenu
-  void PrintRow(const std::string& name) const override; // IMenu
-  void EndPrint() const override;                        // IMenu
+  void               StartPrint(int count) const override; // IMenu
+  void               PrintRow(const std::vector<std::string>& names) const
+  override;                                                // IMenu
+  void               EndPrint() const override;            // IMenu
+
+  std::size_t        width() const override;               // IMap
+  std::size_t        height() const override;              // IMap
+  const std::string& GetMap() const override;              // IMap
+  void               PrintMap(const std::string& map) const override;
 
 private:
 

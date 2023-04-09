@@ -2,6 +2,7 @@
 #define GAME_HPP
 
 #include "GlobalSettings.hpp"
+#include "Map.hpp"
 #include "Menu.hpp"
 #include "Player.hpp"
 #include "Visualizer.hpp"
@@ -22,6 +23,8 @@ private:
   std::shared_ptr<Visual::Visualizer>viz_;
   Player player_;
   Menu menu_;
+
+  //  Map map_;
 };
 
 #endif // GAME_HPP

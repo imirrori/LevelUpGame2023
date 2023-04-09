@@ -3,28 +3,27 @@
 
 #include "interface/IMenu.hpp"
 #include <memory>
+#include <vector>
 
 class Menu {
 public:
 
-  Menu(std::shared_ptr<IMenu>viz, const std::string& name)
+  Menu(std::shared_ptr<IMenu>viz, const std::vector<std::string>& names)
     : viz_(std::move(viz))
-    , name_row_(name)
-  {}
+    , names_row_(std::move(names))
+  {
+    // names_row_.emplace_back(name);
+  }
 
   void show() const
   {
-    viz_->PrintRow(name_row_);
+    viz_->PrintRow(names_row_);
   }
-
-  //  virtual void StartPrint(int count);
-  //  virtual void PrintRow(const std::string& name);
-  //  virtual void EndPrint();
 
 private:
 
   std::shared_ptr<IMenu>viz_;
-  std::string name_row_;
+  std::vector<std::string>names_row_;
 };
 
 #endif // MENU_HPP
