@@ -5,6 +5,7 @@ CONFIG -= qt
 
 SOURCES += \
        src/Game.cpp \
+       src/Player.cpp \
        src/Visualizer.cpp \
        App/main.cpp
 
@@ -13,6 +14,7 @@ HEADERS += \
        include/GlobalSettings.hpp \
        include/IMenu.hpp \
        include/IPlayer.hpp \
+       include/Player.hpp \
        include/Visualizer.hpp
 
 INCLUDEPATH += $$PWD/include
