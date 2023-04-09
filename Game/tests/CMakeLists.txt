@@ -6,9 +6,9 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR} ../include)
 
 add_executable(Mario_test
 
-               src/Game_test.cpp
+               src/IEntity_test.cpp
 
-               )
+               src/Entity_test.cpp)
 
 target_include_directories(Mario_test PRIVATE
                            ${CMAKE_SOURCE_DIR}/src
