@@ -1,5 +1,5 @@
 #include "GlobalSettings.hpp"
-#include "Player.hpp"
+
 #include "Visualizer.hpp"
 
 #include <stdlib.h>
