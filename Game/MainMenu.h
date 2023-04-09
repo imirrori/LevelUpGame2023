@@ -10,16 +10,19 @@ enum class Screen
 class MainMenu {
  public:
   MainMenu();
-  ~MainMenu();
-  void Paint();
-  void Time();
+  virtual ~MainMenu()=0;
+  virtual void Paint()=0;
+  virtual void Time()=0;
+  virtual void  StartPrint();
+  virtual void  PrintRow();
+  virtual void EndPrint();
 
  private:
 
-  void PaintBorder();
-  void DrawBorderPlank(int plankIndex, int left, int top);
-  void PaintCursor(int left, int top);
-  void update();
+  virtual void PaintBorder()=0;
+  virtual void DrawBorderPlank(int plankIndex, int left, int top)=0;
+  virtual void PaintCursor(int left, int top)=0;
+  virtual void update()=0;
   int m_CursorIndex;
   int m_MaxCursorIndex;
 };
