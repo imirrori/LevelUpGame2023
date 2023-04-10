@@ -12,6 +12,7 @@ public:
 
   static constexpr int field_width  = 50;
   static constexpr int field_height = 25;
+  static constexpr int map_lenght   = 1249;
 
   const char *window_name = "Mario";
 

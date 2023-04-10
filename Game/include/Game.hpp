@@ -22,7 +22,8 @@ private:
   Settings::GlobalSettings setting;
   std::shared_ptr<Visual::Visualizer>viz_;
   Player player_;
-  Menu menu_;
+
+  //  Menu menu_;
 
   //  Map map_;
 };

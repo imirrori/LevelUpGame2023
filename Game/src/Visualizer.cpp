@@ -7,6 +7,7 @@
 namespace Visual {
 Visualizer::Visualizer(const Settings::GlobalSettings& settings)
   : settings_(settings)
+  , menu_count_(0)
 {
   if (!glfwInit()) {
     throw std::exception{};
@@ -32,9 +33,10 @@ Visualizer::~Visualizer()
   glfwTerminate();
 }
 
-bool Visualizer::Show(const Player& player, const Menu& menu) //  передать
-                                                              // вектор объектов
-                                                              // Entity
+bool Visualizer::Show(const Player& player) //  передать
+// вектор
+// объектов
+// Entity
 {
   if (glfwWindowShouldClose(window_))
   {
@@ -48,36 +50,16 @@ bool Visualizer::Show(const Player& player, const Menu& menu) //  передат
     glOrtho(0, settings_.field_width, 0, settings_.field_height, 0, 10);
 
     //    menu.show(); // отрисовка меню
+    //   PrintMap(" ");
 
-    std::string my_map =
-      "#################################################"
-      "#################################################"
-      "#################################################"
-      "#################################################"
-      "######################s##########################"
-      "######################s##########################"
-      "#################################################"
-      "#################################################"
-      "#################################################"
-      "#################################################"
-      "#################################################"
-      "#################################################"
-      "#################################################"
-      "ccccccc##########################################"
-      "#################################################"
-      "#################################################"
-      "###########################sssss#################"
-      "#################################################"
-      "#################################################"
-      "############mmmm#################################"
-      "#################################################"
-      "############mmmm#################################"
-      "#################################################"
-      "#################################################"
-      "#################################################";
+    //   player.show();            // отрисовка персонажа
 
-    PrintMap(my_map);         // карта
-    player.show();            // отрисовка персонажа
+    StartPrint(3);
+    PrintRow("name1");
+    PrintRow("name2");
+    PrintRow("name3");
+    EndPrint();
+
 
     glfwSwapBuffers(window_); // обмен буферов
     glfwPollEvents();         // обработчик событий, проверяет не зависло ли
@@ -91,62 +73,99 @@ bool Visualizer::Show(const Player& player, const Menu& menu) //  передат
 
 void Visualizer::ShowPlayer(int x, int y) const // override by IPlayer
 {
-  // почему ShowPlayer не знает о глобальных настройках внутри Visualizer?
   // начало отрисовки полигона персонажа
   glBegin(GL_POLYGON);
 
-  glColor3f(1, 1, 1);                                    // RGB
-  glVertex2d(x * Settings::GlobalSettings::player_size,
-             y * Settings::GlobalSettings::player_size); // вправо(x), вверх(y)
-  glVertex2d(
-    y  * Settings::GlobalSettings::player_size + Settings::GlobalSettings::player_size,
-    x  * Settings::GlobalSettings::player_size);
-  glVertex2d(
-    y  * Settings::GlobalSettings::player_size + Settings::GlobalSettings::player_size,
-    x  * Settings::GlobalSettings::player_size +
-    Settings::GlobalSettings::player_size);
-  glVertex2d(y  * Settings::GlobalSettings::player_size,
-             x  * Settings::GlobalSettings::player_size +
-             Settings::GlobalSettings::player_size);
+  glColor3f(1, 1, 1); // RGB
+  glVertex2d(x * settings_.player_size,
+             y * settings_.player_size);
+  glVertex2d(x * settings_.player_size + settings_.player_size,
+             y * settings_.player_size);
+  glVertex2d(x * settings_.player_size + settings_.player_size,
+             y * settings_.player_size + settings_.player_size);
+  glVertex2d(x * settings_.player_size,
+             y * settings_.player_size + settings_.player_size);
 
   // конец отрисовки полигона персонажа
   glEnd();
 }
 
-void Visualizer::StartPrint(int count) const // override by IMenu
+void Visualizer::StartPrint(int count) // override by IMenu
 {
+  menu_count_ = count;
 }
 
-void Visualizer::PrintRow(const std::vector<std::string>& names) const // override
-                                                                       // by
-                                                                       // IMenu
+void Visualizer::PrintRow(const std::string& name) // override_by_IMenu
 {
-  glBegin(GL_POLYGON);
+  std::string menu_map =
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################"
+    "##################################################";
 
-  for (int i = 0, j = 1; j < names.size() + 1; ++j)
+  int number_of_line = 0;
+
+  for (int i = 0; i < menu_count_; ++i)
   {
-    std::cout << i << std::endl;
-
-    int coord_hight  = 15;
-    int coord_weight = 30;
-    int size_of_str  = 2;
-
-    glColor3f(1, 0, 0);                                          // RGB
-
-    glVertex2d(coord_hight + i,  coord_hight + i);               // нижнний
-                                                                 // левый
-    glVertex2d(coord_hight + i,  coord_hight + size_of_str + i); // верхний
-                                                                 // левый
-    glVertex2d(coord_weight + i, coord_hight + size_of_str + i); // верхний
-                                                                 // правый
-    glVertex2d(coord_weight + i, coord_hight + i);               // нижний
-                                                                 // правый
-    i = i + 3;
+    for (unsigned long long k = 0; k < name.size(); ++k)
+    {
+      menu_map[number_of_line + k] = 'n';
+    }
+    number_of_line = number_of_line + settings_.field_width * 2; // через строку
   }
-  glEnd();
+
+  for (int i = 0; i < settings_.field_height; ++i)               // 25 вниз
+  {
+    int j = 0;
+
+    for (; j < settings_.field_width; ++j) // 50 вбок
+    {
+      glBegin(GL_POLYGON);
+
+      switch (menu_map[(i * 50) + j])
+      {
+        case '#':
+          glColor3f(0, 0, 0);
+          break;
+        case 'n':
+          glColor3f(1, 0, 0);
+          break;
+        case 'm':
+          glColor3f(0, 1, 0);
+          break;
+      }
+      glVertex2f(0 +   j, 0  + (24 - i));
+      glVertex2f(0 +   j, 1 +  (24 - i));
+      glVertex2f(1 +   j, 1 +  (24 - i));
+      glVertex2f(1 +   j, 0  + (24 - i));
+      glEnd();
+    }
+    j = 0;
+  }
 }
 
-void Visualizer::EndPrint() const // override by IMenu
+void Visualizer::EndPrint() // override by IMenu
 {
 }
 
@@ -162,45 +181,47 @@ const std::string& Visualizer::GetMap() const // override byIMap
 {
 }
 
-void Visualizer::PrintMap(const std::string& map) const
+void Visualizer::PrintMap(const std::string& map)
 {
-  std::string my_map = map;
-
-  for (int i = 0; i < Settings::GlobalSettings::window_height; ++i) // 25
+  if (map.size() == settings_.map_lenght)            // длинна карты в символах
   {
-    int j = 0;
-
-    for (; j < Settings::GlobalSettings::window_width; ++j) // 50
+    for (int i = 0; i < settings_.field_height; ++i) // 25 вниз
     {
-      glBegin(GL_POLYGON);
+      int j = 0;
 
-      switch (my_map[(i * 25 + 1) + j])
+      for (; j < settings_.field_width; ++j) // 50 вбок
       {
-        case '#':
-          glColor3f(0,   0,   1);
-          break;
-        case 'c':
-          glColor3f(1,   0,   0);
-          break;
-        case 'm':
-          glColor3f(0,   1,   0);
-          break;
-        case 's':
-          glColor3f(1,   1,   0);
-          break;
-        case 'b':
-          glColor3f(0.5, 0.5, 0.5);
-          break;
+        glBegin(GL_POLYGON);
+
+        switch (map[(i * 50) + j])
+        {
+          case '#':
+            glColor3f(0,   0,   1);
+            break;
+          case 'c':
+            glColor3f(1,   0,   0);
+            break;
+          case 'm':
+            glColor3f(0,   1,   0);
+            break;
+          case 's':
+            glColor3f(1,   1,   1);
+            break;
+          case 'b':
+            glColor3f(0.5, 0.5, 0.5);
+            break;
+        }
+        glVertex2f(0 +   j, 0  + (24 - i));
+        glVertex2f(0 +   j, 1 +  (24 - i));
+        glVertex2f(1 +   j, 1 +  (24 - i));
+        glVertex2f(1 +   j, 0  + (24 - i));
+        glEnd();
       }
-      glVertex2i(50 - j,      25 - i);
-      glVertex2i(50 - j  + 1, 25 - i);
-      glVertex2i(50 - j  + 1, 25 - i  + 1);
-      glVertex2i(50 - j,      25 - i + 1);
-
-
-      glEnd();
+      j = 0;
     }
-    j = 0;
+  }
+  else {
+    std::cout << "wrong map size" << std::endl;
   }
 }
 } // Visual

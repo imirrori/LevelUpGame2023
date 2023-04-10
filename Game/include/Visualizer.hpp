@@ -22,24 +22,23 @@ public:
   Visualizer(const Settings::GlobalSettings& settings);
   ~Visualizer();
 
-  bool               Show(const Player& player,
-                          const Menu  & menu);
+  bool               Show(const Player& player);
   void               ShowPlayer(int x,
-                                int y) const override;     // IPlayer
+                                int y) const override;           // IPlayer
 
-  void               StartPrint(int count) const override; // IMenu
-  void               PrintRow(const std::vector<std::string>& names) const
-  override;                                                // IMenu
-  void               EndPrint() const override;            // IMenu
+  void               StartPrint(int count) override;             // IMenu
+  void               PrintRow(const std::string& name) override; // IMenu
+  void               EndPrint()  override;                       // IMenu
 
-  std::size_t        width() const override;               // IMap
-  std::size_t        height() const override;              // IMap
-  const std::string& GetMap() const override;              // IMap
-  void               PrintMap(const std::string& map) const override;
+  std::size_t        width() const override;                     // IMap
+  std::size_t        height() const override;                    // IMap
+  const std::string& GetMap() const override;                    // IMap
+  void               PrintMap(const std::string& map);
 
 private:
 
   const Settings::GlobalSettings& settings_;
+  int menu_count_;
   GLFWwindow *window_;
 };
 } // Visual
