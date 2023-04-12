@@ -46,31 +46,25 @@ bool Visualizer::Show(const Player& player) //  передать
     return false;
   }
 
-  do
-  {
-    glLoadIdentity();             // считывает текущую матрицу
-    glClear(GL_COLOR_BUFFER_BIT); // очистка буфера
-    glOrtho(0, settings_.field_width, 0, settings_.field_height, 0, 10);
+  glLoadIdentity();             // считывает текущую матрицу
+  glClear(GL_COLOR_BUFFER_BIT); // очистка буфера
+  glOrtho(0, settings_.field_width, 0, settings_.field_height, 0, 10);
 
-    //    std::string def_map = GetMap();
-    //    PrintMap(def_map);
+  //    std::string def_map = GetMap();
+  //    PrintMap(def_map);
 
-    player.show(); // отрисовка персонажа
+  player.show(); // отрисовка персонажа
 
-    StartPrint(3);
-    PrintRow("name1");
-    PrintRow("name2");
-    PrintRow("name3");
-    EndPrint();
+  //   StartPrint(3);
+  //   PrintRow("name1");
+  //   PrintRow("name2");
+  //   PrintRow("name3");
+  //   EndPrint();
 
 
-    glfwSwapBuffers(window_); // обмен буферов
-    glfwPollEvents();         // обработчик событий, проверяет не зависло ли
-                              // окно
-  }
-
-  while (!glfwWindowShouldClose(window_));
-
+  glfwSwapBuffers(window_); // обмен буферов
+  glfwPollEvents();         // обработчик событий, проверяет не зависло ли
+                            // окно
   return true;
 }
 
