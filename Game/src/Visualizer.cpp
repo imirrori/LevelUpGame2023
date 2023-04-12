@@ -8,6 +8,9 @@ namespace Visual {
 Visualizer::Visualizer(const Settings::GlobalSettings& settings)
   : settings_(settings)
   , menu_count_(0)
+  , map_width_(0)
+  , map_height_(0)
+  , map_()
 {
   if (!glfwInit()) {
     throw std::exception{};
@@ -49,10 +52,10 @@ bool Visualizer::Show(const Player& player) //  передать
     glClear(GL_COLOR_BUFFER_BIT); // очистка буфера
     glOrtho(0, settings_.field_width, 0, settings_.field_height, 0, 10);
 
-    //    menu.show(); // отрисовка меню
-    //   PrintMap(" ");
+    //    std::string def_map = GetMap();
+    //    PrintMap(def_map);
 
-    //   player.show();            // отрисовка персонажа
+    player.show(); // отрисовка персонажа
 
     StartPrint(3);
     PrintRow("name1");
@@ -151,9 +154,6 @@ void Visualizer::PrintRow(const std::string& name) // override_by_IMenu
         case 'n':
           glColor3f(1, 0, 0);
           break;
-        case 'm':
-          glColor3f(0, 1, 0);
-          break;
       }
       glVertex2f(0 +   j, 0  + (24 - i));
       glVertex2f(0 +   j, 1 +  (24 - i));
@@ -181,8 +181,11 @@ const std::string& Visualizer::GetMap() const // override byIMap
 {
 }
 
-void Visualizer::PrintMap(const std::string& map)
+void Visualizer::PrintMap(const std::string& map) // override byIMap
 {
+  // settings_.field_height ==  height() from IMap
+  // settings_.field_width == width() from IMap
+
   if (map.size() == settings_.map_lenght)            // длинна карты в символах
   {
     for (int i = 0; i < settings_.field_height; ++i) // 25 вниз
@@ -220,6 +223,7 @@ void Visualizer::PrintMap(const std::string& map)
       j = 0;
     }
   }
+
   else {
     std::cout << "wrong map size" << std::endl;
   }

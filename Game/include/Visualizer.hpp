@@ -33,12 +33,15 @@ public:
   std::size_t        width() const override;                     // IMap
   std::size_t        height() const override;                    // IMap
   const std::string& GetMap() const override;                    // IMap
-  void               PrintMap(const std::string& map);
+  void               PrintMap(const std::string& map) override;
 
 private:
 
   const Settings::GlobalSettings& settings_;
   int menu_count_;
+  std::size_t map_width_;  // пока нет - нужно согласовать с Дмитрием размеры
+  std::size_t map_height_; // пока нет- нужно согласовать с Дмитрием размеры
+  const std::string map_;  // пока нет- нужно согласовать с Дмитрием размеры
   GLFWwindow *window_;
 };
 } // Visual
