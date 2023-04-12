@@ -127,18 +127,18 @@ void Visualizer::PrintRow(const std::string& name) // override_by_IMenu
     "##################################################"
     "##################################################";
 
-  int number_of_line = 0;
+  int shift_of_line = 0; // сдвиг текста меню вправо относительно поля
 
   for (int i = 0; i < menu_count_; ++i)
   {
     for (unsigned long long k = 0; k < name.size(); ++k)
     {
-      menu_map[number_of_line + k] = 'n';
+      menu_map[shift_of_line + k] = 'n';
     }
-    number_of_line = number_of_line + settings_.field_width * 2; // через строку
+    shift_of_line = shift_of_line + settings_.field_width * 2; // через строку
   }
 
-  for (int i = 0; i < settings_.field_height; ++i)               // 25 вниз
+  for (int i = 0; i < settings_.field_height; ++i)             // 25 вниз
   {
     int j = 0;
 
