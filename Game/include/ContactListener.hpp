@@ -13,8 +13,8 @@
 class ContactListener : public b2ContactListener {
  public:
  public:
-  ContactListener(b2World &world);
-  ~ContactListener();
+  explicit ContactListener(b2World &world);
+  ~ContactListener() override;
 
   void BeginContact(b2Contact *contact) override;
 };

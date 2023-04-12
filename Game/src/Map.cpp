@@ -44,3 +44,7 @@ Map::Map() {
   height_ = 9;
 
 }
+
+void Map::PrintMap(const std::string &map) {
+
+}

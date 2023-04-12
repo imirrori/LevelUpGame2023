@@ -21,6 +21,8 @@ class Map : public IMap {
   [[nodiscard]] std::size_t height() const override { return height_; };
   [[nodiscard]] const std::string &GetMap() const override { return map_; };
 
+   void PrintMap(const std::string &map) override;
+
  private:
   std::size_t width_;
   std::size_t height_;
