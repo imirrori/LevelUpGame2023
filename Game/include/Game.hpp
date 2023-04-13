@@ -51,6 +51,8 @@ class Game {
 
   ContactListener *contact_listener;
 
+  bool isNotPaused = true;
+
   static void key_callback_(GLFWwindow *window, int key, int scancode, int action, int mods);
   static void framebuffer_size_callback_(GLFWwindow *window, int width, int height);
 
