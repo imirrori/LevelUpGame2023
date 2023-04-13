@@ -36,34 +36,34 @@ if (CMAKE_BINARY_DIR MATCHES " ")
     message("Your Build Directory contains spaces. If you experience problems when compiling, this can be the cause.")
 endif ()
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
+
 # Compile external dependencies
-add_subdirectory(external)
 
-# On Visual 2005 and above, this module can set the debug working directory
-cmake_policy(SET CMP0026 OLD)
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/external/rpavlik-cmake-modules-fe2273")
-include(CreateLaunchers)
-include(MSVCMultipleProcessCompile) # /MP
+# Box2D
+set(box2d_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/lib/Box2D/include)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/lib/Box2D ${PROJECT_BINARY_DIR}/Box2D)
 
-if (INCLUDE_DISTRIB)
-    add_subdirectory(distrib)
-endif (INCLUDE_DISTRIB)
+# GLEW
+set(GLEW_INCLUDE_DIRS /opt/homebrew/Cellar/glew/2.2.0_1/include)
+
+find_package(GLEW REQUIRED)
 
 
 include_directories(
-        external/AntTweakBar-1.16/include/
-        external/glfw-3.1.2/include/
-        external/glm-0.9.7.1/
-        external/glew-1.13.0/include/
-        external/assimp-3.0.1270/include/
-        external/bullet-2.81-rev2613/src/
+        /opt/homebrew/Cellar/glew/2.2.0_1/include
+        lib/glm
+        lib/box2d/include
+        lib/box2d/extern/glad/include
+        lib/box2d/extern/glfw/include
         .
 )
 
 set(ALL_LIBS
     ${OPENGL_LIBRARY}
     glfw
-    GLEW_1130
+    GLEW::GLEW
+    box2d
     )
 
 add_definitions(
@@ -75,26 +75,23 @@ add_definitions(
 )
 
 set(SOURCE_FILES
-    src/Game.cpp
-    src/Player.cpp
-    src/Visualizer.cpp
-    App/main.cpp
+    Game/src/Game.cpp
+    Game/src/Player.cpp
+    Game/src/Visualizer.cpp
+    Game/App/main.cpp
     )
 
 set(HEADER_FILES
-#    Game/include/Game.hpp
-#    Game/include/IEntity.hpp
-#    Game/include/Entity.hpp
-#    Game/include/Level.hpp
-#    Game/include/Map.hpp
-#    Game/include/EntityStar.hpp
-#    Game/include/EntityCoin.hpp
-#    Game/include/EntityMushroom.hpp
-#    Game/include/EntityPipe.hpp
-#    Game/include/EntityBlock.hpp
-#
-#    common/shader.hpp
-    )
+    Game/include/Game.hpp
+Game/include/GlobalSettings.hpp
+Game/include/interface/IMap.hpp
+Game/include/interface/IMap.hpp
+Game/include/interface/IMenu.hpp
+Game/include/interface/IPlayer.hpp
+Game/include/Menu.hpp
+Game/include/Player.hpp
+Game/include/Visualizer.hpp
+Game/include/Map.hpp )
 ############################################################
 # Create a library
 ############################################################
@@ -103,7 +100,8 @@ set(HEADER_FILES
 
 
 add_library(Mario_Lib SHARED
-            ${SOURCE_FILES}˚
+            ${SOURCE_FILES}
+            ${HEADER_FILES}
             )
 
 
@@ -112,6 +110,11 @@ add_library(mario::lib ALIAS Mario_Lib)
 target_include_directories(Mario_Lib
                            PUBLIC
                            ${PROJECT_SOURCE_DIR}/Game/include
+                           ${PROJECT_SOURCE_DIR}/lib
+                           ${box2d_INCLUDE_DIRS}
+                           ${PROJECT_SOURCE_DIR}/lib/STBI
+                           ${PROJECT_SOURCE_DIR}/lib/glm
+
                            )
 
 target_link_libraries(Mario_Lib
@@ -129,8 +132,32 @@ add_subdirectory(Game)
 
 add_executable(Mario Game/App/main.cpp)
 
+#TARGET_INCLUDE_DIRECTORIES(
+#        ${box2d_INCLUDE_DIRS}
+#)
+
 target_link_libraries(Mario PRIVATE
                       mario::lib
-                      ${ALL_LIBS}
                       )
 
+
+#set_target_properties(Mario PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${Mario_SOURCE_DIR}/bin")
+#create_target_launcher(Mario WORKING_DIRECTORY "${Mario_SOURCE_DIR}/bin")
+#create_default_target_launcher(Mario WORKING_DIRECTORY "${Mario_SOURCE_DIR}/bin")
+#
+#SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*")
+#SOURCE_GROUP(shaders REGULAR_EXPRESSION ".*/.*shader$")
+#
+#if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
+#
+#    add_custom_command(
+#            TARGET Mario POST_BUILD
+#            COMMAND ${CMAKE_COMMAND} -E copy
+#            "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/Mario${CMAKE_EXECUTABLE_SUFFIX}"
+#            "${CMAKE_CURRENT_SOURCE_DIR}/bin/"
+#    )
+#
+#
+#elseif (${CMAKE_GENERATOR} MATCHES "Xcode")
+#
+#endif (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
