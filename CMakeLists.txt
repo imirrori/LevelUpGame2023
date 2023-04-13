@@ -75,36 +75,25 @@ add_definitions(
 )
 
 set(SOURCE_FILES
-    Game/App/main.cpp
-    Game/src/Game.cpp
-    Game/src/Entity.cpp
-    Game/src/Level.cpp
-    Game/src/Map.cpp
-    Game/src/EntityStar.cpp
-    Game/src/EntityCoin.cpp
-    Game/src/EntityMushroom.cpp
-    Game/src/EntityPipe.cpp
-    Game/src/EntityBlock.cpp
-
-    common/shader.cpp
-
-    Game/src/SimpleFragmentShader.fragmentshader
-    Game/src/SimpleVertexShader.vertexshader
+    src/Game.cpp
+    src/Player.cpp
+    src/Visualizer.cpp
+    App/main.cpp
     )
 
 set(HEADER_FILES
-    Game/include/Game.hpp
-    Game/include/IEntity.hpp
-    Game/include/Entity.hpp
-    Game/include/Level.hpp
-    Game/include/Map.hpp
-    Game/include/EntityStar.hpp
-    Game/include/EntityCoin.hpp
-    Game/include/EntityMushroom.hpp
-    Game/include/EntityPipe.hpp
-    Game/include/EntityBlock.hpp
-
-    common/shader.hpp
+#    Game/include/Game.hpp
+#    Game/include/IEntity.hpp
+#    Game/include/Entity.hpp
+#    Game/include/Level.hpp
+#    Game/include/Map.hpp
+#    Game/include/EntityStar.hpp
+#    Game/include/EntityCoin.hpp
+#    Game/include/EntityMushroom.hpp
+#    Game/include/EntityPipe.hpp
+#    Game/include/EntityBlock.hpp
+#
+#    common/shader.hpp
     )
 ############################################################
 # Create a library
@@ -114,8 +103,7 @@ set(HEADER_FILES
 
 
 add_library(Mario_Lib SHARED
-            ${SOURCE_FILES}
-            ${HEADER_FILES}
+            ${SOURCE_FILES}˚
             )
 
 
@@ -146,23 +134,3 @@ target_link_libraries(Mario PRIVATE
                       ${ALL_LIBS}
                       )
 
-set_target_properties(Mario PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${Mario_SOURCE_DIR}/bin")
-create_target_launcher(Mario WORKING_DIRECTORY "${Mario_SOURCE_DIR}/bin")
-create_default_target_launcher(Mario WORKING_DIRECTORY "${Mario_SOURCE_DIR}/bin")
-
-SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*")
-SOURCE_GROUP(shaders REGULAR_EXPRESSION ".*/.*shader$")
-
-if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
-
-    add_custom_command(
-            TARGET Mario POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy
-            "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/Mario${CMAKE_EXECUTABLE_SUFFIX}"
-            "${CMAKE_CURRENT_SOURCE_DIR}/bin/"
-    )
-
-
-elseif (${CMAKE_GENERATOR} MATCHES "Xcode")
-
-endif (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
