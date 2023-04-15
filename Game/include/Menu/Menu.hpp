@@ -38,18 +38,18 @@ class MenuList : public Entity {
 
   MenuList(sf::RenderWindow &window, float menux, float menuy, int sizeFont, int step, std::vector<sf::String> &name);
 
-  void draw();                                     // ������ ����
+  void draw();
 
-  void MoveUp();                                   // ����������� ������ ���� �����
+  void MoveUp();
 
-  void MoveDown();                                 // ����������� ������ ���� ����
+  void MoveDown();
 
-  // ���� ��������� �������� ����
+
   void setColorTextMenu(sf::Color menColor, sf::Color ChoColor, sf::Color BordColor);
 
-  void AlignMenu(int posx);       // ������������ ��������� ���� (�� ������ �� ������� �� ������)
+  void AlignMenu(int posx);
 
-  int getSelectedMenuNumber() const     // ���������� ����� ��������� ��������
+  int getSelectedMenuNumber() const
   {
 	return mainMenuSelected;
   }
