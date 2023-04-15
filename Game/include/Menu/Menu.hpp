@@ -7,6 +7,7 @@
 
 #include "Entity/Entity.hpp"
 
+#include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
 
@@ -23,13 +24,6 @@ class MenuItem {
 
  private:
 
-  float x{}, y{}, w{}, h{};
-
-  std::string tag;
-  bool *boolValue;
-  bool isSlider{};
-  float *floatValue{};
-
   void (*handler_)();
 
 };
@@ -39,17 +33,49 @@ class MenuList : public Entity {
  public:
 
   MenuList();
-  MenuList(std::string tag_);
 
   ~MenuList() override = default;
 
+  MenuList(sf::RenderWindow &window, float menux, float menuy, int sizeFont, int step, std::vector<sf::String> &name);
+
+  void draw();                                     // ������ ����
+
+  void MoveUp();                                   // ����������� ������ ���� �����
+
+  void MoveDown();                                 // ����������� ������ ���� ����
+
+  // ���� ��������� �������� ����
+  void setColorTextMenu(sf::Color menColor, sf::Color ChoColor, sf::Color BordColor);
+
+  void AlignMenu(int posx);       // ������������ ��������� ���� (�� ������ �� ������� �� ������)
+
+  int getSelectedMenuNumber() const     // ���������� ����� ��������� ��������
+  {
+	return mainMenuSelected;
+  }
+
  private:
 
-  std::vector<MenuItem> items;
+  float menu_X;
+  float menu_Y;
 
-  std::string name;
+  int menu_step_;
+  int max_menu_;
+  int font_size_;
+  int mainMenuSelected;
 
-  void addItem(float x_, float y_, bool is_slider, const std::string &name_, void(*function_)());
+  sf::Font font;
+
+  std::vector<sf::Text> mainMenu;
+
+  sf::Color menu_text_color = sf::Color::White;
+  sf::Color chose_text_color = sf::Color::Yellow;
+  sf::Color border_color = sf::Color::Black;
+
+  void setInitText(sf::Text &text, const sf::String &str, float xpos, float ypos) const;
+
+  sf::RenderWindow &mywindow;
+
 };
 
 #endif //MENU_H
