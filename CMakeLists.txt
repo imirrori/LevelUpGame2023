@@ -3,6 +3,14 @@ project(Mario)
 
 set(CMAKE_CXX_STANDARD 20)
 
+# Add the SFML library
+include(FetchContent)
+
+FetchContent_Declare(SFML
+                     GIT_REPOSITORY https://github.com/SFML/SFML.git
+                     GIT_TAG 2.6.x)
+FetchContent_MakeAvailable(SFML)
+
 include(FetchContent)
 FetchContent_Declare(
         googletest
@@ -166,32 +174,52 @@ add_subdirectory(Game)
 
 add_executable(Mario Game/App/main.cpp)
 
-#TARGET_INCLUDE_DIRECTORIES(
-#        ${box2d_INCLUDE_DIRS}
-#)
+
+add_custom_command(
+        TARGET Mario POST_BUILD
+        COMMAND ${CMAKE_COMMAND}
+        ARGS -E copy_directory
+        ${PROJECT_SOURCE_DIR}/Game/Resources/audio
+        $<TARGET_FILE_DIR:Mario>/audio
+        VERBATIM)
+
+add_custom_command(
+        TARGET Mario POST_BUILD
+        COMMAND ${CMAKE_COMMAND}
+        ARGS -E copy_directory
+        ${PROJECT_SOURCE_DIR}/Game/Resources/font
+        $<TARGET_FILE_DIR:Mario>/font
+        VERBATIM
+)
+
+add_custom_command(
+        TARGET Mario POST_BUILD
+        COMMAND ${CMAKE_COMMAND}
+        ARGS -E copy_directory
+        ${PROJECT_SOURCE_DIR}/Game/Resources/image
+        $<TARGET_FILE_DIR:Mario>/image
+        VERBATIM
+)
+
+add_custom_command(
+        TARGET Mario POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+        ${PROJECT_SOURCE_DIR}/lib/SFML/openal32.dll
+        $<TARGET_FILE_DIR:Mario>/openal32.dll
+)
 
 target_link_libraries(Mario PRIVATE
                       mario::lib
+                      sfml-graphics
+                      sfml-system
+                      sfml-window
+                      sfml-audio
                       )
 
+if (WIN32 AND BUILD_SHARED_LIBS)
+    add_custom_command(TARGET Mario POST_BUILD
+                       COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:Mario> $<TARGET_FILE_DIR:Mario>
+                       COMMAND_EXPAND_LISTS)
+endif()
 
-#set_target_properties(Mario PROPERTIES XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${Mario_SOURCE_DIR}/bin")
-#create_target_launcher(Mario WORKING_DIRECTORY "${Mario_SOURCE_DIR}/bin")
-#create_default_target_launcher(Mario WORKING_DIRECTORY "${Mario_SOURCE_DIR}/bin")
-#
-#SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*")
-#SOURCE_GROUP(shaders REGULAR_EXPRESSION ".*/.*shader$")
-#
-#if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
-#
-#    add_custom_command(
-#            TARGET Mario POST_BUILD
-#            COMMAND ${CMAKE_COMMAND} -E copy
-#            "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/Mario${CMAKE_EXECUTABLE_SUFFIX}"
-#            "${CMAKE_CURRENT_SOURCE_DIR}/bin/"
-#    )
-#
-#
-#elseif (${CMAKE_GENERATOR} MATCHES "Xcode")
-#
-#endif (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
+install(TARGETS Mario DESTINATION release)
