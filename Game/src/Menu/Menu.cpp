@@ -2,7 +2,7 @@
 // Created by Dmitry Morozov on 13/4/23.
 //
 
-#include "Menu.hpp"
+#include "Menu/Menu.hpp"
 
 #include <string>
 

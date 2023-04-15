@@ -103,7 +103,7 @@ set(SOURCE_FILES
     Game/src/ContactListener.cpp
     Game/src/EventSystem.cpp
     Game/src/Entity/EntityCoinBlock.cpp
-    Game/src/Menu.cpp
+    Game/src/Menu/Menu.cpp
 
     )
 
@@ -132,7 +132,7 @@ set(HEADER_FILES
     Game/include/EventSystem.hpp
     Game/include/Entity/EntityCoinBlock.hpp
     Game/include/interface/IMap.hpp
-    Game/include/Menu.hpp
+    Game/include/Menu/Menu.hpp
     )
 ############################################################
 # Create a library
