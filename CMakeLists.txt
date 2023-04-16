@@ -106,7 +106,8 @@ set(SOURCE_FILES
     Game/src/Menu/GameMenu.cpp
     Game/src/Menu/Animator.cpp
     Game/src/Menu/AssetManager.cpp
-
+    Game/src/Menu/MainMenu.cpp
+    Game/src/Menu/MenuHandler.cpp
     )
 
 set(HEADER_FILES
@@ -137,6 +138,8 @@ set(HEADER_FILES
     Game/include/Menu/GameMenu.hpp
     Game/include/Menu/Animator.hpp
     Game/include/Menu/AssetManager.hpp
+    Game/include/Menu/MainMenu.hpp
+    Game/include/Menu/MenuHandler.hpp
     )
 
 ############################################################
@@ -225,6 +228,6 @@ if (WIN32 AND BUILD_SHARED_LIBS)
     add_custom_command(TARGET Mario POST_BUILD
                        COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:Mario> $<TARGET_FILE_DIR:Mario>
                        COMMAND_EXPAND_LISTS)
-endif()
+endif ()
 
 install(TARGETS Mario DESTINATION release)
