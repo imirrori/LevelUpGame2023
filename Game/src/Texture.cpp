@@ -9,6 +9,8 @@
 
 #include <array>
 
+namespace Graphics {
+
 std::unordered_map<std::string, Texture> Texture::Textures_;
 
 void Texture::LoadTexture(const std::string &name, const std::string &file, bool isAlpha) {
@@ -83,3 +85,5 @@ void Texture::Bind(unsigned int slot) const {
   glBindTexture(GL_TEXTURE_2D, m_Id);
 
 }
+
+} // namespace Graphics

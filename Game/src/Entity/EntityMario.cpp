@@ -18,12 +18,12 @@ EntityMario::EntityMario(EventSystem &event_handler, b2World &world) {
 
   event_handler.addEventHandler(*this);
 
-  idleTexture = &Texture::GetTexture("mario-idle");
-  jumpTexture = &Texture::GetTexture("mario-jump");
+  idleTexture = &Graphics::Texture::GetTexture("mario-idle");
+  jumpTexture = &Graphics::Texture::GetTexture("mario-jump");
 
-  runTexture[0] = &Texture::GetTexture("mario-run-0");
-  runTexture[1] = &Texture::GetTexture("mario-run-1");
-  runTexture[2] = &Texture::GetTexture("mario-run-2");
+  runTexture[0] = &Graphics::Texture::GetTexture("mario-run-0");
+  runTexture[1] = &Graphics::Texture::GetTexture("mario-run-1");
+  runTexture[2] = &Graphics::Texture::GetTexture("mario-run-2");
 
   currentTexture = idleTexture;
 
@@ -101,14 +101,21 @@ void EntityMario::onUpdate(float delta) {
 }
 
 void EntityMario::onRender() {
-  Render::DrawTexture(vPosition, vRotation, vScale, *currentTexture);
+
+  Graphics::Render::DrawTexture(vPosition, vRotation, vScale, *currentTexture);
+
 }
 
 void EntityMario::Movement(float delta) {
+
   b2Vec2 vel = mp_Body->GetLinearVelocity();
+
   if (Input::GetKey(GLFW_KEY_LEFT))
+
 	vel.x = -speed;
+
   else if (Input::GetKey(GLFW_KEY_RIGHT))
+
 	vel.x = speed;
 
   // Jump

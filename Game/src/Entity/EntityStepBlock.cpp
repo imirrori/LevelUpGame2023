@@ -13,7 +13,7 @@ EntityStepBlock::EntityStepBlock(EventSystem &event_handler_, b2World &world, gl
   vRotation = 0;
   vScale = scale;
 
-  texture = &Texture::GetTexture("stair_brick");
+  texture = &Graphics::Texture::GetTexture("stair_brick");
 
   b2BodyDef b_def;
 
@@ -43,7 +43,7 @@ void EntityStepBlock::onUpdate(float dt) {
 
 void EntityStepBlock::onRender() {
 
-  Render::DrawTexture(vPosition, vRotation, vScale, *texture);
+  Graphics::Render::DrawTexture(vPosition, vRotation, vScale, *texture);
 
 }
 

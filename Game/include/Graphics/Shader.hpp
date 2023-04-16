@@ -11,6 +11,7 @@
 
 #include <string>
 #include <unordered_map>
+namespace Graphics {
 
 class Shader {
  public:
@@ -35,4 +36,7 @@ class Shader {
   static void CheckCompileError(unsigned int object, const std::string &type);
   unsigned int GetUniformCache(const std::string &name);
 };
+
+ } // namespace Graphics
+
 #endif //LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_GRAPHICS_SHADER_HPP_

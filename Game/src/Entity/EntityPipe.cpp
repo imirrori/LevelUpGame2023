@@ -11,7 +11,7 @@ void EntityPipe::onUpdate(float delta) {
 
 void EntityPipe::onRender() {
 
-  Render::DrawTexture(vPosition, vRotation, vScale, *texture);
+  Graphics::Render::DrawTexture(vPosition, vRotation, vScale, *texture);
 
 }
 
@@ -28,7 +28,7 @@ EntityPipe::EntityPipe(EventSystem &event_holder, b2World &world, glm::vec2 posi
   vRotation = 0;
   vTag = "pipe";
 
-  texture = &Texture::GetTexture("pipe");
+  texture = &Graphics::Texture::GetTexture("pipe");
 
   b2BodyDef b_def;
 

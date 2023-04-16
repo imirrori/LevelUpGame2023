@@ -40,11 +40,11 @@ class EntityMario : public Entity {
   float animation_speed = 0.1f;
   float animation_time_btw = animation_speed;
 
-  Texture *currentTexture;
-  Texture *idleTexture;
-  Texture *jumpTexture;
+  Graphics::Texture *currentTexture;
+  Graphics::Texture *idleTexture;
+  Graphics::Texture *jumpTexture;
 
-  Texture *runTexture[3];
+  Graphics::Texture *runTexture[3];
 
   b2Body *mp_Body; // Make shared
 };

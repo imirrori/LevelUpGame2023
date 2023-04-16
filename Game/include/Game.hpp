@@ -18,6 +18,8 @@
 #include <memory>
 #include <vector>
 
+namespace Game {
+
 class Game {
  public:
   Game(unsigned int width, unsigned int height);
@@ -57,5 +59,7 @@ class Game {
   static void framebuffer_size_callback_(GLFWwindow *window, int width, int height);
 
 };
+
+} // namespace Game
 
 #endif // GAME_H

@@ -41,17 +41,17 @@ class MainMenu {
   AssetManager assetManager_;
   RenderWindow window_;
 
-  Sprite sprite;
-  Sprite backgroundBlack;
+  sf::Sprite sprite;
+  sf::Sprite backgroundBlack;
 
-  Texture textLand_;
-  Texture textureBack;
-  Texture textureWindow;
+  sf::Texture textLand_;
+  sf::Texture textureBack;
+  sf::Texture textureWindow;
 
-  std::unique_ptr<RectangleShape> homeCls_;
+  std::unique_ptr<sf::RectangleShape> homeCls_;
   std::unique_ptr<game::GameMenu> mainMenu_;
-  std::unique_ptr<RectangleShape> background_;
-  std::unique_ptr<Vector2i> spriteSize_;
+  std::unique_ptr<sf::RectangleShape> background_;
+  std::unique_ptr<sf::Vector2i> spriteSize_;
   std::unique_ptr<Animator> animator;
 
   SoundBuffer buffer;

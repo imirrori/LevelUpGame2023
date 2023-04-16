@@ -14,8 +14,8 @@ EntityCoinBlock::EntityCoinBlock(EventSystem &event_handler, b2World &world, glm
   vScale = scale;
   vTag = "coin-brick";
 
-  idle_texture = &Texture::GetTexture("coin-brick-idle");
-  break_texture = &Texture::GetTexture("coin-brick-break");
+  idle_texture = &Graphics::Texture::GetTexture("coin-brick-idle");
+  break_texture = &Graphics::Texture::GetTexture("coin-brick-break");
   current_texture = idle_texture;
 
   b2BodyDef b_def;
@@ -48,7 +48,7 @@ void EntityCoinBlock::onUpdate(float delta) {
 
 void EntityCoinBlock::onRender() {
 
-  Render::DrawTexture(vPosition, vRotation, vScale, *current_texture);
+  Graphics::Render::DrawTexture(vPosition, vRotation, vScale, *current_texture);
 
 }
 

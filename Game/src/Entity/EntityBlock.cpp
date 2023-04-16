@@ -12,9 +12,9 @@ EntityBlock::EntityBlock(EventSystem &event_handler_, b2World &world, glm::vec2 
   vRotation = 0;
   vTag = "brick";
 
-  textures[0] = &Texture::GetTexture("brick-2");
-  textures[1] = &Texture::GetTexture("brick-1");
-  textures[2] = &Texture::GetTexture("brick-0");
+  textures[0] = &Graphics::Texture::GetTexture("brick-2");
+  textures[1] = &Graphics::Texture::GetTexture("brick-1");
+  textures[2] = &Graphics::Texture::GetTexture("brick-0");
 
   current_texture = textures[2];
 
@@ -46,7 +46,9 @@ void EntityBlock::onUpdate(float delta) {
 void EntityBlock::onRender() {
 
   if (hp_ > 0) {
-	Render::DrawTexture(vPosition, vRotation, vScale, *current_texture);
+
+	Graphics::Render::DrawTexture(vPosition, vRotation, vScale, *current_texture);
+
   }
 }
 

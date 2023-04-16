@@ -4,6 +4,8 @@
 
 #include "Graphics/Render.hpp"
 
+namespace Graphics {
+
 struct RenderData {
   unsigned int vao;
   unsigned int ibo;
@@ -101,4 +103,5 @@ void Render::DrawTexture(glm::vec2 position, float rotation, glm::vec2 scale, Te
 
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
+}
 }

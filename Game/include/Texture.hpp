@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
+namespace Graphics {
 
 class Texture {
  public:
@@ -39,5 +40,7 @@ class Texture {
   unsigned int filter_min;
   unsigned int filter_max;
 };
+
+} // namespace Graphics
 
 #endif //LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_TEXTURE_HPP_

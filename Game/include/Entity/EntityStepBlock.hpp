@@ -19,7 +19,7 @@ class EntityStepBlock : public Entity {
   void onCollision(IEntity *collision_entity) override;
 
  private:
-  Texture *texture;
+  Graphics::Texture *texture;
 
   b2Body *mp_Body;
 

@@ -30,8 +30,8 @@ class EntityBlock : public Entity {
 
   int hp_ = 3;
 
-  Texture *current_texture;
-  Texture *textures[3];
+  Graphics::Texture *current_texture;
+  Graphics::Texture *textures[3];
 
   b2Body *mp_Body;
 

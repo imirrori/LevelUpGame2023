@@ -8,6 +8,8 @@
 #include <iostream>
 #include <sstream>
 
+namespace Graphics {
+
 std::unordered_map<std::string, Shader> Shader::Shaders_;
 
 void Shader::LoadShader(const char *name, const char *vertFile, const char *fragFile) {
@@ -127,3 +129,4 @@ void Shader::CheckCompileError(unsigned int object, const std::string &type) {
   }
 }
 
+} // namespace Graphics

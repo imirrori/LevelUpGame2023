@@ -31,9 +31,9 @@ class EntityMushroom : public Entity {
   float speed_ = 2.f;
   bool faceRight_ = false;
 
-  Texture *current_texture;
-  Texture *run_texture[2];
-  Texture *dead_texture;
+  Graphics::Texture *current_texture;
+  Graphics::Texture *run_texture[2];
+  Graphics::Texture *dead_texture;
 
   // Animations
 

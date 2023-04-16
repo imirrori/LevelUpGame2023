@@ -25,9 +25,9 @@ class EntityCoinBlock : public Entity {
  private:
   EntityCoin *coin_;
 
-  Texture *current_texture;
-  Texture *idle_texture;
-  Texture *break_texture;
+  Graphics::Texture *current_texture;
+  Graphics::Texture *idle_texture;
+  Graphics::Texture *break_texture;
 
   b2Body *mp_Body;
 };

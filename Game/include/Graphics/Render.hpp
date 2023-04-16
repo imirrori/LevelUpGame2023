@@ -11,6 +11,8 @@
 #include "Texture.hpp"
 #include "View.hpp"
 
+namespace Graphics {
+
 class Render {
  public:
   static void onInit();
@@ -23,5 +25,5 @@ class Render {
   static void DrawTexture(glm::vec2 position, float rotation, glm::vec2 scale, Texture &texture);
 
 };
-
+}
 #endif //LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_GRAPHICS_RENDER_HPP_

@@ -40,8 +40,8 @@ class EntityCoin : public Entity {
   float animation_speed = 0.05f;
   float animation_time_btw = animation_speed;
 
-  Texture *current_texture;
-  Texture *textures[6];
+  Graphics::Texture *current_texture;
+  Graphics::Texture *textures[6];
 
   b2Body *mp_Body;
 

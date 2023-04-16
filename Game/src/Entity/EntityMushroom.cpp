@@ -15,10 +15,10 @@ EntityMushroom::EntityMushroom(EventSystem &event_handler, b2World &world, glm::
 
   event_handler.addEventHandler(*this);
 
-  run_texture[0] = &Texture::GetTexture("mushroom-run-0");
-  run_texture[1] = &Texture::GetTexture("mushroom-run-1");
+  run_texture[0] = &Graphics::Texture::GetTexture("mushroom-run-0");
+  run_texture[1] = &Graphics::Texture::GetTexture("mushroom-run-1");
 
-  dead_texture = &Texture::GetTexture("mushroom-dead");
+  dead_texture = &Graphics::Texture::GetTexture("mushroom-dead");
 
   current_texture = run_texture[0];
 
@@ -91,7 +91,7 @@ void EntityMushroom::onRender() {
 	return;
   }
 
-  Render::DrawTexture(vPosition, vRotation, vScale, *current_texture);
+  Graphics::Render::DrawTexture(vPosition, vRotation, vScale, *current_texture);
 
 }
 

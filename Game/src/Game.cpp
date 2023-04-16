@@ -5,6 +5,7 @@
 #include "Graphics/Render.hpp"
 #include "Input.hpp"
 #include "Level.hpp"
+#include "Menu/MainMenu.hpp"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -14,6 +15,8 @@
 
 using namespace glm;
 
+namespace Game {
+
 Game::Game(unsigned int width_, unsigned int height_) :
 	width(width_), height(height_), view_cam(0, static_cast <float>(width_), 0, static_cast<float>(height_)) {
 
@@ -22,6 +25,10 @@ Game::Game(unsigned int width_, unsigned int height_) :
 }
 
 bool Game::Run() {
+
+  auto main_menu = std::make_unique<MainMenu>();
+
+  main_menu->Run();
 
   GLFWwindow *main_window;
 
@@ -85,7 +92,7 @@ void Game::onInit() {
   LoadAllShader();
   LoadAllTexture();
 
-  Render::onInit();
+  Graphics::Render::onInit();
 
   // Physics initialization
   b2Vec2 gravity(0, -20);
@@ -126,65 +133,65 @@ void Game::onUpdate(float delta) {
 }
 
 void Game::onRender() {
-  Render::BeginScene(view_cam);
+  Graphics::Render::BeginScene(view_cam);
 
   for (auto &item : event_handler.getEventsList()) {
 	item->onRender();
   }
 
-  Render::EndScene();
+  Graphics::Render::EndScene();
 }
 
 void Game::LoadAllShader() {
 
-  Shader::LoadShader("sprite", "Resources/Shader/Sprite.vert.glsl", "Resources/Shader/Sprite.frag.glsl");
-  Shader::LoadShader("flat", "Resources/Shader/FlatColor.vert.glsl", "Resources/Shader/FlatColor.frag.glsl");
+  Graphics::Shader::LoadShader("sprite", "Resources/Shader/Sprite.vert.glsl", "Resources/Shader/Sprite.frag.glsl");
+  Graphics::Shader::LoadShader("flat", "Resources/Shader/FlatColor.vert.glsl", "Resources/Shader/FlatColor.frag.glsl");
 
 }
 void Game::LoadAllTexture() {
 
   // Mario
-  Texture::LoadTexture("mario-idle", "Resources/Texture/Mario/mario-idle.png", true);
-  Texture::LoadTexture("mario-run-0", "Resources/Texture/Mario/mario-run0.png", true);
-  Texture::LoadTexture("mario-run-1", "Resources/Texture/Mario/mario-run1.png", true);
-  Texture::LoadTexture("mario-run-2", "Resources/Texture/Mario/mario-run2.png", true);
-  Texture::LoadTexture("mario-jump", "Resources/Texture/Mario/mario-jump.png", true);
+  Graphics::Texture::LoadTexture("mario-idle", "Resources/Texture/Mario/mario-idle.png", true);
+  Graphics::Texture::LoadTexture("mario-run-0", "Resources/Texture/Mario/mario-run0.png", true);
+  Graphics::Texture::LoadTexture("mario-run-1", "Resources/Texture/Mario/mario-run1.png", true);
+  Graphics::Texture::LoadTexture("mario-run-2", "Resources/Texture/Mario/mario-run2.png", true);
+  Graphics::Texture::LoadTexture("mario-jump", "Resources/Texture/Mario/mario-jump.png", true);
 
   // Ground
-  Texture::LoadTexture("ground", "Resources/Texture/ground.png", true);
+  Graphics::Texture::LoadTexture("ground", "Resources/Texture/ground.png", true);
 
   // Bad Mushroom
-  Texture::LoadTexture("mushroom-run-0", "Resources/Texture/Mushroom/mushroom-run0.png", true);
-  Texture::LoadTexture("mushroom-run-1", "Resources/Texture/Mushroom/mushroom-run1.png", true);
-  Texture::LoadTexture("mushroom-dead", "Resources/Texture/Mushroom/mushroom-dead.png", true);
+  Graphics::Texture::LoadTexture("mushroom-run-0", "Resources/Texture/Mushroom/mushroom-run0.png", true);
+  Graphics::Texture::LoadTexture("mushroom-run-1", "Resources/Texture/Mushroom/mushroom-run1.png", true);
+  Graphics::Texture::LoadTexture("mushroom-dead", "Resources/Texture/Mushroom/mushroom-dead.png", true);
 
   // Brick
-  Texture::LoadTexture("brick-0", "Resources/Texture/Brick/brick-0.png", true);
-  Texture::LoadTexture("brick-1", "Resources/Texture/Brick/brick-1.png", true);
-  Texture::LoadTexture("brick-2", "Resources/Texture/Brick/brick-2.png", true);
+  Graphics::Texture::LoadTexture("brick-0", "Resources/Texture/Brick/brick-0.png", true);
+  Graphics::Texture::LoadTexture("brick-1", "Resources/Texture/Brick/brick-1.png", true);
+  Graphics::Texture::LoadTexture("brick-2", "Resources/Texture/Brick/brick-2.png", true);
 
   // Coin Brick
-  Texture::LoadTexture("coin-brick-idle", "Resources/Texture/CoinBrick/coin-brick.png", true);
-  Texture::LoadTexture("coin-brick-break", "Resources/Texture/CoinBrick/coin-break-brick.png", true);
+  Graphics::Texture::LoadTexture("coin-brick-idle", "Resources/Texture/CoinBrick/coin-brick.png", true);
+  Graphics::Texture::LoadTexture("coin-brick-break", "Resources/Texture/CoinBrick/coin-break-brick.png", true);
 
   // Coin
-  Texture::LoadTexture("coin-0", "Resources/Texture/Coin/coin-0.png", true);
-  Texture::LoadTexture("coin-1", "Resources/Texture/Coin/coin-1.png", true);
-  Texture::LoadTexture("coin-2", "Resources/Texture/Coin/coin-2.png", true);
-  Texture::LoadTexture("coin-3", "Resources/Texture/Coin/coin-3.png", true);
-  Texture::LoadTexture("coin-4", "Resources/Texture/Coin/coin-4.png", true);
-  Texture::LoadTexture("coin-5", "Resources/Texture/Coin/coin-5.png", true);
+  Graphics::Texture::LoadTexture("coin-0", "Resources/Texture/Coin/coin-0.png", true);
+  Graphics::Texture::LoadTexture("coin-1", "Resources/Texture/Coin/coin-1.png", true);
+  Graphics::Texture::LoadTexture("coin-2", "Resources/Texture/Coin/coin-2.png", true);
+  Graphics::Texture::LoadTexture("coin-3", "Resources/Texture/Coin/coin-3.png", true);
+  Graphics::Texture::LoadTexture("coin-4", "Resources/Texture/Coin/coin-4.png", true);
+  Graphics::Texture::LoadTexture("coin-5", "Resources/Texture/Coin/coin-5.png", true);
 
   // Pipe
-  Texture::LoadTexture("pipe", "Resources/Texture/pipe.png", true);
+  Graphics::Texture::LoadTexture("pipe", "Resources/Texture/pipe.png", true);
 
   // Stair Brick
-  Texture::LoadTexture("stair_brick", "Resources/Texture/StairBrick.png", true);
+  Graphics::Texture::LoadTexture("stair_brick", "Resources/Texture/StairBrick.png", true);
 
 }
 
 Game::~Game() {
-  Render::onShutDown();
+  Graphics::Render::onShutDown();
 
   delete contact_listener;
   delete level;
@@ -213,4 +220,4 @@ void Game::framebuffer_size_callback_(GLFWwindow *window, int width, int height)
 
 }
 
-
+} // namespace Game
