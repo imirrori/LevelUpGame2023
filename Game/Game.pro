@@ -11,12 +11,11 @@ SOURCES += \
 
 HEADERS += \
 include/Game.hpp \
-include/Visualizer.hpp \
 include/GlobalSettings.hpp \
 include/interface/IMap.hpp \
 include/interface/IMenu.hpp \
 include/interface/IPlayer.hpp \
-
+include/Visualizer.hpp \
 
 INCLUDEPATH += $$PWD/include
 
