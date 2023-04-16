@@ -1,5 +1,11 @@
 #include "Game.hpp"
 
+#include <fstream>
+
+namespace {
+constexpr std::string_view SettingFileName = "settings.ini";
+}
+
 void Game::Run()
 {
   viz_->Mainloop();
@@ -10,5 +16,9 @@ void Game::Init()
 
 Game::Game()
 {
-  viz_ = std::make_shared<Visual::Visualizer>(setting);
+  std::ifstream inStream(SettingFileName.data());
+
+  setting_ = std::make_shared<Settings::Settings>(inStream);
+
+  viz_ = std::make_shared<Visual::Visualizer>(setting_);
 }

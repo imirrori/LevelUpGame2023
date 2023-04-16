@@ -4,6 +4,7 @@
 #include <variant>
 #include <string>
 
+namespace Settings {
 class ISettings {
 public:
 
@@ -12,11 +13,12 @@ public:
   virtual ~ISettings() = default;
 
   virtual ValueType GetValue(const std::string& subsystem,
-                             const std::string& name);
+                             const std::string& name) = 0;
 
   virtual bool      SetValue(const std::string& subsystem,
                              const std::string& name,
-                             const ValueType  & value);
+                             const ValueType  & value) = 0;
 };
+} // namespace Settings
 
 #endif // ISETTINGS_HPP
