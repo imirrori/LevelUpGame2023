@@ -6,27 +6,6 @@
 
 #include <string>
 
-MenuItem::MenuItem() {
-
-  boolValue = nullptr;
-  handler_ = nullptr;
-
-}
-
-MenuItem::MenuItem(float x_, float y_, bool is_slider, std::string tag_, void(*function)()) {
-  x = x_;
-  y = y_;
-  w = 0;
-  h = 0;
-
-  boolValue = nullptr;
-  floatValue = nullptr;
-
-  tag = std::move(tag_);
-
-  handler_ = function;
-  isSlider = is_slider;
-}
 
 MenuList::MenuList() {
 

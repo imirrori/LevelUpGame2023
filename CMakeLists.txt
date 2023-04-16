@@ -104,6 +104,7 @@ set(SOURCE_FILES
     Game/src/EventSystem.cpp
     Game/src/Entity/EntityCoinBlock.cpp
     Game/src/Menu/Menu.cpp
+    Game/src/Menu/Animator.cpp
 
     )
 
@@ -133,6 +134,7 @@ set(HEADER_FILES
     Game/include/Entity/EntityCoinBlock.hpp
     Game/include/interface/IMap.hpp
     Game/include/Menu/Menu.hpp
+    Game/include/Menu/Animator.hpp
     )
 ############################################################
 # Create a library
