@@ -105,6 +105,7 @@ set(SOURCE_FILES
     Game/src/Entity/EntityCoinBlock.cpp
     Game/src/Menu/Menu.cpp
     Game/src/Menu/Animator.cpp
+    Game/src/Menu/AssetManager.cpp
 
     )
 
@@ -135,7 +136,9 @@ set(HEADER_FILES
     Game/include/interface/IMap.hpp
     Game/include/Menu/Menu.hpp
     Game/include/Menu/Animator.hpp
+    Game/include/Menu/AssetManager.hpp
     )
+
 ############################################################
 # Create a library
 ############################################################
