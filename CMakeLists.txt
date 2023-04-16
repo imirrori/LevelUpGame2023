@@ -103,7 +103,7 @@ set(SOURCE_FILES
     Game/src/ContactListener.cpp
     Game/src/EventSystem.cpp
     Game/src/Entity/EntityCoinBlock.cpp
-    Game/src/Menu/Menu.cpp
+    Game/src/Menu/GameMenu.cpp
     Game/src/Menu/Animator.cpp
     Game/src/Menu/AssetManager.cpp
 
@@ -134,7 +134,7 @@ set(HEADER_FILES
     Game/include/EventSystem.hpp
     Game/include/Entity/EntityCoinBlock.hpp
     Game/include/interface/IMap.hpp
-    Game/include/Menu/Menu.hpp
+    Game/include/Menu/GameMenu.hpp
     Game/include/Menu/Animator.hpp
     Game/include/Menu/AssetManager.hpp
     )
