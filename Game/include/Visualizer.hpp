@@ -1,9 +1,10 @@
 #ifndef VISUALIZER_HPP
 #define VISUALIZER_HPP
 
-#include "ISettings.hpp"
-#include "IMenu.hpp"
 #include "IEntity.hpp"
+#include "IMenu.hpp"
+#include "IPlayer.hpp"
+#include "ISettings.hpp"
 
 #include <GLFW/glfw3.h>
 
@@ -12,18 +13,23 @@
 
 namespace Visual {
 class Visualizer
-  : public IMenu {
+  : public IMenu
+    , public IPlayer {
 public:
 
   Visualizer(std::shared_ptr<Settings::ISettings>settings);
   ~Visualizer();
 
   // IMenu
-  void StartPrint(int count) override;
-  void PrintRow(const std::string& name) override;
-  void EndPrint()  override;
+  void         StartPrint(int count) override;
+  void         PrintRow(const std::string& name) override;
+  void         EndPrint()  override;
 
-  bool Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow);
+  // IPlayer
+  virtual void ShowPlayer(int x,
+                          int y) override;
+
+  bool         Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow);
 
 private:
 

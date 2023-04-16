@@ -60,6 +60,28 @@ void Visualizer::PrintRow(const std::string& name) // override_by_IMenu
 void Visualizer::EndPrint() // override by IMenu
 {}
 
+void Visualizer::ShowPlayer(int x, int y)
+{
+  // начало отрисовки полигона персонажа
+  glBegin(GL_POLYGON);
+
+  glColor3f(1, 1, 1); // RGB
+  const int player_size = std::get<int>(settings_->GetValue("visual",
+                                                            "player_size"));
+
+  glVertex2d(x * player_size,
+             y * player_size);
+  glVertex2d(x * player_size + player_size,
+             y * player_size);
+  glVertex2d(x * player_size + player_size,
+             y * player_size + player_size);
+  glVertex2d(x * player_size,
+             y * player_size + player_size);
+
+  // конец отрисовки полигона персонажа
+  glEnd();
+}
+
 bool Visualizer::Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow)
 {
   if (glfwWindowShouldClose(window_))
