@@ -8,7 +8,8 @@ constexpr std::string_view SettingFileName = "settings.ini";
 
 void Game::Run()
 {
-  viz_->Mainloop();
+  while (viz_->Show({}))
+  {}
 }
 
 void Game::Init()

@@ -6,12 +6,12 @@
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_INCLUDE_IENTITY_HPP_
 
 class IEntity {
- public:
+public:
+
   virtual ~IEntity() = default;
 
-  virtual void onUpdate() = 0;
-  virtual void onRender() = 0;
+  virtual void onUpdate()    = 0;
+  virtual void onRender()    = 0;
   virtual void onCollision() = 0;
-
 };
-#endif //LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_INCLUDE_IENTITY_HPP_
+#endif // LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_INCLUDE_IENTITY_HPP_
