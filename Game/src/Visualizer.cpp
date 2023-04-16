@@ -1,23 +1,22 @@
-#include "GlobalSettings.hpp"
-
 #include "Visualizer.hpp"
 
-#include <stdlib.h>
-#include <stdio.h>
-
 namespace Visual {
-Visualizer::Visualizer(const Settings::GlobalSettings& settings)
+Visualizer::Visualizer(std::shared_ptr<Settings::ISettings>settings)
   : settings_(settings)
 {
   if (!glfwInit()) {
     throw std::exception{};
   }
 
-  window_ = glfwCreateWindow(settings_.window_width,
-                             settings_.window_height,
-                             settings_.window_name,
-                             NULL,
-                             NULL);
+  window_ =
+    glfwCreateWindow(std::get<int>(settings_->GetValue("visual",
+                                                       "window_width")),
+                     std::get<int>(        settings_->GetValue("visual",
+                                                               "window_height")),
+                     std::get<std::string>(settings_->GetValue("visual",
+                                                               "window_name")).c_str(),
+                     NULL,
+                     NULL);
 
   if (!window_)
   {

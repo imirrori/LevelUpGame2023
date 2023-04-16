@@ -1,7 +1,7 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include "GlobalSettings.hpp"
+#include "Settings.hpp"
 #include "Visualizer.hpp"
 
 #include <memory>
@@ -16,7 +16,7 @@ public:
 
 private:
 
-  Settings::GlobalSettings setting;
+  std::shared_ptr<Settings::Settings>setting_;
   std::shared_ptr<Visual::Visualizer>viz_;
 };
 
