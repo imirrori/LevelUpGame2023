@@ -59,13 +59,9 @@ int MainMenu::Init() {
 
   if (!textureBack.loadFromFile("Resources/image/t.jpg")) return 51;
 
-  Sprite backgroundBlack;
-
   backgroundBlack.setColor(sf::Color(255, 255, 255, 255));
   backgroundBlack.setTexture(textureBack);
   backgroundBlack.setTextureRect(IntRect(0, 0, static_cast<int>(width_), static_cast<int>(height_)));
-
-  float alpha = 255;
 
   background_ = std::make_unique<RectangleShape>(Vector2f(width_, height_));
 
@@ -83,6 +79,13 @@ int MainMenu::Init() {
 
   InitText(Title_, 480, 50, L"InitText", fText_);
 
+  spriteSize_ = std::make_unique<Vector2i>(300, 313);
+
+  sprite.setPosition(440, 780);
+
+  animator = std::make_unique<Animator>(sprite);
+
+  return 0;
 }
 
 void MainMenu::InitText(Text &m_text, float x_pos, float y_pos, const String &str, TextFormat f_text) {
@@ -93,6 +96,85 @@ void MainMenu::InitText(Text &m_text, float x_pos, float y_pos, const String &st
   m_text.setFillColor(f_text.menu_text_color);
   m_text.setOutlineThickness(f_text.bord);
   m_text.setOutlineColor(f_text.border_color);
+
+}
+
+void MainMenu::Run() {
+
+  auto &idleAnimation = animator->CreateAnimation("Idle", "Resources/image/f.png", seconds(1), true);
+
+  idleAnimation.AddFrames(Vector2i(0, 0), *spriteSize_, 5, 4);
+
+  Clock clock;
+
+  while (window_.isOpen()) {
+
+	Event event{};
+
+	while (window_.pollEvent(event)) {
+
+	  if (event.type==Event::KeyReleased) {
+
+		if (event.key.code==Keyboard::Up) {
+
+		  sound.play();
+		  mainMenu_->MoveUp();
+
+		}
+
+		if (event.key.code==Keyboard::Down) {
+
+		  sound.play();
+		  mainMenu_->MoveDown();
+
+		}
+
+		if (event.key.code==Keyboard::Return) {
+
+		  music.pause();
+		  musicFire.pause();
+		  sound_return.play();
+
+		  switch (mainMenu_->getSelectedMenuNumber()) {
+
+			case 0:GameStart();
+			  break;
+
+			case 1:Options();
+			  break;
+
+			case 2:About_Game();
+			  break;
+
+			case 3:window_.close();
+			  break;
+
+			default:break;
+		  }
+
+		  music.play();
+		  musicFire.play();
+		}
+	  }
+	}
+
+	Time deltaTime = clock.restart();
+	animator->Update(deltaTime);
+
+	if (alpha > 0) {
+	  alpha -= 0.05f;
+	  backgroundBlack.setColor(Color(255, 255, 255, static_cast<unsigned char>(alpha)));
+	}
+
+	window_.clear();
+	window_.draw(*background_);
+	window_.draw(Title_);
+	mainMenu_->draw();
+	window_.draw(sprite);
+	window_.draw(backgroundBlack);
+	window_.display();
+
+  }
 
 }
 

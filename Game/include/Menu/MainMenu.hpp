@@ -33,21 +33,26 @@ class MainMenu {
 
   ~MainMenu();
 
+  void Run();
+
  private:
   std::vector<String> menuItems{L"Start", L"Options", L"About Game"};
 
   AssetManager assetManager_;
   RenderWindow window_;
 
+  Sprite sprite;
+  Sprite backgroundBlack;
+
   Texture textLand_;
   Texture textureBack;
   Texture textureWindow;
 
   std::unique_ptr<RectangleShape> homeCls_;
-
   std::unique_ptr<game::GameMenu> mainMenu_;
-
   std::unique_ptr<RectangleShape> background_;
+  std::unique_ptr<Vector2i> spriteSize_;
+  std::unique_ptr<Animator> animator;
 
   SoundBuffer buffer;
   SoundBuffer buf_return;
@@ -64,6 +69,7 @@ class MainMenu {
 
   Font font_;
 
+  float alpha = 255.0f;
   float height_;
   float width_;
 

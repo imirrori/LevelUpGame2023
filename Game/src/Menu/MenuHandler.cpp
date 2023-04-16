@@ -3,3 +3,15 @@
 //
 
 #include "Menu/MenuHandler.hpp"
+
+void GameStart() {
+
+}
+
+void Options() {
+
+}
+
+void About_Game() {
+
+}

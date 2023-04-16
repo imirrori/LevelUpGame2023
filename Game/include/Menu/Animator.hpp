@@ -5,7 +5,7 @@
 #ifndef MARIO_GAME_SRC_MENU_ANIMATOR_HPP_
 #define MARIO_GAME_SRC_MENU_ANIMATOR_HPP_
 
-#include "Menu/AssetManager.h"
+#include "Menu/AssetManager.hpp"
 
 #include<iostream>
 #include<list>

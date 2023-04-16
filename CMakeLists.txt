@@ -72,6 +72,7 @@ set(ALL_LIBS
     glfw
     GLEW::GLEW
     box2d
+
     )
 
 add_definitions(
@@ -103,11 +104,7 @@ set(SOURCE_FILES
     Game/src/ContactListener.cpp
     Game/src/EventSystem.cpp
     Game/src/Entity/EntityCoinBlock.cpp
-    Game/src/Menu/GameMenu.cpp
-    Game/src/Menu/Animator.cpp
-    Game/src/Menu/AssetManager.cpp
-    Game/src/Menu/MainMenu.cpp
-    Game/src/Menu/MenuHandler.cpp
+
     )
 
 set(HEADER_FILES
@@ -135,12 +132,45 @@ set(HEADER_FILES
     Game/include/EventSystem.hpp
     Game/include/Entity/EntityCoinBlock.hpp
     Game/include/interface/IMap.hpp
+
+    )
+############################################################
+# Create a MENU library
+############################################################
+
+set(SOURCE_FILES_MENU
+    Game/src/Menu/GameMenu.cpp
+    Game/src/Menu/Animator.cpp
+    Game/src/Menu/AssetManager.cpp
+    Game/src/Menu/MainMenu.cpp
+    Game/src/Menu/MenuHandler.cpp
+    )
+
+set(HEADER_FILES_MENU
     Game/include/Menu/GameMenu.hpp
     Game/include/Menu/Animator.hpp
     Game/include/Menu/AssetManager.hpp
     Game/include/Menu/MainMenu.hpp
     Game/include/Menu/MenuHandler.hpp
     )
+
+add_library(Mario_Menu_Lib SHARED
+            ${SOURCE_FILES_MENU}
+            ${HEADER_FILES_MENU}
+            )
+
+add_library(mario::menu::lib ALIAS Mario_Menu_Lib)
+
+target_include_directories(Mario_Menu_Lib
+                           PUBLIC
+                           ${PROJECT_SOURCE_DIR}/Game/include
+                           ${PROJECT_SOURCE_DIR}/lib
+                           )
+
+target_link_libraries(Mario_Menu_Lib
+                      PRIVATE
+                      sfml-graphics sfml-system sfml-window sfml-audio
+                      )
 
 ############################################################
 # Create a library
@@ -170,6 +200,7 @@ target_include_directories(Mario_Lib
 target_link_libraries(Mario_Lib
                       PRIVATE
                       ${ALL_LIBS}
+                      mario::menu::lib
                       )
 
 
@@ -218,10 +249,8 @@ add_custom_command(
 
 target_link_libraries(Mario PRIVATE
                       mario::lib
-                      sfml-graphics
-                      sfml-system
-                      sfml-window
-                      sfml-audio
+
+
                       )
 
 if (WIN32 AND BUILD_SHARED_LIBS)
