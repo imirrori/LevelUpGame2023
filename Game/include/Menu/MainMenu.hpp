@@ -6,7 +6,9 @@
 #define MARIO_GAME_SRC_MENU_MAINMENU_HPP_
 
 #include "Menu/Animator.hpp"
+#include "Menu/AssetManager.hpp"
 #include"Menu/GameMenu.hpp"
+#include "Menu/MenuHandler.hpp"
 
 #include<SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
@@ -23,9 +25,22 @@ struct TextFormat {
 
 };
 
-
-
 class MainMenu {
+ public:
+
+  MainMenu();
+
+  ~MainMenu();
+
+ private:
+
+  AssetManager assetManager_;
+  RenderWindow window_;
+  Texture textLand_;
+
+
+  float height_;
+  float width_;
 
 };
 
