@@ -23,7 +23,7 @@ public:
   void PrintRow(const std::string& name) override;
   void EndPrint()  override;
 
-  bool Show(const std::vector<std::shared_ptr<IEntity> >& data);
+  bool Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow);
 
 private:
 

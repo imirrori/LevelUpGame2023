@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include "MenuStub.hpp"
 
 #include <fstream>
 
@@ -8,7 +9,9 @@ constexpr std::string_view SettingFileName = "settings.ini";
 
 void Game::Run()
 {
-  while (viz_->Show({}))
+  std::shared_ptr<IEntity> menu = std::make_shared<MenuStub>(viz_);
+
+  while (viz_->Show({ menu }))
   {}
 }
 

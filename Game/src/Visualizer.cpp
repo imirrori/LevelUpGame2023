@@ -60,7 +60,7 @@ void Visualizer::PrintRow(const std::string& name) // override_by_IMenu
 void Visualizer::EndPrint() // override by IMenu
 {}
 
-bool Visualizer::Show(const std::vector<std::shared_ptr<IEntity> >&)
+bool Visualizer::Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow)
 {
   if (glfwWindowShouldClose(window_))
   {
@@ -78,11 +78,9 @@ bool Visualizer::Show(const std::vector<std::shared_ptr<IEntity> >&)
           0,
           10);
 
-  StartPrint(3);
-  PrintRow("start game");
-  PrintRow("load game");
-  PrintRow("end game");
-  EndPrint();
+  for (const auto& el: dataToShow) {
+    el->onRender();
+  }
 
   glfwSwapBuffers(window_); // обмен буферов
   glfwPollEvents();         // обработчик событий, проверяет не зависло ли

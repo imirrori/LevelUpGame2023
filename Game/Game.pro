@@ -15,6 +15,7 @@ HEADERS += \
        include/IMenu.hpp \
        include/IPlayer.hpp \
        include/ISettings.hpp \
+       include/MenuStub.hpp \
        include/Settings.hpp \
        include/Visualizer.hpp
 
