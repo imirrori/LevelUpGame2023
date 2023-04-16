@@ -34,11 +34,15 @@ public:
   std::size_t        height() const override;                    // IMap
   const std::string& GetMap() const override;                    // IMap
   void               PrintMap(const std::string& map) override;
+  void               func_print_char(const std::string name,
+                                     const float       where_down,
+                                     const float       where_right);
 
 private:
 
   const Settings::GlobalSettings& settings_;
   int menu_count_;
+  int reverse_menu_count_;
   std::size_t map_width_;  // пока нет - нужно согласовать с Дмитрием размеры
   std::size_t map_height_; // пока нет- нужно согласовать с Дмитрием размеры
   const std::string map_;  // пока нет- нужно согласовать с Дмитрием размеры

@@ -12,7 +12,7 @@ public:
 
   static constexpr int field_width  = 50;   // согласовать с Дмитрием
   static constexpr int field_height = 25;   // согласовать с Дмитрием
-  static constexpr int map_lenght   = 1249; // согласовать с Дмитрием длинну
+  static constexpr int map_lenght   = 1250; // согласовать с Дмитрием длинну
                                             // карты
 
   const char *window_name = "Mario";

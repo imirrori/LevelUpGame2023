@@ -10,7 +10,12 @@ SOURCES += \
        App/main.cpp
 
 HEADERS += \
-       z
+include/Game.hpp \
+include/Visualizer.hpp \
+include/GlobalSettings.hpp \
+include/interface/IMap.hpp \
+include/interface/IMenu.hpp \
+include/interface/IPlayer.hpp \
 
 
 INCLUDEPATH += $$PWD/include
