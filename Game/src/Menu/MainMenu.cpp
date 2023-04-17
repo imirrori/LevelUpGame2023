@@ -15,9 +15,6 @@ MainMenu::MainMenu() {
 
 int MainMenu::Init() {
 
-  window_.create(VideoMode(2000, 1600), L"On create()", Style::Default);
-  window_.setMouseCursorVisible(false);
-
   textLand_.loadFromFile("Resources/image/z1.png");
 
   homeCls_ = std::make_unique<RectangleShape>(Vector2f(640, 280));
@@ -31,9 +28,6 @@ int MainMenu::Init() {
   homeCls_->setPosition(Vector2f(width_/2 - homeCls_->getLocalBounds().width/2,
 								 height_/2 - homeCls_->getLocalBounds().height/2));
 
-  window_.draw(*homeCls_);
-  window_.display();
-
   if (!buffer.loadFromFile("Resources/audio/audiomenu2.wav")) return 22;
   if (!buf_return.loadFromFile("Resources/audio/audiomenu5.wav")) return 22;
 
@@ -44,13 +38,13 @@ int MainMenu::Init() {
 
   music.setLoop(true);
   music.setVolume(50);
-  music.play();
+
 
   if (!musicFire.openFromFile("Resources/audio/faer.ogg")) return 28;
 
   musicFire.setLoop(true);
   musicFire.setVolume(50);
-  musicFire.play();
+
 
   mainMenu_ = std::make_unique<game::GameMenu>(window_, 950, 350, 100, 120, menuItems);
 
@@ -101,9 +95,18 @@ void MainMenu::InitText(Text &m_text, float x_pos, float y_pos, const String &st
 
 void MainMenu::Run() {
 
-  auto &idleAnimation = animator->CreateAnimation("Idle", "Resources/image/f.png", seconds(1), true);
+  window_.create(VideoMode(2000, 1600), L"Super Mario", Style::Default);
+  window_.setMouseCursorVisible(false);
 
-  idleAnimation.AddFrames(Vector2i(0, 0), *spriteSize_, 5, 4);
+  window_.draw(*homeCls_);
+  window_.display();
+
+  music.play();
+  musicFire.play();
+
+//  auto &idleAnimation = animator->CreateAnimation("Idle", "Resources/image/f.png", seconds(1), true);
+//
+//  idleAnimation.AddFrames(Vector2i(0, 0), *spriteSize_, 5, 4);
 
   Clock clock;
 
@@ -180,6 +183,6 @@ void MainMenu::Run() {
 
 MainMenu::~MainMenu() {
 
-  homeCls_.reset();
+  window_.close();
 
 }

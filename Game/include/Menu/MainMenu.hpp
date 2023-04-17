@@ -36,7 +36,7 @@ class MainMenu {
   void Run();
 
  private:
-  std::vector<String> menuItems{L"Start", L"Options", L"About Game"};
+  std::vector<String> menuItems{L"Start", L"Options", L"About Game", L"Exit"};
 
   AssetManager assetManager_;
   RenderWindow window_;

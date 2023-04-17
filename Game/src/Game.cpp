@@ -26,9 +26,9 @@ Game::Game(unsigned int width_, unsigned int height_) :
 
 bool Game::Run() {
 
-  auto main_menu = std::make_unique<MainMenu>();
+  auto main_menu = MainMenu();
 
-  main_menu->Run();
+  main_menu.Run();
 
   GLFWwindow *main_window;
 
