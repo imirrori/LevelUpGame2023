@@ -39,12 +39,10 @@ int MainMenu::Init() {
   music.setLoop(true);
   music.setVolume(50);
 
-
   if (!musicFire.openFromFile("Resources/audio/faer.ogg")) return 28;
 
   musicFire.setLoop(true);
   musicFire.setVolume(50);
-
 
   mainMenu_ = std::make_unique<game::GameMenu>(window_, 950, 350, 100, 120, menuItems);
 

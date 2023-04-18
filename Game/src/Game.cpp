@@ -28,7 +28,7 @@ Game::Game(unsigned int width_, unsigned int height_) :
 
 bool Game::Run() {
 
-//  main_menu->Run();
+  main_menu->Run();
 
   GLFWwindow *main_window;
 
