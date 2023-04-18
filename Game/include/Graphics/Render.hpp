@@ -18,7 +18,7 @@ class Render {
   static void onInit();
   static void onShutDown();
 
-  static void BeginScene(View &view_cam);
+  static void BeginScene(Camera &view_cam);
   static void EndScene();
 
   static void DrawQuad(glm::vec2 position, float rotation, glm::vec2 scale, glm::vec4 color);

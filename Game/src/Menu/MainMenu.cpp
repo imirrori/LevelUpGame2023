@@ -71,7 +71,7 @@ int MainMenu::Init() {
   fText_.menu_text_color = Color(237, 147, 0);
   fText_.bord = 3;
 
-  InitText(Title_, 480, 50, L"InitText", fText_);
+  InitText(Title_, 480, 50, L"Super Mario", fText_);
 
   spriteSize_ = std::make_unique<Vector2i>(300, 313);
 

@@ -9,11 +9,11 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
-class View {
+class Camera {
  public:
 
-  View() {};
-  View(float left, float right, float bottom, float top);
+  Camera() {};
+  Camera(float left, float right, float bottom, float top);
 
   inline void SetPosition(glm::vec2 position) {
 	this->m_Position = position;

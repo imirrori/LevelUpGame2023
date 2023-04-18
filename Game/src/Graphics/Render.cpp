@@ -58,7 +58,7 @@ void Render::onShutDown() {
   delete r_Data;
 }
 
-void Render::BeginScene(View &cam_view) {
+void Render::BeginScene(Camera &cam_view) {
   r_Data->spriteShader->Bind();
   r_Data->spriteShader->SetMatrix4("u_View", cam_view.GetViewMatrix());
   r_Data->spriteShader->SetMatrix4("u_Projection", cam_view.GetProjectionMatrix());

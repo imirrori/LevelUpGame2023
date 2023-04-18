@@ -39,7 +39,7 @@ class Game {
   static constexpr float PIXEL_TO_M = 150.f;
 
  private:
-  View view_cam;
+  Camera view_cam;
 
   unsigned int width, height;
 
