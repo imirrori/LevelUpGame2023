@@ -20,13 +20,15 @@ namespace Game {
 Game::Game(unsigned int width_, unsigned int height_) :
 	width(width_), height(height_), view_cam(0, static_cast <float>(width_), 0, static_cast<float>(height_)) {
 
+  main_menu = std::make_unique<MainMenu>();
+
   std::cout << "Game initialized" << std::endl;
 
 }
 
 bool Game::Run() {
 
-  main_menu->Run();
+//  main_menu->Run();
 
   GLFWwindow *main_window;
 
@@ -94,8 +96,6 @@ void Game::onInit() {
 
   // Physics initialization
   b2Vec2 gravity(0, -20);
-
-  main_menu = std::make_unique<MainMenu>();
 
   this->MarioWorld = new b2World(gravity);
 
