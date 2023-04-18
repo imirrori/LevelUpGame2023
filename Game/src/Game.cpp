@@ -26,9 +26,7 @@ Game::Game(unsigned int width_, unsigned int height_) :
 
 bool Game::Run() {
 
-  auto main_menu = MainMenu();
-
-  main_menu.Run();
+  main_menu->Run();
 
   GLFWwindow *main_window;
 
@@ -96,6 +94,8 @@ void Game::onInit() {
 
   // Physics initialization
   b2Vec2 gravity(0, -20);
+
+  main_menu = std::make_unique<MainMenu>();
 
   this->MarioWorld = new b2World(gravity);
 

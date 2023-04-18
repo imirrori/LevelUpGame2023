@@ -58,6 +58,7 @@ set(GLEW_INCLUDE_DIRS /opt/homebrew/Cellar/glew/2.2.0_1/include)
 find_package(GLEW REQUIRED)
 
 
+
 include_directories(
         /opt/homebrew/Cellar/glew/2.2.0_1/include
         lib/glm
@@ -189,6 +190,7 @@ add_library(mario::lib ALIAS Mario_Lib)
 
 target_include_directories(Mario_Lib
                            PUBLIC
+                           ${SFML_INCLUDE_DIR}
                            ${PROJECT_SOURCE_DIR}/Game/include
                            ${PROJECT_SOURCE_DIR}/lib
                            ${box2d_INCLUDE_DIRS}
@@ -247,10 +249,19 @@ add_custom_command(
         $<TARGET_FILE_DIR:Mario>/openal32.dll
 )
 
+target_include_directories(Mario
+                           PUBLIC
+                           ${PROJECT_SOURCE_DIR}/Game/include
+                           ${PROJECT_SOURCE_DIR}/lib
+                           ${box2d_INCLUDE_DIRS}
+                           ${PROJECT_SOURCE_DIR}/lib/STBI
+                           ${PROJECT_SOURCE_DIR}/lib/glm
+
+                           )
+
 target_link_libraries(Mario PRIVATE
                       mario::lib
-
-
+                      sfml-graphics
                       )
 
 if (WIN32 AND BUILD_SHARED_LIBS)

@@ -12,6 +12,7 @@
 #include "interface/IEntity.hpp"
 #include "interface/IEventHandler.hpp"
 #include "Level.hpp"
+#include "Menu/MainMenu.hpp"
 #include "View.hpp"
 
 #include <GLFW/glfw3.h>
@@ -48,6 +49,8 @@ class Game {
   EntityMario *mario;
   EntityGround *ground;
   Level *level;
+
+  std::unique_ptr <MainMenu> main_menu;
 
   b2World *MarioWorld = nullptr;
 
