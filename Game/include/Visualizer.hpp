@@ -1,10 +1,10 @@
 #ifndef VISUALIZER_HPP
 #define VISUALIZER_HPP
 
-#include "IEntity.hpp"
-#include "IMenu.hpp"
-#include "IPlayer.hpp"
-#include "ISettings.hpp"
+#include "interface/IEntity.hpp"
+#include "interface/IMenu.hpp"
+#include "interface/IPlayer.hpp"
+#include "interface/ISettings.hpp"
 
 #include <GLFW/glfw3.h>
 

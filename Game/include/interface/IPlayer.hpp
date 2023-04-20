@@ -7,8 +7,7 @@ public:
   virtual ~IPlayer() = default;
 
   virtual void ShowPlayer(int x,
-                          int y) const = 0;
+                          int y) = 0;
 };
 
-// проверка для коммита
 #endif // IPLAYER_HPP

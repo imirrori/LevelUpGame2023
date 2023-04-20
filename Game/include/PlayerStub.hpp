@@ -1,8 +1,8 @@
 #ifndef PLAYERSTUB_HPP
 #define PLAYERSTUB_HPP
 
-#include "IEntity.hpp"
-#include "IPlayer.hpp"
+#include "interface/IEntity.hpp"
+#include "interface/IPlayer.hpp"
 
 #include <memory>
 
@@ -14,13 +14,15 @@ public:
     : playerViz_(std::move(playerViz))
   {}
 
-  void onUpdate() override {}
+  void onUpdate() override {
+  }
 
   void onRender() override    {
     playerViz_->ShowPlayer(10, 10);
   }
 
-  void onCollision() override {}
+  void onCollision() override {
+  }
 
 private:
 

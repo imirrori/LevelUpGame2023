@@ -1,5 +1,3 @@
-#include "GlobalSettings.hpp"
-#include "Player.hpp"
 #include "Visualizer.hpp"
 
 #include <cmath>
@@ -60,7 +58,8 @@ void Visualizer::PrintRow(const std::string& name) // override_by_IMenu
 }
 
 void Visualizer::EndPrint() // override by IMenu
-{}
+{
+}
 
 void Visualizer::ShowPlayer(int x, int y)
 {

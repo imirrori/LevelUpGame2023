@@ -1,8 +1,8 @@
 #ifndef MENUSTUB_HPP
 #define MENUSTUB_HPP
 
-#include "IEntity.hpp"
-#include "IMenu.hpp"
+#include "interface/IEntity.hpp"
+#include "interface/IMenu.hpp"
 
 #include <memory>
 
@@ -14,7 +14,8 @@ public:
     : menuViz_(std::move(menuViz))
   {}
 
-  void onUpdate() override {}
+  void onUpdate() override {
+  }
 
   void onRender() override    {
     menuViz_->StartPrint(3);
@@ -24,7 +25,8 @@ public:
     menuViz_->EndPrint();
   }
 
-  void onCollision() override {}
+  void onCollision() override {
+  }
 
 private:
 

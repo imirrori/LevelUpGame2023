@@ -18,7 +18,8 @@ void Game::Run()
 }
 
 void Game::Init()
-{}
+{
+}
 
 Game::Game()
 {

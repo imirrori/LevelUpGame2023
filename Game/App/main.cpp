@@ -3,9 +3,8 @@
 
 int main()
 {
-  Settings::GlobalSettings set;
+  Game game;
 
-  Game game(set);
   game.Init();
   game.Run();
 
