@@ -58,7 +58,6 @@ set(GLEW_INCLUDE_DIRS /opt/homebrew/Cellar/glew/2.2.0_1/include)
 find_package(GLEW REQUIRED)
 
 
-
 include_directories(
         /opt/homebrew/Cellar/glew/2.2.0_1/include
         lib/glm
@@ -105,7 +104,7 @@ set(SOURCE_FILES
     Game/src/ContactListener.cpp
     Game/src/EventSystem.cpp
     Game/src/Entity/EntityCoinBlock.cpp
-
+    Game/src/MapParser.cpp
     )
 
 set(HEADER_FILES
@@ -133,8 +132,9 @@ set(HEADER_FILES
     Game/include/EventSystem.hpp
     Game/include/Entity/EntityCoinBlock.hpp
     Game/include/interface/IMap.hpp
-
+    Game/include/MapParser.hpp
     )
+
 ############################################################
 # Create a MENU library
 ############################################################
