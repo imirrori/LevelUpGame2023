@@ -9,6 +9,8 @@ Visualizer::Visualizer(std::shared_ptr<Settings::ISettings>settings)
   : menu_count_(0)
   , reverse_menu_count_(0)
   , settings_(settings)
+
+  // , vizmap_(vizmap)
 {
   if (!glfwInit()) {
     throw std::exception{};
@@ -83,7 +85,76 @@ void Visualizer::ShowPlayer(int x, int y)
   glEnd();
 }
 
-bool Visualizer::Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow)
+std::size_t Visualizer::width()  const {
+  return 0;
+}
+
+std::size_t Visualizer::height() const {
+  return 0;
+}
+
+const std::string& Visualizer::GetMap()const  {
+}
+
+void               Visualizer::PrintMap(const std::string& map,
+                                        const std::size_t& width,
+                                        const std::size_t& height) {
+  // определиться откуда берем настройки -  из ini-файла или класса map и
+  // определиться с размерами!
+  int field_width  = width;
+  int field_height = height;
+
+  // int field_width =
+  //   std::get<int>(settings_->GetValue("visual", "field_width"));
+
+  // int field_height =
+  //   std::get<int>(settings_->GetValue("visual", "field_height"));
+
+  int g = field_height * field_width;
+  int a = map.length() - g;              // длина строки карты 75
+  int k = 0;
+  k = a / field_width;                   // смещение по длинне карты
+
+  for (int i = 0; i < field_height; ++i) // 25 вниз
+  {
+    int j = 0;
+    {
+      for (; j < field_width; ++j) // 50 вбок
+      {
+        glBegin(GL_POLYGON);
+
+        switch (map[(i * (field_width + k)) + j])
+        {
+          case '#':
+            glColor3f(0,   0,   1);
+            break;
+          case 'c':
+            glColor3f(1,   0,   0);
+            break;
+          case 'm':
+            glColor3f(0,   1,   0);
+            break;
+          case 's':
+            glColor3f(1,   1,   1);
+            break;
+          case 'b':
+            glColor3f(0.5, 0.5, 0.5);
+            break;
+        }
+        glVertex2f(0 +   j, 0  + (field_height - 1 - i));
+        glVertex2f(0 +   j, 1 +  (field_height - 1 - i));
+        glVertex2f(1 +   j, 1 +  (field_height - 1 - i));
+        glVertex2f(1 +   j, 0  + (field_height - 1 - i));
+        glEnd();
+      }
+      j = 0;
+    }
+  }
+}
+
+bool Visualizer::Show(
+  const std::vector<std::shared_ptr<IEntity> >& dataToShow,
+  const std::shared_ptr<IMap>                 & map)
 {
   if (glfwWindowShouldClose(window_))
   {
@@ -104,6 +175,8 @@ bool Visualizer::Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow)
   for (const auto& el: dataToShow) {
     el->onRender();
   }
+
+  map->PrintMap(map->GetMap(), map->width(), map->height());
 
   glfwSwapBuffers(window_); // обмен буферов
   glfwPollEvents();         // обработчик событий, проверяет не зависло ли

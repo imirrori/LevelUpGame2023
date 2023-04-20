@@ -11,8 +11,10 @@ SOURCES += \
 
 HEADERS += \
        include/Game.hpp \
+       include/MapStub.hpp \
        include/interface/IEntity.hpp \
        include/interface/IMenu.hpp \
+       include/interface/IMap.hpp \
        include/interface/IPlayer.hpp \
        include/interface/ISettings.hpp \
        include/MenuStub.hpp \

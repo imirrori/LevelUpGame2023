@@ -18,6 +18,8 @@ private:
 
   std::shared_ptr<Settings::Settings>setting_;
   std::shared_ptr<Visual::Visualizer>viz_;
+
+  std::shared_ptr<IMap>map_;
 };
 
 #endif // GAME_HPP

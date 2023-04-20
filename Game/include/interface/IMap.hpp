@@ -19,7 +19,9 @@ public:
   virtual std::size_t        height() const = 0;
   virtual const std::string& GetMap() const = 0;
 
-  virtual void               PrintMap(const std::string& map) = 0;
+  virtual void               PrintMap(const std::string& map,
+                                      const std::size_t& width,
+                                      const std::size_t& height) = 0;
 };
 
 #endif //MARIO_GAME_INCLUDE_INTERFACE_IMAP_HPP_
