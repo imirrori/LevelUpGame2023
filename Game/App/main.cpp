@@ -4,6 +4,7 @@
 int main()
 {
   Settings::GlobalSettings set;
+
   Game game(set);
   game.Init();
   game.Run();
