@@ -8,14 +8,11 @@
 namespace Visual {
 class Visualizer {
 public:
-
   Visualizer(const Settings::GlobalSettings& settings);
   ~Visualizer();
-
-  void Mainloop();
+  GLFWwindow *GetWindowInstance() const { return window_; }
 
 private:
-
   const Settings::GlobalSettings& settings_;
   GLFWwindow *window_;
 };

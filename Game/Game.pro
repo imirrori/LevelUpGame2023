@@ -14,6 +14,7 @@ HEADERS += \
        include/GlobalSettings.hpp \
        include/IMenu.hpp \
        include/IPlayer.hpp \
+       include/IPlayerVisualizer.hpp \
        include/Player.hpp \
        include/Visualizer.hpp
 

@@ -6,6 +6,7 @@
 #include <stdio.h>
 
 namespace Visual {
+
 Visualizer::Visualizer(const Settings::GlobalSettings& settings)
   : settings_(settings)
 {
@@ -33,18 +34,4 @@ Visualizer::~Visualizer()
   glfwTerminate();
 }
 
-void Visualizer::Mainloop()
-{
-  while (!glfwWindowShouldClose(window_))
-  {
-    /* Render here */
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    /* Swap front and back buffers */
-    glfwSwapBuffers(window_);
-
-    /* Poll for and process events */
-    glfwPollEvents();
-  }
-}
 } // Visual
