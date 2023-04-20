@@ -1,9 +1,26 @@
 #include "Game.hpp"
+#include "MenuStub.hpp"
+#include "PlayerStub.hpp"
+
+#include <fstream>
 #include <iostream>
 
 void Game::Run()
 {
   Mainloop();
+}
+
+namespace {
+constexpr std::string_view SettingFileName = "settings.ini";
+}
+
+void Game::Run()
+{
+  std::shared_ptr<IEntity> menu   = std::make_shared<MenuStub>(viz_);
+  std::shared_ptr<IEntity> player = std::make_shared<PlayerStub>(viz_);
+
+  while (viz_->Show({ menu, player }))
+  {}
 }
 
 void Game::Init()
@@ -13,7 +30,11 @@ void Game::Init()
 
 Game::Game()
 {
-  viz_ = std::make_shared<Visual::Visualizer>(setting);
+  std::ifstream inStream(SettingFileName.data());
+
+  setting_ = std::make_shared<Settings::Settings>(inStream);
+
+  viz_ = std::make_shared<Visual::Visualizer>(setting_);
 }
 
 void Game::Action()
