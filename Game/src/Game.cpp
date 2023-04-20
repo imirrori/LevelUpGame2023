@@ -20,7 +20,7 @@ namespace Game {
 Game::Game(unsigned int width_, unsigned int height_) :
 	width(width_), height(height_), view_cam(0, static_cast <float>(width_), 0, static_cast<float>(height_)) {
 
-  main_menu = std::make_unique<MainMenu>();
+//  main_menu = std::make_unique<MainMenu>();
 
   std::cout << "Game initialized" << std::endl;
 
@@ -28,7 +28,7 @@ Game::Game(unsigned int width_, unsigned int height_) :
 
 bool Game::Run() {
 
-  main_menu->Run();
+  //main_menu->Run();
 
   GLFWwindow *main_window;
 
@@ -107,9 +107,10 @@ void Game::onInit() {
 
   mario = new EntityMario(event_handler, *MarioWorld);
 
-  ground = new EntityGround(event_handler, *MarioWorld);
-
   level = new Level(event_handler, *MarioWorld);
+
+  ground = new EntityGround(event_handler, *MarioWorld, level->getLevelWidth());
+
 
   if (MarioWorld) {
 	std::cout << "Mario World Created" << std::endl;

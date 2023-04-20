@@ -25,11 +25,13 @@ class Level : public Entity { //TODO: Refactor to ILevel
   void onRender() override;
   void onCollision(IEntity *collision_entity) override;
 
+  int getLevelWidth();
  private:
   std::vector<IEntity *> map_entities;
-  Map map_;
 
-  EventSystem * event_handler_;
+  Map map_ = Map("Resources/map/demo2.map");
+
+  EventSystem *event_handler_;
 
   void buildMap(b2World &world);
 

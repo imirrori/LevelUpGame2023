@@ -6,7 +6,8 @@
 #include "EventSystem.hpp"
 #include "Graphics/Render.hpp"
 
-EntityGround::EntityGround(EventSystem &event_handler, b2World &world) {
+EntityGround::EntityGround(EventSystem &event_handler, b2World &world, int width_count) : width_count_(width_count)
+{
 
   event_handler.addEventHandler(*this);
 

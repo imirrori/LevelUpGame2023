@@ -15,7 +15,7 @@
 class EntityGround : public Entity {
 
  public:
-  EntityGround(EventSystem &event_handler, b2World &world);
+  EntityGround(EventSystem &event_handler, b2World &world, int width_count );
   ~EntityGround() override;
 
   void onUpdate(float delta) override;

@@ -19,7 +19,7 @@ void Level::onUpdate(float delta) {
 void Level::onRender() {
 
 }
-void Level::onCollision(IEntity * collision_entity) {
+void Level::onCollision(IEntity *collision_entity) {
 
 }
 void Level::buildMap(b2World &world) {
@@ -85,6 +85,11 @@ Level::Level(EventSystem &event_handler, b2World &world) {
   buildMap(world);
 
   std::cout << "Level created" << std::endl;
+
+}
+int Level::getLevelWidth() {
+
+  return static_cast<int>(map_.width());
 
 }
 

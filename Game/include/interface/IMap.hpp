@@ -10,13 +10,13 @@
 class IMap {
  public:
   IMap() = default;
-  IMap(const std::string &file_name) {};
+  explicit IMap(const std::string &file_name) = delete;
 
   virtual ~IMap() = default;
 
-  virtual std::size_t width() const = 0;
-  virtual std::size_t height() const = 0;
-  virtual const std::string &GetMap() const = 0;
+  [[nodiscard]] virtual std::size_t width() const = 0;
+  [[nodiscard]] virtual std::size_t height() const = 0;
+  [[nodiscard]] virtual const std::string &GetMap() const = 0;
 
 };
 
