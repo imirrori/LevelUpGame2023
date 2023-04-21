@@ -22,7 +22,7 @@ class EventSystem : public IEventHandler {
   void removeEventHandler(Entity &owner) override;
 
  private:
-  std::vector<Entity *> m_eventHandlers;
+  std::vector<Entity *> m_eventHandlers; // Vector of event handlers
 
 };
 

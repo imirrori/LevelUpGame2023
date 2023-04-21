@@ -25,7 +25,9 @@ Map::Map(const std::string &file_name) {
 	tmp_width = line.length();
 
 	if (tmp_width!=line_before_width && tmp_height!=0) {
+
 	  throw std::runtime_error("Map is not rectangular");
+
 	}
 
 	line_before_width = tmp_width;
@@ -41,6 +43,6 @@ Map::Map() {
 
   map_ = default_map_;
   width_ = 200;
-  height_ = 9;
+  height_ = 8;
 
 }
