@@ -13,6 +13,8 @@ EntityStepBlock::EntityStepBlock(EventSystem &event_handler_, b2World &world, gl
   vRotation = 0;
   vScale = scale;
 
+  vTag = "stair-brick";
+
   texture = &Graphics::Texture::GetTexture("stair_brick");
 
   b2BodyDef b_def;

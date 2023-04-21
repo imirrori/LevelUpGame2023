@@ -46,6 +46,8 @@ EntityCoin::EntityCoin(EventSystem &event_handler_, b2World &world, glm::vec2 po
   vRotation = 0;
   vScale = scale;
 
+  vTag = "coin";
+
   engage_pos_ = position;
 
   textures[0] = &Graphics::Texture::GetTexture("coin-0");

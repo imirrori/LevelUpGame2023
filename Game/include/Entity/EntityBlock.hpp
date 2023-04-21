@@ -19,14 +19,14 @@ class EntityBlock : public Entity {
 
   EntityBlock(EventSystem &event_handler_, b2World &world, glm::vec2 position, glm::vec2 scale);
 
-  ~EntityBlock() override = default;
+  ~EntityBlock() override;
 
   void onUpdate(float delta) override;
   void onRender() override;
   void onCollision(IEntity *collision_entity) override;
 
  private:
-  const void Shake_(float delta);
+//  const void Shake_(float delta);
 
   int hp_ = 3;
 

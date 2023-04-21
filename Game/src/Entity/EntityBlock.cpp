@@ -7,10 +7,13 @@
 
 EntityBlock::EntityBlock(EventSystem &event_handler_, b2World &world, glm::vec2 position, glm::vec2 scale) {
 
+  event_handler_.addEventHandler(*this);
+
   vPosition = position;
   vScale = scale;
   vRotation = 0;
-  vTag = "brick";
+
+  vTag = "Block";
 
   textures[0] = &Graphics::Texture::GetTexture("brick-2");
   textures[1] = &Graphics::Texture::GetTexture("brick-1");
@@ -66,6 +69,11 @@ void EntityBlock::onCollision(IEntity *collision_entity) {
 	  current_texture = textures[hp_ - 1];
 	}
   }
+}
+EntityBlock::~EntityBlock() {
+
+  mp_Body->GetWorld()->DestroyBody(mp_Body);
+
 }
 
 
