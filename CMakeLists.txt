@@ -105,6 +105,7 @@ set(SOURCE_FILES
     Game/src/EventSystem.cpp
     Game/src/Entity/EntityCoinBlock.cpp
     Game/src/MapParser.cpp
+    Game/src/Sprite.cpp
     )
 
 set(HEADER_FILES
@@ -133,7 +134,9 @@ set(HEADER_FILES
     Game/include/Entity/EntityCoinBlock.hpp
     Game/include/interface/IMap.hpp
     Game/include/MapParser.hpp
+    Game/include/Sprite.hpp
     )
+
 
 ############################################################
 # Create a MENU library
