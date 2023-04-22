@@ -14,27 +14,28 @@
 namespace Visual {
 class Visualizer
   : public IMenu
-    , public IPlayer {
+  , public IPlayer {
 public:
-  Visualizer(const Settings::GlobalSettings& settings);
-  // Visualizer(std::shared_ptr<Settings::ISettings>settings);
+  //Visualizer(const Settings::GlobalSettings& settings);
+  Visualizer(std::shared_ptr<Settings::ISettings>settings);
   ~Visualizer();
   GLFWwindow *GetWindowInstance() const { return window_; }
 
   // IMenu
-  void         StartPrint(int count) override;
+  void         StartPrint(int count)             override;
   void         PrintRow(const std::string& name) override;
-  void         EndPrint()  override;
+  void         EndPrint()                        override;
 
   // IPlayer
-  virtual void ShowPlayer(int x,
-                          int y) override;
+  void ShowPlayer(const int& x, const int& y)    override;
+  void OnInit()                                  override;
+  void OnUpdate(double deltaTime = 0.0)          override;
+  void OnRender()                                override;
 
-  bool         Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow);
-
+  bool Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow);
 
 private:
-  const Settings::GlobalSettings& settings_;
+  //const Settings::GlobalSettings& settings_;
 
   void func_print_char(const std::string name,
                        const float       where_down,

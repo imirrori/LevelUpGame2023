@@ -3,11 +3,14 @@
 
 #include "IPlayer.hpp"
 #include "IPlayerVisualizer.hpp"
+
 #include <GLFW/glfw3.h>
+
 #include <iostream>
 #include <memory>
 
-class Player : public IPlayer
+class Player
+  : public IPlayer
 {
 public:
   Player(const std::shared_ptr<IPlayerVisualizer>& playerVizualizer);
@@ -27,7 +30,6 @@ private:
   int    _health = 100.0;
   double _posX   = 0.0;
   double _posY   = 0.0;
-  double _speed  = 0.1;
   std::shared_ptr<IPlayerVisualizer> _playerVizualizer;
 };
 

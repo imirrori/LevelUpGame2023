@@ -22,9 +22,11 @@ public:
   void Render();
 
 private:
-  Settings::GlobalSettings setting;
-  std::shared_ptr<Settings::Settings>setting_;
-  std::shared_ptr<Visual::Visualizer>viz_;
+  //Settings::GlobalSettings setting;
+
+  std::shared_ptr<Settings::Settings> setting_;
+  std::shared_ptr<Visual::Visualizer> viz_;
+
   GLFWwindow *window_;
   std::mutex mutex_;
 };

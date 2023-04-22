@@ -9,7 +9,7 @@ public:
   virtual void OnUpdate(double deltaTime = 0.0)       = 0;
   virtual void OnRender()                             = 0;
 
-  virtual ~IPlayer() = default;
+  virtual ~IPlayer()                                  = default;
 };
 
 #endif // IPLAYER_HPP

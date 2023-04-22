@@ -1,7 +1,6 @@
 #include "Visualizer.hpp"
 
 #include <cmath>
-
 #include <stdexcept>
 
 namespace Visual {
@@ -43,6 +42,19 @@ Visualizer::~Visualizer()
   glfwTerminate();
 }
 
+// Player
+void Visualizer::OnInit()
+{}
+
+void Visualizer::OnUpdate(double deltaTime)
+{}
+
+void Visualizer::OnRender()
+{
+  ShowPlayer(0, 0);
+}
+// End Player
+
 void Visualizer::StartPrint(int count) // override by IMenu
 {
   menu_count_         = count;
@@ -65,7 +77,7 @@ void Visualizer::PrintRow(const std::string& name) // override_by_IMenu
 void Visualizer::EndPrint() // override by IMenu
 {}
 
-void Visualizer::ShowPlayer(int x, int y)
+void Visualizer::ShowPlayer(const int& x, const int& y)
 {
   // начало отрисовки полигона персонажа
   glBegin(GL_POLYGON);

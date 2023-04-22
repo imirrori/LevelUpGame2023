@@ -5,13 +5,7 @@
 #include <fstream>
 #include <iostream>
 
-void Game::Run()
-{
-  Mainloop();
-}
-
 namespace {
-constexpr std::string_view SettingFileName = "settings.ini";
 }
 
 void Game::Run()
@@ -20,26 +14,27 @@ void Game::Run()
   std::shared_ptr<IEntity> player = std::make_shared<PlayerStub>(viz_);
 
   while (viz_->Show({ menu, player }))
-  {}
+  {
+    Mainloop();
+  }
 }
 
 void Game::Init()
-{
-  window_ = viz_->GetWindowInstance();
-}
+{}
 
 Game::Game()
 {
   std::ifstream inStream(SettingFileName.data());
 
-  setting_ = std::make_shared<Settings::Settings>(inStream);
-
-  viz_ = std::make_shared<Visual::Visualizer>(setting_);
+  setting_  = std::make_shared<Settings::Settings>(inStream);
+  viz_      = std::make_shared<Visual::Visualizer>(setting_);
+  window_   = viz_->GetWindowInstance();
 }
 
 void Game::Action()
 {
   std::lock_guard<std::mutex> _(mutex_);
+
   if(glfwGetKey(window_, GLFW_KEY_LEFT) == GLFW_PRESS)
   {
     // Moving right
@@ -61,6 +56,8 @@ void Game::Render()
 {
   /* Render here */
   glClear(GL_COLOR_BUFFER_BIT);
+
+  viz_->OnRender();
 
   /* Swap front and back buffers */
   glfwSwapBuffers(window_);

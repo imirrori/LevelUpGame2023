@@ -16,9 +16,12 @@ void Player::OnUpdate(double deltaTime/* = 0.0 */)
 
 }
 
+void Movement(const int& btnCode, const int& x, const int& y)
+{}
+
 void Player::OnRender()
 {
-  ShowPlayer(0, 0);
+  ShowPlayer(_posX, _posY);
 }
 
 void Player::SetHealth(const int& health)
