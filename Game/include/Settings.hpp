@@ -1,7 +1,7 @@
 #ifndef SETTINGS_HPP
 #define SETTINGS_HPP
 
-#include "ISettings.hpp"
+#include "interface/ISettings.hpp"
 
 #include <istream>
 #include <unordered_map>
