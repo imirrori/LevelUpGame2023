@@ -8,9 +8,10 @@ public:
 
   virtual ~IMenu() = default;
 
-  virtual void StartPrint(int count)             = 0;
-  virtual void PrintRow(const std::string& name) = 0;
-  virtual void EndPrint()                        = 0;
+  virtual void StartPrint(int count) = 0;
+  virtual void PrintRow(const std::string& name,
+                        bool               current) = 0;
+  virtual void EndPrint()                           = 0;
 };
 
 #endif // IMENU_HPP
