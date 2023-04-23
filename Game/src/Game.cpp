@@ -6,7 +6,8 @@
 #include <fstream>
 
 namespace {
-constexpr std::string_view SettingFileName = "settings.ini";
+constexpr std::string_view SettingFileName =
+  "D:/01_Projects/HomeWork/LEARN/LEARN/Level_3/GAME_level_up/Game/Game/configs/settings.ini";
 }
 
 void Game::Run()

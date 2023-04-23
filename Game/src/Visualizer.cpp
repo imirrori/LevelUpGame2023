@@ -1,16 +1,16 @@
 #include "Visualizer.hpp"
-
 #include <cmath>
-
 #include <stdexcept>
 
 namespace Visual {
 Visualizer::Visualizer(std::shared_ptr<Settings::ISettings>settings)
   : menu_count_(0)
   , reverse_menu_count_(0)
+  , width_moving_(0)
+  ,  speed_(25)
+  ,  currentTime_(0)
+  ,  lastTime_(0)
   , settings_(settings)
-
-  // , vizmap_(vizmap)
 {
   if (!glfwInit()) {
     throw std::exception{};
@@ -99,56 +99,58 @@ const std::string& Visualizer::GetMap()const  {
 void               Visualizer::PrintMap(const std::string& map,
                                         const std::size_t& width,
                                         const std::size_t& height) {
-  // определиться откуда берем настройки -  из ini-файла или класса map и
-  // определиться с размерами!
   int field_width  = width;
   int field_height = height;
 
-  // int field_width =
-  //   std::get<int>(settings_->GetValue("visual", "field_width"));
-
-  // int field_height =
-  //   std::get<int>(settings_->GetValue("visual", "field_height"));
-
-  int g = field_height * field_width;
-  int a = map.length() - g;              // длина строки карты 75
-  int k = 0;
-  k = a / field_width;                   // смещение по длинне карты
-
-  for (int i = 0; i < field_height; ++i) // 25 вниз
+  for (int i = 0; i < field_height; ++i) // вертикаль
   {
     int j = 0;
-    {
-      for (; j < field_width; ++j) // 50 вбок
-      {
-        glBegin(GL_POLYGON);
 
-        switch (map[(i * (field_width + k)) + j])
-        {
-          case '#':
-            glColor3f(0,   0,   1);
-            break;
-          case 'c':
-            glColor3f(1,   0,   0);
-            break;
-          case 'm':
-            glColor3f(0,   1,   0);
-            break;
-          case 's':
-            glColor3f(1,   1,   1);
-            break;
-          case 'b':
-            glColor3f(0.5, 0.5, 0.5);
-            break;
-        }
-        glVertex2f(0 +   j, 0  + (field_height - 1 - i));
-        glVertex2f(0 +   j, 1 +  (field_height - 1 - i));
-        glVertex2f(1 +   j, 1 +  (field_height - 1 - i));
-        glVertex2f(1 +   j, 0  + (field_height - 1 - i));
-        glEnd();
-      }
-      j = 0;
+    // если по горизонтали меньше 0 координаты влево не идем
+    if (width_moving_ < 0)
+    {
+      width_moving_ = 0;
     }
+
+    // если по горизонтали больше размера, влезающего в поле зрения
+    if (width_moving_ >
+        field_width -
+        std::get<int>(settings_->GetValue("visual", "field_width")))
+    {
+      width_moving_ = field_width -
+                      std::get<int>(settings_->GetValue("visual",
+                                                        "field_width"));
+    }
+
+    for (; j < field_width; ++j) // горизонталь
+    {
+      glBegin(GL_POLYGON);
+
+      switch (map[(i * (field_width)) + j])
+      {
+        case '#':
+          glColor3f(0,   0,   1);
+          break;
+        case 'c':
+          glColor3f(1,   0,   0);
+          break;
+        case 'm':
+          glColor3f(0,   1,   0);
+          break;
+        case 's':
+          glColor3f(1,   1,   1);
+          break;
+        case 'b':
+          glColor3f(0.5, 0.5, 0.5);
+          break;
+      }
+      glVertex2f(0 +   j, 0  + (field_height - 1 - i));
+      glVertex2f(0 +   j, 1 +  (field_height - 1 - i));
+      glVertex2f(1 +   j, 1 +  (field_height - 1 - i));
+      glVertex2f(1 +   j, 0  + (field_height - 1 - i));
+      glEnd();
+    }
+    j = 0;
   }
 }
 
@@ -163,6 +165,21 @@ bool Visualizer::Show(
 
   glLoadIdentity();             // считывает текущую матрицу
   glClear(GL_COLOR_BUFFER_BIT); // очистка буфера
+
+  currentTime_ = glfwGetTime();
+  float deltaTime = float(currentTime_ - lastTime_);
+  lastTime_ = currentTime_;
+
+  if (glfwGetKey(window_, GLFW_KEY_RIGHT) == GLFW_PRESS)
+  {
+    width_moving_ += 1 * speed_ * deltaTime;
+  }
+
+  if (glfwGetKey(window_, GLFW_KEY_LEFT) == GLFW_PRESS)
+  {
+    width_moving_ -= 1 * speed_ * deltaTime;
+  }
+
   glOrtho(0,
           std::get<int>(settings_->GetValue("visual",
                                             "field_width")),
@@ -172,15 +189,19 @@ bool Visualizer::Show(
           0,
           10);
 
+
   for (const auto& el: dataToShow) {
     el->onRender();
   }
 
+  glTranslatef(0 - width_moving_, 0, 0); // двжение камеры от начальных
+                                         // координат
   map->PrintMap(map->GetMap(), map->width(), map->height());
 
-  glfwSwapBuffers(window_); // обмен буферов
-  glfwPollEvents();         // обработчик событий, проверяет не зависло ли
-                            // окно
+  glfwSwapBuffers(window_);              // обмен буферов
+  glfwPollEvents();                      // обработчик событий, проверяет не
+                                         // зависло ли
+                                         // окно
   return true;
 }
 

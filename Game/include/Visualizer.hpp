@@ -54,6 +54,10 @@ private:
   // Visualizer's fields
   int menu_count_;
   int reverse_menu_count_;
+  double width_moving_;
+  float speed_;
+  float currentTime_;
+  float lastTime_;
   std::shared_ptr<Settings::ISettings>settings_;
   GLFWwindow *window_;
 };
