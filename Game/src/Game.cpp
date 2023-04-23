@@ -10,9 +10,7 @@ constexpr std::string_view SettingFileName = "settings.ini";
 
 void Game::Run()
 {
-  std::shared_ptr<IEntity> player = std::make_shared<PlayerStub>(viz_);
-
-  while (viz_->Show({ menu_, player }))
+  while (viz_->Show(showObjects_))
   {
     std::vector<KeyManager::Key> keysDown = keyManager_->GetKeysDown();
 
@@ -27,6 +25,9 @@ void Game::Run()
         case 257: // ENTER
           menu_->PressKey(MainMenu::ENTER);
           break;
+        case 256: // ESC
+          EscapeKey();
+          break;
       }
       keyManager_->KeyAction(key.key,
                              key.scancode,
@@ -37,22 +38,45 @@ void Game::Run()
 }
 
 void Game::Init()
-{}
-
-Game::Game()
 {
   std::ifstream inStream(SettingFileName.data());
 
   setting_    = std::make_shared<Settings::Settings>(inStream);
   keyManager_ = std::make_shared<KeyManager>();
   viz_        = std::make_shared<Visual::Visualizer>(setting_, keyManager_);
-  MainMenu a(std::static_pointer_cast<IMenu>(viz_));
+  player_     = std::make_shared<PlayerStub>(viz_);
+  menu_       = std::make_shared<MainMenu>(viz_);
 
-  menu_ = std::make_shared<MainMenu>(viz_);
+  auto endGame = []() {
+                   exit(0);
+                 };
+  auto startGame = [this, endGame]()
+                   {
+                     std::vector<std::shared_ptr<IEntity> > newShow;
 
-  menu_->AddSubMenu({ "start game", {} });
-  menu_->AddSubMenu({ "load game", {} });
-  menu_->AddSubMenu({ "end game", []() {
-                        exit(0);
-                      } });
+                     newShow.push_back(player_);
+                     showObjects_.swap(newShow);
+
+                     EscapeKey = [this, endGame]()
+                                 {
+                                   std::vector<std::shared_ptr<IEntity> >
+                                   newShow;
+
+                                   newShow.push_back(menu_);
+                                   showObjects_.swap(newShow);
+                                   EscapeKey = endGame;
+                                 };
+                   };
+  auto loadGame = []() {};
+
+  EscapeKey = endGame;
+
+  menu_->AddSubMenu({ "start game", startGame });
+  menu_->AddSubMenu({ "load game", loadGame });
+  menu_->AddSubMenu({ "end game", endGame });
+
+  showObjects_.push_back(menu_);
 }
+
+Game::Game()
+{}

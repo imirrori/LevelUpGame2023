@@ -22,6 +22,10 @@ private:
   std::shared_ptr<KeyManager>keyManager_;
   std::shared_ptr<Visual::Visualizer>viz_;
   std::shared_ptr<MainMenu>menu_;
+  std::shared_ptr<IEntity>player_;
+
+  std::vector<std::shared_ptr<IEntity> >showObjects_;
+  std::function<void()>EscapeKey;
 };
 
 #endif // GAME_HPP
