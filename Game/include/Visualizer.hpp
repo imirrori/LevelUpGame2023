@@ -8,8 +8,11 @@
 
 #include <GLFW/glfw3.h>
 
+#include <KeyManager.hpp>
+
 #include <memory>
 #include <vector>
+#include <functional>
 
 namespace Visual {
 class Visualizer
@@ -17,12 +20,15 @@ class Visualizer
     , public IPlayer {
 public:
 
-  Visualizer(std::shared_ptr<Settings::ISettings>settings);
+  Visualizer(
+    std::shared_ptr<Settings::ISettings>settings,
+    std::shared_ptr<KeyManager>         keyManager);
   ~Visualizer();
 
   // IMenu
   void         StartPrint(int count) override;
-  void         PrintRow(const std::string& name) override;
+  void         PrintRow(const std::string& name,
+                        bool               current) override;
   void         EndPrint()  override;
 
   // IPlayer
@@ -30,6 +36,12 @@ public:
                           int y) override;
 
   bool         Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow);
+
+  void         KeyCatch(
+    int key,
+    int scancode,
+    int action,
+    int mods);
 
 private:
 
@@ -42,6 +54,7 @@ private:
 
   std::shared_ptr<Settings::ISettings>settings_;
   GLFWwindow *window_;
+  std::shared_ptr<KeyManager>keyManager_;
 };
 } // Visual
 

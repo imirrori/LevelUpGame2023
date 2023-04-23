@@ -4,6 +4,7 @@
 #include "MainMenu.hpp"
 #include "Settings.hpp"
 #include "Visualizer.hpp"
+#include "KeyManager.hpp"
 
 #include <memory>
 
@@ -18,6 +19,7 @@ public:
 private:
 
   std::shared_ptr<Settings::Settings>setting_;
+  std::shared_ptr<KeyManager>keyManager_;
   std::shared_ptr<Visual::Visualizer>viz_;
   std::shared_ptr<MainMenu>menu_;
 };

@@ -4,11 +4,25 @@
 
 #include <stdexcept>
 
+namespace {
+Visual::Visualizer *rawPtr = nullptr;
+void KeyCatch(GLFWwindow *, int key, int scancode, int action, int mods)
+{
+  rawPtr->KeyCatch(key,
+                   scancode,
+                   action,
+                   mods);
+}
+}
+
 namespace Visual {
-Visualizer::Visualizer(std::shared_ptr<Settings::ISettings>settings)
+Visualizer::Visualizer(
+  std::shared_ptr<Settings::ISettings>settings,
+  std::shared_ptr<KeyManager>         keyManager)
   : menu_count_(0)
   , reverse_menu_count_(0)
   , settings_(settings)
+  , keyManager_(std::move(keyManager))
 {
   if (!glfwInit()) {
     throw std::exception{};
@@ -31,6 +45,9 @@ Visualizer::Visualizer(std::shared_ptr<Settings::ISettings>settings)
   }
 
   glfwMakeContextCurrent(window_);
+
+  rawPtr = this;
+  glfwSetKeyCallback(window_, ::KeyCatch);
 }
 
 Visualizer::~Visualizer()
@@ -44,13 +61,20 @@ void Visualizer::StartPrint(int count) // override by IMenu
   reverse_menu_count_ = 1;
 }
 
-void Visualizer::PrintRow(const std::string& name) // override_by_IMenu
+void Visualizer::PrintRow(const std::string& name, bool current) //
+// override_by_IMenu
 {
   // рисование текста
   if (reverse_menu_count_ <= menu_count_)
   {
     const float where_down  = float(reverse_menu_count_ + reverse_menu_count_);
     const float where_right = 1;
+
+    if (current) {
+      glColor3f(1.f, 0, 0);
+    } else {
+      glColor3f(1.f, 1.f, 1.f);
+    }
 
     func_print_char(name, where_down, where_right);
     ++reverse_menu_count_;
@@ -108,6 +132,13 @@ bool Visualizer::Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow)
   glfwPollEvents();         // обработчик событий, проверяет не зависло ли
                             // окно
   return true;
+}
+
+void Visualizer::KeyCatch(int key, int scancode, int action, int mods)
+{
+  rawPtr->keyManager_->KeyAction(key, scancode,
+                                 static_cast<KeyManager::KEY_ACTION>(action),
+                                 mods);
 }
 
 void Visualizer::func_print_char(const std::string name,

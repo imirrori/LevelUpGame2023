@@ -14,6 +14,13 @@ class MainMenu
   : public IEntity {
 public:
 
+  enum KEY
+  {
+    UP,
+    DOWN,
+    ENTER
+  };
+
   struct BaseMenu {
     std::string          name_;
     std::function<void()>exec_;
@@ -28,11 +35,13 @@ public:
   void onCollision() override;
 
   void AddSubMenu(BaseMenu subMenu);
+  void PressKey(KEY key);
 
 private:
 
   std::shared_ptr<IMenu>menuViz_;
   std::vector<BaseMenu>subMenu_;
+  size_t currentMenu_ = 0;
 };
 
 #endif // _MAINMENU_HPP_

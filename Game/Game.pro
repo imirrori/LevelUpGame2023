@@ -5,12 +5,14 @@ CONFIG -= qt
 
 SOURCES += \
        src/Game.cpp \
+       src/KeyManager.cpp \
        src/MainMenu.cpp \
        src/Settings.cpp \
        src/Visualizer.cpp \
        App/main.cpp
 
 HEADERS += \
+       include/KeyManager.hpp \
        include/MainMenu.hpp \
        include/interface/IEntity.hpp \
        include/interface/IMenu.hpp \
