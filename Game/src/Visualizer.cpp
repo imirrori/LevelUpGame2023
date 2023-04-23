@@ -106,6 +106,43 @@ void Visualizer::ShowPlayer(int x, int y)
   glEnd();
 }
 
+void Visualizer::PrintBlock(size_t x, size_t y, int type)
+{
+  glBegin(GL_POLYGON);
+
+  switch (type) {
+    case 0:
+      glColor3f(1, 1, 1);
+      break;
+    case 1:
+      glColor3f(1, 0, 0);
+      break;
+    case 2:
+      glColor3f(0, 1, 0);
+      break;
+    case 3:
+      glColor3f(0, 0, 1);
+      break;
+    case 4:
+      glColor3f(0, 1, 1);
+      break;
+  }
+
+  const int block_size = std::get<int>(settings_->GetValue("visual",
+                                                           "block_size"));
+
+  glVertex2d(x * block_size,
+             y * block_size);
+  glVertex2d(x * block_size + block_size,
+             y * block_size);
+  glVertex2d(x * block_size + block_size,
+             y * block_size + block_size);
+  glVertex2d(x * block_size,
+             y * block_size + block_size);
+
+  glEnd();
+}
+
 bool Visualizer::Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow)
 {
   if (glfwWindowShouldClose(window_))

@@ -2,8 +2,9 @@
 #define VISUALIZER_HPP
 
 #include "interface/IEntity.hpp"
-#include "interface/IMenu.hpp"
-#include "interface/IPlayer.hpp"
+#include "interface/IVizMenu.hpp"
+#include "interface/IVizMap.hpp"
+#include "interface/IVizPlayer.hpp"
 #include "interface/ISettings.hpp"
 
 #include <GLFW/glfw3.h>
@@ -17,7 +18,8 @@
 namespace Visual {
 class Visualizer
   : public IMenu
-    , public IPlayer {
+    , public IPlayer
+    , public IMap {
 public:
 
   Visualizer(
@@ -26,18 +28,23 @@ public:
   ~Visualizer();
 
   // IMenu
-  void         StartPrint(int count) override;
-  void         PrintRow(const std::string& name,
-                        bool               current) override;
-  void         EndPrint()  override;
+  void StartPrint(int count) override;
+  void PrintRow(const std::string& name,
+                bool               current) override;
+  void EndPrint()  override;
 
   // IPlayer
-  virtual void ShowPlayer(int x,
-                          int y) override;
+  void ShowPlayer(int x,
+                  int y) override;
 
-  bool         Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow);
+  // IMap
+  void PrintBlock(size_t x,
+                  size_t y,
+                  int    type) override;
 
-  void         KeyCatch(
+  bool Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow);
+
+  void KeyCatch(
     int key,
     int scancode,
     int action,

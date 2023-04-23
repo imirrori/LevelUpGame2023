@@ -46,6 +46,7 @@ void Game::Init()
   viz_        = std::make_shared<Visual::Visualizer>(setting_, keyManager_);
   player_     = std::make_shared<PlayerStub>(viz_);
   menu_       = std::make_shared<MainMenu>(viz_);
+  map_        = std::make_shared<Map>(viz_);
 
   auto endGame = []() {
                    exit(0);
@@ -54,6 +55,7 @@ void Game::Init()
                    {
                      std::vector<std::shared_ptr<IEntity> > newShow;
 
+                     newShow.push_back(map_);
                      newShow.push_back(player_);
                      showObjects_.swap(newShow);
 
