@@ -1,28 +1,37 @@
 
 #ifndef LEVELUPGAME2023_GAME_MAINMENU_H_
 #define LEVELUPGAME2023_GAME_MAINMENU_H_
-#include "BaseMenu.h"
-enum class Screen
-{
-  START, SAVE_SELECTION, ERASE,
-};
+using namespace std;
+#include <map>
+#include <vector>
+#include "IEntity.hpp"
 
-class MainMenu {
+class Option_cursor
+{
+ public:
+  bool update();
+  Option_cursor();
+  std::map<std::string, int>levels_top_score;
+ private:
+  bool render();
+  int level_id = -1;
+  std::vector<std::string>levels;
+
+};
+class MainMenu: public IEntity{
  public:
   MainMenu();
-  virtual ~MainMenu()=0;
-  virtual void Paint()=0;
-  virtual void Time()=0;
-  virtual void  StartPrint();
-  virtual void  PrintRow();
-  virtual void EndPrint();
+  virtual ~MainMenu() = 0;
+   void Paint();
+  void StartPrint();
+  void PrintRow();
+  void EndPrint();
 
  private:
-
-  virtual void PaintBorder()=0;
-  virtual void DrawBorderPlank(int plankIndex, int left, int top)=0;
-  virtual void PaintCursor(int left, int top)=0;
-  virtual void update()=0;
+  void PaintBorder();
+  void DrawBorderPlank(int plankIndex, int left, int top);
+  void PaintCursor(int left, int top);
+  void update();
   int m_CursorIndex;
   int m_MaxCursorIndex;
 };
