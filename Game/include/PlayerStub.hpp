@@ -1,8 +1,8 @@
 #ifndef PLAYERSTUB_HPP
 #define PLAYERSTUB_HPP
 
-#include "IEntity.hpp"
-#include "IPlayer.hpp"
+#include "interface/IEntity.hpp"
+#include "interface/IPlayer.hpp"
 
 #include <memory>
 

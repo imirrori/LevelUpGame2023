@@ -10,11 +10,11 @@ SOURCES += \
        App/main.cpp
 
 HEADERS += \
+       include/interface/IEntity.hpp \
+       include/interface/IMenu.hpp \
+       include/interface/IPlayer.hpp \
+       include/interface/ISettings.hpp \
        include/Game.hpp \
-       include/IEntity.hpp \
-       include/IMenu.hpp \
-       include/IPlayer.hpp \
-       include/ISettings.hpp \
        include/MenuStub.hpp \
        include/PlayerStub.hpp \
        include/Settings.hpp \

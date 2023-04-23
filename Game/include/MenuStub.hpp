@@ -1,8 +1,8 @@
 #ifndef MENUSTUB_HPP
 #define MENUSTUB_HPP
 
-#include "IEntity.hpp"
-#include "IMenu.hpp"
+#include "interface/IEntity.hpp"
+#include "interface/IMenu.hpp"
 
 #include <memory>
 
