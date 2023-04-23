@@ -2,7 +2,7 @@
 #define _MAINMENU_HPP_
 
 #include "interface/IEntity.hpp"
-#include "interface/IMenu.hpp"
+#include "interface/IVizMenu.hpp"
 
 #include <vector>
 #include <functional>
@@ -26,7 +26,7 @@ public:
     std::function<void()>exec_;
   };
 
-  MainMenu(std::shared_ptr<IMenu>menuViz);
+  MainMenu(std::shared_ptr<Visual::IMenu>menuViz);
   virtual ~MainMenu() = default;
 
   void onUpdate() override;
@@ -39,7 +39,7 @@ public:
 
 private:
 
-  std::shared_ptr<IMenu>menuViz_;
+  std::shared_ptr<Visual::IMenu>menuViz_;
   std::vector<BaseMenu>subMenu_;
   size_t currentMenu_ = 0;
 };

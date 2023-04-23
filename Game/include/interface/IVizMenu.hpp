@@ -1,8 +1,9 @@
-#ifndef IMENU_HPP
-#define IMENU_HPP
+#ifndef IVIZMENU_H
+#define IVIZMENU_H
 
 #include <string>
 
+namespace Visual {
 class IMenu {
 public:
 
@@ -13,5 +14,6 @@ public:
                         bool               current) = 0;
   virtual void EndPrint()                           = 0;
 };
+}
 
-#endif // IMENU_HPP
+#endif // IVIZMENU_H

@@ -2,7 +2,7 @@
 #define PLAYERSTUB_HPP
 
 #include "interface/IEntity.hpp"
-#include "interface/IPlayer.hpp"
+#include "interface/IVizPlayer.hpp"
 
 #include <memory>
 
@@ -10,7 +10,7 @@ class PlayerStub
   : public IEntity {
 public:
 
-  PlayerStub(std::shared_ptr<IPlayer>playerViz)
+  PlayerStub(std::shared_ptr<Visual::IPlayer>playerViz)
     : playerViz_(std::move(playerViz))
   {}
 
@@ -24,7 +24,7 @@ public:
 
 private:
 
-  std::shared_ptr<IPlayer>playerViz_;
+  std::shared_ptr<Visual::IPlayer>playerViz_;
 };
 
 #endif // PLAYERSTUB_HPP

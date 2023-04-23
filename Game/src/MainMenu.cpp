@@ -1,6 +1,6 @@
 #include "MainMenu.hpp"
 
-MainMenu::MainMenu(std::shared_ptr<IMenu>menuViz)
+MainMenu::MainMenu(std::shared_ptr<Visual::IMenu>menuViz)
   : menuViz_(std::move(menuViz))
 {}
 
