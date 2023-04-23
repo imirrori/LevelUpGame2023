@@ -5,17 +5,18 @@ CONFIG -= qt
 
 SOURCES += \
        src/Game.cpp \
+       src/MainMenu.cpp \
        src/Settings.cpp \
        src/Visualizer.cpp \
        App/main.cpp
 
 HEADERS += \
+       include/MainMenu.hpp \
        include/interface/IEntity.hpp \
        include/interface/IMenu.hpp \
        include/interface/IPlayer.hpp \
        include/interface/ISettings.hpp \
        include/Game.hpp \
-       include/MenuStub.hpp \
        include/PlayerStub.hpp \
        include/Settings.hpp \
        include/Visualizer.hpp
