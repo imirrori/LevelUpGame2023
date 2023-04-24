@@ -8,6 +8,7 @@
 #include "Entity/EntityGround.hpp"
 #include "Entity/EntityMario.hpp"
 #include "EventSystem.hpp"
+#include "GameState.hpp"
 #include "Input.hpp"
 #include "interface/IEntity.hpp"
 #include "interface/IEventHandler.hpp"
@@ -50,13 +51,13 @@ class Game {
   EntityGround *ground;
   Level *level;
 
-  std::unique_ptr <MainMenu> main_menu;
+  std::unique_ptr<MainMenu> main_menu;
 
   b2World *MarioWorld = nullptr;
 
   ContactListener *contact_listener;
 
-  bool isNotPaused = true;
+  State::GameState m_gameState = State::GameState::GS_Running;
 
   static void key_callback_(GLFWwindow *window, int key, int scancode, int action, int mods);
   static void framebuffer_size_callback_(GLFWwindow *window, int width, int height);

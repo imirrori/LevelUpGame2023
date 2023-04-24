@@ -4,11 +4,26 @@
 
 #include "Sprite.hpp"
 
-Sprite::Sprite(const unsigned int m_pNumberOfTextures) {
+Sprite::Sprite(const unsigned int p_numberOfTextures) {
 
-}
+  m_textures = new GLuint[p_numberOfTextures];
+  m_textureIndex = 0;
+  m_currentFrame = 0;
+  m_numberOfFrames = 0;
+  m_animationDelay = 0.25f;
+  m_animationElapsed = 0.0f;
+  m_position.x = 0.0f;
+  m_position.y = 0.0f;
+  m_size.height = 0.0f;
+  m_size.width = 0.0f;
+  m_velocity = 0.0f;
 
-Sprite::~Sprite() {
+  m_isCollideable = true;
+  m_flipHorizontal = false;
+  m_flipVertical = false;
+  m_isVisible = false;
+  m_isActive = false;
+  m_isSpriteSheet = false;
 
 }
 
@@ -79,3 +94,9 @@ void Sprite::IsVisible(const bool p_value) { m_isVisible = p_value; }
 bool Sprite::IsVisible() const { return m_isVisible; }
 
 void Sprite::UseTransparency(const bool p_value) { m_useTransparency = p_value; }
+
+Sprite::~Sprite() {
+
+  delete[] m_textures;
+
+}

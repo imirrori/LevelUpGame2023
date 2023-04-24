@@ -31,7 +31,7 @@ class Level : public Entity { //TODO: Refactor to ILevel
 
   std::vector<IEntity *> map_entities;
 
-  Map map_ = Map("Resources/map/demo2.map");
+  Map map_ = Map("Resources/map/demo1.map");
 
   EventSystem *event_handler_;
 

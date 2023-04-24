@@ -2,6 +2,7 @@
 #include "Entity/EntityGround.hpp"
 #include "Entity/EntityMario.hpp"
 #include "Game.hpp"
+#include "GameState.hpp"
 #include "Graphics/Render.hpp"
 #include "Input.hpp"
 #include "Level.hpp"
@@ -29,6 +30,7 @@ Game::Game(unsigned int width_, unsigned int height_) :
 bool Game::Run() {
 
   //main_menu->Run();
+
 
   GLFWwindow *main_window;
 
@@ -110,7 +112,6 @@ void Game::onInit() {
   level = new Level(event_handler, *MarioWorld);
 
   ground = new EntityGround(event_handler, *MarioWorld, level->getLevelWidth());
-
 
   if (MarioWorld) {
 	std::cout << "Mario World Created" << std::endl;
