@@ -2,15 +2,18 @@
 #define VISUALIZER_HPP
 
 #include "interface/IEntity.hpp"
-#include "interface/IMap.hpp"
-#include "interface/IMenu.hpp"
-#include "interface/IPlayer.hpp"
+#include "interface/IVizMenu.hpp"
+#include "interface/IVizMap.hpp"
+#include "interface/IVizPlayer.hpp"
 #include "interface/ISettings.hpp"
 
 #include <GLFW/glfw3.h>
 
+#include <KeyManager.hpp>
+
 #include <memory>
 #include <vector>
+#include <functional>
 
 namespace Visual {
 class Visualizer
@@ -19,47 +22,46 @@ class Visualizer
     , public IMap {
 public:
 
-  Visualizer(std::shared_ptr<Settings::ISettings>settings);
+  Visualizer(
+    std::shared_ptr<Settings::ISettings>settings,
+    std::shared_ptr<KeyManager>         keyManager);
   ~Visualizer();
 
   // IMenu
-  void         StartPrint(int count) override;
-  void         PrintRow(const std::string& name) override;
-  void         EndPrint()  override;
+  void StartPrint(int count) override;
+  void PrintRow(const std::string& name,
+                bool               current) override;
+  void EndPrint()  override;
 
   // IPlayer
-  virtual void ShowPlayer(int x,
-                          int y) override;
+  void ShowPlayer(int x,
+                  int y) override;
 
   // IMap
-  std::size_t        width()  const override;
-  std::size_t        height() const override;
-  const std::string& GetMap()const  override;
-  void               PrintMap(const std::string& map,
-                              const std::size_t& width,
-                              const std::size_t& height) override;
+  void PrintBlock(size_t x,
+                  size_t y,
+                  int    type) override;
 
-  // Visualizer's method
-  bool Show(
-    const std::vector<std::shared_ptr<IEntity> >& dataToShow,
-    const std::shared_ptr<IMap>                 & map);
+  bool Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow);
+
+  void KeyCatch(
+    int key,
+    int scancode,
+    int action,
+    int mods);
 
 private:
 
-  // Visualizer's method
   void func_print_char(const std::string name,
                        const float       where_down,
                        const float       where_right);
 
-  // Visualizer's fields
   int menu_count_;
   int reverse_menu_count_;
-  double width_moving_;
-  float speed_;
-  float currentTime_;
-  float lastTime_;
+
   std::shared_ptr<Settings::ISettings>settings_;
   GLFWwindow *window_;
+  std::shared_ptr<KeyManager>keyManager_;
 };
 } // Visual
 

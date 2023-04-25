@@ -1,16 +1,28 @@
 #include "Visualizer.hpp"
+
 #include <cmath>
+
 #include <stdexcept>
 
+namespace {
+Visual::Visualizer *rawPtr = nullptr;
+void KeyCatch(GLFWwindow *, int key, int scancode, int action, int mods)
+{
+  rawPtr->KeyCatch(key,
+                   scancode,
+                   action,
+                   mods);
+}
+}
+
 namespace Visual {
-Visualizer::Visualizer(std::shared_ptr<Settings::ISettings>settings)
+Visualizer::Visualizer(
+  std::shared_ptr<Settings::ISettings>settings,
+  std::shared_ptr<KeyManager>         keyManager)
   : menu_count_(0)
   , reverse_menu_count_(0)
-  , width_moving_(0)
-  ,  speed_(25)
-  ,  currentTime_(0)
-  ,  lastTime_(0)
   , settings_(settings)
+  , keyManager_(std::move(keyManager))
 {
   if (!glfwInit()) {
     throw std::exception{};
@@ -33,6 +45,9 @@ Visualizer::Visualizer(std::shared_ptr<Settings::ISettings>settings)
   }
 
   glfwMakeContextCurrent(window_);
+
+  rawPtr = this;
+  glfwSetKeyCallback(window_, ::KeyCatch);
 }
 
 Visualizer::~Visualizer()
@@ -46,7 +61,8 @@ void Visualizer::StartPrint(int count) // override by IMenu
   reverse_menu_count_ = 1;
 }
 
-void Visualizer::PrintRow(const std::string& name) // override_by_IMenu
+void Visualizer::PrintRow(const std::string& name, bool current) //
+// override_by_IMenu
 {
   // рисование текста
   if (reverse_menu_count_ <= menu_count_)
@@ -54,14 +70,19 @@ void Visualizer::PrintRow(const std::string& name) // override_by_IMenu
     const float where_down  = float(reverse_menu_count_ + reverse_menu_count_);
     const float where_right = 1;
 
+    if (current) {
+      glColor3f(1.f, 0, 0);
+    } else {
+      glColor3f(1.f, 1.f, 1.f);
+    }
+
     func_print_char(name, where_down, where_right);
     ++reverse_menu_count_;
   }
 }
 
 void Visualizer::EndPrint() // override by IMenu
-{
-}
+{}
 
 void Visualizer::ShowPlayer(int x, int y)
 {
@@ -85,78 +106,44 @@ void Visualizer::ShowPlayer(int x, int y)
   glEnd();
 }
 
-std::size_t Visualizer::width()  const {
-  return 0;
-}
+void Visualizer::PrintBlock(size_t x, size_t y, int type)
+{
+  glBegin(GL_POLYGON);
 
-std::size_t Visualizer::height() const {
-  return 0;
-}
-
-const std::string& Visualizer::GetMap()const  {
-}
-
-void               Visualizer::PrintMap(const std::string& map,
-                                        const std::size_t& width,
-                                        const std::size_t& height) {
-  int field_width  = width;
-  int field_height = height;
-
-  for (int i = 0; i < field_height; ++i) // вертикаль
-  {
-    int j = 0;
-
-    // если по горизонтали меньше 0 координаты влево не идем
-    if (width_moving_ < 0)
-    {
-      width_moving_ = 0;
-    }
-
-    // если по горизонтали больше размера, влезающего в поле зрения
-    if (width_moving_ >
-        field_width -
-        std::get<int>(settings_->GetValue("visual", "field_width")))
-    {
-      width_moving_ = field_width -
-                      std::get<int>(settings_->GetValue("visual",
-                                                        "field_width"));
-    }
-
-    for (; j < field_width; ++j) // горизонталь
-    {
-      glBegin(GL_POLYGON);
-
-      switch (map[(i * (field_width)) + j])
-      {
-        case '#':
-          glColor3f(0,   0,   1);
-          break;
-        case 'c':
-          glColor3f(1,   0,   0);
-          break;
-        case 'm':
-          glColor3f(0,   1,   0);
-          break;
-        case 's':
-          glColor3f(1,   1,   1);
-          break;
-        case 'b':
-          glColor3f(0.5, 0.5, 0.5);
-          break;
-      }
-      glVertex2f(0 +   j, 0  + (field_height - 1 - i));
-      glVertex2f(0 +   j, 1 +  (field_height - 1 - i));
-      glVertex2f(1 +   j, 1 +  (field_height - 1 - i));
-      glVertex2f(1 +   j, 0  + (field_height - 1 - i));
-      glEnd();
-    }
-    j = 0;
+  switch (type) {
+    case 0:
+      glColor3f(1, 1, 1);
+      break;
+    case 1:
+      glColor3f(1, 0, 0);
+      break;
+    case 2:
+      glColor3f(0, 1, 0);
+      break;
+    case 3:
+      glColor3f(0, 0, 1);
+      break;
+    case 4:
+      glColor3f(0, 1, 1);
+      break;
   }
+
+  const int block_size = std::get<int>(settings_->GetValue("visual",
+                                                           "block_size"));
+
+  glVertex2d(x * block_size,
+             y * block_size);
+  glVertex2d(x * block_size + block_size,
+             y * block_size);
+  glVertex2d(x * block_size + block_size,
+             y * block_size + block_size);
+  glVertex2d(x * block_size,
+             y * block_size + block_size);
+
+  glEnd();
 }
 
-bool Visualizer::Show(
-  const std::vector<std::shared_ptr<IEntity> >& dataToShow,
-  const std::shared_ptr<IMap>                 & map)
+bool Visualizer::Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow)
 {
   if (glfwWindowShouldClose(window_))
   {
@@ -165,21 +152,6 @@ bool Visualizer::Show(
 
   glLoadIdentity();             // считывает текущую матрицу
   glClear(GL_COLOR_BUFFER_BIT); // очистка буфера
-
-  currentTime_ = glfwGetTime();
-  float deltaTime = float(currentTime_ - lastTime_);
-  lastTime_ = currentTime_;
-
-  if (glfwGetKey(window_, GLFW_KEY_RIGHT) == GLFW_PRESS)
-  {
-    width_moving_ += 1 * speed_ * deltaTime;
-  }
-
-  if (glfwGetKey(window_, GLFW_KEY_LEFT) == GLFW_PRESS)
-  {
-    width_moving_ -= 1 * speed_ * deltaTime;
-  }
-
   glOrtho(0,
           std::get<int>(settings_->GetValue("visual",
                                             "field_width")),
@@ -189,20 +161,21 @@ bool Visualizer::Show(
           0,
           10);
 
-
   for (const auto& el: dataToShow) {
     el->onRender();
   }
 
-  glTranslatef(0 - width_moving_, 0, 0); // двжение камеры от начальных
-                                         // координат
-  map->PrintMap(map->GetMap(), map->width(), map->height());
-
-  glfwSwapBuffers(window_);              // обмен буферов
-  glfwPollEvents();                      // обработчик событий, проверяет не
-                                         // зависло ли
-                                         // окно
+  glfwSwapBuffers(window_); // обмен буферов
+  glfwPollEvents();         // обработчик событий, проверяет не зависло ли
+                            // окно
   return true;
+}
+
+void Visualizer::KeyCatch(int key, int scancode, int action, int mods)
+{
+  rawPtr->keyManager_->KeyAction(key, scancode,
+                                 static_cast<KeyManager::KEY_ACTION>(action),
+                                 mods);
 }
 
 void Visualizer::func_print_char(const std::string name,

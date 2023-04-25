@@ -1,34 +1,84 @@
 #include "Game.hpp"
-#include "MenuStub.hpp"
 #include "PlayerStub.hpp"
-#include "MapStub.hpp"
 
 #include <fstream>
+#include <optional>
 
 namespace {
-constexpr std::string_view SettingFileName =
-  "D:/01_Projects/HomeWork/LEARN/LEARN/Level_3/GAME_level_up/Game/Game/configs/settings.ini";
+constexpr std::string_view SettingFileName = "settings.ini";
 }
 
 void Game::Run()
 {
-  std::shared_ptr<IEntity> menu   = std::make_shared<MenuStub>(viz_);
-  std::shared_ptr<IEntity> player = std::make_shared<PlayerStub>(viz_);
-  std::shared_ptr<IMap>    map    = std::make_shared<MapStub>(viz_);
+  while (viz_->Show(showObjects_))
+  {
+    std::vector<KeyManager::Key> keysDown = keyManager_->GetKeysDown();
 
-  while (viz_->Show({ menu, player }, map))
-  {}
+    for (const auto& key: keysDown) {
+      switch (key.key) {
+        case 264: // DOWN
+          menu_->PressKey(MainMenu::DOWN);
+          break;
+        case 265: // UP
+          menu_->PressKey(MainMenu::UP);
+          break;
+        case 257: // ENTER
+          menu_->PressKey(MainMenu::ENTER);
+          break;
+        case 256: // ESC
+          EscapeKey();
+          break;
+      }
+      keyManager_->KeyAction(key.key,
+                             key.scancode,
+                             KeyManager::RELEASE,
+                             key.mods);
+    }
+  }
 }
 
 void Game::Init()
 {
+  std::ifstream inStream(SettingFileName.data());
+
+  setting_    = std::make_shared<Settings::Settings>(inStream);
+  keyManager_ = std::make_shared<KeyManager>();
+  viz_        = std::make_shared<Visual::Visualizer>(setting_, keyManager_);
+  player_     = std::make_shared<PlayerStub>(viz_);
+  menu_       = std::make_shared<MainMenu>(viz_);
+  map_        = std::make_shared<Map>(viz_);
+
+  auto endGame = []() {
+                   exit(0);
+                 };
+  auto startGame = [this, endGame]()
+                   {
+                     std::vector<std::shared_ptr<IEntity> > newShow;
+
+                     newShow.push_back(map_);
+                     newShow.push_back(player_);
+                     showObjects_.swap(newShow);
+
+                     EscapeKey = [this, endGame]()
+                                 {
+                                   std::vector<std::shared_ptr<IEntity> >
+                                   newShow;
+
+                                   newShow.push_back(menu_);
+                                   showObjects_.swap(newShow);
+                                   EscapeKey = endGame;
+                                 };
+                   };
+  auto loadGame = []() {};
+
+  EscapeKey = endGame;
+
+  menu_->AddSubMenu({ "start game", startGame });
+  menu_->AddSubMenu({ "load game", loadGame });
+  menu_->AddSubMenu({ "end game", endGame });
+
+  showObjects_.push_back(menu_);
 }
 
 Game::Game()
-{
-  std::ifstream inStream(SettingFileName.data());
-
-  setting_ = std::make_shared<Settings::Settings>(inStream);
-
-  viz_ = std::make_shared<Visual::Visualizer>(setting_);
-}
+{}
