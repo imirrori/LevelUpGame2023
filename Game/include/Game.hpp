@@ -6,6 +6,7 @@
 #include "Visualizer.hpp"
 #include "KeyManager.hpp"
 #include "Map.hpp"
+#include "PlayerStub.hpp"
 
 #include <memory>
 
@@ -23,7 +24,7 @@ private:
   std::shared_ptr<KeyManager>keyManager_;
   std::shared_ptr<Visual::Visualizer>viz_;
   std::shared_ptr<MainMenu>menu_;
-  std::shared_ptr<IEntity>player_;
+  std::shared_ptr<PlayerStub>player_;
   std::shared_ptr<Map>map_;
 
   std::vector<std::shared_ptr<IEntity> >showObjects_;

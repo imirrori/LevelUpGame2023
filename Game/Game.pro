@@ -13,18 +13,19 @@ SOURCES += \
        App/main.cpp
 
 HEADERS += \
+       include/interface/IEntity.hpp \
+       include/interface/ISettings.hpp \
+       include/interface/IVizMap.hpp \
+       include/interface/IVizMenu.hpp \
+       include/interface/IVizPlayer.hpp \
+       include/Game.hpp \
        include/KeyManager.hpp \
        include/MainMenu.hpp \
        include/Map.hpp \
-       include/interface/IEntity.hpp \
-       include/interface/ISettings.hpp \
-       include/Game.hpp \
        include/PlayerStub.hpp \
        include/Settings.hpp \
        include/Visualizer.hpp \
-       include/interface/IVizMap.hpp \
-       include/interface/IVizMenu.hpp \
-       include/interface/IVizPlayer.hpp
+
 
 INCLUDEPATH += $$PWD/include
 

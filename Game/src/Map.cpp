@@ -48,7 +48,8 @@ Map::Map(std::shared_ptr<Visual::IMap>mapViz_)
 }
 
 void Map::onUpdate()
-{}
+{
+}
 
 void Map::onRender()
 {
@@ -59,8 +60,8 @@ void Map::onRender()
 }
 
 void Map::onCollision()
-{}
-
+{
+}
 
 void Map::InitBlocks()
 {
@@ -89,6 +90,9 @@ void Map::InitBlocks()
           blocks_.push_back(Block{ x, height() - y, 4 });
           break;
 
+        case '#':
+          blocks_.push_back(Block{ x, height() - y, 5 });
+          break;
         default: break;
       }
     }

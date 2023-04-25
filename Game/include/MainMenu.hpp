@@ -30,7 +30,6 @@ public:
   virtual ~MainMenu() = default;
 
   void onUpdate() override;
-
   void onRender() override;
   void onCollision() override;
 

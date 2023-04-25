@@ -6,6 +6,7 @@
 #include "interface/IVizMap.hpp"
 #include "interface/IVizPlayer.hpp"
 #include "interface/ISettings.hpp"
+#include "PlayerStub.hpp"
 
 #include <GLFW/glfw3.h>
 
@@ -62,6 +63,9 @@ private:
   std::shared_ptr<Settings::ISettings>settings_;
   GLFWwindow *window_;
   std::shared_ptr<KeyManager>keyManager_;
+  int player_x_;
+  int player_y_;
+  double width_moving_;
 };
 } // Visual
 

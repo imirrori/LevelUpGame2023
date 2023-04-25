@@ -10,21 +10,58 @@ class PlayerStub
   : public IEntity {
 public:
 
+  enum KEY
+  {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+  };
+
   PlayerStub(std::shared_ptr<Visual::IPlayer>playerViz)
     : playerViz_(std::move(playerViz))
+    , x_(3)
+    , y_(1)
   {}
 
-  void onUpdate() override {}
+  ~PlayerStub() override = default;
 
-  void onRender() override    {
-    playerViz_->ShowPlayer(10, 10);
+  void onUpdate() override {
   }
 
-  void onCollision() override {}
+  void onRender() override    {
+    playerViz_->ShowPlayer(x_, y_);
+  }
+
+  void onCollision() override {
+  }
+
+  void PressPlayerKey(KEY key)
+  {
+    switch (key)
+    {
+      case LEFT:
+
+        if (x_ > 0) --x_;
+
+        break;
+      case RIGHT:
+        ++x_;
+        break;
+      case UP:
+        ++y_;
+        break;
+      case DOWN:
+        --y_;
+        break;
+    }
+  }
 
 private:
 
   std::shared_ptr<Visual::IPlayer>playerViz_;
+  int x_;
+  int y_;
 };
 
 #endif // PLAYERSTUB_HPP

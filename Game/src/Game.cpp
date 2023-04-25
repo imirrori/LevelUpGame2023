@@ -28,6 +28,13 @@ void Game::Run()
         case 256: // ESC
           EscapeKey();
           break;
+
+        case 262: // RIGHT
+          player_->PressPlayerKey(PlayerStub::RIGHT);
+          break;
+        case 263: // LEFT
+          player_->PressPlayerKey(PlayerStub::LEFT);
+          break;
       }
       keyManager_->KeyAction(key.key,
                              key.scancode,
