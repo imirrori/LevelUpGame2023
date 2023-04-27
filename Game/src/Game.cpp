@@ -15,6 +15,7 @@
 #include <memory>
 
 using namespace glm;
+using STATE = State::GAME_STATES;
 
 namespace Game {
 
@@ -123,18 +124,28 @@ void Game::onInit() {
 void Game::onUpdate(float delta) {
 
 	auto ev_list = event_handler.getEventsList();
-//  for (const auto item : ev_list) {
-//	std::cout << "Item tag: " << item->GetTag() << std::endl;
-//	item->onUpdate(delta);
-//  }
 
-	switch (game_state_) {
+	auto cur_gs_ = game_state_.peekState();
 
-		case State::GAME_STATES::GS_Loading: break;
+	std::cout << "State : " << static_cast<int>(cur_gs_) << std::endl;
 
-		case State::GAME_STATES::GS_Menu: break;
+	switch (cur_gs_) {
 
-		case State::GAME_STATES::GS_Running: break;
+		case STATE::GS_Loading: break;
+
+		case STATE::GS_Menu: break;
+
+		case STATE::GS_Running:
+		case STATE::GS_MovingRight:
+		case STATE::GS_MovingLeft:
+		case STATE::GS_Jumping:
+
+			for (const auto item : ev_list) {
+				std::cout << "Item tag: " << item->GetTag() << std::endl;
+				item->onUpdate(delta);
+			}
+
+			break;
 
 		default: break;
 
@@ -237,19 +248,19 @@ void Game::framebuffer_size_callback_(GLFWwindow *window, int width, int height)
 void Game::processInput(float delta) {
 
 	if (Input::keys[GLFW_KEY_ESCAPE]) { //Pause
-		game_state_ = State::GAME_STATES::GS_Paused;
+		game_state_.pushState(STATE::GS_Paused);
 	}
 
 	if (Input::keys[GLFW_KEY_W] or Input::keys[GLFW_KEY_SPACE]) {
-		game_state_ = State::GAME_STATES::GS_Jumping;
+		game_state_.pushState(STATE::GS_Jumping);
 	}
 
 	if (Input::keys[GLFW_KEY_A] or Input::keys[GLFW_KEY_LEFT]) {
-		game_state_ = State::GAME_STATES::GS_MovingLeft;
+		game_state_.pushState(STATE::GS_MovingLeft);
 	}
 
 	if (Input::keys[GLFW_KEY_D] or Input::keys[GLFW_KEY_RIGHT]) {
-		game_state_ = State::GAME_STATES::GS_MovingRight;
+		game_state_.pushState(STATE::GS_MovingRight);
 	}
 
 }

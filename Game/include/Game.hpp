@@ -8,6 +8,7 @@
 #include "Entity/EntityGround.hpp"
 #include "Entity/EntityMario.hpp"
 #include "EventSystem.hpp"
+#include "GameState.hpp"
 #include "GAME_STATES.hpp"
 #include "Input.hpp"
 #include "interface/IEntity.hpp"
@@ -58,7 +59,7 @@ class Game : public IProcessInput {
 
 	ContactListener *contact_listener;
 
-	State::GAME_STATES game_state_;
+	GameState& game_state_ = GameState::getInstance();
 
 	static void key_callback_(GLFWwindow *window, int key, int scancode, int action, int mods);
 	static void framebuffer_size_callback_(GLFWwindow *window, int width, int height);

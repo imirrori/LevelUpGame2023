@@ -11,7 +11,7 @@ namespace State {
 
 enum class GAME_STATES {
 
-	GS_Loading,
+	GS_Loading = 1,
 	GS_Menu,
 	GS_ScoreTable,
 	GS_Running,

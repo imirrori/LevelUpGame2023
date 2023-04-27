@@ -10,6 +10,8 @@
 
 #include "Entity/Entity.hpp"
 #include "EventSystem.hpp"
+#include "GAME_STATES.hpp"
+#include "GameState.hpp"
 #include "Texture.hpp"
 
 #include <array>
@@ -17,36 +19,40 @@
 class EntityMario : public Entity {
 
  public:
-  EntityMario(EventSystem &event_handler, b2World &world);
-  ~EntityMario() override;
+	EntityMario(EventSystem &event_handler, b2World &world);
+	~EntityMario() override;
 
-  void onUpdate(float delta) override;
-  void onRender() override;
-  void onCollision(IEntity *collider) override;
+	void onUpdate(float delta) override;
+	void onRender() override;
+	void onCollision(IEntity *collider) override;
 
  private:
-  void Movement(float delta);
-  void Flip();
-  void RunAnimation(float delta);
-  void Jump(b2Vec2 &vel);
-  void LittleJump();
+	void Movement(float delta);
 
-  float speed = 5.f;
-  bool jumping = false;
-  float jumpForce = 17;
-  bool faceRight = true;
 
-  int texture_index = 0;
-  float animation_speed = 0.1f;
-  float animation_time_btw = animation_speed;
+	void Flip();
+	void RunAnimation(float delta);
+	void Jump(b2Vec2 &vel);
+	void LittleJump();
 
-  Graphics::Texture *currentTexture;
-  Graphics::Texture *idleTexture;
-  Graphics::Texture *jumpTexture;
+	float speed = 5.f;
+	bool jumping = false;
+	float jumpForce = 17;
+	bool faceRight = true;
 
-  Graphics::Texture *runTexture[3];
+	int texture_index = 0;
+	float animation_speed = 0.1f;
+	float animation_time_btw = animation_speed;
 
-  b2Body *mp_Body; // Make shared
+	GameState &game_state_ = GameState::getInstance();
+
+	Graphics::Texture *currentTexture;
+	Graphics::Texture *idleTexture;
+	Graphics::Texture *jumpTexture;
+
+	Graphics::Texture *runTexture[3];
+
+	b2Body *mp_Body; // Make shared
 };
 
 #endif //LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITYMARIO_HPP_

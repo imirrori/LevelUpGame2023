@@ -9,6 +9,8 @@
 
 #include <memory>
 
+using STATE = State::GAME_STATES;
+
 EntityMario::EntityMario(EventSystem &event_handler, b2World &world) {
 
 	vPosition = glm::vec2(800, 2000);
@@ -75,7 +77,10 @@ void EntityMario::onUpdate(float delta) {
 	Movement(delta);
 
 	// Animation
-	if (Game::GetGameState() == State::GameState::GS_MovingLeft || Game::GetGameState() == State::GameState::GS_MovingRight) {
+
+	auto cur_gs_ = game_state_.peekState();
+
+	if ((cur_gs_ == STATE::GS_MovingLeft || cur_gs_ == STATE::GS_MovingRight) && !jumping) {
 
 		RunAnimation(delta);
 
@@ -90,61 +95,51 @@ void EntityMario::onUpdate(float delta) {
 	}
 
 	// Flipping
-	if (Input::GetKey(GLFW_KEY_LEFT) && faceRight)
+
+	if (game_state_.peekState() == STATE::GS_MovingLeft) {
 
 		Flip();
 
-	else if (Input::GetKey(GLFW_KEY_RIGHT) && !faceRight)
+	} else if (game_state_.peekState() == STATE::GS_MovingRight) {
 
 		Flip();
 
+	}
 }
-
 void EntityMario::onRender() {
 
 	Graphics::Render::DrawTexture(vPosition, vRotation, vScale, *currentTexture);
 
 }
 
-void EntityMario::Movement(float delta) {
-
-	b2Vec2 vel = mp_Body->GetLinearVelocity();
-
-	if (Input::GetKey(GLFW_KEY_LEFT))
-
-		vel.x = -speed;
-
-	else if (Input::GetKey(GLFW_KEY_RIGHT))
-
-		vel.x = speed;
-
-	// Jump
-	if (Input::GetKeyDown(GLFW_KEY_SPACE))
-		Jump(vel);
-
-	mp_Body->SetLinearVelocity(vel);
-}
-
 void EntityMario::Jump(b2Vec2 &vel) {
+
 	if (!jumping) {
+
 		jumping = true;
 		vel.y = jumpForce;
 		currentTexture = jumpTexture;
+
 	}
+
 }
 
 void EntityMario::LittleJump() {
+
 	b2Vec2 vel = mp_Body->GetLinearVelocity();
 	vel.y = 10;
 	currentTexture = jumpTexture;
 	mp_Body->SetLinearVelocity(vel);
+
 }
 
 void EntityMario::onCollision(IEntity *collider) {
+
 	jumping = false;
 
-	if (collider->GetTag() == "mushroom")
+	if (collider->GetTag() == "mushroom") {
 		LittleJump();
+	}
 
 }
 
@@ -171,4 +166,23 @@ void EntityMario::RunAnimation(float delta) {
 			texture_index = 0;
 
 	}
+}
+void EntityMario::Movement(float delta) {
+
+	b2Vec2 vel = mp_Body->GetLinearVelocity();
+
+	auto cur_gs_ = game_state_.peekState();
+
+	if (cur_gs_ == STATE::GS_MovingLeft) {
+
+		vel.x = -speed;
+	} else if (cur_gs_ == STATE::GS_MovingRight) {
+
+		vel.x = speed;
+	}
+	// Jump
+	if (cur_gs_ == STATE::GS_Jumping) {
+		Jump(vel);
+	}
+	mp_Body->SetLinearVelocity(vel);
 }

@@ -12,8 +12,12 @@
 
 class GameState {
  public:
-	GameState();
-	~GameState() = default;
+
+	static GameState &getInstance() {
+		static GameState instance;
+
+		return instance;
+	}
 
 	static void pushState(State::GAME_STATES state);
 	static void popState();
@@ -21,8 +25,14 @@ class GameState {
 	static State::GAME_STATES peekState();
 	static void swapState(State::GAME_STATES state);
 
+	GameState(const GameState &) = delete;
+	GameState &operator=(const GameState &) = delete;
+
  private:
-	static std::stack<State::GAME_STATES> states;
+	static std::stack<State::GAME_STATES> states_;
+
+	GameState();
+	~GameState() = default;
 };
 
 #endif //MARIO_GAME_INCLUDE_MENU_GAMESTATE_HPP_

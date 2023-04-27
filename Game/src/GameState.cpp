@@ -3,50 +3,55 @@
 //
 
 #include "GameState.hpp"
+#include "GAME_STATES.hpp"
+
+using STATE = State::GAME_STATES;
+
+std::stack<State::GAME_STATES> GameState::states_;
 
 GameState::GameState() {
 
-	states.push(State::GAME_STATES::GS_Loading);
+	states_.push(State::GAME_STATES::GS_Loading);
 
 }
 
-void GameState::pushState(State::GAME_STATES state) {
+void GameState::pushState(STATE state) {
 
-	states.push(state);
+	states_.push(state);
 
 }
 
 void GameState::popState() {
 
-	states.pop();
+	states_.pop();
 
 }
 
-void GameState::changeState(State::GAME_STATES state) {
+void GameState::changeState(STATE state) {
 
-	if (not states.empty()) {
-		states.pop();
+	if (not states_.empty()) {
+		states_.pop();
 	}
 
-	states.push(state);
+	states_.push(state);
 
 }
 
 State::GAME_STATES GameState::peekState() {
 
-	if (not states.empty()) {
-		return states.top();
+	if (not states_.empty()) {
+		return states_.top();
 	}
 
 	return State::GAME_STATES::GS_None;
 
 }
-void GameState::swapState(State::GAME_STATES state) {
+void GameState::swapState(STATE state) {
 
-	if (not states.empty()) {
-		states.pop();
+	if (not states_.empty()) {
+		states_.pop();
 	}
 
-	states.push(state);
+	states_.push(state);
 
 }
