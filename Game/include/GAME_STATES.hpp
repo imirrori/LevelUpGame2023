@@ -14,7 +14,7 @@ enum class GAME_STATES {
 	GS_Loading = 1,
 	GS_Menu,
 	GS_ScoreTable,
-	GS_Running,
+	GS_Running, // State 4
 	GS_Jumping,
 	GS_NextLevel,
 	GS_Paused,
