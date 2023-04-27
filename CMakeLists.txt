@@ -106,6 +106,8 @@ set(SOURCE_FILES
     Game/src/Entity/EntityCoinBlock.cpp
     Game/src/MapParser.cpp
     Game/src/Sprite.cpp
+    Game/src/GameState.cpp
+
     )
 
 set(HEADER_FILES
@@ -135,7 +137,9 @@ set(HEADER_FILES
     Game/include/interface/IMap.hpp
     Game/include/MapParser.hpp
     Game/include/Sprite.hpp
-    Game/include/GameState.hpp Game/include/interface/IProcessInput.hpp)
+    Game/include/GAME_STATES.hpp
+    Game/include/interface/IProcessInput.hpp
+    Game/include/GameState.hpp)
 
 
 ############################################################

@@ -5,13 +5,11 @@
 #ifndef MARIO_GAME_INCLUDE_INTERFACE_IPROCESSINPUT_HPP_
 #define MARIO_GAME_INCLUDE_INTERFACE_IPROCESSINPUT_HPP_
 
-#include "GLFW/glfw3.h"
-
 class IProcessInput {
 
  public:
 
-  virtual void processInput(GLFWwindow *window) = 0;
+	virtual void processInput(float delta) = 0;
 
 };
 

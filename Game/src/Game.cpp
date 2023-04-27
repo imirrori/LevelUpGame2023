@@ -2,7 +2,7 @@
 #include "Entity/EntityGround.hpp"
 #include "Entity/EntityMario.hpp"
 #include "Game.hpp"
-#include "GameState.hpp"
+#include "GAME_STATES.hpp"
 #include "Graphics/Render.hpp"
 #include "Input.hpp"
 #include "Level.hpp"
@@ -29,7 +29,6 @@ Game::Game(unsigned int width_, unsigned int height_)
 }
 
 bool Game::Run() {
-
 
 	GLFWwindow *main_window;
 
@@ -131,11 +130,11 @@ void Game::onUpdate(float delta) {
 
 	switch (game_state_) {
 
-		case State::GameState::GS_Loading: break;
+		case State::GAME_STATES::GS_Loading: break;
 
-		case State::GameState::GS_Menu: break;
+		case State::GAME_STATES::GS_Menu: break;
 
-		case State::GameState::GS_Running: break;
+		case State::GAME_STATES::GS_Running: break;
 
 		default: break;
 
@@ -233,6 +232,25 @@ void Game::key_callback_(GLFWwindow *window, int key, int scancode, int action, 
 void Game::framebuffer_size_callback_(GLFWwindow *window, int width, int height) {
 
 	glViewport(0, 0, width, height);
+
+}
+void Game::processInput(float delta) {
+
+	if (Input::keys[GLFW_KEY_ESCAPE]) { //Pause
+		game_state_ = State::GAME_STATES::GS_Paused;
+	}
+
+	if (Input::keys[GLFW_KEY_W] or Input::keys[GLFW_KEY_SPACE]) {
+		game_state_ = State::GAME_STATES::GS_Jumping;
+	}
+
+	if (Input::keys[GLFW_KEY_A] or Input::keys[GLFW_KEY_LEFT]) {
+		game_state_ = State::GAME_STATES::GS_MovingLeft;
+	}
+
+	if (Input::keys[GLFW_KEY_D] or Input::keys[GLFW_KEY_RIGHT]) {
+		game_state_ = State::GAME_STATES::GS_MovingRight;
+	}
 
 }
 

@@ -75,7 +75,7 @@ void EntityMario::onUpdate(float delta) {
 	Movement(delta);
 
 	// Animation
-	if ((Input::GetKey(GLFW_KEY_LEFT) || Input::GetKey(GLFW_KEY_RIGHT)) != 0 && !jumping) {
+	if (Game::GetGameState() == State::GameState::GS_MovingLeft || Game::GetGameState() == State::GameState::GS_MovingRight) {
 
 		RunAnimation(delta);
 

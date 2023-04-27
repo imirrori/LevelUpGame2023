@@ -8,7 +8,7 @@
 #include "Entity/EntityGround.hpp"
 #include "Entity/EntityMario.hpp"
 #include "EventSystem.hpp"
-#include "GameState.hpp"
+#include "GAME_STATES.hpp"
 #include "Input.hpp"
 #include "interface/IEntity.hpp"
 #include "interface/IEventHandler.hpp"
@@ -34,7 +34,7 @@ class Game : public IProcessInput {
 	void onUpdate(float delta);
 	void onRender();
 
-	void processInput(GLFWwindow *window) override;
+	void processInput(float delta) override;
 
 	static void LoadAllShader();
 	static void LoadAllTexture();
@@ -58,7 +58,7 @@ class Game : public IProcessInput {
 
 	ContactListener *contact_listener;
 
-	State::GameState game_state_;
+	State::GAME_STATES game_state_;
 
 	static void key_callback_(GLFWwindow *window, int key, int scancode, int action, int mods);
 	static void framebuffer_size_callback_(GLFWwindow *window, int width, int height);

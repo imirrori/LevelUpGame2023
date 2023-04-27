@@ -1,25 +1,28 @@
 //
-// Created by Dmitry Morozov on 24/4/23.
+// Created by Dmitry Morozov on 27/4/23.
 //
 
-#ifndef MARIO_GAME_SRC_GAMESTATE_HPP_
-#define MARIO_GAME_SRC_GAMESTATE_HPP_
+#ifndef MARIO_GAME_INCLUDE_MENU_GAMESTATE_HPP_
+#define MARIO_GAME_INCLUDE_MENU_GAMESTATE_HPP_
 
-namespace State {
+#include "GameState.hpp"
+#include "GAME_STATES.hpp"
 
-enum class GameState {
+#include <stack>
 
-	GS_Loading,
-	GS_Menu,
-	GS_ScoreTable,
-	GS_Running,
-	GS_NextLevel,
-	GS_Paused,
-	GS_GameOver,
-	GS_Quit
+class GameState {
+ public:
+	GameState();
+	~GameState() = default;
 
+	static void pushState(State::GAME_STATES state);
+	static void popState();
+	static void changeState(State::GAME_STATES state);
+	static State::GAME_STATES peekState();
+	static void swapState(State::GAME_STATES state);
+
+ private:
+	static std::stack<State::GAME_STATES> states;
 };
 
-} // namespace State
-
-#endif //MARIO_GAME_SRC_GAMESTATE_HPP_
+#endif //MARIO_GAME_INCLUDE_MENU_GAMESTATE_HPP_
