@@ -135,7 +135,7 @@ set(HEADER_FILES
     Game/include/interface/IMap.hpp
     Game/include/MapParser.hpp
     Game/include/Sprite.hpp
-    Game/include/GameState.hpp)
+    Game/include/GameState.hpp Game/include/interface/IProcessInput.hpp)
 
 
 ############################################################

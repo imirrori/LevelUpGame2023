@@ -12,6 +12,7 @@
 #include "Input.hpp"
 #include "interface/IEntity.hpp"
 #include "interface/IEventHandler.hpp"
+#include "interface/IProcessInput.hpp"
 #include "Level.hpp"
 #include "Menu/MainMenu.hpp"
 #include "View.hpp"
@@ -22,45 +23,45 @@
 
 namespace Game {
 
-class Game {
+class Game : public IProcessInput {
  public:
-  Game(unsigned int width, unsigned int height);
-  ~Game();
+	Game(unsigned int width, unsigned int height);
+	~Game();
 
-  bool Run();
+	bool Run();
 
-  void onInit();
-  void onUpdate(float delta);
-  void onRender();
+	void onInit();
+	void onUpdate(float delta);
+	void onRender();
 
- public:
+	void processInput(GLFWwindow *window) override;
 
-  static void LoadAllShader();
-  static void LoadAllTexture();
+	static void LoadAllShader();
+	static void LoadAllTexture();
 
-  static constexpr float PIXEL_TO_M = 150.f;
+	static constexpr float PIXEL_TO_M = 150.f;
 
  private:
-  Camera view_cam;
+	Camera view_cam;
 
-  unsigned int width, height;
+	unsigned int width, height;
 
-  EventSystem event_handler;
+	EventSystem event_handler;
 
-  EntityMario *mario;
-  EntityGround *ground;
-  Level *level;
+	EntityMario *mario;
+	EntityGround *ground;
+	Level *level;
 
-  std::unique_ptr<MainMenu> main_menu;
+	std::unique_ptr<MainMenu> main_menu;
 
-  b2World *MarioWorld = nullptr;
+	b2World *MarioWorld = nullptr;
 
-  ContactListener *contact_listener;
+	ContactListener *contact_listener;
 
-  State::GameState m_gameState = State::GameState::GS_Running;
+	State::GameState game_state_;
 
-  static void key_callback_(GLFWwindow *window, int key, int scancode, int action, int mods);
-  static void framebuffer_size_callback_(GLFWwindow *window, int width, int height);
+	static void key_callback_(GLFWwindow *window, int key, int scancode, int action, int mods);
+	static void framebuffer_size_callback_(GLFWwindow *window, int width, int height);
 
 };
 

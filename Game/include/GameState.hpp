@@ -9,12 +9,14 @@ namespace State {
 
 enum class GameState {
 
-  GS_Running,
-  GS_Paused,
-  GS_Quit,
-  GS_Win,
-  GS_Lose,
-  GS_Menu
+	GS_Loading,
+	GS_Menu,
+	GS_ScoreTable,
+	GS_Running,
+	GS_NextLevel,
+	GS_Paused,
+	GS_GameOver,
+	GS_Quit
 
 };
 

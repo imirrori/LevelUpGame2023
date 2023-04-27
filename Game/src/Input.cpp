@@ -8,16 +8,18 @@ bool Input::keys[1024];
 bool Input::keyUp[1024];
 
 bool Input::GetKey(int key) {
-  return keys[key];
+	return keys[key];
 }
 
 bool Input::GetKeyDown(int key) {
-  if (!keyUp[key] && keys[key]) {
-	keyUp[key] = true;
-	return true;
-  }
-  else
-  {
-	return false;
-  }
+
+	if (!keyUp[key] && keys[key]) {
+		keyUp[key] = true;
+
+		return true;
+
+	} else {
+
+		return false;
+	}
 }

@@ -9,11 +9,13 @@
 #include "GLFW/glfw3.h"
 
 class Input {
+
  public:
-  static bool keys[1024];
-  static bool keyUp[1024];
-  static bool GetKey(int key);
-  static bool GetKeyDown(int key);
+
+	static bool keys[1024];
+	static bool keyUp[1024];
+	static bool GetKey(int key);
+	static bool GetKeyDown(int key);
 
 };
 
