@@ -66,6 +66,8 @@ bool Game::Run() {
 	float lastTime = 0.f;
 	float delta;
 
+	game_state_.pushState(STATE::GS_Running);
+
 	while (!glfwWindowShouldClose(main_window)) {
 
 		currentTime = static_cast<float>(glfwGetTime());
