@@ -267,7 +267,7 @@ void Game::framebuffer_size_callback_(GLFWwindow *window, int width, int height)
 void Game::processInput(float delta) {
 
 	if (Input::keys[GLFW_KEY_ESCAPE]) { //Pause
-		game_state_.pushState(STATE::GS_Paused);
+		game_state_.pushState(STATE::GS_Quit);
 	}
 
 	if (Input::keys[GLFW_KEY_W] or Input::keys[GLFW_KEY_SPACE]) {
@@ -301,6 +301,7 @@ Game::~Game() {
 	delete level;
 
 	delete MarioWorld; //TODO:  Refactor to smart pointer
+	delete ground;
 
 }
 } // namespace Game
