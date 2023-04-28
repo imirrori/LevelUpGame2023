@@ -75,6 +75,10 @@ bool Game::Run() {
 		delta = currentTime - lastTime;
 		lastTime = currentTime;
 
+		auto current_state = game_state_.peekState();
+
+		processInput(delta);
+
 		glClearColor(0.363f, 0.914f, 0.937f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
@@ -255,6 +259,7 @@ void Game::processInput(float delta) {
 
 	if (Input::keys[GLFW_KEY_W] or Input::keys[GLFW_KEY_SPACE]) {
 		game_state_.pushState(STATE::GS_Jumping);
+
 	}
 
 	if (Input::keys[GLFW_KEY_A] or Input::keys[GLFW_KEY_LEFT]) {

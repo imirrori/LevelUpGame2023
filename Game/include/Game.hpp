@@ -26,6 +26,7 @@ namespace Game {
 
 class Game : public IProcessInput {
  public:
+
 	Game(unsigned int width, unsigned int height);
 	~Game();
 
