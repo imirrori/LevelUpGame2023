@@ -21,6 +21,7 @@ class GameState {
 
 	static void pushState(State::GAME_STATES state);
 	static void popState();
+	static bool isEmpty();
 	static void changeState(State::GAME_STATES state);
 	static State::GAME_STATES peekState();
 	static void swapState(State::GAME_STATES state);

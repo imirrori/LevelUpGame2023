@@ -55,3 +55,7 @@ void GameState::swapState(STATE state) {
 	states_.push(state);
 
 }
+bool GameState::isEmpty() {
+
+	return states_.empty();
+}

@@ -75,8 +75,6 @@ bool Game::Run() {
 		delta = currentTime - lastTime;
 		lastTime = currentTime;
 
-		auto current_state = game_state_.peekState();
-
 		processInput(delta);
 
 		glClearColor(0.363f, 0.914f, 0.937f, 1.0f);
@@ -85,6 +83,10 @@ bool Game::Run() {
 		onUpdate(delta);
 
 		onRender();
+
+		if (game_state_.peekState() != STATE::GS_Running) {
+			game_state_.popState();
+		}
 
 		glfwSwapBuffers(main_window);
 		glfwPollEvents();
@@ -133,7 +135,7 @@ void Game::onUpdate(float delta) {
 
 	auto cur_gs_ = game_state_.peekState();
 
-	std::cout << "State : " << static_cast<int>(cur_gs_) << std::endl;
+	std::cout << "State onUpdate: " << static_cast<int>(cur_gs_) << std::endl;
 
 	switch (cur_gs_) {
 
@@ -164,9 +166,29 @@ void Game::onUpdate(float delta) {
 
 void Game::onRender() {
 	Graphics::Render::BeginScene(view_cam);
+	auto cur_gs_ = game_state_.peekState();
 
-	for (auto &item : event_handler.getEventsList()) {
-		item->onRender();
+	std::cout << "State onRender: " << static_cast<int>(cur_gs_) << std::endl;
+
+	switch (cur_gs_) {
+
+		case STATE::GS_Loading: break;
+
+		case STATE::GS_Menu: break;
+
+		case STATE::GS_Running:
+		case STATE::GS_MovingRight:
+		case STATE::GS_MovingLeft:
+		case STATE::GS_Jumping:
+
+			for (auto &item : event_handler.getEventsList()) {
+				item->onRender();
+			}
+
+			break;
+
+		default: break;
+
 	}
 
 	Graphics::Render::EndScene();
@@ -222,15 +244,6 @@ void Game::LoadAllTexture() {
 
 }
 
-Game::~Game() {
-	Graphics::Render::onShutDown();
-
-	delete contact_listener;
-	delete level;
-
-	delete MarioWorld; //TODO:  Refactor to smart pointer
-
-}
 void Game::key_callback_(GLFWwindow *window, int key, int scancode, int action, int mods) {
 
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -272,4 +285,22 @@ void Game::processInput(float delta) {
 
 }
 
+Game::~Game() {
+	std::cout << "Game Destructor" << std::endl;
+
+	while (!game_state_.isEmpty()) {
+
+		std::cout << "Pop State: " << static_cast<int>(game_state_.peekState()) << std::endl;
+		game_state_.popState();
+
+	}
+
+	Graphics::Render::onShutDown();
+
+	delete contact_listener;
+	delete level;
+
+	delete MarioWorld; //TODO:  Refactor to smart pointer
+
+}
 } // namespace Game
