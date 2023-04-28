@@ -15,14 +15,14 @@ enum class GAME_STATES {
 	GS_Menu,
 	GS_ScoreTable,
 	GS_Running, // State 4
-	GS_Jumping,
+	GS_Jumping, // State 5
 	GS_NextLevel,
 	GS_Paused,
 	GS_GameOver,
 	GS_Quit,
-	GS_MovingLeft,
-	GS_MovingRight,
-	GS_None
+	GS_MovingLeft, // State 10
+	GS_MovingRight, // State 11
+	GS_None // State 12
 };
 
 
