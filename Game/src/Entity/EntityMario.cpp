@@ -18,14 +18,14 @@ EntityMario::EntityMario(EventSystem &event_handler, b2World &world) {
 	vScale = glm::vec2(100, 100);
 	vTag = "mario";
 
-	event_handler.addEventHandler(*this);
+	event_handler.addEventHandler(std::make_shared<Entity>(*this));
 
-	idleTexture = &Graphics::Texture::GetTexture("mario-idle");
-	jumpTexture = &Graphics::Texture::GetTexture("mario-jump");
+	idleTexture = std::make_shared<Graphics::Texture>(Graphics::Texture::GetTexture("mario-idle"));
+	jumpTexture = std::make_shared<Graphics::Texture>(Graphics::Texture::GetTexture("mario-jump"));
 
-	runTexture[0] = &Graphics::Texture::GetTexture("mario-run-0");
-	runTexture[1] = &Graphics::Texture::GetTexture("mario-run-1");
-	runTexture[2] = &Graphics::Texture::GetTexture("mario-run-2");
+	runTexture[0] = std::make_shared<Graphics::Texture>(Graphics::Texture::GetTexture("mario-run-0"));
+	runTexture[1] = std::make_shared<Graphics::Texture>(Graphics::Texture::GetTexture("mario-run-1"));
+	runTexture[2] = std::make_shared<Graphics::Texture>(Graphics::Texture::GetTexture("mario-run-2"));
 
 	currentTexture = idleTexture;
 
@@ -57,15 +57,6 @@ EntityMario::EntityMario(EventSystem &event_handler, b2World &world) {
 
 EntityMario::~EntityMario() {
 	mp_Body->GetWorld()->DestroyBody(mp_Body);
-
-	delete idleTexture;
-	delete jumpTexture;
-
-	delete runTexture[0];
-	delete runTexture[1];
-	delete runTexture[2];
-
-	delete currentTexture;
 
 }
 
@@ -133,7 +124,7 @@ void EntityMario::LittleJump() {
 
 }
 
-void EntityMario::onCollision(IEntity *collider) {
+void EntityMario::onCollision(std::shared_ptr<IEntity> collider) {
 
 	jumping = false;
 

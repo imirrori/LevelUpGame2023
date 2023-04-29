@@ -5,7 +5,7 @@
 #include "ContactListener.hpp"
 
 ContactListener::ContactListener(b2World &MarioWorld) {
-  MarioWorld.SetContactListener(this);
+	MarioWorld.SetContactListener(this);
 }
 
 ContactListener::~ContactListener() {
@@ -14,16 +14,16 @@ ContactListener::~ContactListener() {
 
 void ContactListener::BeginContact(b2Contact *contact) {
 
-  b2Body *bodyA = contact->GetFixtureA()->GetBody();
-  b2Body *bodyB = contact->GetFixtureB()->GetBody();
+	b2Body *bodyA = contact->GetFixtureA()->GetBody();
+	b2Body *bodyB = contact->GetFixtureB()->GetBody();
 
-  IEntity *objA = (IEntity *)bodyA->GetUserData().pointer;
-  IEntity *objB = (IEntity *)bodyB->GetUserData().pointer;
+	IEntity *objA = (IEntity *)bodyA->GetUserData().pointer;
+	IEntity *objB = (IEntity *)bodyB->GetUserData().pointer;
 
-  if (objA && objB) {
+	if (objA && objB) {
 
-	objA->onCollision(objB);
-	objB->onCollision(objA);
+		objA->onCollision(static_cast<const std::shared_ptr<IEntity>>(objB));
+		objB->onCollision(static_cast<const std::shared_ptr<IEntity>>(objA));
 
-  }
+	}
 }

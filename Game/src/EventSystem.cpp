@@ -8,19 +8,23 @@ EventSystem::EventSystem() {
 
 }
 
-void EventSystem::addEventHandler(Entity &owner) {
-  m_eventHandlers.push_back(&owner);
+void EventSystem::addEventHandler(std::shared_ptr<Entity> owner) {
+
+	m_eventHandlers.push_back(owner);
+
 }
 
-void EventSystem::removeEventHandler(Entity &owner) {
+void EventSystem::removeEventHandler(std::shared_ptr<Entity> owner) {
 
-  for (int i = 0; i < m_eventHandlers.size(); i++) {
+	for (int i = 0; i < m_eventHandlers.size(); i++) {
 
-	if (m_eventHandlers[i]==&owner) {
-	  m_eventHandlers.erase(m_eventHandlers.begin() + i);
+		if (m_eventHandlers[i] == owner) {
+
+			m_eventHandlers.erase(m_eventHandlers.begin() + i);
+
+		}
+
 	}
-
-  }
 }
 
 EventSystem::~EventSystem() {

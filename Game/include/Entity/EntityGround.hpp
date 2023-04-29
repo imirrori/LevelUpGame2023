@@ -15,19 +15,19 @@
 class EntityGround : public Entity {
 
  public:
-  EntityGround(EventSystem &event_handler, b2World &world, int width_count );
-  ~EntityGround() override;
+	EntityGround(EventSystem &event_handler, b2World &world, int width_count);
+	~EntityGround() override;
 
-  void onUpdate(float delta) override;
-  void onRender() override;
-  void onCollision(IEntity *collision_entity) override;
+	void onUpdate(float delta) override;
+	void onRender() override;
+	void onCollision(std::shared_ptr<IEntity> collision_entity) override;
 
  private:
-  Graphics::Texture *texture;
-  b2Body *mp_Body;
+	std::shared_ptr<Graphics::Texture> texture;
+	b2Body *mp_Body;
 
-  int width_count_ = 200;
-  float tile_width_ = 100;
+	int width_count_ = 200;
+	float tile_width_ = 100;
 
 };
 

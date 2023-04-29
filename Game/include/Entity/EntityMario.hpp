@@ -24,11 +24,10 @@ class EntityMario : public Entity {
 
 	void onUpdate(float delta) override;
 	void onRender() override;
-	void onCollision(IEntity *collider) override;
+	void onCollision(std::shared_ptr<IEntity> collider) override;
 
  private:
 	void Movement(float delta);
-
 
 	void Flip();
 	void RunAnimation(float delta);
@@ -46,13 +45,14 @@ class EntityMario : public Entity {
 
 	GameState &game_state_ = GameState::getInstance();
 
-	Graphics::Texture *currentTexture;
-	Graphics::Texture *idleTexture;
-	Graphics::Texture *jumpTexture;
+	std::shared_ptr<Graphics::Texture> currentTexture;
+	std::shared_ptr<Graphics::Texture> idleTexture;
+	std::shared_ptr<Graphics::Texture> jumpTexture;
 
-	Graphics::Texture *runTexture[3];
+	std::shared_ptr<Graphics::Texture> runTexture[3];
 
-	b2Body *mp_Body; // Make shared
+	b2Body *mp_Body;
+
 };
 
 #endif //LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITYMARIO_HPP_

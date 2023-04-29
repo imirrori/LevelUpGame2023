@@ -7,38 +7,38 @@
 
 EntityCoinBlock::EntityCoinBlock(EventSystem &event_handler, b2World &world, glm::vec2 position, glm::vec2 scale) {
 
-  event_handler.addEventHandler(*this);
+	event_handler.addEventHandler(std::make_shared<Entity>(*this));
 
-  vPosition = position;
-  vRotation = 0;
-  vScale = scale;
-  vTag = "coin-brick";
+	vPosition = position;
+	vRotation = 0;
+	vScale = scale;
+	vTag = "coin-brick";
 
-  idle_texture = &Graphics::Texture::GetTexture("coin-brick-idle");
-  break_texture = &Graphics::Texture::GetTexture("coin-brick-break");
-  current_texture = idle_texture;
+	idle_texture = std::make_shared<Graphics::Texture>(Graphics::Texture::GetTexture("coin-brick-idle"));
+	break_texture = std::make_shared<Graphics::Texture>(Graphics::Texture::GetTexture("coin-brick-break"));
+	current_texture = idle_texture;
 
-  b2BodyDef b_def;
+	b2BodyDef b_def;
 
-  b_def.userData.pointer = reinterpret_cast<uintptr_t>(this);
-  b_def.position.Set(vPosition.x/pixelToM_, vPosition.y/pixelToM_);
-  b_def.fixedRotation = true;
+	b_def.userData.pointer = reinterpret_cast<uintptr_t>(this);
+	b_def.position.Set(vPosition.x / pixelToM_, vPosition.y / pixelToM_);
+	b_def.fixedRotation = true;
 
-  mp_Body = world.CreateBody(&b_def);
+	mp_Body = world.CreateBody(&b_def);
 
-  b2PolygonShape b_shape;
+	b2PolygonShape b_shape;
 
-  b_shape.SetAsBox(vScale.x/2/pixelToM_, vScale.y/2/pixelToM_);
+	b_shape.SetAsBox(vScale.x / 2 / pixelToM_, vScale.y / 2 / pixelToM_);
 
-  mp_Body->CreateFixture(&b_shape, 0.0f);
+	mp_Body->CreateFixture(&b_shape, 0.0f);
 
-  coin_ = new EntityCoin(event_handler, world, vPosition, vScale);
+	coin_ = new EntityCoin(event_handler, world, vPosition, vScale);
 }
 
 EntityCoinBlock::~EntityCoinBlock() {
 
-  mp_Body->GetWorld()->DestroyBody(mp_Body);
-  delete coin_;
+	mp_Body->GetWorld()->DestroyBody(mp_Body);
+	delete coin_;
 
 }
 
@@ -48,21 +48,21 @@ void EntityCoinBlock::onUpdate(float delta) {
 
 void EntityCoinBlock::onRender() {
 
-  Graphics::Render::DrawTexture(vPosition, vRotation, vScale, *current_texture);
+	Graphics::Render::DrawTexture(vPosition, vRotation, vScale, *current_texture);
 
 }
 
-void EntityCoinBlock::onCollision(IEntity *collision_entity) {
+void EntityCoinBlock::onCollision(std::shared_ptr<IEntity> collision_entity) {
 
-  if (collision_entity->GetTag()=="mario" && collision_entity->GetPosition().y < vPosition.y) {
+	if (collision_entity->GetTag() == "mario" && collision_entity->GetPosition().y < vPosition.y) {
 
-	if (current_texture==idle_texture) {
+		if (current_texture == idle_texture) {
 
-	  coin_->EngageCoin();
-	  current_texture = break_texture;
+			coin_->EngageCoin();
+			current_texture = break_texture;
 
-	} else if (current_texture==break_texture) {
-	  return;
+		} else if (current_texture == break_texture) {
+			return;
+		}
 	}
-  }
 }

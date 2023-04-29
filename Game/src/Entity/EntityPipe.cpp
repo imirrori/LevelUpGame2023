@@ -11,41 +11,41 @@ void EntityPipe::onUpdate(float delta) {
 
 void EntityPipe::onRender() {
 
-  Graphics::Render::DrawTexture(vPosition, vRotation, vScale, *texture);
+	Graphics::Render::DrawTexture(vPosition, vRotation, vScale, *texture);
 
 }
 
-void EntityPipe::onCollision(IEntity *collision_entity) {
+void EntityPipe::onCollision(std::shared_ptr<IEntity> collision_entity) {
 
 }
 
 EntityPipe::EntityPipe(EventSystem &event_holder, b2World &world, glm::vec2 position, glm::vec2 scale) {
 
-  event_holder.addEventHandler(*this);
+	event_holder.addEventHandler(std::make_shared<Entity>(*this));
 
-  vPosition = position;
-  vScale = scale;
-  vRotation = 0;
-  vTag = "pipe";
+	vPosition = position;
+	vScale = scale;
+	vRotation = 0;
+	vTag = "pipe";
 
-  texture = &Graphics::Texture::GetTexture("pipe");
+	texture = std::make_shared<Graphics::Texture>(Graphics::Texture::GetTexture("pipe"));
 
-  b2BodyDef b_def;
+	b2BodyDef b_def;
 
-  b_def.userData.pointer = reinterpret_cast<uintptr_t>(this);
-  b_def.type = b2_staticBody;
+	b_def.userData.pointer = reinterpret_cast<uintptr_t>(this);
+	b_def.type = b2_staticBody;
 
-  b_def.position.Set(vPosition.x/pixelToM_, vPosition.y/pixelToM_);
-  mp_Body = world.CreateBody(&b_def);
+	b_def.position.Set(vPosition.x / pixelToM_, vPosition.y / pixelToM_);
+	mp_Body = world.CreateBody(&b_def);
 
-  b2PolygonShape b_shape;
+	b2PolygonShape b_shape;
 
-  b_shape.SetAsBox(scale.x/2/pixelToM_, scale.y/2/pixelToM_);
-  mp_Body->CreateFixture(&b_shape, 0.0);
+	b_shape.SetAsBox(scale.x / 2 / pixelToM_, scale.y / 2 / pixelToM_);
+	mp_Body->CreateFixture(&b_shape, 0.0);
 
 }
 EntityPipe::~EntityPipe() {
 
-  mp_Body->GetWorld()->DestroyBody(mp_Body);
+	mp_Body->GetWorld()->DestroyBody(mp_Body);
 
 }

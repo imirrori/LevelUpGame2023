@@ -19,77 +19,84 @@ void Level::onUpdate(float delta) {
 void Level::onRender() {
 
 }
-void Level::onCollision(IEntity *collision_entity) {
+void Level::onCollision(std::shared_ptr<IEntity> collision_entity) {
 
 }
 void Level::buildMap(b2World &world) {
 
-  for (std::size_t y = 0; y < map_.height(); ++y) {
+	for (std::size_t y = 0; y < map_.height(); ++y) {
 
-	for (std::size_t x = 0; x < map_.width(); ++x) {
+		for (std::size_t x = 0; x < map_.width(); ++x) {
 
-	  switch (map_.GetMap()[y*map_.width() + x]) {
-		case 'b':
-		  map_entities.emplace_back(new EntityBlock(*event_handler_,
-													world,
-													{x*100, (map_.height() - y)*100 + 100},
-													{100, 100}));
-		  break;
+			switch (map_.GetMap()[y * map_.width() + x]) {
 
-		case 'c':
-		  map_entities.emplace_back(new EntityCoinBlock(*event_handler_,
-														world,
-														{x*100, (map_.height() - y)*100 + 100},
-														{100, 100}));
-		  break;
+				case 'b':
+					map_entities.emplace_back(
+						std::make_shared<EntityBlock>(EntityBlock(*event_handler_,
+																  world,
+																  {x * 100, (map_.height() - y) * 100 + 100},
+																  {100, 100}))
+					);
+					break;
 
-		case 'p':
-		  map_entities.emplace_back(new EntityPipe(*event_handler_,
-												   world,
-												   {x*100, (map_.height() - y)*100 + 50},
-												   {200, 200}));
-		  break;
+				case 'c':
+					map_entities.emplace_back(
+						std::make_shared<EntityCoinBlock>(EntityCoinBlock(*event_handler_,
+																		  world,
+																		  {x * 100, (map_.height() - y) * 100 + 100},
+																		  {100, 100}))
+					);
+					break;
 
-		case 'm':
-		  map_entities.emplace_back(new EntityMushroom(*event_handler_,
-													   world,
-													   {x*100, (map_.height() - y)*100 + 100},
-													   {100, 100}));
-		  break;
+				case 'p':
+					map_entities.emplace_back(
+						std::make_shared<EntityPipe>(EntityPipe(*event_handler_,
+																world,
+																{x * 100, (map_.height() - y) * 100 + 50},
+																{200, 200}))
+					);
+					break;
 
-		case 's':
-		  map_entities.emplace_back(new EntityStepBlock(*event_handler_,
-														world,
-														{x*100, (map_.height() - y)*100 + 100},
-														{100, 100}));
-		  break;
+				case 'm':
+					map_entities.emplace_back(
+						std::make_shared<EntityMushroom>(EntityMushroom(*event_handler_,
+																		world,
+																		{x * 100, (map_.height() - y) * 100 + 100},
+																		{100, 100}))
+					);
+					break;
 
-		default: break;
-	  }
+				case 's':
+					map_entities.emplace_back(
+						std::make_shared<EntityStepBlock>(EntityStepBlock(*event_handler_,
+																		  world,
+																		  {x * 100, (map_.height() - y) * 100 + 100},
+																		  {100, 100}))
+					);
+					break;
 
+				default: break;
+			}
+
+		}
 	}
-  }
 }
 Level::~Level() {
-
-  for (auto &entity : map_entities) {
-	delete entity;
-  }
 
 }
 
 Level::Level(EventSystem &event_handler, b2World &world) {
 
-  event_handler_ = &event_handler;
+	event_handler_ = std::make_shared<EventSystem>(event_handler);
 
-  buildMap(world);
+	buildMap(world);
 
-  std::cout << "Level created" << std::endl;
+	std::cout << "Level created" << std::endl;
 
 }
 int Level::getLevelWidth() {
 
-  return static_cast<int>(map_.width());
+	return static_cast<int>(map_.width());
 
 }
 

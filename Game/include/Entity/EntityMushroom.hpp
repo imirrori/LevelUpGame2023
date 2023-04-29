@@ -13,35 +13,35 @@
 
 class EntityMushroom : public Entity {
  public:
-  EntityMushroom(EventSystem &event_handler, b2World &world, glm::vec2 position, glm::vec2 scale);
-  ~EntityMushroom() override;
+	EntityMushroom(EventSystem &event_handler, b2World &world, glm::vec2 position, glm::vec2 scale);
+	~EntityMushroom() override;
 
-  void onUpdate(float delta) override;
-  void onRender() override;
-  void onCollision(IEntity *collision_entity) override;
+	void onUpdate(float delta) override;
+	void onRender() override;
+	void onCollision(std::shared_ptr<IEntity> collision_entity) override;
 
  private:
-  void RunAnimation(float delta);
-  void CountToDie(float delta);
+	void RunAnimation(float delta);
+	void CountToDie(float delta);
 
-  bool isAlive = true;
-  bool isDie = false;
+	bool isAlive = true;
+	bool isDie = false;
 
-  float time_to_disappear_ = 1.f;
-  float speed_ = 2.f;
-  bool faceRight_ = false;
+	float time_to_disappear_ = 1.f;
+	float speed_ = 2.f;
+	bool faceRight_ = false;
 
-  Graphics::Texture *current_texture;
-  Graphics::Texture *run_texture[2];
-  Graphics::Texture *dead_texture;
+	std::shared_ptr<Graphics::Texture> current_texture;
+	std::shared_ptr<Graphics::Texture> run_texture[2];
+	std::shared_ptr<Graphics::Texture> dead_texture;
 
-  // Animations
+	// Animations
 
-  int texture_index = 0;
-  float animation_speed = 0.1f;
-  float animation_time_btw = animation_speed;
+	int texture_index = 0;
+	float animation_speed = 0.1f;
+	float animation_time_btw = animation_speed;
 
-  b2Body *mp_Body;
+	b2Body *mp_Body;
 
 };
 

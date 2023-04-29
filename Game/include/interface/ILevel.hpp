@@ -9,9 +9,9 @@
 
 class ILevel : public IEntity {
  public:
-  virtual ~ILevel() = default;
+	virtual ~ILevel() = default;
 
-  virtual std::vector<IEntity *> getAllObjects() const = 0;
+	virtual std::vector<std::shared_ptr<IEntity>> getAllObjects() const = 0;
 
 };
 

@@ -50,17 +50,17 @@ class Game : public IProcessInput {
 
 	EventSystem event_handler;
 
-	EntityMario *mario;
-	EntityGround *ground;
-	Level *level;
+	std::shared_ptr<EntityMario> mario;
+	std::shared_ptr<EntityGround> ground;
+	std::shared_ptr<Level> level;
 
-	std::unique_ptr<MainMenu> main_menu;
+	std::shared_ptr<MainMenu> main_menu;
 
-	b2World *MarioWorld = nullptr;
+	b2World *MarioWorld;
 
-	ContactListener *contact_listener;
+	std::shared_ptr<ContactListener> contact_listener;
 
-	GameState& game_state_ = GameState::getInstance();
+	GameState &game_state_ = GameState::getInstance();
 
 	static void key_callback_(GLFWwindow *window, int key, int scancode, int action, int mods);
 	static void framebuffer_size_callback_(GLFWwindow *window, int width, int height);

@@ -13,27 +13,26 @@
 #include "EventSystem.hpp"
 #include "Texture.hpp"
 
-
 class EntityBlock : public Entity {
  public:
 
-  EntityBlock(EventSystem &event_handler_, b2World &world, glm::vec2 position, glm::vec2 scale);
+	EntityBlock(EventSystem &event_handler_, b2World &world, glm::vec2 position, glm::vec2 scale);
 
-  ~EntityBlock() override;
+	~EntityBlock() override;
 
-  void onUpdate(float delta) override;
-  void onRender() override;
-  void onCollision(IEntity *collision_entity) override;
+	void onUpdate(float delta) override;
+	void onRender() override;
+	void onCollision(std::shared_ptr<IEntity> collision_entity) override;
 
  private:
 //  const void Shake_(float delta);
 
-  int hp_ = 3;
+	int hp_ = 3;
 
-  Graphics::Texture *current_texture;
-  Graphics::Texture *textures[3];
+	std::shared_ptr<Graphics::Texture> current_texture;
+	std::shared_ptr<Graphics::Texture> textures[3];
 
-  b2Body *mp_Body;
+	b2Body *mp_Body;
 
 };
 

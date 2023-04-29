@@ -80,6 +80,9 @@ bool Game::Run() {
 		glClearColor(0.363f, 0.914f, 0.937f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		std::cout << "FPS: " << 1 / delta << std::endl;
+		std::cout << "State on refresh: " << static_cast<int>(game_state_.peekState()) << std::endl;
+
 		onUpdate(delta);
 
 		onRender();
@@ -113,13 +116,13 @@ void Game::onInit() {
 		throw std::runtime_error("Failed to create b2World");
 	}
 
-	contact_listener = new ContactListener(*MarioWorld);
+	contact_listener = std::make_shared<ContactListener>(ContactListener(*MarioWorld));
 
-	mario = new EntityMario(event_handler, *MarioWorld);
+	mario = std::make_shared<EntityMario>(EntityMario(event_handler, *MarioWorld));
 
-	level = new Level(event_handler, *MarioWorld);
+	level = std::make_shared<Level>(Level(event_handler, *MarioWorld));
 
-	ground = new EntityGround(event_handler, *MarioWorld, level->getLevelWidth());
+	ground = std::make_shared<EntityGround>(EntityGround(event_handler, *MarioWorld, level->getLevelWidth()));
 
 	if (MarioWorld) {
 		std::cout << "Mario World Created" << std::endl;
@@ -134,8 +137,6 @@ void Game::onUpdate(float delta) {
 	auto ev_list = event_handler.getEventsList();
 
 	auto cur_gs_ = game_state_.peekState();
-
-	std::cout << "State onUpdate: " << static_cast<int>(cur_gs_) << std::endl;
 
 	switch (cur_gs_) {
 
@@ -167,8 +168,6 @@ void Game::onUpdate(float delta) {
 void Game::onRender() {
 	Graphics::Render::BeginScene(view_cam);
 	auto cur_gs_ = game_state_.peekState();
-
-	std::cout << "State onRender: " << static_cast<int>(cur_gs_) << std::endl;
 
 	switch (cur_gs_) {
 
@@ -296,12 +295,6 @@ Game::~Game() {
 	}
 
 	Graphics::Render::onShutDown();
-
-	delete contact_listener;
-	delete level;
-
-	delete MarioWorld; //TODO:  Refactor to smart pointer
-	delete ground;
 
 }
 } // namespace Game

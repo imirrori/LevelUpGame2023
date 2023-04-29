@@ -11,17 +11,18 @@
 
 class EntityStepBlock : public Entity {
  public:
-  EntityStepBlock(EventSystem &event_handler_, b2World &world, glm::vec2 position, glm::vec2 scale);
-  ~EntityStepBlock() override;
 
-  void onUpdate(float delta) override;
-  void onRender() override;
-  void onCollision(IEntity *collision_entity) override;
+	EntityStepBlock(EventSystem &event_handler_, b2World &world, glm::vec2 position, glm::vec2 scale);
+	~EntityStepBlock() override;
+
+	void onUpdate(float delta) override;
+	void onRender() override;
+	void onCollision(std::shared_ptr<IEntity> collision_entity) override;
 
  private:
-  Graphics::Texture *texture;
 
-  b2Body *mp_Body;
+	std::shared_ptr<Graphics::Texture> texture;
+	b2Body *mp_Body;
 
 };
 

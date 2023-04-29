@@ -23,17 +23,17 @@ class Level : public Entity { //TODO: Refactor to ILevel
 
   void onUpdate(float delta) override;
   void onRender() override;
-  void onCollision(IEntity *collision_entity) override;
+  void onCollision(std::shared_ptr<IEntity>collision_entity) override;
 
   int getLevelWidth();
 
  private:
 
-  std::vector<IEntity *> map_entities;
+  std::vector<std::shared_ptr<IEntity>> map_entities;
 
   Map map_ = Map("Resources/map/demo1.map");
 
-  EventSystem *event_handler_;
+  std::shared_ptr<EventSystem> event_handler_;
 
   /**
    * @brief Build map from map string
