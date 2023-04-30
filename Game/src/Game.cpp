@@ -148,7 +148,7 @@ void Game::onUpdate(float delta) {
 		case STATE::GS_Jumping:
 
 			for (const auto item : ev_list) {
-//				std::cout << "Item tag: " << item->GetTag() << std::endl;
+				std::cout << "Item tag: " << item->GetTag() << std::endl;
 				item->onUpdate(delta);
 			}
 

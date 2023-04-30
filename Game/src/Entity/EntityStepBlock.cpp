@@ -15,7 +15,7 @@ EntityStepBlock::EntityStepBlock(EventSystem &event_handler_, b2World &world, gl
 
 	vTag = "stair-brick";
 
-	texture = std::make_shared<Graphics::Texture>(Graphics::Texture::GetTexture("stair-brick"));
+	texture = std::make_shared<Graphics::Texture>(Graphics::Texture::GetTexture("stair_brick"));
 
 	b2BodyDef b_def;
 
