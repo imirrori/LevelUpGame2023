@@ -43,16 +43,17 @@ public:
       case LEFT:
 
         if (x_ > 0) --x_;
-
         break;
       case RIGHT:
         ++x_;
         break;
       case UP:
-        ++y_;
+
+        if (y_ < 8) ++y_;
         break;
       case DOWN:
-        --y_;
+
+        if (y_ > 1) --y_;
         break;
     }
   }
