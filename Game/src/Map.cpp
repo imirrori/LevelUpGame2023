@@ -70,23 +70,27 @@ void Map::InitBlocks()
     {
       switch (map_[y * width() + x]) {
         case 'b':
-          blocks_.push_back(Block{ x, height() - y, 0 });
+          blocks_.push_back(Block{ x, height() - y - 1, 0 });
           break;
 
         case 'c':
-          blocks_.push_back(Block{ x, height() - y, 1 });
+          blocks_.push_back(Block{ x, height() - y - 1, 1 });
           break;
 
         case 'p':
-          blocks_.push_back(Block{ x, height() - y, 2 });
+          blocks_.push_back(Block{ x, height() - y - 1, 2 });
           break;
 
         case 'm':
-          blocks_.push_back(Block{ x, height() - y, 3 });
+          blocks_.push_back(Block{ x, height() - y - 1, 3 });
           break;
 
         case 's':
-          blocks_.push_back(Block{ x, height() - y, 4 });
+          blocks_.push_back(Block{ x, height() - y - 1, 4 });
+          break;
+
+        case '#':
+          blocks_.push_back(Block{ x, height() - y - 1, 5 });
           break;
 
         default: break;
