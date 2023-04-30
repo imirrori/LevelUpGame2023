@@ -8,35 +8,18 @@ namespace {
 constexpr std::string_view SettingFileName = "settings.ini";
 }
 
+std::array<std::unique_ptr<Game::IState>,
+           Game::IState::STATES::COUNT> Game::states_ =
+{};
+
 void Game::Run()
 {
-  while (viz_->Show(showObjects_))
+  while (viz_->Show(state_->GetShowObjects()))
   {
     std::vector<KeyManager::Key> keysDown = keyManager_->GetKeysDown();
 
     for (const auto& key: keysDown) {
-      switch (key.key) {
-        case 264: // DOWN
-          menu_->PressKey(MainMenu::DOWN);
-          player_->PressPlayerKey(PlayerStub::DOWN);
-          break;
-        case 265: // UP
-          menu_->PressKey(MainMenu::UP);
-          player_->PressPlayerKey(PlayerStub::UP);
-          break;
-        case 262: // Player RIGHT
-          player_->PressPlayerKey(PlayerStub::RIGHT);
-          break;
-        case 263: // Player LEFT
-          player_->PressPlayerKey(PlayerStub::LEFT);
-          break;
-        case 257: // ENTER
-          menu_->PressKey(MainMenu::ENTER);
-          break;
-        case 256: // ESC
-          EscapeKey();
-          break;
-      }
+      state_ = state_->ProcessingKey(key);
       keyManager_->KeyAction(key.key,
                              key.scancode,
                              KeyManager::RELEASE,
@@ -56,36 +39,28 @@ void Game::Init()
   menu_       = std::make_shared<MainMenu>(viz_);
   map_        = std::make_shared<Map>(viz_);
 
+  states_[IState::BEGIN_SATE] = std::make_unique<BeginState>(menu_,
+                                                             std::vector<std::shared_ptr<IEntity> >{ menu_ });
+  states_[IState::PLAY_SATE] = std::make_unique<PlayState>(player_,
+                                                           std::vector<std::shared_ptr<IEntity> >{ map_,
+                                                                                                   player_ });
+  state_ = states_[IState::BEGIN_SATE].get();
+
   auto endGame = []() {
                    exit(0);
+                   return false;
                  };
-  auto startGame = [this, endGame]()
+  auto startGame = []()
                    {
-                     std::vector<std::shared_ptr<IEntity> > newShow;
-
-                     newShow.push_back(map_);
-                     newShow.push_back(player_);
-                     showObjects_.swap(newShow);
-
-                     EscapeKey = [this, endGame]()
-                                 {
-                                   std::vector<std::shared_ptr<IEntity> >
-                                   newShow;
-
-                                   newShow.push_back(menu_);
-                                   showObjects_.swap(newShow);
-                                   EscapeKey = endGame;
-                                 };
+                     return true;
                    };
-  auto loadGame = []() {};
-
-  EscapeKey = endGame;
+  auto loadGame = []() {
+                    return false;
+                  };
 
   menu_->AddSubMenu({ "start game", startGame });
   menu_->AddSubMenu({ "load game", loadGame });
   menu_->AddSubMenu({ "end game", endGame });
-
-  showObjects_.push_back(menu_);
 }
 
 Game::Game()
