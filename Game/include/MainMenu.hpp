@@ -23,7 +23,7 @@ public:
 
   struct BaseMenu {
     std::string          name_;
-    std::function<void()>exec_;
+    std::function<bool()>exec_;
   };
 
   MainMenu(std::shared_ptr<Visual::IMenu>menuViz);
@@ -35,7 +35,7 @@ public:
   void onCollision() override;
 
   void AddSubMenu(BaseMenu subMenu);
-  void PressKey(KEY key);
+  bool PressKey(KEY key);
 
 private:
 

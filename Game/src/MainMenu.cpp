@@ -25,7 +25,7 @@ void MainMenu::AddSubMenu(BaseMenu subMenu)
   subMenu_.push_back(std::move(subMenu));
 }
 
-void MainMenu::PressKey(KEY key)
+bool MainMenu::PressKey(KEY key)
 {
   switch (key)
   {
@@ -46,6 +46,6 @@ void MainMenu::PressKey(KEY key)
       }
       break;
     case ENTER:
-      subMenu_[currentMenu_].exec_();
+      return subMenu_[currentMenu_].exec_();
   }
 }
