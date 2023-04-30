@@ -18,9 +18,17 @@ void Game::Run()
       switch (key.key) {
         case 264: // DOWN
           menu_->PressKey(MainMenu::DOWN);
+          player_->PressPlayerKey(PlayerStub::DOWN);
           break;
         case 265: // UP
           menu_->PressKey(MainMenu::UP);
+          player_->PressPlayerKey(PlayerStub::UP);
+          break;
+        case 262: // Player RIGHT
+          player_->PressPlayerKey(PlayerStub::RIGHT);
+          break;
+        case 263: // Player LEFT
+          player_->PressPlayerKey(PlayerStub::LEFT);
           break;
         case 257: // ENTER
           menu_->PressKey(MainMenu::ENTER);

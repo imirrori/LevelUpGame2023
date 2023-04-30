@@ -59,6 +59,9 @@ private:
   int menu_count_;
   int reverse_menu_count_;
 
+  int player_x;
+  int player_y;
+
   std::shared_ptr<Settings::ISettings>settings_;
   GLFWwindow *window_;
   std::shared_ptr<KeyManager>keyManager_;
