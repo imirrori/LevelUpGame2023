@@ -28,9 +28,11 @@ void Level::buildMap(b2World &world) {
 
 		for (std::size_t x = 0; x < map_.width(); ++x) {
 
+			std::cout << "Map: " << map_.GetMap()[y * map_.width() + x] << std::endl;
 			switch (map_.GetMap()[y * map_.width() + x]) {
 
 				case 'b':
+
 					map_entities.emplace_back(
 						std::make_shared<EntityBlock>(EntityBlock(*event_handler_,
 																  world,
@@ -89,7 +91,7 @@ Level::Level(EventSystem &event_handler, b2World &world) {
 
 	event_handler_ = std::make_shared<EventSystem>(event_handler);
 
-	buildMap(world);
+	buildMap(world); //FIXME: This is not working
 
 	std::cout << "Level created" << std::endl;
 

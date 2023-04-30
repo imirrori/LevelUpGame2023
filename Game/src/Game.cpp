@@ -23,10 +23,6 @@ Game::Game(unsigned int width_, unsigned int height_)
 	:
 	width(width_), height(height_), view_cam(0, static_cast <float>(width_), 0, static_cast<float>(height_)) {
 
-//  main_menu = std::make_unique<MainMenu>();
-
-	std::cout << "Game initialized" << std::endl;
-
 }
 
 bool Game::Run() {
@@ -80,7 +76,6 @@ bool Game::Run() {
 		glClearColor(0.363f, 0.914f, 0.937f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		std::cout << "FPS: " << 1 / delta << std::endl;
 		std::cout << "State on refresh: " << static_cast<int>(game_state_.peekState()) << std::endl;
 
 		onUpdate(delta);
@@ -107,6 +102,7 @@ void Game::onInit() {
 
 	Graphics::Render::onInit();
 
+	std::cout << "Game Init" << std::endl;
 	// Physics initialization
 	b2Vec2 gravity(0, -20);
 
@@ -123,6 +119,7 @@ void Game::onInit() {
 	level = std::make_shared<Level>(Level(event_handler, *MarioWorld));
 
 	ground = std::make_shared<EntityGround>(EntityGround(event_handler, *MarioWorld, level->getLevelWidth()));
+	//TODO: Create new variable is not necessary
 
 	if (MarioWorld) {
 		std::cout << "Mario World Created" << std::endl;
@@ -130,6 +127,7 @@ void Game::onInit() {
 		throw std::runtime_error("Error loading world");
 	}
 
+	std::cout << "Game initialized" << std::endl;
 }
 
 void Game::onUpdate(float delta) {
