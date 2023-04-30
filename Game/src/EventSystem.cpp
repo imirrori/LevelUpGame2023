@@ -10,7 +10,7 @@ EventSystem::EventSystem() {
 
 void EventSystem::addEventHandler(std::shared_ptr<Entity> owner) {
 
-	m_eventHandlers.push_back(owner);
+	m_eventHandlers.push_back(owner);// FIXME: This is not working
 
 }
 

@@ -14,7 +14,7 @@ class IEventHandler {
  public:
 	virtual ~IEventHandler() = default;
 
-	virtual std::vector<std::shared_ptr<IEntity>> getEventsList() = 0;
+	virtual std::vector<std::shared_ptr<Entity>> getEventsList() = 0;
 
 	virtual void addEventHandler(std::shared_ptr<Entity> owner) = 0;
 	virtual void removeEventHandler(std::shared_ptr<Entity> owner) = 0;
