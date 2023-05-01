@@ -1,20 +1,24 @@
 
 #include "Game.hpp"
+#include "LogTest.hpp"
 
 #include <filesystem>
 #include <iostream>
 
+
 int main() {
 
-  constexpr unsigned int width = 1920, height = 1080;
+	constexpr unsigned int width = 1920, height = 1080;
 
-  std::cout << "Current path is " << std::filesystem::current_path() << std::endl; // (1)
+	std::cout << "Current path is " << std::filesystem::current_path() << std::endl; // (1)
 
-  Game::Game game(width, height);
+	LogTest();
 
-  if (!game.Run()) {
-	std::cerr << "Something went wrong! " << std::endl;
-  };
+	Game::Game game(width, height);
 
-  return 0;
+//  if (!game.Run()) {
+//	std::cerr << "Something went wrong! " << std::endl;
+//  };
+
+	return 0;
 }

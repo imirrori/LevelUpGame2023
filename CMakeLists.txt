@@ -22,6 +22,10 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(googletest)
 
+
+find_package(spdlog REQUIRED)
+
+
 find_package(OpenGL REQUIRED)
 
 if (OPENGL_FOUND)
@@ -60,6 +64,7 @@ find_package(GLEW REQUIRED)
 
 include_directories(
         /opt/homebrew/Cellar/glew/2.2.0_1/include
+        /opt/hombrew/spdlog/include
         lib/glm
         lib/box2d/include
         lib/box2d/extern/glad/include
@@ -72,6 +77,7 @@ set(ALL_LIBS
     glfw
     GLEW::GLEW
     box2d
+    spdlog::spdlog_header_only
 
     )
 
@@ -107,6 +113,7 @@ set(SOURCE_FILES
     Game/src/MapParser.cpp
     Game/src/Sprite.cpp
     Game/src/GameState.cpp
+    Game/src/LoggerTest.cpp
 
     )
 
@@ -139,7 +146,8 @@ set(HEADER_FILES
     Game/include/Sprite.hpp
     Game/include/GAME_STATES.hpp
     Game/include/interface/IProcessInput.hpp
-    Game/include/GameState.hpp)
+    Game/include/GameState.hpp
+    Game/include/logtest.hpp)
 
 
 ############################################################
@@ -203,6 +211,7 @@ target_include_directories(Mario_Lib
                            ${box2d_INCLUDE_DIRS}
                            ${PROJECT_SOURCE_DIR}/lib/STBI
                            ${PROJECT_SOURCE_DIR}/lib/glm
+
 
                            )
 

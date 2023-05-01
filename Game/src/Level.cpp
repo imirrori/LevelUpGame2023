@@ -17,7 +17,7 @@ Level::Level(EventSystem &event_handler, b2World &world) {
 
 	event_handler_ = std::make_shared<EventSystem>(event_handler);
 
-	buildMap(world); //FIXME: This is not working
+	buildMap(world);
 
 	std::cout << "Level created" << std::endl;
 
