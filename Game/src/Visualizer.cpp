@@ -87,7 +87,8 @@ void Visualizer::PrintRow(const std::string& name, bool current) //
 }
 
 void Visualizer::EndPrint() // override by IMenu
-{}
+{
+}
 
 void Visualizer::ShowPlayer(int x, int y)
 {
@@ -125,23 +126,23 @@ void Visualizer::PrintBlock(size_t x, size_t y, int type)
   glBegin(GL_POLYGON);
 
   switch (type) {
-    case 0:
-      glColor3f(1, 1, 1);
+    case 0: // b - block
+      glColor3f(1, 0.5, 0);
       break;
-    case 1:
-      glColor3f(1, 0, 0);
+    case 1: // c - coin
+      glColor3f(1, 1,   0);
       break;
-    case 2:
-      glColor3f(0, 1, 0);
+    case 2: // p - pipe
+      glColor3f(0, 1,   0);
       break;
-    case 3:
-      glColor3f(0, 0, 1);
+    case 3: // m - mushroom
+      glColor3f(1, 0,   0);
       break;
-    case 4:
-      glColor3f(0, 1, 1);
+    case 4: // s - stepblock
+      glColor3f(1, 0.3, 0);
       break;
-    case 5:
-      glColor3f(0, 0, 1);
+    case 5: // # - ground
+      glColor3f(0, 0,   1);
       break;
   }
 
