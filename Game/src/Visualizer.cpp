@@ -1,7 +1,6 @@
+#include "MapTypes.hpp"
 #include "Visualizer.hpp"
-
 #include <cmath>
-
 #include <stdexcept>
 
 namespace {
@@ -126,23 +125,23 @@ void Visualizer::PrintBlock(size_t x, size_t y, int type)
   glBegin(GL_POLYGON);
 
   switch (type) {
-    case 0: // b - block
-      glColor3f(1, 0.5, 0);
+    case BLOCK:
+      glColor3f(0.6, 0.2, 0);
       break;
-    case 1: // c - coin
-      glColor3f(1, 1,   0);
+    case COIN:
+      glColor3f(1,   1,   0);
       break;
-    case 2: // p - pipe
-      glColor3f(0, 1,   0);
+    case PIPE:
+      glColor3f(0,   1,   0);
       break;
-    case 3: // m - mushroom
-      glColor3f(1, 0,   0);
+    case MUSHROOOM:
+      glColor3f(1,   0,   0);
       break;
-    case 4: // s - stepblock
-      glColor3f(1, 0.3, 0);
+    case STEPBLOCK:
+      glColor3f(0.7, 0.3, 0);
       break;
-    case 5: // # - ground
-      glColor3f(0, 0,   1);
+    case GROUND:
+      glColor3f(0,   0,   1);
       break;
   }
 
