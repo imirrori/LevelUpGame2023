@@ -18,6 +18,7 @@ HEADERS += \
        include/KeyManager.hpp \
        include/MainMenu.hpp \
        include/Map.hpp \
+       include/MapTypes.hpp \
        include/interface/IEntity.hpp \
        include/interface/ISettings.hpp \
        include/Game.hpp \
