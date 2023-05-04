@@ -68,21 +68,17 @@ void Visualizer::StartPrint(int count) // override by IMenu
 void Visualizer::PrintRow(const std::string& name, bool current) //
 // override_by_IMenu
 {
-  // рисование текста
-  if (reverse_menu_count_ <= menu_count_)
-  {
-    const float where_down  = float(reverse_menu_count_ + reverse_menu_count_);
-    const float where_right = 1;
+  const float where_down  = float(reverse_menu_count_ + reverse_menu_count_);
+  const float where_right = 50;
 
-    if (current) {
-      glColor3f(1.f, 0, 0);
-    } else {
-      glColor3f(1.f, 1.f, 1.f);
-    }
-
-    func_print_char(name, where_down, where_right);
-    ++reverse_menu_count_;
+  if (current) {
+    glColor3f(1.f, 0, 0);
+  } else {
+    glColor3f(1.f, 1.f, 1.f);
   }
+
+  func_print_char(name, where_down, where_right);
+  reverse_menu_count_ += 60;
 }
 
 void Visualizer::EndPrint() // override by IMenu
@@ -160,6 +156,39 @@ void Visualizer::PrintBlock(size_t x, size_t y, int type)
   glEnd();
 }
 
+void Visualizer::ShowScore(int score)
+{
+  int y = 7;
+
+  glBegin(GL_POLYGON);
+
+  if (score == 0) glColor3f(1, 1, 1);  // for debug
+
+  if (score == 1) glColor3f(0, 1, 0);  // for debug
+
+  if (score == 2) glColor3f(0, 1, 1);  // for debug
+
+  if (score > 2) glColor3f(1, 0, 0);   // for debug
+
+  const int field_pixel = std::get<int>(settings_->GetValue("visual",
+                                                            "field_pixel"));
+  glVertex2d(0,
+             y * field_pixel);
+  glVertex2d(0 + field_pixel,
+             y * field_pixel);
+  glVertex2d(0 + field_pixel,
+             y * field_pixel + field_pixel);
+  glVertex2d(0,
+             y * field_pixel + field_pixel);
+  glEnd();
+
+  const float where_down  = -79;
+  const float where_right = 70;
+
+  glColor3f(1.f, 1.f, 1.f);
+  func_print_char("coins", where_down, where_right);
+}
+
 bool Visualizer::Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow)
 {
   if (glfwWindowShouldClose(window_))
@@ -201,8 +230,7 @@ void Visualizer::func_print_char(const std::string name,
 {
   unsigned long long i = 0;
   float space          = 0;
-  int   coord          =
-    std::get<int>(settings_->GetValue("visual", "field_pixel"));
+  int   coord          = 400;
 
   for (; i < name.size();)
   {
@@ -214,18 +242,18 @@ void Visualizer::func_print_char(const std::string name,
 
         float a1 = where_down;
         float a2 = where_right + float(i) + space;
-        glVertex2f(0 +      a2, 0  + (coord - 1 - a1));
-        glVertex2f(0.5 +    a2, 1  + (coord - 1 - a1));
-        glVertex2f(1 +      a2, 0  + (coord - 1 - a1));
-        glVertex2f(0.5 +    a2, 1  + (coord - 1 - a1));
-        glVertex2f(0 +      a2, 0  + (coord - 1 - a1));
+        glVertex2f(0 +      a2,  0  +  (coord - 50 - a1));
+        glVertex2f(30 +    a2,   50 + (coord - 50 - a1));
+        glVertex2f(50 +      a2, 0  +  (coord - 50 - a1));
+        glVertex2f(30 +    a2,   50 + (coord - 50 - a1));
+        glVertex2f(0 +      a2,  0  +  (coord - 50 - a1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0.25 +   a2, 0.5 +  (coord - 1 - a1));
-        glVertex2f(0.75 +   a2, 0.5  + (coord - 1 - a1));
+        glVertex2f(15 +   a2, 30 +  (coord - 50 - a1));
+        glVertex2f(45 +   a2, 30  + (coord - 50 - a1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -234,21 +262,21 @@ void Visualizer::func_print_char(const std::string name,
         float b1 = where_down;
         float b2 = where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   b2,  0  +  (coord - 1 - b1));
-        glVertex2f(0 +   b2,  1  +  (coord - 1 - b1));
-        glVertex2f(1 +   b2,  1 +  (coord - 1 -  b1));
-        glVertex2f(1 +   b2,  0.7 + (coord - 1 - b1));
-        glVertex2f(0.6 +  b2, 0.6  + (coord - 1 - b1));
-        glVertex2f(1 +   b2,  0.4  + (coord - 1 - b1));
-        glVertex2f(1 +   b2,  0  + (coord - 1 - b1));
-        glVertex2f(0 +   b2,  0  + (coord - 1 - b1));
+        glVertex2f(0 +   b2,  0  +  (coord - 50 - b1));
+        glVertex2f(0 +   b2,  50 +  (coord - 50 - b1));
+        glVertex2f(50 +   b2, 50 +  (coord - 50 -  b1));
+        glVertex2f(50 +   b2, 42 + (coord - 50 - b1));
+        glVertex2f(36 +  b2,  36  + (coord - 50 - b1));
+        glVertex2f(50 +   b2, 24  + (coord - 50 - b1));
+        glVertex2f(50 +   b2, 0  + (coord - 50 - b1));
+        glVertex2f(0 +   b2,  0  + (coord - 50 - b1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0.6 +  b2, 0.6  + (coord - 1 - b1));
-        glVertex2f(0 +   b2,  0.6  + (coord - 1 - b1));
+        glVertex2f(36 +  b2, 36  + (coord - 50 - b1));
+        glVertex2f(0 +   b2, 36  + (coord - 50 - b1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -257,15 +285,15 @@ void Visualizer::func_print_char(const std::string name,
         float c1 = where_down;
         float c2 = where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   c2, 0  + (coord - 1 - c1));
-        glVertex2f(0 +   c2, 1  + (coord - 1 - c1));
-        glVertex2f(1 +   c2, 1 + (coord - 1 -  c1));
-        glVertex2f(0 +   c2, 1  + (coord - 1 - c1));
-        glVertex2f(0 +   c2, 0  + (coord - 1 - c1));
-        glVertex2f(1 +   c2, 0 + (coord - 1 -  c1));
+        glVertex2f(0 +   c2,  0  + (coord - 50 - c1));
+        glVertex2f(0 +   c2,  50 + (coord - 50 - c1));
+        glVertex2f(50 +   c2, 50 + (coord - 50 -  c1));
+        glVertex2f(0 +   c2,  50 + (coord - 50 - c1));
+        glVertex2f(0 +   c2,  0  + (coord - 50 - c1));
+        glVertex2f(50 +   c2, 0 + (coord - 50 -  c1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -274,13 +302,13 @@ void Visualizer::func_print_char(const std::string name,
         float d1 = where_down;
         float d2 = where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   d2, 0  + (coord - 1 - d1));
-        glVertex2f(0 +   d2, 1 +  (coord - 1 - d1));
-        glVertex2f(1 +   d2, 1 +  (coord - 1 - d1));
-        glVertex2f(1 +   d2, 0  + (coord - 1 - d1));
+        glVertex2f(0 +   d2,  0  + (coord - 50 - d1));
+        glVertex2f(0 +   d2,  50 +  (coord - 50 - d1));
+        glVertex2f(50 +   d2, 50 +  (coord - 50 - d1));
+        glVertex2f(50 +   d2, 0  + (coord - 50 - d1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -289,19 +317,19 @@ void Visualizer::func_print_char(const std::string name,
         float e1 = where_down;
         float e2 = where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   e2, 0  + (coord - 1 - e1));
-        glVertex2f(0 +   e2, 1  + (coord - 1 - e1));
-        glVertex2f(1 +   e2, 1 + (coord - 1 -  e1));
-        glVertex2f(0 +   e2, 1  + (coord - 1 - e1));
-        glVertex2f(0 +   e2, 0  + (coord - 1 - e1));
-        glVertex2f(1 +   e2, 0 + (coord - 1 -  e1));
+        glVertex2f(0 +   e2,  0  + (coord - 50 - e1));
+        glVertex2f(0 +   e2,  50 + (coord - 50 - e1));
+        glVertex2f(50 +   e2, 50 + (coord - 50 -  e1));
+        glVertex2f(0 +   e2,  50 + (coord - 50 - e1));
+        glVertex2f(0 +   e2,  0  + (coord - 50 - e1));
+        glVertex2f(50 +   e2, 0 + (coord - 50 -  e1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   e2,  0.5  + (coord - 1 - e1));
-        glVertex2f(0.5 +  e2, 0.5  + (coord - 1 - e1));
+        glVertex2f(0 +   e2, 30  + (coord - 50 - e1));
+        glVertex2f(30 +  e2, 30  + (coord - 50 - e1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -310,18 +338,18 @@ void Visualizer::func_print_char(const std::string name,
         float f1 =  where_down;
         float f2 =  where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   f2, 0  + (coord - 1 - f1));
-        glVertex2f(0 +   f2, 1  + (coord - 1 - f1));
-        glVertex2f(1 +   f2, 1 + (coord - 1 -  f1));
-        glVertex2f(0 +   f2, 1  + (coord - 1 - f1));
-        glVertex2f(0 +   f2, 0  + (coord - 1 - f1));
+        glVertex2f(0 +   f2,  0  + (coord - 50 - f1));
+        glVertex2f(0 +   f2,  50 + (coord - 50 - f1));
+        glVertex2f(50 +   f2, 50 + (coord - 50 -  f1));
+        glVertex2f(0 +   f2,  50 + (coord - 50 - f1));
+        glVertex2f(0 +   f2,  0  + (coord - 50 - f1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   f2, 0.5  + (coord - 1 - f1));
-        glVertex2f(0.5 + f2, 0.5  + (coord - 1 - f1));
+        glVertex2f(0 +   f2, 30  + (coord - 50 - f1));
+        glVertex2f(30 + f2,  30  + (coord - 50 - f1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -330,24 +358,24 @@ void Visualizer::func_print_char(const std::string name,
         float g1 =  where_down;
         float g2 =  where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   g2, 0  + (coord - 1 - g1));
-        glVertex2f(0 +   g2, 1  + (coord - 1 - g1));
-        glVertex2f(1 +   g2, 1 + (coord - 1 -  g1));
-        glVertex2f(0 +   g2, 1  + (coord - 1 - g1));
-        glVertex2f(0 +   g2, 0  + (coord - 1 - g1));
-        glVertex2f(1 +   g2, 0 + (coord - 1 -  g1));
+        glVertex2f(0 +   g2,  0  + (coord - 50 - g1));
+        glVertex2f(0 +   g2,  50 + (coord - 50 - g1));
+        glVertex2f(50 +   g2, 50 + (coord - 50 -  g1));
+        glVertex2f(0 +   g2,  50 + (coord - 50 - g1));
+        glVertex2f(0 +   g2,  0  + (coord - 50 - g1));
+        glVertex2f(50 +   g2, 0 + (coord - 50 -  g1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(1 +   g2,   0 + (coord - 1 -  g1));
-        glVertex2f(1 +   g2,   0.5 + (coord - 1 -  g1));
-        glVertex2f(0.6 +   g2, 0.5 + (coord - 1 -  g1));
-        glVertex2f(0.6 +   g2, 0.2 + (coord - 1 -  g1));
-        glVertex2f(0.6 +   g2, 0.5 + (coord - 1 -  g1));
-        glVertex2f(1 +   g2,   0.5 + (coord - 1 -  g1));
-        glVertex2f(1 +   g2,   0 + (coord - 1 -  g1));
+        glVertex2f(50 +   g2, 0 + (coord - 50 -  g1));
+        glVertex2f(50 +   g2, 30 + (coord - 50 -  g1));
+        glVertex2f(36 +   g2, 30 + (coord - 50 -  g1));
+        glVertex2f(36 +   g2, 12 + (coord - 50 -  g1));
+        glVertex2f(36 +   g2, 30 + (coord - 50 -  g1));
+        glVertex2f(50 +   g2, 30 + (coord - 50 -  g1));
+        glVertex2f(50 +   g2, 0 + (coord - 50 -  g1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -356,19 +384,19 @@ void Visualizer::func_print_char(const std::string name,
         float h1 =   where_down;
         float h2 =   where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   h2, 0  + (coord - 1 - h1));
-        glVertex2f(0 +   h2, 1 +  (coord - 1 - h1));
+        glVertex2f(0 +   h2, 0  + (coord - 50 - h1));
+        glVertex2f(0 +   h2, 50 +  (coord - 50 - h1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(1 +   h2, 0  + (coord - 1 - h1));
-        glVertex2f(1 +   h2, 1  + (coord - 1 - h1));
+        glVertex2f(50 +   h2, 0  + (coord - 50 - h1));
+        glVertex2f(50 +   h2, 50 + (coord - 50 - h1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   h2, 0.5  + (coord - 1 - h1));
-        glVertex2f(1 +   h2, 0.5  + (coord - 1 - h1));
+        glVertex2f(0 +   h2,  30  + (coord - 50 - h1));
+        glVertex2f(50 +   h2, 30  + (coord - 50 - h1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -377,19 +405,19 @@ void Visualizer::func_print_char(const std::string name,
         float i1 =  where_down;
         float i2 =  where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0.1 +   i2, 1  + (coord - 1 - i1));
-        glVertex2f(0.9 +   i2, 1 +  (coord - 1 - i1));
+        glVertex2f(25 +   i2, 50 + (coord - 50 - i1));
+        glVertex2f(25 +   i2, 50 +  (coord - 50 - i1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0.1 +   i2, 0  + (coord - 1 - i1));
-        glVertex2f(0.9 +   i2, 0  + (coord - 1 - i1));
+        glVertex2f(25 +   i2, 0  + (coord - 50 - i1));
+        glVertex2f(25 +   i2, 0  + (coord - 50 - i1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0.5 +   i2, 1  + (coord - 1 - i1));
-        glVertex2f(0.5 +   i2, 0  + (coord - 1 - i1));
+        glVertex2f(25 +   i2, 50 + (coord - 50 - i1));
+        glVertex2f(25 +   i2, 0  + (coord - 50 - i1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -398,17 +426,17 @@ void Visualizer::func_print_char(const std::string name,
         float j1 =  where_down;
         float j2 =  where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(1 +   j2,   1  + (coord - 1 - j1));
-        glVertex2f(1 +   j2,   0 +  (coord - 1 - j1));
-        glVertex2f(0 +   j2,   0  + (coord - 1 - j1));
-        glVertex2f(0 +   j2,   0.4  + (coord - 1 - j1));
-        glVertex2f(0.4 +   j2, 0.4  + (coord - 1 - j1));
-        glVertex2f(0 +   j2,   0.4  + (coord - 1 - j1));
-        glVertex2f(0 +   j2,   0  + (coord - 1 - j1));
-        glVertex2f(1 +   j2,   0 +  (coord - 1 - j1));
+        glVertex2f(50 +   j2, 50 + (coord - 50 - j1));
+        glVertex2f(50 +   j2, 0 +  (coord - 50 - j1));
+        glVertex2f(0 +   j2,  0  + (coord - 50 - j1));
+        glVertex2f(0 +   j2,  24  + (coord - 50 - j1));
+        glVertex2f(24 +   j2, 24  + (coord - 50 - j1));
+        glVertex2f(0 +   j2,  24  + (coord - 50 - j1));
+        glVertex2f(0 +   j2,  0  + (coord - 50 - j1));
+        glVertex2f(50 +   j2, 0 +  (coord - 50 - j1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -417,19 +445,19 @@ void Visualizer::func_print_char(const std::string name,
         float k1 =  where_down;
         float k2 =  where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   k2, 0  + (coord - 1 - k1));
-        glVertex2f(0 +   k2, 1 +  (coord - 1 - k1));
+        glVertex2f(0 +   k2, 0  + (coord - 50 - k1));
+        glVertex2f(0 +   k2, 50 +  (coord - 50 - k1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   k2, 0.5  + (coord - 1 - k1));
-        glVertex2f(1 +   k2, 1  + (coord - 1 - k1));
+        glVertex2f(0 +   k2,  30  + (coord - 50 - k1));
+        glVertex2f(50 +   k2, 50 + (coord - 50 - k1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   k2, 0.5  + (coord - 1 - k1));
-        glVertex2f(1 +   k2, 0  + (coord - 1 - k1));
+        glVertex2f(0 +   k2,  30  + (coord - 50 - k1));
+        glVertex2f(50 +   k2, 0  + (coord - 50 - k1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -438,13 +466,13 @@ void Visualizer::func_print_char(const std::string name,
         float l1 =  where_down;
         float l2 =  where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   l2, 0  + (coord - 1 - l1));
-        glVertex2f(0 +   l2, 1 +  (coord - 1 - l1));
-        glVertex2f(0 +   l2, 0  + (coord - 1 - l1));
-        glVertex2f(1 +   l2, 0  + (coord - 1 - l1));
+        glVertex2f(0 +   l2,  0  + (coord - 50 - l1));
+        glVertex2f(0 +   l2,  50 +  (coord - 50 - l1));
+        glVertex2f(0 +   l2,  0  + (coord - 50 - l1));
+        glVertex2f(50 +   l2, 0  + (coord - 50 - l1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -453,23 +481,23 @@ void Visualizer::func_print_char(const std::string name,
         float m1 =  where_down;
         float m2 =  where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   m2, 0  + (coord - 1 - m1));
-        glVertex2f(0 +   m2, 1 +  (coord - 1 - m1));
+        glVertex2f(0 +   m2, 0  + (coord - 50 - m1));
+        glVertex2f(0 +   m2, 50 +  (coord - 50 - m1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(1 +   m2, 0  + (coord - 1 - m1));
-        glVertex2f(1 +   m2, 1  + (coord - 1 - m1));
+        glVertex2f(50 +   m2, 0  + (coord - 50 - m1));
+        glVertex2f(50 +   m2, 50 + (coord - 50 - m1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(1 +   m2,   1  + (coord - 1 - m1));
-        glVertex2f(0.5 +   m2, 0.7  + (coord - 1 - m1));
+        glVertex2f(50 +   m2, 50 + (coord - 50 - m1));
+        glVertex2f(30 +   m2, 42  + (coord - 50 - m1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   m2,   1  + (coord - 1 - m1));
-        glVertex2f(0.5 +   m2, 0.7  + (coord - 1 - m1));
+        glVertex2f(0 +   m2,  50 + (coord - 50 - m1));
+        glVertex2f(30 +   m2, 42  + (coord - 50 - m1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -478,19 +506,19 @@ void Visualizer::func_print_char(const std::string name,
         float n1 =  where_down;
         float n2 =  where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   n2, 0  + (coord - 1 - n1));
-        glVertex2f(0 +   n2, 1 +  (coord - 1 - n1));
+        glVertex2f(0 +   n2, 0  + (coord - 50 - n1));
+        glVertex2f(0 +   n2, 50 +  (coord - 50 - n1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(1 +   n2, 0  + (coord - 1 - n1));
-        glVertex2f(1 +   n2, 1  + (coord - 1 - n1));
+        glVertex2f(50 +   n2, 0  + (coord - 50 - n1));
+        glVertex2f(50 +   n2, 50 + (coord - 50 - n1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   n2, 1  + (coord - 1 - n1));
-        glVertex2f(1 +   n2, 0  + (coord - 1 - n1));
+        glVertex2f(0 +   n2,  50 + (coord - 50 - n1));
+        glVertex2f(50 +   n2, 0  + (coord - 50 - n1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -498,10 +526,10 @@ void Visualizer::func_print_char(const std::string name,
       {
         float o1         =  where_down;
         float o2         =  where_right + float(i) + space;
-        float xCenter    = 0.5 + o2;
-        float yCenter    = coord - 0.5 - o1;
-        float rx         = 0.5;
-        float ry         = 0.5;
+        float xCenter    = 25 + o2;
+        float yCenter    = coord - 25 - o1;
+        float rx         = 25;
+        float ry         = 25;
         float angle      = 0;
         const float step = float(2 * M_PI / 360);
         glBegin(GL_LINE_STRIP);
@@ -515,7 +543,7 @@ void Visualizer::func_print_char(const std::string name,
         }
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -524,15 +552,15 @@ void Visualizer::func_print_char(const std::string name,
         float p1 =  where_down;
         float p2 =  where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   p2, 0  + (coord - 1 - p1));
-        glVertex2f(0 +   p2, 1 +  (coord - 1 - p1));
-        glVertex2f(1 +   p2, 1  + (coord - 1 - p1));
-        glVertex2f(1 +   p2, 0.5  + (coord - 1 - p1));
-        glVertex2f(0 +   p2, 0.5  + (coord - 1 - p1));
-        glVertex2f(0 +   p2, 0  + (coord - 1 - p1));
+        glVertex2f(0 +   p2,  0  + (coord - 50 - p1));
+        glVertex2f(0 +   p2,  50 +  (coord - 50 - p1));
+        glVertex2f(50 +   p2, 50 + (coord - 50 - p1));
+        glVertex2f(50 +   p2, 30  + (coord - 50 - p1));
+        glVertex2f(0 +   p2,  30  + (coord - 50 - p1));
+        glVertex2f(0 +   p2,  0  + (coord - 50 - p1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -540,10 +568,10 @@ void Visualizer::func_print_char(const std::string name,
       {
         float q1           = where_down;
         float q2           = where_right + float(i) + space;
-        float q_xCenter    = 0.5 + q2;
-        float q_yCenter    = coord - 0.5 - q1;
-        float q_rx         = 0.5;
-        float q_ry         = 0.5;
+        float q_xCenter    = 25 + q2;
+        float q_yCenter    = coord - 25 - q1;
+        float q_rx         = 25;
+        float q_ry         = 25;
         float q_angle      = 0;
         const float q_step = float(2 * M_PI / 360);
         glBegin(GL_LINE_STRIP);
@@ -557,11 +585,11 @@ void Visualizer::func_print_char(const std::string name,
         }
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(1 +   q2,   0  + (coord - 1 - q1));
-        glVertex2f(0.5 +   q2, 0.2  + (coord - 1 - q1));
+        glVertex2f(50 +   q2, 0  + (coord - 50 - q1));
+        glVertex2f(25 +   q2, 12  + (coord - 50 - q1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -570,17 +598,17 @@ void Visualizer::func_print_char(const std::string name,
         float r1 = where_down;
         float r2 = where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   r2, 0  + (coord - 1 - r1));
-        glVertex2f(0 +   r2, 1 +  (coord - 1 - r1));
-        glVertex2f(1 +   r2, 1  + (coord - 1 - r1));
-        glVertex2f(1 +   r2, 0.5  + (coord - 1 - r1));
-        glVertex2f(0 +   r2, 0.5  + (coord - 1 - r1));
-        glVertex2f(1 +   r2, 0  + (coord - 1 - r1));
-        glVertex2f(0 +   r2, 0.5  + (coord - 1 - r1));
-        glVertex2f(0 +   r2, 0  + (coord - 1 - r1));
+        glVertex2f(0 +   r2,  0  + (coord - 50 - r1));
+        glVertex2f(0 +   r2,  50 +  (coord - 50 - r1));
+        glVertex2f(50 +   r2, 50 + (coord - 50 - r1));
+        glVertex2f(50 +   r2, 30  + (coord - 50 - r1));
+        glVertex2f(0 +   r2,  30  + (coord - 50 - r1));
+        glVertex2f(50 +   r2, 0  + (coord - 50 - r1));
+        glVertex2f(0 +   r2,  30  + (coord - 50 - r1));
+        glVertex2f(0 +   r2,  0  + (coord - 50 - r1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -589,19 +617,19 @@ void Visualizer::func_print_char(const std::string name,
         float s1 =  where_down;
         float s2 =  where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   s2, 0  + (coord - 1 -   s1));
-        glVertex2f(1 +   s2, 0 +  (coord - 1 -   s1));
-        glVertex2f(1 +   s2, 0.5  + (coord - 1 -   s1));
-        glVertex2f(0 +   s2, 0.5  + (coord - 1 -   s1));
-        glVertex2f(0 +   s2, 1  + (coord - 1 - s1));
-        glVertex2f(1 +   s2, 1  + (coord - 1 - s1));
-        glVertex2f(0 +   s2, 1  + (coord - 1 - s1));
-        glVertex2f(0 +   s2, 0.5  + (coord - 1 -   s1));
-        glVertex2f(1 +   s2, 0.5  + (coord - 1 -   s1));
-        glVertex2f(1 +   s2, 0 +  (coord - 1 -   s1));
+        glVertex2f(0 +   s2,  0  + (coord - 50 -   s1));
+        glVertex2f(50 +   s2, 0 +  (coord - 50 -   s1));
+        glVertex2f(50 +   s2, 30  + (coord - 50 -   s1));
+        glVertex2f(0 +   s2,  30  + (coord - 50 -   s1));
+        glVertex2f(0 +   s2,  50 + (coord - 50 - s1));
+        glVertex2f(50 +   s2, 50 + (coord - 50 - s1));
+        glVertex2f(0 +   s2,  50 + (coord - 50 - s1));
+        glVertex2f(0 +   s2,  30  + (coord - 50 -   s1));
+        glVertex2f(50 +   s2, 30  + (coord - 50 -   s1));
+        glVertex2f(50 +   s2, 0 +  (coord - 50 -   s1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -610,15 +638,15 @@ void Visualizer::func_print_char(const std::string name,
         float t1 =  where_down;
         float t2 =  where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   t2, 1  + (coord - 1 - t1));
-        glVertex2f(1 +   t2, 1 +  (coord - 1 - t1));
+        glVertex2f(0 +   t2,  50 + (coord - 50 - t1));
+        glVertex2f(50 +   t2, 50 +  (coord - 50 - t1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0.5 +   t2, 1  + (coord - 1 - t1));
-        glVertex2f(0.5 +   t2, 0  + (coord - 1 - t1));
+        glVertex2f(30 +   t2, 50 + (coord - 50 - t1));
+        glVertex2f(30 +   t2, 0  + (coord - 50 - t1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -627,19 +655,19 @@ void Visualizer::func_print_char(const std::string name,
         float u1 = where_down;
         float u2 = where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   u2, 0  + (coord - 1 - u1));
-        glVertex2f(0 +   u2, 1 +  (coord - 1 - u1));
+        glVertex2f(0 +   u2, 0  + (coord - 50 - u1));
+        glVertex2f(0 +   u2, 50 +  (coord - 50 - u1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(1 +   u2, 0  + (coord - 1 - u1));
-        glVertex2f(1 +   u2, 1  + (coord - 1 - u1));
+        glVertex2f(50 +   u2, 0  + (coord - 50 - u1));
+        glVertex2f(50 +   u2, 50 + (coord - 50 - u1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   u2, 0  + (coord - 1 - u1));
-        glVertex2f(1 +   u2, 0  + (coord - 1 - u1));
+        glVertex2f(0 +   u2,  0  + (coord - 50 - u1));
+        glVertex2f(50 +   u2, 0  + (coord - 50 - u1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -648,15 +676,15 @@ void Visualizer::func_print_char(const std::string name,
         float v1 =  where_down;
         float v2 =  where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   v2, 1  + (coord - 1 - v1));
-        glVertex2f(0.5 + v2, 0 +  (coord - 1 - v1));
+        glVertex2f(0 +   v2, 50 + (coord - 50 - v1));
+        glVertex2f(30 + v2,  0 +  (coord - 50 - v1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0.5 +   v2, 0  + (coord - 1 - v1));
-        glVertex2f(1 +   v2,   1  + (coord - 1 - v1));
+        glVertex2f(30 +   v2, 0  + (coord - 50 - v1));
+        glVertex2f(50 +   v2, 50 + (coord - 50 - v1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -665,23 +693,23 @@ void Visualizer::func_print_char(const std::string name,
         float w1 =  where_down;
         float w2 =  where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   w2,   1  + (coord - 1 - w1));
-        glVertex2f(0.2 +   w2, 0 +  (coord - 1 - w1));
+        glVertex2f(0 +   w2,  50 + (coord - 50 - w1));
+        glVertex2f(12 +   w2, 0 +  (coord - 50 - w1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0.2 +   w2, 0  + (coord - 1 - w1));
-        glVertex2f(0.5 +   w2, 0.5  + (coord - 1 - w1));
+        glVertex2f(12 +   w2, 0  + (coord - 50 - w1));
+        glVertex2f(30 +   w2, 30  + (coord - 50 - w1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0.5 +   w2, 0.5  + (coord - 1 - w1));
-        glVertex2f(0.8 +   w2, 0  + (coord - 1 - w1));
+        glVertex2f(30 +   w2,  30  + (coord - 50 - w1));
+        glVertex2f(0.8 +   w2, 0  + (coord - 50 - w1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0.8 +   w2, 0  + (coord - 1 - w1));
-        glVertex2f(1 +   w2,   1  + (coord - 1 - w1));
+        glVertex2f(0.8 +   w2, 0  + (coord - 50 - w1));
+        glVertex2f(50 +   w2,  50 + (coord - 50 - w1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -690,15 +718,15 @@ void Visualizer::func_print_char(const std::string name,
         float x1 =  where_down;
         float x2 =  where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   x2, 1  + (coord - 1 - x1));
-        glVertex2f(1 + x2,   0 +  (coord - 1 - x1));
+        glVertex2f(0 +   x2, 50 + (coord - 50 - x1));
+        glVertex2f(50 + x2,  0 +  (coord - 50 - x1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   x2, 0  + (coord - 1 - x1));
-        glVertex2f(1 +   x2, 1  + (coord - 1 - x1));
+        glVertex2f(0 +   x2,  0  + (coord - 50 - x1));
+        glVertex2f(50 +   x2, 50 + (coord - 50 - x1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -707,19 +735,19 @@ void Visualizer::func_print_char(const std::string name,
         float y1 =  where_down;
         float y2 =  where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +  y2,  1  + (coord - 1 - y1));
-        glVertex2f(0.5 + y2, 0.5 +  (coord - 1 - y1));
+        glVertex2f(0 +  y2, 50 + (coord - 50 - y1));
+        glVertex2f(30 + y2, 30 +  (coord - 50 - y1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(1 +  y2,  1  + (coord - 1 - y1));
-        glVertex2f(0.5 + y2, 0.5 +  (coord - 1 - y1));
+        glVertex2f(50 +  y2, 50 + (coord - 50 - y1));
+        glVertex2f(30 + y2,  30 +  (coord - 50 - y1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0.5 +   y2, 0.5  + (coord - 1 - y1));
-        glVertex2f(0.5 +   y2, 0  + (coord - 1 - y1));
+        glVertex2f(30 +   y2, 30  + (coord - 50 - y1));
+        glVertex2f(30 +   y2, 0  + (coord - 50 - y1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
@@ -728,25 +756,26 @@ void Visualizer::func_print_char(const std::string name,
         float z1 =  where_down;
         float z2 =  where_right + float(i) + space;
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +  z2, 1  + (coord - 1 - z1));
-        glVertex2f(1 + z2,  1 +  (coord - 1 - z1));
+        glVertex2f(0 +  z2, 50 + (coord - 50 - z1));
+        glVertex2f(50 + z2, 50 +  (coord - 50 - z1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(1 +   z2, 1  + (coord - 1 - z1));
-        glVertex2f(0 +   z2, 0  + (coord - 1 - z1));
+        glVertex2f(50 +   z2, 50 + (coord - 50 - z1));
+        glVertex2f(0 +   z2,  0  + (coord - 50 - z1));
         glEnd();
         glBegin(GL_LINE_LOOP);
-        glVertex2f(0 +   z2, 0 + (coord - 1 - z1));
-        glVertex2f(1 +   z2, 0  + (coord - 1 - z1));
+        glVertex2f(0 +   z2,  0 + (coord - 50 - z1));
+        glVertex2f(50 +   z2, 0  + (coord - 50 - z1));
         glEnd();
         ++i;
-        space += 0.3;
+        space += 60;
         continue;
       }
 
       if  (name[i] == ' ')
       {
         ++i;
+        space += 30;
         continue;
       }
 

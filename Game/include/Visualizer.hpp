@@ -5,6 +5,7 @@
 #include "interface/IVizMenu.hpp"
 #include "interface/IVizMap.hpp"
 #include "interface/IVizPlayer.hpp"
+#include "interface/IVizScore.hpp"
 #include "interface/ISettings.hpp"
 
 #include <GLFW/glfw3.h>
@@ -19,7 +20,8 @@ namespace Visual {
 class Visualizer
   : public IMenu
     , public IPlayer
-    , public IMap {
+    , public IMap
+    , public IScore {
 public:
 
   Visualizer(
@@ -41,6 +43,9 @@ public:
   void PrintBlock(size_t x,
                   size_t y,
                   int    type) override;
+
+  // IScore
+  void ShowScore(int score) override;
 
   bool Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow);
 

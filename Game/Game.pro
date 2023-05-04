@@ -8,6 +8,7 @@ SOURCES += \
        src/KeyManager.cpp \
        src/MainMenu.cpp \
        src/Map.cpp \
+       src/Score.cpp \
        src/Settings.cpp \
        src/Visualizer.cpp \
        App/main.cpp
@@ -17,6 +18,7 @@ HEADERS += \
        include/MainMenu.hpp \
        include/Map.hpp \
        include/MapTypes.hpp \
+       include/Score.hpp \
        include/interface/IEntity.hpp \
        include/interface/ISettings.hpp \
        include/Game.hpp \
@@ -25,7 +27,8 @@ HEADERS += \
        include/Visualizer.hpp \
        include/interface/IVizMap.hpp \
        include/interface/IVizMenu.hpp \
-       include/interface/IVizPlayer.hpp
+       include/interface/IVizPlayer.hpp \
+       include/interface/IVizScore.hpp
 
 INCLUDEPATH += $$PWD/include
 

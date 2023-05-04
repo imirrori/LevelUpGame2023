@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "PlayerStub.hpp"
+#include "Score.hpp"
 
 #include <fstream>
 #include <optional>
@@ -25,6 +26,7 @@ void Game::Run()
                              KeyManager::RELEASE,
                              key.mods);
     }
+    score_->AddScore();
   }
 }
 
@@ -38,12 +40,14 @@ void Game::Init()
   player_     = std::make_shared<PlayerStub>(viz_);
   menu_       = std::make_shared<MainMenu>(viz_);
   map_        = std::make_shared<Map>(viz_);
+  score_      = std::make_shared<Score>(viz_, player_, map_);
 
   states_[IState::BEGIN_SATE] = std::make_unique<BeginState>(menu_,
                                                              std::vector<std::shared_ptr<IEntity> >{ menu_ });
   states_[IState::PLAY_SATE] = std::make_unique<PlayState>(player_,
                                                            std::vector<std::shared_ptr<IEntity> >{ map_,
-                                                                                                   player_ });
+                                                                                                   player_,
+                                                                                                   score_ });
   state_ = states_[IState::BEGIN_SATE].get();
 
   auto endGame = []() {
