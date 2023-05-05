@@ -1,23 +1,30 @@
 #ifndef VISUALIZER_HPP
 #define VISUALIZER_HPP
 
-#include "IEntity.hpp"
-#include "IMenu.hpp"
-#include "IPlayer.hpp"
-#include "ISettings.hpp"
+#include "interface/IEntity.hpp"
+#include "interface/IVizMenu.hpp"
+#include "interface/IVizMap.hpp"
+#include "interface/IVizPlayer.hpp"
+#include "interface/ISettings.hpp"
 
 #include <GLFW/glfw3.h>
 
+#include <KeyManager.hpp>
+
 #include <memory>
 #include <vector>
+#include <functional>
 
 namespace Visual {
 class Visualizer
   : public IMenu
-  , public IPlayer {
+    , public IPlayer
+    , public IMap {
 public:
-  //Visualizer(const Settings::GlobalSettings& settings);
-  Visualizer(std::shared_ptr<Settings::ISettings>settings);
+
+  Visualizer(
+    std::shared_ptr<Settings::ISettings>settings,
+    std::shared_ptr<KeyManager>         keyManager);
   ~Visualizer();
   GLFWwindow *GetWindowInstance() const { return window_; }
 
@@ -34,6 +41,28 @@ public:
 
   bool Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow);
 
+  void StartPrint(int count) override;
+  void PrintRow(const std::string& name,
+                bool               current) override;
+  void EndPrint()  override;
+
+  // IPlayer
+  void ShowPlayer(int x,
+                  int y) override;
+
+  // IMap
+  void PrintBlock(size_t x,
+                  size_t y,
+                  int    type) override;
+
+  bool Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow);
+
+  void KeyCatch(
+    int key,
+    int scancode,
+    int action,
+    int mods);
+
 private:
   //const Settings::GlobalSettings& settings_;
 
@@ -44,8 +73,12 @@ private:
   int menu_count_;
   int reverse_menu_count_;
 
+  int player_x;
+  int player_y;
+
   std::shared_ptr<Settings::ISettings>settings_;
   GLFWwindow *window_;
+  std::shared_ptr<KeyManager>keyManager_;
 };
 } // Visual
 

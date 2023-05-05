@@ -6,11 +6,19 @@ CONFIG -= qt
 SOURCES += \
        src/Game.cpp \
        src/Player.cpp \
+       src/KeyManager.cpp \
+       src/MainMenu.cpp \
+       src/Map.cpp \
        src/Settings.cpp \
        src/Visualizer.cpp \
        App/main.cpp
 
 HEADERS += \
+       include/KeyManager.hpp \
+       include/MainMenu.hpp \
+       include/Map.hpp \
+       include/interface/IEntity.hpp \
+       include/interface/ISettings.hpp \
        include/Game.hpp \
        include/IEntity.hpp \
        include/IMenu.hpp \
@@ -21,7 +29,10 @@ HEADERS += \
        include/MenuStub.hpp \
        include/PlayerStub.hpp \
        include/Settings.hpp \
-       include/Visualizer.hpp
+       include/Visualizer.hpp \
+       include/interface/IVizMap.hpp \
+       include/interface/IVizMenu.hpp \
+       include/interface/IVizPlayer.hpp
 
 INCLUDEPATH += $$PWD/include
 

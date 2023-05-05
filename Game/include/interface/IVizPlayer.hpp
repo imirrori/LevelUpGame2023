@@ -1,6 +1,7 @@
-#ifndef IPLAYER_HPP
-#define IPLAYER_HPP
+#ifndef IVIZPLAYER_H
+#define IVIZPLAYER_H
 
+namespace Visual {
 class IPlayer {
 public:
   virtual void ShowPlayer(const int& x, const int& y) = 0;
@@ -11,5 +12,6 @@ public:
 
   virtual ~IPlayer()                                  = default;
 };
+} // Visual
 
-#endif // IPLAYER_HPP
+#endif // IVIZPLAYER_H
