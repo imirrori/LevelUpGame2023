@@ -34,6 +34,8 @@ class Map : public IEntity {
 	void onRender() override;
 	void onCollision() override;
 
+	[[nodiscard]] const std::string &GetMap() const { return map_; };
+
  private:
 
 	struct Block {

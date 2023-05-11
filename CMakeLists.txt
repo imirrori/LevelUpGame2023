@@ -169,31 +169,31 @@ add_subdirectory(Game)
 add_executable(Mario Game/App/main.cpp)
 
 
-add_custom_command(
-        TARGET Mario POST_BUILD
-        COMMAND ${CMAKE_COMMAND}
-        ARGS -E copy_directory
-        ${PROJECT_SOURCE_DIR}/Game/Resources/audio
-        $<TARGET_FILE_DIR:Mario>/audio
-        VERBATIM)
-
-add_custom_command(
-        TARGET Mario POST_BUILD
-        COMMAND ${CMAKE_COMMAND}
-        ARGS -E copy_directory
-        ${PROJECT_SOURCE_DIR}/Game/Resources/font
-        $<TARGET_FILE_DIR:Mario>/font
-        VERBATIM
-)
-
-add_custom_command(
-        TARGET Mario POST_BUILD
-        COMMAND ${CMAKE_COMMAND}
-        ARGS -E copy_directory
-        ${PROJECT_SOURCE_DIR}/Game/Resources/image
-        $<TARGET_FILE_DIR:Mario>/image
-        VERBATIM
-)
+#add_custom_command(
+#        TARGET Mario POST_BUILD
+#        COMMAND ${CMAKE_COMMAND}
+#        ARGS -E copy_directory
+#        ${PROJECT_SOURCE_DIR}/Game/Resources/audio
+#        $<TARGET_FILE_DIR:Mario>/audio
+#        VERBATIM)
+#
+#add_custom_command(
+#        TARGET Mario POST_BUILD
+#        COMMAND ${CMAKE_COMMAND}
+#        ARGS -E copy_directory
+#        ${PROJECT_SOURCE_DIR}/Game/Resources/font
+#        $<TARGET_FILE_DIR:Mario>/font
+#        VERBATIM
+#)
+#
+#add_custom_command(
+#        TARGET Mario POST_BUILD
+#        COMMAND ${CMAKE_COMMAND}
+#        ARGS -E copy_directory
+#        ${PROJECT_SOURCE_DIR}/Game/Resources/image
+#        $<TARGET_FILE_DIR:Mario>/image
+#        VERBATIM
+#)
 
 
 target_include_directories(Mario
