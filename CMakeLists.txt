@@ -153,16 +153,17 @@ create_default_target_launcher(Mario WORKING_DIRECTORY "${Mario_SOURCE_DIR}/bin"
 SOURCE_GROUP(common REGULAR_EXPRESSION ".*/common/.*")
 SOURCE_GROUP(shaders REGULAR_EXPRESSION ".*/.*shader$")
 
-if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
-
-    add_custom_command(
-            TARGET Mario POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy
-            "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/Mario${CMAKE_EXECUTABLE_SUFFIX}"
-            "${CMAKE_CURRENT_SOURCE_DIR}/bin/"
-    )
-
-
-elseif (${CMAKE_GENERATOR} MATCHES "Xcode")
-
-endif (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
+# Only work with Xcode for now
+#if (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
+#
+#    add_custom_command(
+#            TARGET Mario POST_BUILD
+#            COMMAND ${CMAKE_COMMAND} -E copy
+#            "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_CFG_INTDIR}/Mario${CMAKE_EXECUTABLE_SUFFIX}"
+#            "${CMAKE_CURRENT_SOURCE_DIR}/bin/"
+#    )
+#
+#
+#elseif (${CMAKE_GENERATOR} MATCHES "Xcode")
+#
+#endif (NOT ${CMAKE_GENERATOR} MATCHES "Xcode")
