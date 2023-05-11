@@ -85,58 +85,47 @@ add_definitions(
 
 set(SOURCE_FILES
     lib/STBI/stbi_image.cpp
-    Game/src/Input.cpp
+
+    Game/src/Entity.cpp
     Game/src/Game.cpp
     Game/src/Level.cpp
     Game/src/Map.cpp
-    Game/src/Entity/EntityStepBlock.cpp
-    Game/src/Entity/EntityCoin.cpp
-    Game/src/Entity/EntityMushroom.cpp
-    Game/src/Entity/EntityPipe.cpp
-    Game/src/Entity/EntityBlock.cpp
-    Game/App/main.cpp
-    Game/src/Entity/EntityGround.cpp
-    Game/src/Entity/EntityMario.cpp
-    Game/src/View.cpp
-    Game/src/Texture.cpp
-    Game/src/Graphics/Render.cpp
-    Game/src/Graphics/Shader.cpp
-    Game/src/ContactListener.cpp
-    Game/src/EventSystem.cpp
-    Game/src/Entity/EntityCoinBlock.cpp
-    Game/src/MapParser.cpp
-    Game/src/Sprite.cpp
+    Game/src/EntityCoin.cpp
+    Game/src/EntityMushroom.cpp
+    Game/src/EntityPipe.cpp
+    Game/src/EntityBlock.cpp
+    Game/src/EntityStar.cpp
+    Game/src/KeyManager.cpp
+    Game/src/MainMenu.cpp
+    Game/src/Settings.cpp
+    Game/src/Visualizer.cpp
+
     )
 
 set(HEADER_FILES
     lib/STBI/stbi_image.h
-    Game/include/Game.hpp
-    Game/include/Input.hpp
+
     Game/include/interface/IEntity.hpp
-    Game/include/interface/IEventHandler.hpp
-    Game/include/interface/ILevel.hpp
-    Game/include/Entity/Entity.hpp
+    Game/include/interface/ISettings.hpp
+    Game/include/interface/IVizMap.hpp
+    Game/include/interface/IVizMenu.hpp
+    Game/include/interface/IVizPlayer.hpp
+
+    Game/include/Game.hpp
+    Game/include/Entity.hpp
     Game/include/Level.hpp
     Game/include/Map.hpp
-    Game/include/Entity/EntityStepBlock.hpp
-    Game/include/Entity/EntityCoin.hpp
-    Game/include/Entity/EntityMushroom.hpp
-    Game/include/Entity/EntityPipe.hpp
-    Game/include/Entity/EntityBlock.hpp
-    Game/include/Entity/EntityGround.hpp
-    Game/include/Entity/EntityMario.hpp
-    Game/include/View.hpp
-    Game/include/Texture.hpp
-    Game/include/Graphics/Render.hpp
-    Game/include/Graphics/Shader.hpp
-    Game/include/ContactListener.hpp
-    Game/include/EventSystem.hpp
-    Game/include/Entity/EntityCoinBlock.hpp
-    Game/include/interface/IMap.hpp
-    Game/include/MapParser.hpp
-    Game/include/Sprite.hpp
-    Game/include/GameState.hpp)
-
+    Game/include/EntityCoin.hpp
+    Game/include/EntityMushroom.hpp
+    Game/include/EntityPipe.hpp
+    Game/include/EntityBlock.hpp
+    Game/include/EntityStar.hpp
+    Game/include/KeyManager.hpp
+    Game/include/MainMenu.hpp
+    Game/include/PlayerStub.hpp
+    Game/include/Settings.hpp
+    Game/include/Visualizer.hpp
+    )
 
 ############################################################
 # Create a library
@@ -155,7 +144,6 @@ add_library(mario::lib ALIAS Mario_Lib)
 
 target_include_directories(Mario_Lib
                            PUBLIC
-                           ${SFML_INCLUDE_DIR}
                            ${PROJECT_SOURCE_DIR}/Game/include
                            ${PROJECT_SOURCE_DIR}/lib
                            ${box2d_INCLUDE_DIRS}
@@ -167,7 +155,7 @@ target_include_directories(Mario_Lib
 target_link_libraries(Mario_Lib
                       PRIVATE
                       ${ALL_LIBS}
-                      mario::menu::lib
+
                       )
 
 
@@ -207,12 +195,6 @@ add_custom_command(
         VERBATIM
 )
 
-add_custom_command(
-        TARGET Mario POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-        ${PROJECT_SOURCE_DIR}/lib/SFML/openal32.dll
-        $<TARGET_FILE_DIR:Mario>/openal32.dll
-)
 
 target_include_directories(Mario
                            PUBLIC
@@ -226,7 +208,6 @@ target_include_directories(Mario
 
 target_link_libraries(Mario PRIVATE
                       mario::lib
-                      sfml-graphics
                       )
 
 if (WIN32 AND BUILD_SHARED_LIBS)
