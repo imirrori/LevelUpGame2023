@@ -1,6 +1,6 @@
 
 #include "Game.hpp"
-#include "LogTest.hpp"
+#include "logtest.hpp"
 
 #include <filesystem>
 #include <iostream>
@@ -12,13 +12,13 @@ int main() {
 
 	std::cout << "Current path is " << std::filesystem::current_path() << std::endl; // (1)
 
-	LogTest();
+//	LogTest();
 
 	Game::Game game(width, height);
 
-//  if (!game.Run()) {
-//	std::cerr << "Something went wrong! " << std::endl;
-//  };
+	if (!game.Run()) {
+		std::cerr << "Something went wrong! " << std::endl;
+	};
 
 	return 0;
 }

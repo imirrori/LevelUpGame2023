@@ -3,13 +3,6 @@ project(Mario)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# Add the SFML library
-include(FetchContent)
-
-FetchContent_Declare(SFML
-                     GIT_REPOSITORY https://github.com/SFML/SFML.git
-                     GIT_TAG 2.6.x)
-FetchContent_MakeAvailable(SFML)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -154,39 +147,35 @@ set(HEADER_FILES
 # Create a MENU library
 ############################################################
 
-set(SOURCE_FILES_MENU
-    Game/src/Menu/GameMenu.cpp
-    Game/src/Menu/Animator.cpp
-    Game/src/Menu/AssetManager.cpp
-    Game/src/Menu/MainMenu.cpp
-    Game/src/Menu/MenuHandler.cpp
-    )
+#set(SOURCE_FILES_MENU
+#    Game/src/Menu/GameMenu.cpp
+#    Game/src/Menu/Animator.cpp
+#    Game/src/Menu/AssetManager.cpp
+#    Game/src/Menu/MainMenu.cpp
+#    Game/src/Menu/MenuHandler.cpp
+#    )
+#
+#set(HEADER_FILES_MENU
+#    Game/include/Menu/GameMenu.hpp
+#    Game/include/Menu/Animator.hpp
+#    Game/include/Menu/AssetManager.hpp
+#    Game/include/Menu/MainMenu.hpp
+#    Game/include/Menu/MenuHandler.hpp
+#    )
+#
+#add_library(Mario_Menu_Lib SHARED
+#            ${SOURCE_FILES_MENU}
+#            ${HEADER_FILES_MENU}
+#            )
+#
+#add_library(mario::menu::lib ALIAS Mario_Menu_Lib)
+#
+#target_include_directories(Mario_Menu_Lib
+#                           PUBLIC
+#                           ${PROJECT_SOURCE_DIR}/Game/include
+#                           ${PROJECT_SOURCE_DIR}/lib
+#                           )
 
-set(HEADER_FILES_MENU
-    Game/include/Menu/GameMenu.hpp
-    Game/include/Menu/Animator.hpp
-    Game/include/Menu/AssetManager.hpp
-    Game/include/Menu/MainMenu.hpp
-    Game/include/Menu/MenuHandler.hpp
-    )
-
-add_library(Mario_Menu_Lib SHARED
-            ${SOURCE_FILES_MENU}
-            ${HEADER_FILES_MENU}
-            )
-
-add_library(mario::menu::lib ALIAS Mario_Menu_Lib)
-
-target_include_directories(Mario_Menu_Lib
-                           PUBLIC
-                           ${PROJECT_SOURCE_DIR}/Game/include
-                           ${PROJECT_SOURCE_DIR}/lib
-                           )
-
-target_link_libraries(Mario_Menu_Lib
-                      PRIVATE
-                      sfml-graphics sfml-system sfml-window sfml-audio
-                      )
 
 ############################################################
 # Create a library
@@ -205,7 +194,6 @@ add_library(mario::lib ALIAS Mario_Lib)
 
 target_include_directories(Mario_Lib
                            PUBLIC
-                           ${SFML_INCLUDE_DIR}
                            ${PROJECT_SOURCE_DIR}/Game/include
                            ${PROJECT_SOURCE_DIR}/lib
                            ${box2d_INCLUDE_DIRS}
@@ -218,7 +206,7 @@ target_include_directories(Mario_Lib
 target_link_libraries(Mario_Lib
                       PRIVATE
                       ${ALL_LIBS}
-                      mario::menu::lib
+                      #                      mario::menu::lib
                       )
 
 
@@ -258,12 +246,6 @@ add_custom_command(
         VERBATIM
 )
 
-add_custom_command(
-        TARGET Mario POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-        ${PROJECT_SOURCE_DIR}/lib/SFML/openal32.dll
-        $<TARGET_FILE_DIR:Mario>/openal32.dll
-)
 
 target_include_directories(Mario
                            PUBLIC
@@ -277,7 +259,6 @@ target_include_directories(Mario
 
 target_link_libraries(Mario PRIVATE
                       mario::lib
-                      sfml-graphics
                       )
 
 if (WIN32 AND BUILD_SHARED_LIBS)
