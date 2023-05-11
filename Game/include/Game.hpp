@@ -15,7 +15,7 @@
 #include "interface/IEventHandler.hpp"
 #include "interface/IProcessInput.hpp"
 #include "Level.hpp"
-#include "Menu/MainMenu.hpp"
+//#include "Menu/MainMenu.hpp"
 #include "View.hpp"
 
 #include <GLFW/glfw3.h>
@@ -54,7 +54,7 @@ class Game : public IProcessInput {
 	EntityGround *ground;
 	Level *level;
 
-	std::unique_ptr<MainMenu> main_menu;
+//	std::unique_ptr<MainMenu> main_menu;
 
 	b2World *MarioWorld = nullptr;
 
