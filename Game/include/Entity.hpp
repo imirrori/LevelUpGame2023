@@ -5,7 +5,7 @@
 #ifndef LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITY_HPP_
 #define LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_SRC_ENTITY_HPP_
 
-#include "IEntity.hpp"
+#include "interface/IEntity.hpp"
 #include "glm/vec2.hpp"
 
 class Entity : public IEntity {

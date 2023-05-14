@@ -6,8 +6,10 @@
 #include "Visualizer.hpp"
 #include "KeyManager.hpp"
 #include "Map.hpp"
+#include "PlayerStub.hpp"
 
 #include <memory>
+#include <array>
 
 class Game {
 public:
@@ -19,15 +21,120 @@ public:
 
 private:
 
+  class IState {
+public:
+
+    enum STATES
+    {
+      BEGIN_SATE,
+      PLAY_SATE,
+
+      // -----
+      COUNT
+    };
+
+    explicit IState(std::vector<std::shared_ptr<IEntity> >showObjects = {})
+      : showObjects_(std::move(showObjects))
+    {}
+
+    virtual ~IState() = default;
+
+    virtual IState                                * ProcessingKey(
+      KeyManager::Key key) = 0;
+    virtual std::vector<std::shared_ptr<IEntity> >& GetShowObjects()
+    {
+      return showObjects_;
+    }
+
+private:
+
+    std::vector<std::shared_ptr<IEntity> >showObjects_;
+  };
+
+  class BeginState
+    : public IState {
+public:
+
+    explicit BeginState(std::shared_ptr<MainMenu>             menu,
+                        std::vector<std::shared_ptr<IEntity> >showObjects = {})
+      : IState(std::move(showObjects))
+      , menu_(std::move(menu))
+    {}
+
+    IState* ProcessingKey(KeyManager::Key key) override
+    {
+      switch (key.key) {
+        case 264: // DOWN
+          menu_->PressKey(MainMenu::DOWN);
+          break;
+        case 265: // UP
+          menu_->PressKey(MainMenu::UP);
+          break;
+        case 257: // ENTER
+
+          if (menu_->PressKey(MainMenu::ENTER))
+          {
+            return states_[IState::PLAY_SATE].get();
+          }
+
+          break;
+        case 256: // ESC
+          exit(0);
+          break;
+      }
+      return this;
+    }
+
+private:
+
+    std::shared_ptr<MainMenu>menu_;
+  };
+
+  class PlayState
+    : public IState {
+public:
+
+    explicit PlayState(std::shared_ptr<PlayerStub>           player,
+                       std::vector<std::shared_ptr<IEntity> >showObjects = {})
+      : IState(std::move(showObjects))
+      , player_(std::move(player))
+    {}
+
+    IState* ProcessingKey(KeyManager::Key key) override
+    {
+      switch (key.key) {
+        case 264: // DOWN
+          player_->PressPlayerKey(PlayerStub::DOWN);
+          break;
+        case 265: // UP
+          player_->PressPlayerKey(PlayerStub::UP);
+          break;
+        case 262: // RIGHT
+          player_->PressPlayerKey(PlayerStub::RIGHT);
+          break;
+        case 263: // LEFT
+          player_->PressPlayerKey(PlayerStub::LEFT);
+          break;
+        case 256: // ESC
+          return states_[STATES::BEGIN_SATE].get();
+      }
+      return this;
+    }
+
+private:
+
+    std::shared_ptr<PlayerStub>player_;
+  };
+
+  static std::array<std::unique_ptr<IState>, IState::STATES::COUNT>states_;
+
+  IState *state_;
   std::shared_ptr<Settings::Settings>setting_;
   std::shared_ptr<KeyManager>keyManager_;
   std::shared_ptr<Visual::Visualizer>viz_;
   std::shared_ptr<MainMenu>menu_;
-  std::shared_ptr<IEntity>player_;
+  std::shared_ptr<PlayerStub>player_;
   std::shared_ptr<Map>map_;
-
-  std::vector<std::shared_ptr<IEntity> >showObjects_;
-  std::function<void()>EscapeKey;
 };
 
 #endif // GAME_HPP

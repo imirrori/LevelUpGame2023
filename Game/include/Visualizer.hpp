@@ -6,6 +6,7 @@
 #include "interface/IVizMap.hpp"
 #include "interface/IVizPlayer.hpp"
 #include "interface/ISettings.hpp"
+#include "interface/ITexture.hpp"
 
 #include <GLFW/glfw3.h>
 
@@ -15,53 +16,59 @@
 #include <vector>
 #include <functional>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+
 namespace Visual {
-class Visualizer
-  : public IMenu
-    , public IPlayer
-    , public IMap {
-public:
 
-  Visualizer(
-    std::shared_ptr<Settings::ISettings>settings,
-    std::shared_ptr<KeyManager>         keyManager);
-  ~Visualizer();
+class Visualizer : public IMenu, public IPlayer, public IMap { // Unnecessary multiple inheritance
 
-  // IMenu
-  void StartPrint(int count) override;
-  void PrintRow(const std::string& name,
-                bool               current) override;
-  void EndPrint()  override;
+ public:
 
-  // IPlayer
-  void ShowPlayer(int x,
-                  int y) override;
+	Visualizer(
+		std::shared_ptr<Settings::ISettings> settings,
+		std::shared_ptr<KeyManager> keyManager);
 
-  // IMap
-  void PrintBlock(size_t x,
-                  size_t y,
-                  int    type) override;
+	~Visualizer();
 
-  bool Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow);
+	// IMenu
+	void StartPrint(int count) override;
+	void PrintRow(const std::string &name,
+				  bool current) override;
+	void EndPrint() override;
 
-  void KeyCatch(
-    int key,
-    int scancode,
-    int action,
-    int mods);
+	// IPlayer
+	void ShowPlayer(int x,
+					int y) override;
 
-private:
+	// IMap
+	void PrintBlock(size_t x,
+					size_t y,
+					int type) override;
 
-  void func_print_char(const std::string name,
-                       const float       where_down,
-                       const float       where_right);
+	bool Show(const std::vector<std::shared_ptr<IEntity> > &dataToShow);
 
-  int menu_count_;
-  int reverse_menu_count_;
+	void KeyCatch(
+		int key,
+		int scancode,
+		int action,
+		int mods);
 
-  std::shared_ptr<Settings::ISettings>settings_;
-  GLFWwindow *window_;
-  std::shared_ptr<KeyManager>keyManager_;
+ private:
+
+	void func_print_char(const std::string name,
+						 const float where_down,
+						 const float where_right);
+
+	int menu_count_;
+	int reverse_menu_count_;
+
+	int player_x;
+	int player_y;
+
+	std::shared_ptr<Settings::ISettings> settings_;
+	GLFWwindow *window_;
+	std::shared_ptr<KeyManager> keyManager_;
 };
 } // Visual
 
