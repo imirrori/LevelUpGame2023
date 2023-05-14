@@ -9,24 +9,30 @@ SOURCES += \
        src/MainMenu.cpp \
        src/Map.cpp \
        src/Settings.cpp \
+       src/Texture.cpp \
        src/Visualizer.cpp \
        App/main.cpp
 
 HEADERS += \
+       libs/STBI/stbi_image.h \
        include/KeyManager.hpp \
        include/MainMenu.hpp \
        include/Map.hpp \
+       include/MapTypes.hpp \
        include/interface/IEntity.hpp \
        include/interface/ISettings.hpp \
        include/Game.hpp \
        include/PlayerStub.hpp \
        include/Settings.hpp \
        include/Visualizer.hpp \
+       include/Texture.hpp \
        include/interface/IVizMap.hpp \
        include/interface/IVizMenu.hpp \
-       include/interface/IVizPlayer.hpp
+       include/interface/IVizPlayer.hpp \
+       include/interface/Texture.hpp
 
 INCLUDEPATH += $$PWD/include
+INCLUDEPATH += $$PWD/libs/STBI
 
 win32: LIBS += -L$$PWD/libs/glfw-3.3.8.bin.WIN64/lib-mingw-w64/ -lglfw3
 win32: LIBS += -L$$PWD/libs/glfw-3.3.8.bin.WIN64/lib-mingw-w64/ -lglfw3dll
