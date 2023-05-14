@@ -38,13 +38,13 @@ void PrintTexture(int x, int y, size_t field_pixel, const std::string& path)
   glBegin(GL_POLYGON);
 
   glTexCoord2f(0, 0);
-  glVertex2d(0, y * field_pixel);
+  glVertex2d(x, y * field_pixel);
   glTexCoord2f(1, 0);
-  glVertex2d(0 + field_pixel, y * field_pixel);
+  glVertex2d(x + field_pixel, y * field_pixel);
   glTexCoord2f(1, 1);
-  glVertex2d(0 + field_pixel, y * field_pixel + field_pixel);
+  glVertex2d(x + field_pixel, y * field_pixel + field_pixel);
   glTexCoord2f(0, 1);
-  glVertex2d(0, y * field_pixel + field_pixel);
+  glVertex2d(x, y * field_pixel + field_pixel);
 
   glEnd();
 
@@ -120,8 +120,7 @@ void Visualizer::PrintRow(const std::string& name, bool current) //
 }
 
 void Visualizer::EndPrint() // override by IMenu
-{
-}
+{}
 
 void Visualizer::ShowPlayer(int x, int y) {
   player_x = x;
@@ -143,42 +142,38 @@ void Visualizer::PrintBlock(size_t x, size_t y, int type)
     return;
   }
 
-  glBegin(GL_POLYGON);
+  const int field_pixel = std::get<int>(settings_->GetValue("visual",
+                                                            "field_pixel"));
+  std::string path;
 
   switch (type) {
     case BLOCK:
-      glColor3f(0.6, 0.2, 0);
+      path = "../Game/" + std::get<std::string>(settings_->GetValue("textures",
+                                                                    "block"));
       break;
     case COIN:
-      glColor3f(1,   1,   0);
+      path = "../Game/" + std::get<std::string>(settings_->GetValue("textures",
+                                                                    "coin"));
       break;
     case PIPE:
-      glColor3f(0,   1,   0);
+      path = "../Game/" + std::get<std::string>(settings_->GetValue("textures",
+                                                                    "pire"));
       break;
     case MUSHROOOM:
-      glColor3f(1,   0,   0);
+      path = "../Game/" + std::get<std::string>(settings_->GetValue("textures",
+                                                                    "mushroom"));
       break;
     case STEPBLOCK:
-      glColor3f(0.7, 0.3, 0);
+      path = "../Game/" + std::get<std::string>(settings_->GetValue("textures",
+                                                                    "stepblock"));
       break;
     case GROUND:
-      glColor3f(0,   0,   1);
+      path = "../Game/" + std::get<std::string>(settings_->GetValue("textures",
+                                                                    "ground"));
       break;
   }
 
-  const int field_pixel = std::get<int>(settings_->GetValue("visual",
-                                                            "field_pixel"));
-
-  glVertex2d(diff * field_pixel,
-             y * field_pixel);
-  glVertex2d(diff * field_pixel + field_pixel,
-             y * field_pixel);
-  glVertex2d(diff * field_pixel + field_pixel,
-             y * field_pixel + field_pixel);
-  glVertex2d(diff * field_pixel,
-             y * field_pixel + field_pixel);
-
-  glEnd();
+  PrintTexture(diff * field_pixel, y, field_pixel, path);
 }
 
 bool Visualizer::Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow)
