@@ -7,6 +7,7 @@
 #include "KeyManager.hpp"
 #include "Map.hpp"
 #include "PlayerStub.hpp"
+#include "Score.hpp"
 
 #include <memory>
 #include <array>
@@ -39,7 +40,7 @@ public:
 
     virtual ~IState() = default;
 
-    virtual IState                                * ProcessingKey(
+    virtual IState*                                 ProcessingKey(
       KeyManager::Key key) = 0;
     virtual std::vector<std::shared_ptr<IEntity> >& GetShowObjects()
     {
@@ -135,6 +136,7 @@ private:
   std::shared_ptr<MainMenu>menu_;
   std::shared_ptr<PlayerStub>player_;
   std::shared_ptr<Map>map_;
+  std::shared_ptr<Score>score_;
 };
 
 #endif // GAME_HPP

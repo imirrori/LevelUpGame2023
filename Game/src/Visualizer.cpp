@@ -116,7 +116,8 @@ void Visualizer::PrintRow(const std::string& name, bool current) //
 }
 
 void Visualizer::EndPrint() // override by IMenu
-{}
+{
+}
 
 void Visualizer::ShowPlayer(int x, int y) {
   player_x = x;
@@ -170,6 +171,39 @@ void Visualizer::PrintBlock(size_t x, size_t y, int type)
   }
 
   PrintTexture(diff * field_pixel, y, field_pixel, path);
+}
+
+void Visualizer::ShowScore(int score)
+{
+  int y = 7;
+
+  glBegin(GL_POLYGON);
+
+  if (score == 0) glColor3f(1, 1, 1);  // for debug
+
+  if (score == 1) glColor3f(0, 1, 0);  // for debug
+
+  if (score == 2) glColor3f(0, 1, 1);  // for debug
+
+  if (score > 2) glColor3f(1, 0, 0);   // for debug
+
+  const int field_pixel = std::get<int>(settings_->GetValue("visual",
+                                                            "field_pixel"));
+  glVertex2d(0,
+             y * field_pixel);
+  glVertex2d(0 + field_pixel,
+             y * field_pixel);
+  glVertex2d(0 + field_pixel,
+             y * field_pixel + field_pixel);
+  glVertex2d(0,
+             y * field_pixel + field_pixel);
+  glEnd();
+
+  const float where_down  = -79;
+  const float where_right = 70;
+
+  glColor3f(1.f, 1.f, 1.f);
+  func_print_char("coins", where_down, where_right);
 }
 
 bool Visualizer::Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow)
