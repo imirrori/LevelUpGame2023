@@ -1,0 +1,35 @@
+#ifndef SCORE_HPP
+#define SCORE_HPP
+
+#include "interface/IEntity.hpp"
+#include "interface/IVizScore.hpp"
+#include "Map.hpp"
+#include "PlayerStub.hpp"
+#include <memory>
+
+class Score
+  : public IEntity {
+public:
+
+  Score(std::shared_ptr<Visual::IScore>scoreViz,
+        std::shared_ptr<PlayerStub>    player,
+        std::shared_ptr<Map>           map);
+
+  virtual ~Score() = default;
+
+  void onUpdate() override;
+  void onRender() override;
+  void onCollision() override;
+
+  int  GetCurrentScore();
+  void AddScore();
+
+private:
+
+  std::shared_ptr<Visual::IScore>scoreViz_;
+  std::shared_ptr<PlayerStub>player_;
+  std::shared_ptr<Map>map_;
+  int coin_;
+};
+
+#endif // SCORE_HPP

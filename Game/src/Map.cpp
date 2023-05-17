@@ -3,7 +3,7 @@
 //
 
 #include "Map.hpp"
-
+#include <algorithm>
 #include <fstream>
 
 Map::Map(const std::string& file_name, std::shared_ptr<Visual::IMap>mapViz_)
@@ -48,7 +48,8 @@ Map::Map(std::shared_ptr<Visual::IMap>mapViz_)
 }
 
 void Map::onUpdate()
-{}
+{
+}
 
 void Map::onRender()
 {
@@ -59,8 +60,8 @@ void Map::onRender()
 }
 
 void Map::onCollision()
-{}
-
+{
+}
 
 void Map::InitBlocks()
 {
@@ -70,31 +71,53 @@ void Map::InitBlocks()
     {
       switch (map_[y * width() + x]) {
         case 'b':
-          blocks_.push_back(Block{ x, height() - y - 1, 0 });
+          blocks_.push_back(Block{ x, height() - y - 1, BLOCK });
           break;
 
         case 'c':
-          blocks_.push_back(Block{ x, height() - y - 1, 1 });
+          blocks_.push_back(Block{ x, height() - y - 1, COIN });
           break;
 
         case 'p':
-          blocks_.push_back(Block{ x, height() - y - 1, 2 });
+          blocks_.push_back(Block{ x, height() - y - 1, PIPE });
           break;
 
         case 'm':
-          blocks_.push_back(Block{ x, height() - y - 1, 3 });
+          blocks_.push_back(Block{ x, height() - y - 1, MUSHROOOM });
           break;
 
         case 's':
-          blocks_.push_back(Block{ x, height() - y - 1, 4 });
+          blocks_.push_back(Block{ x, height() - y - 1, STEPBLOCK });
           break;
 
         case '#':
-          blocks_.push_back(Block{ x, height() - y - 1, 5 });
+          blocks_.push_back(Block{ x, height() - y - 1, GROUND });
           break;
 
         default: break;
       }
     }
   }
+}
+
+std::vector<Map::Block>Map::GetBlocks()
+{
+  return blocks_;
+}
+
+void Map::Change_Block(size_t x, size_t y, MAP_TYPES type)
+{
+  auto itr =
+    find_if(blocks_.begin(), blocks_.end(),
+            [x, y](decltype (blocks_[0])& element)
+  {
+    if ((element.x == x) && (element.y == y))
+    {
+      return element.type;
+    }
+    else return 0;
+  });
+
+  int block_for_change = distance(blocks_.begin(), itr);
+  blocks_[block_for_change].type = type;
 }

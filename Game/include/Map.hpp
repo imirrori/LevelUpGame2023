@@ -7,63 +7,74 @@
 
 #include "interface/IEntity.hpp"
 #include "interface/IVizMap.hpp"
+#include "MapTypes.hpp"
 
 #include <string>
 #include <vector>
 #include <memory>
 
 class Map : public IEntity {
- public:
+public:
 
-	explicit Map(std::shared_ptr<Visual::IMap> mapViz);
+  explicit Map(std::shared_ptr<Visual::IMap>mapViz);
 
-	Map(const std::string &file_name,
-		std::shared_ptr<Visual::IMap> mapViz);
+  Map(const std::string          & file_name,
+      std::shared_ptr<Visual::IMap>mapViz);
 
-	~Map() override = default;
+  ~Map() override = default;
 
-	[[nodiscard]] std::size_t width() const {
-		return width_;
-	};
+  [[nodiscard]] std::size_t width() const {
+    return width_;
+  };
 
-	[[nodiscard]] std::size_t height() const {
-		return height_;
-	};
+  [[nodiscard]] std::size_t height() const {
+    return height_;
+  };
 
-	void onUpdate() override;
-	void onRender() override;
-	void onCollision() override;
+  void                             onUpdate() override;
+  void                             onRender() override;
+  void                             onCollision() override;
 
-	[[nodiscard]] const std::string &GetMap() const { return map_; };
+  [[nodiscard]] const std::string& GetMap() const {
+    return map_;
+  };
 
- private:
+private:
 
-	struct Block {
-		size_t x;
-		size_t y;
-		int type;
-	};
+  struct Block {
+    size_t x;
+    size_t y;
+    int    type;
+  };
 
-	std::size_t width_;
-	std::size_t height_;
+  std::size_t width_;
+  std::size_t height_;
 
-	std::string map_;
-	std::vector<Block> blocks_;
+  std::string map_;
+  std::vector<Block>blocks_;
 
-	std::shared_ptr<Visual::IMap> mapViz_;
+  std::shared_ptr<Visual::IMap>mapViz_;
 
-	void InitBlocks();
+  void InitBlocks();
 
-	// Debug purposes only
-	const std::string default_map_ =
-		"########################################################################################################################################################################################################"
-		"#####################c#############################################################################################c#######################bbcbc########################################################"
-		"#################################################################################bbbbbbbbbb####bbbc################################bbb#################################################################s"
-		"############################################################################m#########################################################################################################################ss"
-		"##############c####bcbcb##################################################bbcbb########################bb#######c##c##c#######b##############bb########s##s##########ss##s#########bbcb##############sss"
-		"##################################################################################################b###################################################ss##ss########sss##ss#########################ssss"
-		"#####################################################################################################################################################sss##sss######ssss##sss#######################sssss"
-		"######################m#######p####m####p######m#####p#####m###p########m######################m###########################################m########ssss##ssss####sssss##ssss###p####m#####p######ssssss";
+  // Debug purposes only
+  const std::string default_map_ =
+    "########################################################################################################################################################################################################"
+    "#####################c#############################################################################################c#######################bbcbc########################################################"
+    "#################################################################################bbbbbbbbbb####bbbc################################bbb#################################################################s"
+    "############################################################################m#########################################################################################################################ss"
+    "##############c####bcbcb##################################################bbcbb########################bb#######c##c##c#######b##############bb########s##s##########ss##s#########bbcb##############sss"
+    "##################################################################################################b###################################################ss##ss########sss##ss#########################ssss"
+    "#####################################################################################################################################################sss##sss######ssss##sss#######################sssss"
+    "######################m#######p####m####p######m#####p#####m###p########m######################m###########################################m########ssss##ssss####sssss##ssss###p####m#####p######ssssss";
+
+public:
+
+  // for class score:
+  std::vector<Block>GetBlocks();
+  void              Change_Block(size_t    x,
+                                 size_t    y,
+                                 MAP_TYPES type);
 };
 
 #endif // LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_INCLUDE_MAP_HPP_

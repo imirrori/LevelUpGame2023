@@ -8,6 +8,7 @@ SOURCES += \
        src/KeyManager.cpp \
        src/MainMenu.cpp \
        src/Map.cpp \
+       src/Score.cpp \
        src/Settings.cpp \
        src/Texture.cpp \
        src/Visualizer.cpp \
@@ -15,20 +16,22 @@ SOURCES += \
 
 HEADERS += \
        libs/STBI/stbi_image.h \
+       include/Game.hpp \
        include/KeyManager.hpp \
        include/MainMenu.hpp \
        include/Map.hpp \
        include/MapTypes.hpp \
+       include/PlayerStub.hpp \
+       include/Score.hpp \
+       include/Settings.hpp \
+       include/Texture.hpp \
+       include/Visualizer.hpp \
        include/interface/IEntity.hpp \
        include/interface/ISettings.hpp \
-       include/Game.hpp \
-       include/PlayerStub.hpp \
-       include/Settings.hpp \
-       include/Visualizer.hpp \
-       include/Texture.hpp \
        include/interface/IVizMap.hpp \
        include/interface/IVizMenu.hpp \
        include/interface/IVizPlayer.hpp \
+       include/interface/IVizScore.hpp \
        include/interface/Texture.hpp
 
 INCLUDEPATH += $$PWD/include

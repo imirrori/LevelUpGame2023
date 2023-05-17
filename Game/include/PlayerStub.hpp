@@ -26,13 +26,15 @@ public:
 
   ~PlayerStub() override = default;
 
-  void onUpdate() override {}
+  void onUpdate() override {
+  }
 
   void onRender() override    {
     playerViz_->ShowPlayer(x_, y_);
   }
 
-  void onCollision() override {}
+  void onCollision() override {
+  }
 
   void PressPlayerKey(KEY key)
   {
@@ -54,6 +56,16 @@ public:
         if (y_ > 1) --y_;
         break;
     }
+  }
+
+  int GetPlayerX_()
+  {
+    return x_;
+  }
+
+  int GetPlayerY_()
+  {
+    return y_;
   }
 
 private:
