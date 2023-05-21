@@ -6,7 +6,7 @@
 #include "Visualizer.hpp"
 #include "KeyManager.hpp"
 #include "Map.hpp"
-#include "PlayerStub.hpp"
+#include "Player.hpp"
 #include "Score.hpp"
 
 #include <memory>
@@ -95,7 +95,7 @@ private:
     : public IState {
 public:
 
-    explicit PlayState(std::shared_ptr<PlayerStub>           player,
+    explicit PlayState(std::shared_ptr<Player>           player,
                        std::vector<std::shared_ptr<IEntity> >showObjects = {})
       : IState(std::move(showObjects))
       , player_(std::move(player))
@@ -105,16 +105,16 @@ public:
     {
       switch (key.key) {
         case 264: // DOWN
-          player_->PressPlayerKey(PlayerStub::DOWN);
+          player_->PressPlayerKey(Player::DOWN);
           break;
         case 265: // UP
-          player_->PressPlayerKey(PlayerStub::UP);
+          player_->PressPlayerKey(Player::UP);
           break;
         case 262: // RIGHT
-          player_->PressPlayerKey(PlayerStub::RIGHT);
+          player_->PressPlayerKey(Player::RIGHT);
           break;
         case 263: // LEFT
-          player_->PressPlayerKey(PlayerStub::LEFT);
+          player_->PressPlayerKey(Player::LEFT);
           break;
         case 256: // ESC
           return states_[STATES::BEGIN_SATE].get();
@@ -124,7 +124,7 @@ public:
 
 private:
 
-    std::shared_ptr<PlayerStub>player_;
+    std::shared_ptr<Player>player_;
   };
 
   static std::array<std::unique_ptr<IState>, IState::STATES::COUNT>states_;
@@ -134,7 +134,7 @@ private:
   std::shared_ptr<KeyManager>keyManager_;
   std::shared_ptr<Visual::Visualizer>viz_;
   std::shared_ptr<MainMenu>menu_;
-  std::shared_ptr<PlayerStub>player_;
+  std::shared_ptr<Player>player_;
   std::shared_ptr<Map>map_;
   std::shared_ptr<Score>score_;
 };

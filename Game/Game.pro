@@ -15,13 +15,13 @@ SOURCES += \
        App/main.cpp
 
 HEADERS += \
+       include/Player.hpp \
        libs/STBI/stbi_image.h \
        include/Game.hpp \
        include/KeyManager.hpp \
        include/MainMenu.hpp \
        include/Map.hpp \
        include/MapTypes.hpp \
-       include/PlayerStub.hpp \
        include/Score.hpp \
        include/Settings.hpp \
        include/Texture.hpp \

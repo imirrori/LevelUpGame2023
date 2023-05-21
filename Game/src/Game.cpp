@@ -1,5 +1,5 @@
 #include "Game.hpp"
-#include "PlayerStub.hpp"
+#include "Player.hpp"
 #include "Score.hpp"
 
 #include <fstream>
@@ -37,7 +37,7 @@ void Game::Init()
   setting_    = std::make_shared<Settings::Settings>(inStream);
   keyManager_ = std::make_shared<KeyManager>();
   viz_        = std::make_shared<Visual::Visualizer>(setting_, keyManager_);
-  player_     = std::make_shared<PlayerStub>(viz_);
+  player_     = std::make_shared<Player>(viz_);
   menu_       = std::make_shared<MainMenu>(viz_);
   map_        = std::make_shared<Map>(viz_);
   score_      = std::make_shared<Score>(viz_, player_, map_);

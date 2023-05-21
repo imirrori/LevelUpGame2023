@@ -1,12 +1,12 @@
-#ifndef PLAYERSTUB_HPP
-#define PLAYERSTUB_HPP
+#ifndef PLAYER_H
+#define PLAYER_H
 
 #include "interface/IEntity.hpp"
 #include "interface/IVizPlayer.hpp"
 
 #include <memory>
 
-class PlayerStub
+class Player
   : public IEntity {
 public:
 
@@ -18,13 +18,13 @@ public:
     RIGHT
   };
 
-  PlayerStub(std::shared_ptr<Visual::IPlayer>playerViz)
+  Player(std::shared_ptr<Visual::IPlayer>playerViz)
     : playerViz_(std::move(playerViz))
     , x_(0)
     , y_(1)
   {}
 
-  ~PlayerStub() override = default;
+  ~Player() override = default;
 
   void onUpdate() override {
   }
@@ -74,4 +74,4 @@ private:
   int x_;
   int y_;
 };
-#endif // PLAYERSTUB_HPP
+#endif // PLAYER_H

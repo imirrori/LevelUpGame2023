@@ -4,7 +4,7 @@
 #include <algorithm>
 
 Score::Score(std::shared_ptr<Visual::IScore>scoreViz,
-             std::shared_ptr<PlayerStub>    player,
+             std::shared_ptr<Player>    player,
              std::shared_ptr<Map>           map)
   : scoreViz_(std::move(scoreViz))
   , player_(std::move(player))

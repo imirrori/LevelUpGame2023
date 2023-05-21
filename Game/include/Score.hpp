@@ -4,7 +4,7 @@
 #include "interface/IEntity.hpp"
 #include "interface/IVizScore.hpp"
 #include "Map.hpp"
-#include "PlayerStub.hpp"
+#include "Player.hpp"
 #include <memory>
 
 class Score
@@ -12,7 +12,7 @@ class Score
 public:
 
   Score(std::shared_ptr<Visual::IScore>scoreViz,
-        std::shared_ptr<PlayerStub>    player,
+        std::shared_ptr<Player>    player,
         std::shared_ptr<Map>           map);
 
   virtual ~Score() = default;
@@ -27,7 +27,7 @@ public:
 private:
 
   std::shared_ptr<Visual::IScore>scoreViz_;
-  std::shared_ptr<PlayerStub>player_;
+  std::shared_ptr<Player>player_;
   std::shared_ptr<Map>map_;
   int coin_;
 };
