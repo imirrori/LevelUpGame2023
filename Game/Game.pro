@@ -8,6 +8,7 @@ SOURCES += \
        src/KeyManager.cpp \
        src/MainMenu.cpp \
        src/Map.cpp \
+       src/Player.cpp \
        src/Score.cpp \
        src/Settings.cpp \
        src/Texture.cpp \
