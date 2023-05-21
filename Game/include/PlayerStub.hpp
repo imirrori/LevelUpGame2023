@@ -20,7 +20,7 @@ public:
 
   PlayerStub(std::shared_ptr<Visual::IPlayer>playerViz)
     : playerViz_(std::move(playerViz))
-    , x_(0)
+    , x_(1)
     , y_(1)
   {}
 
@@ -42,18 +42,19 @@ public:
     {
       case LEFT:
 
-        if (x_ > 0) --x_;
+        if (x_ > 0) x_ -= 0.5;
         break;
       case RIGHT:
-        ++x_;
+
+        if (x_ < 200) x_ += 0.5;
         break;
       case UP:
 
-        if (y_ < 8) ++y_;
+        if (y_ < 7) y_ += 0.5;
         break;
       case DOWN:
 
-        if (y_ > 1) --y_;
+        if (y_ > 1) y_ -= 0.5;
         break;
     }
   }
@@ -71,7 +72,7 @@ public:
 private:
 
   std::shared_ptr<Visual::IPlayer>playerViz_;
-  int x_;
-  int y_;
+  double x_;
+  double y_;
 };
 #endif // PLAYERSTUB_HPP

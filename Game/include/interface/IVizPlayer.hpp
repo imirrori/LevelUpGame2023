@@ -7,8 +7,8 @@ public:
 
   virtual ~IPlayer() = default;
 
-  virtual void ShowPlayer(int x,
-                          int y) = 0;
+  virtual void ShowPlayer(double x,
+                          double y) = 0;
 };
 } // Visual
 

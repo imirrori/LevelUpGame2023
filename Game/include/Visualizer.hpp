@@ -36,8 +36,8 @@ public:
   void EndPrint()  override;
 
   // IPlayer
-  void ShowPlayer(int x,
-                  int y) override;
+  void ShowPlayer(double x,
+                  double y) override;
 
   // IMap
   void PrintBlock(size_t x,
@@ -57,15 +57,11 @@ public:
 
 private:
 
-  void func_print_char(const std::string name,
-                       const float       where_down,
-                       const float       where_right);
-
   int menu_count_;
   int reverse_menu_count_;
 
-  int player_x;
-  int player_y;
+  double player_x;
+  double player_y;
 
   std::shared_ptr<Settings::ISettings>settings_;
   GLFWwindow *window_;

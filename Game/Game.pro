@@ -16,6 +16,7 @@ SOURCES += \
 
 HEADERS += \
        libs/STBI/stbi_image.h \
+       libs/STBI/stb_easy_font.h \
        include/Game.hpp \
        include/KeyManager.hpp \
        include/MainMenu.hpp \

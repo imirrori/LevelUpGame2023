@@ -62,9 +62,9 @@ void Game::Init()
                     return false;
                   };
 
-  menu_->AddSubMenu({ "start game", startGame });
-  menu_->AddSubMenu({ "load game", loadGame });
-  menu_->AddSubMenu({ "end game", endGame });
+  menu_->AddSubMenu({ "Start game", startGame });
+  menu_->AddSubMenu({ "Load game", loadGame });
+  menu_->AddSubMenu({ "End game", endGame });
 }
 
 Game::Game()
