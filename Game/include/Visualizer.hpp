@@ -36,13 +36,11 @@ public:
   void EndPrint()  override;
 
   // IPlayer
-  void ShowPlayer(int x,
-                  int y) override;
+  void ShowPlayer(Point point) override;
 
   // IMap
-  void PrintBlock(size_t x,
-                  size_t y,
-                  int    type) override;
+  void PrintBlock(Point point,
+                  int   type) override;
 
   // IScore
   void ShowScore(int score) override;
@@ -64,8 +62,7 @@ private:
   int menu_count_;
   int reverse_menu_count_;
 
-  int player_x;
-  int player_y;
+  Point player_point;
 
   std::shared_ptr<Settings::ISettings>settings_;
   GLFWwindow *window_;

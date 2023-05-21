@@ -17,7 +17,7 @@ public:
 
   virtual ~Score() = default;
 
-  void onUpdate(std::chrono::duration<uint64_t>duration) override;
+  void onUpdate(std::chrono::nanoseconds duration) override;
   void onRender() override;
   void onCollision() override;
 

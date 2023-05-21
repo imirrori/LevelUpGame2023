@@ -4,7 +4,7 @@ MainMenu::MainMenu(std::shared_ptr<Visual::IMenu>menuViz)
   : menuViz_(std::move(menuViz))
 {}
 
-void MainMenu::onUpdate(std::chrono::duration<uint64_t>)
+void MainMenu::onUpdate(std::chrono::nanoseconds)
 {}
 
 void MainMenu::onRender()

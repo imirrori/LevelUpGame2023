@@ -17,6 +17,7 @@ SOURCES += \
 
 HEADERS += \
        include/Player.hpp \
+       include/interface/Point.h \
        libs/STBI/stbi_image.h \
        include/Game.hpp \
        include/KeyManager.hpp \

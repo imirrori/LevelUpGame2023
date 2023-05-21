@@ -15,8 +15,14 @@ std::array<std::unique_ptr<Game::IState>,
 
 void Game::Run()
 {
+  auto prev_time = std::chrono::steady_clock::now();
+
   while (viz_->Show(state_->GetShowObjects()))
   {
+    auto new_time = std::chrono::steady_clock::now();
+
+    player_->onUpdate(new_time - prev_time);
+
     std::vector<KeyManager::Key> keysDown = keyManager_->GetKeysDown();
 
     for (const auto& key: keysDown) {
@@ -27,6 +33,7 @@ void Game::Run()
                              key.mods);
     }
     score_->AddScore();
+    prev_time = new_time;
   }
 }
 

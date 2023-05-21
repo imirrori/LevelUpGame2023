@@ -21,25 +21,23 @@ public:
   Player(std::shared_ptr<Visual::IPlayer>playerViz);
   ~Player() override = default;
 
-  void onUpdate(std::chrono::duration<uint64_t>) override;
-  void onRender() override;
-  void onCollision() override;
+  void onUpdate(std::chrono::nanoseconds) override;
+  void  onRender() override;
+  void  onCollision() override;
 
-  void PressPlayerKey(KEY key);
+  void  PressPlayerKey(KEY key);
 
-  int  GetPlayerX_();
-  int  GetPlayerY_();
+  Point GetPlayerPoint();
 
 private:
 
   std::shared_ptr<Visual::IPlayer>playerViz_;
-  int x_;
-  int y_;
+  Point point_;
 
-  int vx_;
-  int vy_;
+  double vx_;
+  double vy_;
 
-  int ax_;
-  int ay_;
+  double ax_;
+  double ay_;
 };
 #endif // PLAYER_H

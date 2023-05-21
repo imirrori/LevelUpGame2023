@@ -19,7 +19,9 @@ void framebuffer_size_callback_(GLFWwindow *, int width, int height) {
   glViewport(0, 0, width, height);
 }
 
-void PrintTexture(int x, int y, size_t field_pixel, const std::string& path)
+void PrintTexture(Point              point,
+                  size_t             field_pixel,
+                  const std::string& path)
 {
   GLuint TextureID;
 
@@ -37,14 +39,17 @@ void PrintTexture(int x, int y, size_t field_pixel, const std::string& path)
 
   glBegin(GL_POLYGON);
 
+  // 1.23
+
   glTexCoord2f(0, 0);
-  glVertex2d(x, y * field_pixel);
+  glVertex2d(point.x * field_pixel, point.y * field_pixel);
   glTexCoord2f(1, 0);
-  glVertex2d(x + field_pixel, y * field_pixel);
+  glVertex2d(point.x * field_pixel + field_pixel, point.y * field_pixel);
   glTexCoord2f(1, 1);
-  glVertex2d(x + field_pixel, y * field_pixel + field_pixel);
+  glVertex2d(point.x * field_pixel + field_pixel,
+             point.y * field_pixel + field_pixel);
   glTexCoord2f(0, 1);
-  glVertex2d(x, y * field_pixel + field_pixel);
+  glVertex2d(point.x * field_pixel, point.y * field_pixel + field_pixel);
 
   glEnd();
 
@@ -116,24 +121,22 @@ void Visualizer::PrintRow(const std::string& name, bool current) //
 }
 
 void Visualizer::EndPrint() // override by IMenu
-{
-}
+{}
 
-void Visualizer::ShowPlayer(int x, int y) {
-  player_x = x;
-  player_y = y;
+void Visualizer::ShowPlayer(Point point) {
+  player_point = point;
   const int field_pixel = std::get<int>(settings_->GetValue("visual",
                                                             "field_pixel"));
   const std::string path = "../Game/" +
                            std::get<std::string>(settings_->GetValue("textures",
                                                                      "mario"));
 
-  PrintTexture(player_x, player_y, field_pixel, path);
+  PrintTexture(player_point, field_pixel, path);
 }
 
-void Visualizer::PrintBlock(size_t x, size_t y, int type)
+void Visualizer::PrintBlock(Point point, int type)
 {
-  const int diff = x - player_x;
+  const int diff = point.x - player_point.x;
 
   if ((diff > 10) || (diff < 0)) {
     return;
@@ -170,7 +173,7 @@ void Visualizer::PrintBlock(size_t x, size_t y, int type)
       break;
   }
 
-  PrintTexture(diff * field_pixel, y, field_pixel, path);
+  PrintTexture(Point{ static_cast<double>(diff), point.y }, field_pixel, path);
 }
 
 void Visualizer::ShowScore(int score)
@@ -189,6 +192,7 @@ void Visualizer::ShowScore(int score)
 
   const int field_pixel = std::get<int>(settings_->GetValue("visual",
                                                             "field_pixel"));
+
   glVertex2d(0,
              y * field_pixel);
   glVertex2d(0 + field_pixel,

@@ -3,47 +3,65 @@
 
 Player::Player(std::shared_ptr<Visual::IPlayer>playerViz)
   : playerViz_(std::move(playerViz))
-  , x_(0)
-  , y_(1)
+  , point_{0, 1}
   , vx_(0)
   , vy_(0)
   , ax_(0)
   , ay_(0)
 {}
 
-void Player::onUpdate(std::chrono::duration<uint64_t>) {}
+void Player::onUpdate(std::chrono::nanoseconds duration)
+{
+  vx_ = vx_ + ax_ * std::chrono::duration_cast<std::chrono::milliseconds>(
+    duration).count();
+  vy_ = vy_ + ay_ * std::chrono::duration_cast<std::chrono::milliseconds>(
+    duration).count();
 
-void Player::onRender() {
-  playerViz_->ShowPlayer(x_, y_);
+  point_.x = point_.x + vx_ *
+             std::chrono::duration_cast<std::chrono::milliseconds>(
+    duration).count();
+  point_.y = point_.y + vy_ *
+             std::chrono::duration_cast<std::chrono::milliseconds>(
+    duration).count();
+
+  if (point_.x < 0) {
+    point_.x = 0;
+  }
+
+  if (point_.y < 0) {
+    point_.y = 0;
+  }
+}
+
+void Player::onRender()
+{
+  playerViz_->ShowPlayer(point_);
 }
 
 void Player::onCollision() {}
 
 void Player::PressPlayerKey(KEY key)
 {
+  const double default_v = 0.002;
+
   switch (key)
   {
     case LEFT:
-      vx_ = -1;
+      vx_ = -default_v;
       break;
     case RIGHT:
-      vx_ = +1;
+      vx_ = +default_v;
       break;
     case UP:
-      vy_ = +1;
+      vy_ = +default_v;
       break;
     case DOWN:
-      vy_ = -1;
+      vy_ = -default_v;
       break;
   }
 }
 
-int Player::GetPlayerX_()
+Point Player::GetPlayerPoint()
 {
-  return x_;
-}
-
-int Player::GetPlayerY_()
-{
-  return y_;
+  return point_;
 }
