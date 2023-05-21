@@ -31,7 +31,8 @@ public:
     return height_;
   };
 
-  void                             onUpdate() override;
+  void                             onUpdate(
+    std::chrono::duration<uint64_t>duration) override;
   void                             onRender() override;
   void                             onCollision() override;
 

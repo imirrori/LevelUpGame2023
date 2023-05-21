@@ -4,7 +4,7 @@ MainMenu::MainMenu(std::shared_ptr<Visual::IMenu>menuViz)
   : menuViz_(std::move(menuViz))
 {}
 
-void MainMenu::onUpdate()
+void MainMenu::onUpdate(std::chrono::duration<uint64_t>)
 {}
 
 void MainMenu::onRender()
@@ -48,4 +48,5 @@ bool MainMenu::PressKey(KEY key)
     case ENTER:
       return subMenu_[currentMenu_].exec_();
   }
+  return false;
 }

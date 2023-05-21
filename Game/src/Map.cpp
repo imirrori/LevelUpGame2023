@@ -47,9 +47,8 @@ Map::Map(std::shared_ptr<Visual::IMap>mapViz_)
   InitBlocks();
 }
 
-void Map::onUpdate()
-{
-}
+void Map::onUpdate(std::chrono::duration<uint64_t>duration)
+{}
 
 void Map::onRender()
 {
@@ -60,8 +59,7 @@ void Map::onRender()
 }
 
 void Map::onCollision()
-{
-}
+{}
 
 void Map::InitBlocks()
 {
@@ -119,5 +117,6 @@ void Map::Change_Block(size_t x, size_t y, MAP_TYPES type)
   });
 
   int block_for_change = distance(blocks_.begin(), itr);
+
   blocks_[block_for_change].type = type;
 }

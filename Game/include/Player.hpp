@@ -26,15 +26,13 @@ public:
 
   ~Player() override = default;
 
-  void onUpdate() override {
-  }
+  void onUpdate(std::chrono::duration<uint64_t>) override {}
 
   void onRender() override    {
     playerViz_->ShowPlayer(x_, y_);
   }
 
-  void onCollision() override {
-  }
+  void onCollision() override {}
 
   void PressPlayerKey(KEY key)
   {

@@ -12,12 +12,12 @@ class Score
 public:
 
   Score(std::shared_ptr<Visual::IScore>scoreViz,
-        std::shared_ptr<Player>    player,
+        std::shared_ptr<Player>        player,
         std::shared_ptr<Map>           map);
 
   virtual ~Score() = default;
 
-  void onUpdate() override;
+  void onUpdate(std::chrono::duration<uint64_t>duration) override;
   void onRender() override;
   void onCollision() override;
 

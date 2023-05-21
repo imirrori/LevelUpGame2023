@@ -4,7 +4,7 @@
 #include <algorithm>
 
 Score::Score(std::shared_ptr<Visual::IScore>scoreViz,
-             std::shared_ptr<Player>    player,
+             std::shared_ptr<Player>        player,
              std::shared_ptr<Map>           map)
   : scoreViz_(std::move(scoreViz))
   , player_(std::move(player))
@@ -12,15 +12,13 @@ Score::Score(std::shared_ptr<Visual::IScore>scoreViz,
   , coin_(0)
 {}
 
-void Score::onUpdate()    {
-}
+void Score::onUpdate(std::chrono::duration<uint64_t>) {}
 
 void Score::onRender()    {
   scoreViz_->ShowScore(coin_);
 }
 
-void Score::onCollision() {
-}
+void Score::onCollision() {}
 
 int  Score::GetCurrentScore()
 {
