@@ -136,7 +136,7 @@ void Visualizer::ShowPlayer(Point point) {
 
 void Visualizer::PrintBlock(Point point, int type)
 {
-  const int diff = point.x - player_point.x;
+  const int diff = point.x - static_cast<int>(player_point.x);
 
   if ((diff > 10) || (diff < 0)) {
     return;

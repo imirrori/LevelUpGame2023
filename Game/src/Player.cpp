@@ -3,7 +3,7 @@
 
 Player::Player(std::shared_ptr<Visual::IPlayer>playerViz)
   : playerViz_(std::move(playerViz))
-  , point_{0, 1}
+  , point_{0, 0}
   , vx_(0)
   , vy_(0)
   , ax_(0)
@@ -42,7 +42,8 @@ void Player::onCollision() {}
 
 void Player::PressPlayerKey(KEY key)
 {
-  const double default_v = 0.002;
+  const double default_v = 0.003;
+  const double default_a = 0.000003;
 
   switch (key)
   {
@@ -50,10 +51,11 @@ void Player::PressPlayerKey(KEY key)
       vx_ = -default_v;
       break;
     case RIGHT:
-      vx_ = +default_v;
+      vx_ = default_v;
       break;
     case UP:
-      vy_ = +default_v;
+      vy_ = default_v * 1.4;
+      ay_ = -default_a;
       break;
     case DOWN:
       vy_ = -default_v;
