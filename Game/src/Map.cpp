@@ -47,21 +47,19 @@ Map::Map(std::shared_ptr<Visual::IMap>mapViz_)
   InitBlocks();
 }
 
-void Map::onUpdate()
-{
-}
+void Map::onUpdate(std::chrono::nanoseconds)
+{}
 
 void Map::onRender()
 {
   for (const auto& block: blocks_)
   {
-    mapViz_->PrintBlock(block.x, block.y, block.type);
+    mapViz_->PrintBlock(block.point, block.type);
   }
 }
 
 void Map::onCollision()
-{
-}
+{}
 
 void Map::InitBlocks()
 {
@@ -71,27 +69,39 @@ void Map::InitBlocks()
     {
       switch (map_[y * width() + x]) {
         case 'b':
-          blocks_.push_back(Block{ x, height() - y - 1, BLOCK });
+          blocks_.push_back(Block{ Point{ static_cast<double>(x),
+                                          static_cast<double>(height() - y - 1) },
+                                   BLOCK });
           break;
 
         case 'c':
-          blocks_.push_back(Block{ x, height() - y - 1, COIN });
+          blocks_.push_back(Block{ Point{ static_cast<double>(x),
+                                          static_cast<double>(height() - y - 1) },
+                                   COIN });
           break;
 
         case 'p':
-          blocks_.push_back(Block{ x, height() - y - 1, PIPE });
+          blocks_.push_back(Block{ Point{ static_cast<double>(x),
+                                          static_cast<double>(height() - y - 1) },
+                                   PIPE });
           break;
 
         case 'm':
-          blocks_.push_back(Block{ x, height() - y - 1, MUSHROOOM });
+          blocks_.push_back(Block{ Point{ static_cast<double>(x),
+                                          static_cast<double>(height() - y - 1) },
+                                   MUSHROOOM });
           break;
 
         case 's':
-          blocks_.push_back(Block{ x, height() - y - 1, STEPBLOCK });
+          blocks_.push_back(Block{ Point{ static_cast<double>(x),
+                                          static_cast<double>(height() - y - 1) },
+                                   STEPBLOCK });
           break;
 
         case '#':
-          blocks_.push_back(Block{ x, height() - y - 1, GROUND });
+          blocks_.push_back(Block{ Point{ static_cast<double>(x),
+                                          static_cast<double>(height() - y - 1) },
+                                   GROUND });
           break;
 
         default: break;
@@ -107,17 +117,18 @@ std::vector<Map::Block>Map::GetBlocks()
 
 void Map::Change_Block(size_t x, size_t y, MAP_TYPES type)
 {
-  auto itr =
-    find_if(blocks_.begin(), blocks_.end(),
-            [x, y](decltype (blocks_[0])& element)
-  {
-    if ((element.x == x) && (element.y == y))
-    {
-      return element.type;
-    }
-    else return 0;
-  });
+  // auto itr =
+  //  find_if(blocks_.begin(), blocks_.end(),
+  //          [x, y](decltype (blocks_[0])& element)
+  // {
+  //  if ((element.x == x) && (element.y == y))
+  //  {
+  //    return element.type;
+  //  }
+  //  else return 0;
+  // });
 
-  int block_for_change = distance(blocks_.begin(), itr);
-  blocks_[block_for_change].type = type;
+  // int block_for_change = distance(blocks_.begin(), itr);
+
+  // blocks_[block_for_change].type = type;
 }

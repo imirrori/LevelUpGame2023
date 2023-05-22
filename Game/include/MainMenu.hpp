@@ -29,7 +29,7 @@ public:
   MainMenu(std::shared_ptr<Visual::IMenu>menuViz);
   virtual ~MainMenu() = default;
 
-  void onUpdate() override;
+  void onUpdate(std::chrono::nanoseconds duration) override;
 
   void onRender() override;
   void onCollision() override;

@@ -31,7 +31,8 @@ public:
     return height_;
   };
 
-  void                             onUpdate() override;
+  void                             onUpdate(
+    std::chrono::nanoseconds duration) override;
   void                             onRender() override;
   void                             onCollision() override;
 
@@ -42,9 +43,8 @@ public:
 private:
 
   struct Block {
-    size_t x;
-    size_t y;
-    int    type;
+    Point point;
+    int   type;
   };
 
   std::size_t width_;
