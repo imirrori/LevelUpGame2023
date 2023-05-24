@@ -1,0 +1,13 @@
+#ifndef PLAYER_STATE_HPP
+#define PLAYER_STATE_HPP
+
+enum PLAYER_STATE
+{
+  STAND,
+  FALL,
+  FLY,
+  RUN_LEFT,
+  RUN_RIGHT
+};
+
+#endif // PLAYER_STATE_HPP

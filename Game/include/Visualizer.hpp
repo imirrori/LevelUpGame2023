@@ -36,7 +36,8 @@ public:
   void EndPrint()  override;
 
   // IPlayer
-  void ShowPlayer(Point point) override;
+  void ShowPlayer(Point        point,
+                  PLAYER_STATE state) override;
 
   // IMap
   void PrintBlock(Point point,
@@ -55,15 +56,18 @@ public:
 
 private:
 
+  struct PLAYER_VIS {
+    Point        player_point;
+    unsigned int player_frame_;
+  };
+
   void func_print_char(const std::string name,
                        const float       where_down,
                        const float       where_right);
 
   int menu_count_;
   int reverse_menu_count_;
-
-  Point player_point;
-
+  PLAYER_VIS player_vis_;
   std::shared_ptr<Settings::ISettings>settings_;
   GLFWwindow *window_;
   std::shared_ptr<KeyManager>keyManager_;
