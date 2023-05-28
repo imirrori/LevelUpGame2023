@@ -171,6 +171,11 @@ void Visualizer::PrintBlock(Point point, int type)
       path = "../Game/" + std::get<std::string>(settings_->GetValue("textures",
                                                                     "ground"));
       break;
+
+    case SKY:
+    path = "../Game/" + std::get<std::string>(settings_->GetValue("textures",
+                                                                  "sky"));
+      break;
   }
 
   PrintTexture(Point{ static_cast<double>(diff), point.y }, field_pixel, path);

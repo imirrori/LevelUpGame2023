@@ -43,7 +43,7 @@ Map::Map(std::shared_ptr<Visual::IMap>mapViz_)
 {
   map_    = default_map_;
   width_  = 200;
-  height_ = 7;
+  height_ = 8;
   InitBlocks();
 }
 
@@ -103,6 +103,12 @@ void Map::InitBlocks()
                                           static_cast<double>(height() - y - 1) },
                                    GROUND });
           break;
+
+        case 'n':
+          blocks_.push_back(Block{ Point{ static_cast<double>(x),
+                                          static_cast<double>(height() - y - 1) },
+                                   SKY });
+        break;
 
         default: break;
       }
