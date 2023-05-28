@@ -120,6 +120,8 @@ void Visualizer::EndPrint() // override by IMenu
 
 void Visualizer::ShowPlayer(Point point, PLAYER_STATE state) {
   player_vis_.player_point = point;
+  const double diff = player_vis_.player_point.x >
+                      5 ? 5 : player_vis_.player_point.x;
 
   const int field_pixel =
     std::get<int>(settings_->GetValue("visual", "field_pixel"));
@@ -128,25 +130,25 @@ void Visualizer::ShowPlayer(Point point, PLAYER_STATE state) {
   switch (state)
   {
     case (STAND):
-      PrintTexture(player_vis_.player_point,
+      PrintTexture(Point{ diff, player_vis_.player_point.y },
                    field_pixel,
                    textures_["mario"].getId());
       break;
 
     case (FLY):
-      PrintTexture(player_vis_.player_point,
+      PrintTexture(Point{ diff, player_vis_.player_point.y },
                    field_pixel,
                    textures_["mario-jump"].getId());
       break;
 
     case (FALL):
-      PrintTexture(player_vis_.player_point,
+      PrintTexture(Point{ diff, player_vis_.player_point.y },
                    field_pixel,
                    textures_["mario-fall"].getId());
       break;
 
     case (RUN_RIGHT):
-      PrintTexture(player_vis_.player_point,
+      PrintTexture(Point{ diff, player_vis_.player_point.y },
                    field_pixel,
                    textures_["mario-run" +
                              std::to_string(player_vis_.player_frame_)].getId());
@@ -160,7 +162,7 @@ void Visualizer::ShowPlayer(Point point, PLAYER_STATE state) {
       break;
 
     case (RUN_LEFT):
-      PrintTexture(player_vis_.player_point,
+      PrintTexture(Point{ diff, player_vis_.player_point.y },
                    field_pixel,
                    textures_["mario-run-left" +
                              std::to_string(player_vis_.player_frame_)].getId());
