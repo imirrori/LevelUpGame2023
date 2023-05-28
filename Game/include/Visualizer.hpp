@@ -8,6 +8,8 @@
 #include "interface/IVizScore.hpp"
 #include "interface/ISettings.hpp"
 
+#include "Texture.hpp"
+
 #include <GLFW/glfw3.h>
 
 #include <KeyManager.hpp>
@@ -15,6 +17,7 @@
 #include <memory>
 #include <vector>
 #include <functional>
+#include <map>
 
 namespace Visual {
 class Visualizer
@@ -64,6 +67,7 @@ private:
   void func_print_char(const std::string name,
                        const float       where_down,
                        const float       where_right);
+  void LoeadTextures();
 
   int menu_count_;
   int reverse_menu_count_;
@@ -71,6 +75,7 @@ private:
   std::shared_ptr<Settings::ISettings>settings_;
   GLFWwindow *window_;
   std::shared_ptr<KeyManager>keyManager_;
+  std::map<std::string, Textures::Texture>textures_;
 };
 } // Visual
 

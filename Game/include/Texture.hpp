@@ -6,15 +6,14 @@ namespace Textures {
 class Texture {
 public:
 
-  using TTexProc = void (*)(unsigned char *data,
-                            int            wigth,
-                            int            height,
-                            int            cnt);
+  Texture();
+  explicit Texture(const char *fileName);
 
-  static void LoadTexture(const char *fileName,
-                          GLuint     *textureID,
-                          int         wrap,
-                          int         filter,
-                          TTexProc    proc);
+  GLuint getId() const;
+
+private:
+
+  GLuint textureID_;
+  unsigned char *data_;
 };
 }

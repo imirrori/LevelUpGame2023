@@ -19,21 +19,12 @@ void framebuffer_size_callback_(GLFWwindow *, int width, int height) {
   glViewport(0, 0, width, height);
 }
 
-void PrintTexture(Point              point,
-                  size_t             field_pixel,
-                  const std::string& path)
+void PrintTexture(Point  point,
+                  size_t field_pixel,
+                  GLuint textureID)
 {
-  GLuint TextureID;
-
-  Textures::Texture::LoadTexture(
-    path.c_str(),
-    &TextureID,
-    GL_REPEAT,
-    GL_NEAREST,
-    NULL);
-
   glEnable(GL_TEXTURE_2D);
-  glBindTexture(GL_TEXTURE_2D, TextureID);
+  glBindTexture(GL_TEXTURE_2D, textureID);
 
   glColor3f(1, 1, 1);
 
@@ -93,6 +84,8 @@ Visualizer::Visualizer(
   rawPtr = this;
   glfwSetKeyCallback(window_, ::KeyCatch);
   glfwSetFramebufferSizeCallback(window_, ::framebuffer_size_callback_);
+
+  LoeadTextures();
 }
 
 Visualizer::~Visualizer()
@@ -123,8 +116,7 @@ void Visualizer::PrintRow(const std::string& name, bool current) //
 }
 
 void Visualizer::EndPrint() // override by IMenu
-{
-}
+{}
 
 void Visualizer::ShowPlayer(Point point, PLAYER_STATE state) {
   player_vis_.player_point = point;
@@ -136,34 +128,28 @@ void Visualizer::ShowPlayer(Point point, PLAYER_STATE state) {
   switch (state)
   {
     case (STAND):
-      path = "../Game/" +
-             std::get<std::string>(settings_->GetValue("textures",
-                                                       "mario"));
-      PrintTexture(player_vis_.player_point, field_pixel, path);
+      PrintTexture(player_vis_.player_point,
+                   field_pixel,
+                   textures_["mario"].getId());
       break;
 
     case (FLY):
-      path = "../Game/" +
-             std::get<std::string>(settings_->GetValue("textures",
-                                                       "mario-jump"));
-      PrintTexture(player_vis_.player_point, field_pixel, path);
+      PrintTexture(player_vis_.player_point,
+                   field_pixel,
+                   textures_["mario-jump"].getId());
       break;
 
     case (FALL):
-      path = "../Game/" +
-             std::get<std::string>(settings_->GetValue("textures",
-                                                       "mario-fall"));
-      PrintTexture(player_vis_.player_point, field_pixel, path);
+      PrintTexture(player_vis_.player_point,
+                   field_pixel,
+                   textures_["mario-fall"].getId());
       break;
 
     case (RUN_RIGHT):
-      path = "../Game/" +
-             std::get<std::string>(settings_->GetValue("textures",
-                                                       "mario-run" +
-                                                       std::to_string(
-                                                         player_vis_.
-                                                         player_frame_)));
-      PrintTexture(player_vis_.player_point, field_pixel, path);
+      PrintTexture(player_vis_.player_point,
+                   field_pixel,
+                   textures_["mario-run" +
+                             std::to_string(player_vis_.player_frame_)].getId());
 
       ++player_vis_.player_frame_;
 
@@ -174,13 +160,10 @@ void Visualizer::ShowPlayer(Point point, PLAYER_STATE state) {
       break;
 
     case (RUN_LEFT):
-      path = "../Game/" +
-             std::get<std::string>(settings_->GetValue("textures",
-                                                       "mario-run-left" +
-                                                       std::to_string(
-                                                         player_vis_.
-                                                         player_frame_)));
-      PrintTexture(player_vis_.player_point, field_pixel, path);
+      PrintTexture(player_vis_.player_point,
+                   field_pixel,
+                   textures_["mario-run-left" +
+                             std::to_string(player_vis_.player_frame_)].getId());
 
       ++player_vis_.player_frame_;
 
@@ -202,36 +185,32 @@ void Visualizer::PrintBlock(Point point, int type)
 
   const int field_pixel = std::get<int>(settings_->GetValue("visual",
                                                             "field_pixel"));
-  std::string path;
+  std::string name;
 
   switch (type) {
     case BLOCK:
-      path = "../Game/" + std::get<std::string>(settings_->GetValue("textures",
-                                                                    "block"));
+      name = "block";
       break;
     case COIN:
-      path = "../Game/" + std::get<std::string>(settings_->GetValue("textures",
-                                                                    "coin"));
+      name = "coin";
       break;
     case PIPE:
-      path = "../Game/" + std::get<std::string>(settings_->GetValue("textures",
-                                                                    "pipe"));
+      name = "pipe";
       break;
     case MUSHROOOM:
-      path = "../Game/" + std::get<std::string>(settings_->GetValue("textures",
-                                                                    "mushroom"));
+      name = "mushroom";
       break;
     case STEPBLOCK:
-      path = "../Game/" + std::get<std::string>(settings_->GetValue("textures",
-                                                                    "stepblock"));
+      name = "stepblock";
       break;
     case GROUND:
-      path = "../Game/" + std::get<std::string>(settings_->GetValue("textures",
-                                                                    "ground"));
+      name = "ground";
       break;
   }
 
-  PrintTexture(Point{ static_cast<double>(diff), point.y }, field_pixel, path);
+  PrintTexture(Point{ static_cast<double>(diff), point.y },
+               field_pixel,
+               textures_[name].getId());
 }
 
 void Visualizer::ShowScore(int score)
@@ -301,6 +280,41 @@ void Visualizer::KeyCatch(int key, int scancode, int action, int mods)
   rawPtr->keyManager_->KeyAction(key, scancode,
                                  static_cast<KeyManager::KEY_ACTION>(action),
                                  mods);
+}
+
+void Visualizer::LoeadTextures()
+{
+  auto getPath = [this](const char *name)
+                 {
+                   return "../Game/" + std::get<std::string>(settings_->GetValue(
+                                                               "textures",
+                                                               name));
+                 };
+
+  textures_["mario"]      = Textures::Texture(getPath("mario").c_str());
+  textures_["mario-jump"] =
+    Textures::Texture(getPath("mario-jump").c_str());
+  textures_["mario-fall"] =
+    Textures::Texture(getPath("mario-fall").c_str());
+  textures_["mario-run0"] =
+    Textures::Texture(getPath("mario-run0").c_str());
+  textures_["mario-run1"] =
+    Textures::Texture(getPath("mario-run1").c_str());
+  textures_["mario-run2"] =
+    Textures::Texture(getPath("mario-run2").c_str());
+  textures_["mario-run-left0"] = Textures::Texture(getPath(
+                                                     "mario-run-left0").c_str());
+  textures_["mario-run-left1"] = Textures::Texture(getPath(
+                                                     "mario-run-left1").c_str());
+  textures_["mario-run-left2"] = Textures::Texture(getPath(
+                                                     "mario-run-left2").c_str());
+  textures_["block"]     = Textures::Texture(getPath("block").c_str());
+  textures_["coin"]      = Textures::Texture(getPath("coin").c_str());
+  textures_["pipe"]      = Textures::Texture(getPath("pipe").c_str());
+  textures_["mushroom"]  = Textures::Texture(getPath("mushroom").c_str());
+  textures_["stepblock"] =
+    Textures::Texture(getPath("stepblock").c_str());
+  textures_["ground"] = Textures::Texture(getPath("ground").c_str());
 }
 
 void Visualizer::func_print_char(const std::string name,
