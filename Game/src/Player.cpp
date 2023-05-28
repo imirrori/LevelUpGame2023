@@ -23,8 +23,14 @@ void Player::onUpdate(std::chrono::nanoseconds duration)
     vx_ = std::max(vx_, 0.);
   }
 
+  if ((player_state_x == PLAYER_STATE_X::RUN_LEFT) ||
+      (player_state_x == PLAYER_STATE_X::STAND)) {
+    vx_ = std::min(vx_, 0.);
+  }
+
   if (vx_ == 0) {
     player_state_x = PLAYER_STATE_X::STAND;
+    ax_            = 0;
   }
 
   vy_ = vy_ + ay_ * std::chrono::duration_cast<std::chrono::milliseconds>(
