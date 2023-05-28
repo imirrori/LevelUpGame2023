@@ -110,6 +110,12 @@ void Map::InitBlocks()
                                    SKY });
         break;
 
+        case 'o':
+          blocks_.push_back(Block{ Point{ static_cast<double>(x),
+                                          static_cast<double>(height() - y - 1) },
+                                   CLOUD });
+        break;
+
         default: break;
       }
     }
