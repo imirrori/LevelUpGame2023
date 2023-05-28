@@ -43,7 +43,7 @@ Map::Map(std::shared_ptr<Visual::IMap>mapViz_)
 {
   map_    = default_map_;
   width_  = 200;
-  height_ = 8;
+  height_ = 7;
   InitBlocks();
 }
 
