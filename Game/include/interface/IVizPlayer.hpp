@@ -1,6 +1,7 @@
 #ifndef IVIZPLAYER_H
 #define IVIZPLAYER_H
 
+#include "interface/Player_state.hpp"
 #include "Point.h"
 
 namespace Visual {
@@ -9,7 +10,8 @@ public:
 
   virtual ~IPlayer() = default;
 
-  virtual void ShowPlayer(Point point) = 0;
+  virtual void ShowPlayer(Point        point,
+                          PLAYER_STATE state) = 0;
 };
 } // Visual
 

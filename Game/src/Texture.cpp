@@ -4,37 +4,36 @@
 #include "Texture.hpp"
 
 namespace Textures {
-void Texture::LoadTexture(const char *fileName,
-                          GLuint     *textureID,
-                          int         wrap,
-                          int         filter,
-                          TTexProc    proc)
+Texture::Texture()
+  : textureID_{0}
+{}
+
+Texture::Texture(const char *fileName)
 {
   int wigth, height, cnt;
 
   stbi_set_flip_vertically_on_load(true);
-  unsigned char *data = stbi_load(fileName, &wigth, &height, &cnt, 0);
+  data_ = stbi_load(fileName, &wigth, &height, &cnt, 0);
 
-  if (!data)
+  if (!data_)
   {
     return;
   }
 
-  if (proc)
-  {
-    proc(data, wigth, height, cnt);
-  }
-
-  glGenTextures(1, textureID);
-  glBindTexture(GL_TEXTURE_2D, *textureID);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,     wrap);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,     wrap);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
+  glGenTextures(1, &textureID_);
+  glBindTexture(GL_TEXTURE_2D, textureID_);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,     GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,     GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, wigth, height,
-               0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+               0, GL_RGBA, GL_UNSIGNED_BYTE, data_);
   glBindTexture(GL_TEXTURE_2D, 0);
+  stbi_image_free(data_);
+}
 
-  stbi_image_free(data);
+GLuint Texture::getId() const
+{
+  return textureID_;
 }
 }

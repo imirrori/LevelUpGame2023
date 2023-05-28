@@ -8,6 +8,7 @@ Player::Player(std::shared_ptr<Visual::IPlayer>playerViz)
   , vy_(0)
   , ax_(0)
   , ay_(0)
+  , player_state_(STAND)
 {}
 
 void Player::onUpdate(std::chrono::nanoseconds duration)
@@ -35,10 +36,11 @@ void Player::onUpdate(std::chrono::nanoseconds duration)
 
 void Player::onRender()
 {
-  playerViz_->ShowPlayer(point_);
+  playerViz_->ShowPlayer(point_, player_state_);
 }
 
-void Player::onCollision() {}
+void Player::onCollision() {
+}
 
 void Player::PressPlayerKey(KEY key)
 {
@@ -48,17 +50,21 @@ void Player::PressPlayerKey(KEY key)
   switch (key)
   {
     case LEFT:
-      vx_ = -default_v;
+      player_state_ = RUN_LEFT;
+      vx_           = -default_v;
       break;
     case RIGHT:
-      vx_ = default_v;
+      player_state_ = RUN_RIGHT;
+      vx_           = default_v * 1.4;
       break;
     case UP:
-      vy_ = default_v * 1.4;
-      ay_ = -default_a;
+      player_state_ = FLY;
+      vy_           = default_v * 1.4;
+      ay_           = -default_a;
       break;
     case DOWN:
-      vy_ = -default_v;
+      player_state_ = FALL;
+      vy_           = -default_v;
       break;
   }
 }
