@@ -39,6 +39,7 @@ private:
 
   double ax_;
   double ay_;
-  PLAYER_STATE player_state_;
+  PLAYER_STATE_X player_state_x;
+  PLAYER_STATE_Y player_state_y;
 };
 #endif // PLAYER_H

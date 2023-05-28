@@ -8,7 +8,9 @@ enum MAP_TYPES
   PIPE      = 2, // p
   MUSHROOOM = 3, // m
   STEPBLOCK = 4, // s
-  GROUND    = 5  // #
+  GROUND    = 5, // #
+  SKY       = 6, // n
+  CLOUD     = 7  // o
 };
 
 #endif // MAPTYPES_HPP
