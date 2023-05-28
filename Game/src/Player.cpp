@@ -8,7 +8,8 @@ Player::Player(std::shared_ptr<Visual::IPlayer>playerViz)
   , vy_(0)
   , ax_(0)
   , ay_(0)
-  , player_state_(STAND)
+  , player_state_x(PLAYER_STATE_X::STAND)
+  , player_state_y(PLAYER_STATE_Y::STAND)
 {}
 
 void Player::onUpdate(std::chrono::nanoseconds duration)
@@ -30,17 +31,17 @@ void Player::onUpdate(std::chrono::nanoseconds duration)
   }
 
   if (point_.y < 0) {
-    point_.y = 0;
+    point_.y       = 0;
+    player_state_y = PLAYER_STATE_Y::STAND;
   }
 }
 
 void Player::onRender()
 {
-  playerViz_->ShowPlayer(point_, player_state_);
+  playerViz_->ShowPlayer(point_, player_state_x, player_state_y);
 }
 
-void Player::onCollision() {
-}
+void Player::onCollision() {}
 
 void Player::PressPlayerKey(KEY key)
 {
@@ -50,22 +51,28 @@ void Player::PressPlayerKey(KEY key)
   switch (key)
   {
     case LEFT:
-      player_state_ = RUN_LEFT;
-      vx_           = -default_v;
+      player_state_x = PLAYER_STATE_X::RUN_LEFT;
+      vx_            = -default_v;
       break;
     case RIGHT:
-      player_state_ = RUN_RIGHT;
-      vx_           = default_v * 1.4;
+      player_state_x = PLAYER_STATE_X::RUN_RIGHT;
+      vx_            = default_v * 1.4;
       break;
     case UP:
-      player_state_ = FLY;
-      vy_           = default_v * 1.4;
-      ay_           = -default_a;
+
+      if (player_state_y == PLAYER_STATE_Y::STAND) {
+        player_state_y = PLAYER_STATE_Y::FLY;
+        vy_            = default_v * 1.4;
+        ay_            = -default_a;
+      }
       break;
     case DOWN:
-      player_state_ = FALL;
-      vy_           = -default_v;
-      break;
+
+      if (player_state_y == PLAYER_STATE_Y::FLY) {
+        player_state_y = PLAYER_STATE_Y::FALL;
+        vy_            = -default_v;
+        break;
+      }
   }
 }
 

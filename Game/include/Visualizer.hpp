@@ -39,8 +39,9 @@ public:
   void EndPrint()  override;
 
   // IPlayer
-  void ShowPlayer(Point        point,
-                  PLAYER_STATE state) override;
+  void ShowPlayer(Point          point,
+                  PLAYER_STATE_X state_x,
+                  PLAYER_STATE_Y state_y) override;
 
   // IMap
   void PrintBlock(Point point,

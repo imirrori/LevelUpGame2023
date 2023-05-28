@@ -10,8 +10,9 @@ public:
 
   virtual ~IPlayer() = default;
 
-  virtual void ShowPlayer(Point        point,
-                          PLAYER_STATE state) = 0;
+  virtual void ShowPlayer(Point          point,
+                          PLAYER_STATE_X state_x,
+                          PLAYER_STATE_Y state_y) = 0;
 };
 } // Visual
 

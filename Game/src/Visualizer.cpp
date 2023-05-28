@@ -118,7 +118,9 @@ void Visualizer::PrintRow(const std::string& name, bool current) //
 void Visualizer::EndPrint() // override by IMenu
 {}
 
-void Visualizer::ShowPlayer(Point point, PLAYER_STATE state) {
+void Visualizer::ShowPlayer(Point          point,
+                            PLAYER_STATE_X state_x,
+                            PLAYER_STATE_Y state_y) {
   player_vis_.player_point = point;
   const double diff = player_vis_.player_point.x >
                       5 ? 5 : player_vis_.player_point.x;
@@ -127,27 +129,30 @@ void Visualizer::ShowPlayer(Point point, PLAYER_STATE state) {
     std::get<int>(settings_->GetValue("visual", "field_pixel"));
   std::string path;
 
-  switch (state)
+  switch (state_y)
   {
-    case (STAND):
-      PrintTexture(Point{ diff, player_vis_.player_point.y },
-                   field_pixel,
-                   textures_["mario"].getId());
-      break;
-
-    case (FLY):
+    case (PLAYER_STATE_Y::FLY):
       PrintTexture(Point{ diff, player_vis_.player_point.y },
                    field_pixel,
                    textures_["mario-jump"].getId());
-      break;
+      return;
 
-    case (FALL):
+    case (PLAYER_STATE_Y::FALL):
       PrintTexture(Point{ diff, player_vis_.player_point.y },
                    field_pixel,
                    textures_["mario-fall"].getId());
-      break;
+      return;
+  }
 
-    case (RUN_RIGHT):
+  switch (state_x)
+  {
+    case (PLAYER_STATE_X::STAND):
+      PrintTexture(Point{ diff, player_vis_.player_point.y },
+                   field_pixel,
+                   textures_["mario"].getId());
+      return;
+
+    case (PLAYER_STATE_X::RUN_RIGHT):
       PrintTexture(Point{ diff, player_vis_.player_point.y },
                    field_pixel,
                    textures_["mario-run" +
@@ -159,9 +164,9 @@ void Visualizer::ShowPlayer(Point point, PLAYER_STATE state) {
       {
         player_vis_.player_frame_ = 0;
       }
-      break;
+      return;
 
-    case (RUN_LEFT):
+    case (PLAYER_STATE_X::RUN_LEFT):
       PrintTexture(Point{ diff, player_vis_.player_point.y },
                    field_pixel,
                    textures_["mario-run-left" +
@@ -173,7 +178,7 @@ void Visualizer::ShowPlayer(Point point, PLAYER_STATE state) {
       {
         player_vis_.player_frame_ = 0;
       }
-      break;
+      return;
   }
 }
 
