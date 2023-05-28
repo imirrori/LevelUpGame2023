@@ -206,6 +206,12 @@ void Visualizer::PrintBlock(Point point, int type)
     case GROUND:
       name = "ground";
       break;
+    case SKY:
+      name = "sky";
+      break;
+    case CLOUD:
+      name = "cloud";
+      break;
   }
 
   PrintTexture(Point{ static_cast<double>(diff), point.y },
@@ -315,6 +321,8 @@ void Visualizer::LoeadTextures()
   textures_["stepblock"] =
     Textures::Texture(getPath("stepblock").c_str());
   textures_["ground"] = Textures::Texture(getPath("ground").c_str());
+  textures_["sky"]    = Textures::Texture(getPath("sky").c_str());
+  textures_["cloud"]  = Textures::Texture(getPath("cloud").c_str());
 }
 
 void Visualizer::func_print_char(const std::string name,

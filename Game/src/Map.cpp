@@ -104,6 +104,18 @@ void Map::InitBlocks()
                                    GROUND });
           break;
 
+        case 'n':
+          blocks_.push_back(Block{ Point{ static_cast<double>(x),
+                                          static_cast<double>(height() - y - 1) },
+                                   SKY });
+        break;
+
+        case 'o':
+          blocks_.push_back(Block{ Point{ static_cast<double>(x),
+                                          static_cast<double>(height() - y - 1) },
+                                   CLOUD });
+        break;
+
         default: break;
       }
     }
