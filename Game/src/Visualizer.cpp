@@ -29,9 +29,6 @@ void PrintTexture(Point  point,
   glColor3f(1, 1, 1);
 
   glBegin(GL_POLYGON);
-
-  // 1.23
-
   glTexCoord2f(0, 0);
   glVertex2d(point.x * field_pixel, point.y * field_pixel);
   glTexCoord2f(1, 0);
@@ -41,7 +38,6 @@ void PrintTexture(Point  point,
              point.y * field_pixel + field_pixel);
   glTexCoord2f(0, 1);
   glVertex2d(point.x * field_pixel, point.y * field_pixel + field_pixel);
-
   glEnd();
 
   glDisable(GL_TEXTURE_2D);
@@ -142,22 +138,6 @@ void Visualizer::ShowPlayer(Point          point,
                    field_pixel,
                    textures_["mario-jump-left"].getId());
       return;
-
-    case (PLAYER_STATE_Y::FALL):
-      PrintTexture(Point{ diff, player_vis_.player_point.y },
-                   field_pixel,
-                   textures_["mario-fall"].getId());
-      return;
-    case (PLAYER_STATE_Y::FALL_RIGHT):
-      PrintTexture(Point{ diff, player_vis_.player_point.y },
-                   field_pixel,
-                   textures_["mario-fall-right"].getId());
-      return;
-    case (PLAYER_STATE_Y::FALL_LEFT):
-      PrintTexture(Point{ diff, player_vis_.player_point.y },
-                   field_pixel,
-                   textures_["mario-fall-left"].getId());
-      return;
     case (PLAYER_STATE_Y::STAND):
       PrintTexture(Point{ diff, player_vis_.player_point.y },
                    field_pixel,
@@ -167,6 +147,12 @@ void Visualizer::ShowPlayer(Point          point,
 
   switch (state_x)
   {
+    case (PLAYER_STATE_X::STAND):
+      PrintTexture(Point{ diff, player_vis_.player_point.y },
+                   field_pixel,
+                   textures_["mario"].getId());
+      return;
+
     case (PLAYER_STATE_X::RUN_RIGHT):
       PrintTexture(Point{ diff, player_vis_.player_point.y },
                    field_pixel,
@@ -324,16 +310,6 @@ void Visualizer::LoeadTextures()
     Textures::Texture(getPath("mario-jump").c_str());
   textures_["mario-jump-left"] =
     Textures::Texture(getPath("mario-jump-left").c_str());
-
-  textures_["mario-fall"] =
-    Textures::Texture(getPath("mario-fall").c_str());
-
-  textures_["mario-fall-left"] =
-    Textures::Texture(getPath("mario-fall-left").c_str());
-
-  textures_["mario-fall-right"] =
-    Textures::Texture(getPath("mario-fall-right").c_str());
-
   textures_["mario-run0"] =
     Textures::Texture(getPath("mario-run0").c_str());
   textures_["mario-run1"] =

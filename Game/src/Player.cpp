@@ -22,26 +22,51 @@ void Player::onUpdate(std::chrono::nanoseconds duration)
     duration).count();
 
   if ((player_state_x == PLAYER_STATE_X::RUN_RIGHT) ||
-      (player_state_x == PLAYER_STATE_X::STAND)) {
+      (player_state_x == PLAYER_STATE_X::STAND))
+  {
     vx_ = std::max(vx_, 0.);
   }
 
   if ((player_state_x == PLAYER_STATE_X::RUN_LEFT) ||
-      (player_state_x == PLAYER_STATE_X::STAND)) {
+      (player_state_x == PLAYER_STATE_X::STAND))
+  {
     vx_ = std::min(vx_, 0.);
   }
 
-  if ((player_state_y == PLAYER_STATE_Y::FALL) ||
-      (player_state_y == PLAYER_STATE_Y::FALL_RIGHT) ||
-      (player_state_y == PLAYER_STATE_Y::FALL_LEFT))
+  if (player_state_y == PLAYER_STATE_Y::FALL_LEFT)
   {
     if (point_.y == 0)
     {
       player_state_y = PLAYER_STATE_Y::STAND;
     }
+    vx_ = std::min(vx_, 0.);
   }
 
-  if (vx_ == 0) {
+  if (player_state_y == PLAYER_STATE_Y::FALL_RIGHT)
+  {
+    if (point_.y == 0)
+    {
+      player_state_y = PLAYER_STATE_Y::STAND;
+    }
+    vx_ = std::max(vx_, 0.);
+  }
+
+  if (point_.y < pre_point_.y)
+  {
+    if (player_state_y == PLAYER_STATE_Y::FLY_LEFT)
+    {
+      player_state_y = PLAYER_STATE_Y::FALL_LEFT;
+      vx_            = std::min(vx_, 0.);
+    }
+
+    if (player_state_y == PLAYER_STATE_Y::FLY_RIGHT)
+    {
+      player_state_y = PLAYER_STATE_Y::FALL_RIGHT;
+      vx_            = std::max(vx_, 0.);
+    }
+  }
+
+  if ((vx_ == 0) && (point_.y == 0)) {
     player_state_x = PLAYER_STATE_X::STAND;
     ax_            = 0;
   }
@@ -56,10 +81,12 @@ void Player::onUpdate(std::chrono::nanoseconds duration)
              std::chrono::duration_cast<std::chrono::milliseconds>(
     duration).count();
 
+  // контроль выхода за границы - левая стенка
   if (point_.x < 0) {
     point_.x = 0;
   }
 
+  // контроль выхода за границы - пол
   if (point_.y < 0) {
     point_.y       = 0;
     player_state_y = PLAYER_STATE_Y::STAND;
@@ -93,16 +120,6 @@ void Player::PressPlayerKey(KEY key)
         player_state_y = PLAYER_STATE_Y::FLY_LEFT;
       }
 
-      if (player_state_y == PLAYER_STATE_Y::FALL_LEFT)
-      {
-        player_state_y = PLAYER_STATE_Y::FALL_LEFT;
-      }
-
-      if (player_state_y == PLAYER_STATE_Y::FALL_RIGHT)
-      {
-        player_state_y = PLAYER_STATE_Y::FALL_LEFT;
-      }
-
       if (point_.y == 0)
       {
         player_state_x = PLAYER_STATE_X::RUN_LEFT;
@@ -113,40 +130,19 @@ void Player::PressPlayerKey(KEY key)
       break;
     case RIGHT:
 
-      if (player_state_y == PLAYER_STATE_Y::FLY_LEFT)
+      if ((player_state_y == PLAYER_STATE_Y::STAND) ||
+          (player_state_x == PLAYER_STATE_X::RUN_LEFT) ||
+          (player_state_x == PLAYER_STATE_X::RUN_RIGHT))
+      {
+        player_state_x = PLAYER_STATE_X::RUN_RIGHT;
+      }
+
+      if ((player_state_y == PLAYER_STATE_Y::FLY_LEFT) ||
+          (player_state_y == PLAYER_STATE_Y::FLY_RIGHT))
       {
         player_state_y = PLAYER_STATE_Y::FLY_RIGHT;
       }
 
-      if (player_state_y == PLAYER_STATE_Y::FLY_RIGHT)
-      {
-        player_state_y = PLAYER_STATE_Y::FLY_RIGHT;
-      }
-
-      if (player_state_y == PLAYER_STATE_Y::STAND)
-      {
-        player_state_x = PLAYER_STATE_X::RUN_RIGHT;
-      }
-
-      if (player_state_x == PLAYER_STATE_X::RUN_LEFT)
-      {
-        player_state_x = PLAYER_STATE_X::RUN_RIGHT;
-      }
-
-      if (player_state_y == PLAYER_STATE_Y::FALL_LEFT)
-      {
-        player_state_y = PLAYER_STATE_Y::FALL_RIGHT;
-      }
-
-      if (player_state_y == PLAYER_STATE_Y::FALL_RIGHT)
-      {
-        player_state_y = PLAYER_STATE_Y::FALL_RIGHT;
-      }
-
-      if (point_.y == 0)
-      {
-        player_state_x = PLAYER_STATE_X::RUN_RIGHT;
-      }
       vx_ = default_v * 1.4;
       ax_ = -default_a;
       break;
@@ -167,22 +163,6 @@ void Player::PressPlayerKey(KEY key)
       }
       break;
     case DOWN:
-
-      if ((point_.x > pre_point_.x) && (point_.y != 0))
-      {
-        player_state_y = PLAYER_STATE_Y::FALL_RIGHT;
-      }
-
-      if ((point_.x < pre_point_.x) && (point_.y != 0))
-      {
-        player_state_y = PLAYER_STATE_Y::FALL_LEFT;
-      }
-
-      if ((point_.x == pre_point_.x) && (point_.y != 0))
-      {
-        player_state_y = PLAYER_STATE_Y::FALL;
-      }
-
       vy_ = -default_v;
       break;
   }
@@ -191,4 +171,9 @@ void Player::PressPlayerKey(KEY key)
 Point Player::GetPlayerPoint()
 {
   return point_;
+}
+
+void Player::ChangePlayerPoint(Point point)
+{
+  point_ = point;
 }
