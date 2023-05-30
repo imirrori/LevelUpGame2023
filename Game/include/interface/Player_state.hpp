@@ -13,7 +13,6 @@ enum class PLAYER_STATE_Y
   STAND,
   FALL_LEFT,
   FALL_RIGHT,
-  FALL,
   FLY_RIGHT,
   FLY_LEFT
 };

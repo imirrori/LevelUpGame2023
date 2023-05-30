@@ -143,11 +143,6 @@ void Visualizer::ShowPlayer(Point          point,
                    textures_["mario-jump-left"].getId());
       return;
 
-    case (PLAYER_STATE_Y::FALL):
-      PrintTexture(Point{ diff, player_vis_.player_point.y },
-                   field_pixel,
-                   textures_["mario-fall"].getId());
-      return;
     case (PLAYER_STATE_Y::FALL_RIGHT):
       PrintTexture(Point{ diff, player_vis_.player_point.y },
                    field_pixel,
@@ -324,9 +319,6 @@ void Visualizer::LoeadTextures()
     Textures::Texture(getPath("mario-jump").c_str());
   textures_["mario-jump-left"] =
     Textures::Texture(getPath("mario-jump-left").c_str());
-
-  textures_["mario-fall"] =
-    Textures::Texture(getPath("mario-fall").c_str());
 
   textures_["mario-fall-left"] =
     Textures::Texture(getPath("mario-fall-left").c_str());
