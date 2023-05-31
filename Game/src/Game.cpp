@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include <optional>
+#include <thread>
 
 namespace {
 constexpr std::string_view SettingFileName = "settings.ini";
@@ -25,14 +26,25 @@ void Game::Run()
 
     std::vector<KeyManager::Key> keysDown = keyManager_->GetKeysDown();
 
-    for (const auto& key: keysDown) {
+    for (const auto& key: keysDown)
+    {
       state_ = state_->ProcessingKey(key);
       keyManager_->KeyAction(key.key,
                              key.scancode,
                              KeyManager::RELEASE,
                              key.mods);
     }
-    score_->AddScore();
+
+    using namespace std::chrono_literals;
+    auto past_time = std::chrono::steady_clock::now();
+    auto diff      = past_time - prev_time;
+    auto fps       = 1s / 60;
+
+    if (diff > fps)
+    {
+      std::this_thread::sleep_for(diff - std::chrono::seconds{ fps });
+    }
+
     prev_time = new_time;
   }
 }
