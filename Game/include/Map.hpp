@@ -59,14 +59,14 @@ private:
 
   // Debug purposes only
   const std::string default_map_ =
-    "nnnnnnnonnnnnnnnnnnnn###################################################################################################################################################################################"
-    "nnnonnnnnnnnnnonnnnnnc#############################################################################################c#######################bbcbc########################################################"
-    "nnnnnnnnnnnnnnnnnnnnn############################################################bbbbbbbbbb####bbbc################################bbb#################################################################s"
-    "nnnnnnnnnnnnnnnnnnnnn#######################################################m#########################################################################################################################ss"
-    "nnnnnnnnnnnnnnc####bcbcb##################################################bbcbb########################bb#######c##c##c#######b##############bb########s##s##########ss##s#########bbcb##############sss"
-    "nnnnnnnnnnnnnnnnnnnnn#############################################################################b###################################################ss##ss########sss##ss#########################ssss"
-    "nnnnnnnnnnnnnnnnnnnnn################################################################################################################################sss##sss######ssss##sss#######################sssss"
-    "######################m#######p####m####p######m#####p#####m###p########m######################m###########################################m########ssss##ssss####sssss##ssss###p####m#####p######ssssss";
+    "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
+    "nnnonnnnnnonnnnnnnnnnonnnnnnonnnnnnnnnnnnnnnnnnonnnnnnnnnnnnnnnoonnnnnonnnnnnnnnnnooonnnnnnnnnnnnnnnnonnnnnnonnnnnnnnnnnnnnoonnnnnnnnnnnnnonnnnnnnnnnonnnnnnnnnnoonnnnnnnnnnonnnnnnnnnnnnnonnnnnnnnnnonn"
+    "nnnnnnnnnnnnnnnnonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnncnnnnnnnonnnnnnnnnnnnnnnnonnnnnnnnnnnnnnnnnonnnonnnnnonnnnnnnnnnoononnnnnnnnnnnnnnnnonnnnnnnnonnnnnonnnnnnnnnnnnnoonnnnnnnnnnnnoonnnnnnns"
+    "nonnnnnnnnnonnnnnnnnnnnnnnnnnnnnonnnnnnoonnnnnnnnnnnnnnnnnnncnnbnnnnnnnncnnnonnnnnonnnnnnnnnnnnnnnnnnncnonnnnnnnonnnnnnnnnnnnnnnnnnnnnnnnonnnnnnnncnnnnnnnnnnnnnnnnnnnnooonnnnnnnnnnnnnnonnnnnnnnnnnnnns"
+    "nnnnnnnnnnnnnnnnnnnncnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnbnnnnnnnnnnnbbnnnnnnnnnnnnnnnnnnnnonnnnbbbbbbnnnnnnnnnnnnnnnbcbnnnnnnnnnnnnnnnnnnnnnnbbnnnnnnnnnonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnncnnnnnns"
+    "nnnnnnnnnnnnnnnnnnnbbnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnbcbbnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnbbnnnnnnnnnnnnnnnnnnnbbnnnnnnnnnnnnnnnnnnnnnnbnnnnnnnnnnnnnnnnnnnbbcbnnnnnnnnnnnnnbbbnnnnnnnnnnnbnnnnnns"
+    "nnnnnnnnnnnnnnnnnnnnnnnnpnnnnnnmnnnnnnnnnmnnnnpnnnnnnmnnnnnnnnnnnnpnnnnnnnnmnnnnnnnpnnnnnnnnnnnnnnnnmnnnnnnnnnnpnnnnmnnnnnnnnnnpnnnnmnnnnpnnnmnnnnnnnnmnnnnnpnnnnnnnmnnnnnpnnnnnnmnnnnnnnpnnnnnmnnnnnnns"
+    "########################################################################################################################################################################################################";
 
 public:
 
