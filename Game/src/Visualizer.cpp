@@ -144,6 +144,11 @@ void Visualizer::ShowPlayer(Point          point,
       return;
   }
 
+  const int showFrame = player_vis_.player_frame_ / PlayerVis::viz_scale %
+                        PlayerVis::viz_scale;
+
+  ++player_vis_.player_frame_;
+
   switch (state_x)
   {
     case (PLAYER_STATE_X::STAND):
@@ -156,28 +161,14 @@ void Visualizer::ShowPlayer(Point          point,
       PrintTexture(Point{ diff, player_vis_.player_point.y },
                    field_pixel,
                    textures_["mario-run" +
-                             std::to_string(player_vis_.player_frame_)].getId());
-
-      ++player_vis_.player_frame_;
-
-      if (player_vis_.player_frame_ > 2)
-      {
-        player_vis_.player_frame_ = 0;
-      }
+                             std::to_string(showFrame)].getId());
       return;
 
     case (PLAYER_STATE_X::RUN_LEFT):
       PrintTexture(Point{ diff, player_vis_.player_point.y },
                    field_pixel,
                    textures_["mario-run-left" +
-                             std::to_string(player_vis_.player_frame_)].getId());
-
-      ++player_vis_.player_frame_;
-
-      if (player_vis_.player_frame_ > 2)
-      {
-        player_vis_.player_frame_ = 0;
-      }
+                             std::to_string(showFrame)].getId());
       return;
   }
 }

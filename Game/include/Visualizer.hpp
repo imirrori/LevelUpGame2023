@@ -60,7 +60,9 @@ public:
 
 private:
 
-  struct PLAYER_VIS {
+  struct PlayerVis {
+    inline constexpr static int viz_scale = 3;
+
     Point        player_point;
     unsigned int player_frame_;
   };
@@ -72,7 +74,7 @@ private:
 
   int menu_count_;
   int reverse_menu_count_;
-  PLAYER_VIS player_vis_;
+  PlayerVis player_vis_;
   std::shared_ptr<Settings::ISettings>settings_;
   GLFWwindow *window_;
   std::shared_ptr<KeyManager>keyManager_;
