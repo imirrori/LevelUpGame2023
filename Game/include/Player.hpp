@@ -3,6 +3,8 @@
 
 #include "interface/IEntity.hpp"
 #include "interface/IVizPlayer.hpp"
+#include "interface/ISettings.hpp"
+#include "Map.hpp"
 
 #include <memory>
 
@@ -31,7 +33,12 @@ public:
 
 private:
 
+  std::shared_ptr<Settings::ISettings> settings;
+  const int block_pixel = std::get<int>(settings->GetValue("visual", "block_size"));
+  const int player_pixel = std::get<int>(settings->GetValue("visual", "player_size"));
+
   std::shared_ptr<Visual::IPlayer>playerViz_;
+  std::shared_ptr<Map> map;
   Point point_;
 
   double vx_;

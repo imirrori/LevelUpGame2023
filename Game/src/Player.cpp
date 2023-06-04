@@ -13,6 +13,31 @@ Player::Player(std::shared_ptr<Visual::IPlayer>playerViz)
   , player_state_y(PLAYER_STATE_Y::STAND)
 {}
 
+void Player::onCollision(){
+
+        for(int i = point_.y/block_pixel; i < (point_.y + player_pixel) / block_pixel; i++)
+            for(int j = point_.x/block_pixel; j < (point_.x+ player_pixel) / block_pixel; j++){
+                if(map->default_map_ == "b"){
+                    if(vy_ > 0){
+                        point_.y = i * block_pixel - player_pixel;
+                    }
+                    if(vy_ < 0){
+                        point_.y = i * block_pixel + block_pixel;
+                    }
+                    if(vx_ > 0){
+                        point_.x = i * block_pixel - player_pixel;
+                    }
+                    if(vx_ < 0){
+                        point_.x = i * block_pixel + block_pixel;
+                    }
+                }
+
+            }
+
+
+
+}
+
 void Player::onUpdate(std::chrono::nanoseconds duration)
 {
   vx_ = vx_ + ax_ * std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -58,7 +83,7 @@ void Player::onRender()
   playerViz_->ShowPlayer(point_, player_state_x, player_state_y);
 }
 
-void Player::onCollision() {}
+
 
 void Player::PressPlayerKey(KEY key)
 {
