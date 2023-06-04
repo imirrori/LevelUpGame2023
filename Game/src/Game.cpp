@@ -24,6 +24,8 @@ void Game::Run()
 
     player_->onUpdate(new_time - prev_time);
 
+    score_->onCollision();
+
     std::vector<KeyManager::Key> keysDown = keyManager_->GetKeysDown();
 
     for (const auto& key: keysDown)

@@ -179,7 +179,7 @@ void Visualizer::ShowPlayer(Point          point,
       {
         player_vis_.player_frame_ = 0;
       }
-      return;
+      break;
   }
 }
 

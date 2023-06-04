@@ -28,6 +28,8 @@ public:
   void  PressPlayerKey(KEY key);
 
   Point GetPlayerPoint();
+  Point GetPlayerPrePoint();
+  void  ChangePlayerPoint(Point point);
 
 private:
 

@@ -12,15 +12,38 @@ Score::Score(std::shared_ptr<Visual::IScore>scoreViz,
   , coin_(0)
 {}
 
-void Score::onUpdate(std::chrono::nanoseconds) {}
+void Score::onUpdate(std::chrono::nanoseconds) {
+}
 
 void Score::onRender()    {
   scoreViz_->ShowScore(coin_);
 }
 
-void Score::onCollision() {}
+void Score::onCollision() {
+  auto point     = player_->GetPlayerPoint();
+  auto pre_point = player_->GetPlayerPrePoint();
+  auto map       = map_->GetBlocks();
 
-int  Score::GetCurrentScore()
+  if (point.y == (map[point.y].type == GROUND))
+  {
+    point.y = point.y + 1;
+    player_->ChangePlayerPoint(point);
+  }
+
+  if (point.y == (map[point.y + 1].type == GROUND))
+  {
+    point.y = map[point.y - 1].point.y;
+    player_->ChangePlayerPoint(point);
+  }
+
+  if (point.x == (map[point.x].type == GROUND))
+  {
+    point.x = pre_point.x;
+    player_->ChangePlayerPoint(point);
+  }
+}
+
+int Score::GetCurrentScore()
 {
   return coin_;
 }

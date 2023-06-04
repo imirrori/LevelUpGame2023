@@ -25,12 +25,21 @@ void Player::onUpdate(std::chrono::nanoseconds duration)
       (player_state_x == PLAYER_STATE_X::STAND))
   {
     vx_ = std::max(vx_, 0.);
+
+    if (vx_ == 0) {
+      player_state_x = PLAYER_STATE_X::STAND;
+      ax_            = 0;
+    }
   }
 
-  if ((player_state_x == PLAYER_STATE_X::RUN_LEFT) ||
-      (player_state_x == PLAYER_STATE_X::STAND))
+  if (player_state_x == PLAYER_STATE_X::RUN_LEFT)
   {
     vx_ = std::min(vx_, 0.);
+
+    if (vx_ == 0) {
+      player_state_x = PLAYER_STATE_X::STAND;
+      ax_            = 0;
+    }
   }
 
   if (player_state_y == PLAYER_STATE_Y::FALL_LEFT)
@@ -64,11 +73,6 @@ void Player::onUpdate(std::chrono::nanoseconds duration)
       player_state_y = PLAYER_STATE_Y::FALL_RIGHT;
       vx_            = std::max(vx_, 0.);
     }
-  }
-
-  if ((vx_ == 0) && (point_.y == 0)) {
-    player_state_x = PLAYER_STATE_X::STAND;
-    ax_            = 0;
   }
 
   vy_ = vy_ + ay_ * std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -120,7 +124,7 @@ void Player::PressPlayerKey(KEY key)
         player_state_y = PLAYER_STATE_Y::FLY_LEFT;
       }
 
-      if (point_.y == 0)
+      if (player_state_y == PLAYER_STATE_Y::STAND)
       {
         player_state_x = PLAYER_STATE_X::RUN_LEFT;
       }
@@ -171,6 +175,11 @@ void Player::PressPlayerKey(KEY key)
 Point Player::GetPlayerPoint()
 {
   return point_;
+}
+
+Point Player::GetPlayerPrePoint()
+{
+  return pre_point_;
 }
 
 void Player::ChangePlayerPoint(Point point)
