@@ -4,6 +4,8 @@
 
 #include <fstream>
 #include <optional>
+#include <ratio>
+#include <thread>
 
 namespace {
 constexpr std::string_view SettingFileName = "settings.ini";
@@ -33,6 +35,15 @@ void Game::Run()
                              key.mods);
     }
     score_->AddScore();
+
+    auto diff = new_time - prev_time;
+    std::chrono::duration<int64_t, std::ratio<1, 30> > fps{ 1 };
+
+    if (diff < fps)
+    {
+      std::this_thread::sleep_for(fps - diff);
+    }
+
     prev_time = new_time;
   }
 }
