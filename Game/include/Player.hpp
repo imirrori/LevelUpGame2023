@@ -28,6 +28,7 @@ public:
   void  PressPlayerKey(KEY key);
 
   Point GetPlayerPoint();
+  Point GetPlayerPrePoint();
 
 private:
 
@@ -41,5 +42,6 @@ private:
   double ay_;
   PLAYER_STATE_X player_state_x;
   PLAYER_STATE_Y player_state_y;
+  Point pre_point_;
 };
 #endif // PLAYER_H
