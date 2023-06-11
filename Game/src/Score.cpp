@@ -1,50 +1,43 @@
-#include "MapTypes.hpp"
 #include "Score.hpp"
 
-#include <algorithm>
+#include <cmath>
 
 Score::Score(std::shared_ptr<Visual::IScore>scoreViz,
              std::shared_ptr<Player>        player,
-             std::shared_ptr<Map>           map)
+             std::shared_ptr<Coin>          coin)
   : scoreViz_(std::move(scoreViz))
   , player_(std::move(player))
-  , map_(std::move(map))
-  , coin_(0)
+  , coin_(std::move(coin))
+  , get_coins_(0)
 {}
 
-void Score::onUpdate(std::chrono::nanoseconds) {}
-
-void Score::onRender()    {
-  scoreViz_->ShowScore(coin_);
+void Score::onUpdate(std::chrono::nanoseconds) {
 }
 
-void Score::onCollision() {}
+void Score::onRender()    {
+  scoreViz_->ShowScore(get_coins_);
+}
+
+void Score::onCollision() {
+}
 
 int  Score::GetCurrentScore()
 {
-  return coin_;
+  return get_coins_;
 }
 
 void Score::AddScore()
 {
-  // auto vec = map_->GetBlocks();
+  const Point player_copy       = player_->GetPlayerPoint();
+  std::vector<Point> coins_copy = coin_->GetCoins();
 
-  // std::size_t x = player_->GetPlayerX_();
-  // std::size_t y = player_->GetPlayerY_();
-
-  // auto itr =
-  //  find_if(vec.begin(), vec.end(), [vec, x, y](decltype (vec[0])& element)
-  // {
-  //  if ((element.x == x) && (element.y == y))
-  //  {
-  //    return element.type;
-  //  }
-  //  else return 0;
-  // });
-
-  // if (itr->type == COIN)
-  // {
-  //  ++coin_;
-  //  map_->Change_Block(x, y, GROUND);
-  // }
+  for (auto el: coins_copy)
+  {
+    if ((std::round(player_copy.x) == el.x) &&
+        (std::round(player_copy.y) == el.y))
+    {
+      ++get_coins_;
+      coin_->DeleteCoin(el);
+    }
+  }
 }

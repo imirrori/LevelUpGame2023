@@ -13,6 +13,7 @@ public:
   virtual void ShowPlayer(Point          point,
                           PLAYER_STATE_X state_x,
                           PLAYER_STATE_Y state_y) = 0;
+  virtual void ShowCoin(Point coin)               = 0;
 };
 } // Visual
 

@@ -116,7 +116,8 @@ void Visualizer::PrintRow(const std::string& name, bool current) //
 }
 
 void Visualizer::EndPrint() // override by IMenu
-{}
+{
+}
 
 void Visualizer::ShowPlayer(Point          point,
                             PLAYER_STATE_X state_x,
@@ -171,6 +172,28 @@ void Visualizer::ShowPlayer(Point          point,
                              std::to_string(showFrame)].getId());
       return;
   }
+}
+
+void Visualizer::ShowCoin(Point coin)
+{
+  coin_vis_.coin_point = coin;
+
+  const int field_pixel =
+    std::get<int>(settings_->GetValue("visual", "field_pixel"));
+
+  const int showFrame = coin_vis_.coin_frame_ / CoinVis::viz_coin_scale %
+                        CoinVis::viz_coin_scale;
+  ++coin_vis_.coin_frame_;
+
+  const int diff = coin.x - static_cast<int>(player_vis_.player_point.x);
+
+  if ((diff > 10) || (diff < 0)) {
+    return;
+  }
+
+  PrintTexture(Point{ static_cast<double>(diff), coin.y },
+               field_pixel,
+               textures_["coin-" + std::to_string(showFrame)].getId());
 }
 
 void Visualizer::PrintBlock(Point point, int type)
@@ -321,6 +344,12 @@ void Visualizer::LoeadTextures()
   textures_["ground"] = Textures::Texture(getPath("ground").c_str());
   textures_["sky"]    = Textures::Texture(getPath("sky").c_str());
   textures_["cloud"]  = Textures::Texture(getPath("cloud").c_str());
+
+  textures_["coin-0"] = Textures::Texture(getPath("coin-0").c_str());
+  textures_["coin-1"] = Textures::Texture(getPath("coin-1").c_str());
+  textures_["coin-2"] = Textures::Texture(getPath("coin-2").c_str());
+  textures_["coin-3"] = Textures::Texture(getPath("coin-3").c_str());
+  textures_["coin-4"] = Textures::Texture(getPath("coin-4").c_str());
 }
 
 void Visualizer::func_print_char(const std::string name,

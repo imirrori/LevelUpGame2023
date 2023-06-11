@@ -4,6 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+       src/Coin.cpp \
        src/Game.cpp \
        src/KeyManager.cpp \
        src/MainMenu.cpp \
@@ -16,6 +17,7 @@ SOURCES += \
        App/main.cpp
 
 HEADERS += \
+       include/Coin.hpp \
        include/Player.hpp \
        include/interface/Player_state.hpp \
        include/interface/Point.h \

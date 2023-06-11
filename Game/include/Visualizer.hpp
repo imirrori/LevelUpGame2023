@@ -42,6 +42,7 @@ public:
   void ShowPlayer(Point          point,
                   PLAYER_STATE_X state_x,
                   PLAYER_STATE_Y state_y) override;
+  void ShowCoin(Point coin) override;
 
   // IMap
   void PrintBlock(Point point,
@@ -66,6 +67,12 @@ private:
     Point        player_point;
     unsigned int player_frame_;
   };
+  struct CoinVis {
+    inline constexpr static int viz_coin_scale = 5;
+
+    Point        coin_point;
+    unsigned int coin_frame_;
+  };
 
   void func_print_char(const std::string name,
                        const float       where_down,
@@ -75,6 +82,7 @@ private:
   int menu_count_;
   int reverse_menu_count_;
   PlayerVis player_vis_;
+  CoinVis coin_vis_;
   std::shared_ptr<Settings::ISettings>settings_;
   GLFWwindow *window_;
   std::shared_ptr<KeyManager>keyManager_;

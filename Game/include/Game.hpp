@@ -8,6 +8,7 @@
 #include "Map.hpp"
 #include "Player.hpp"
 #include "Score.hpp"
+#include <Coin.hpp>
 
 #include <memory>
 #include <array>
@@ -95,7 +96,7 @@ private:
     : public IState {
 public:
 
-    explicit PlayState(std::shared_ptr<Player>           player,
+    explicit PlayState(std::shared_ptr<Player>               player,
                        std::vector<std::shared_ptr<IEntity> >showObjects = {})
       : IState(std::move(showObjects))
       , player_(std::move(player))
@@ -135,6 +136,7 @@ private:
   std::shared_ptr<Visual::Visualizer>viz_;
   std::shared_ptr<MainMenu>menu_;
   std::shared_ptr<Player>player_;
+  std::shared_ptr<Coin>coins_;
   std::shared_ptr<Map>map_;
   std::shared_ptr<Score>score_;
 };

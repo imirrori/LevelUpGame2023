@@ -40,12 +40,12 @@ public:
     return map_;
   };
 
-private:
-
   struct Block {
     Point point;
     int   type;
   };
+
+private:
 
   std::size_t width_;
   std::size_t height_;
@@ -59,22 +59,19 @@ private:
 
   // Debug purposes only
   const std::string default_map_ =
-    "nnnnnnnonnnnnnnnnnnnn###################################################################################################################################################################################"
-    "nnnonnnnnnnnnnonnnnnnc#############################################################################################c#######################bbcbc########################################################"
-    "nnnnnnnnnnnnnnnnnnnnn############################################################bbbbbbbbbb####bbbc################################bbb#################################################################s"
-    "nnnnnnnnnnnnnnnnnnnnn#######################################################m#########################################################################################################################ss"
-    "nnnnnnnnnnnnnnc####bcbcb##################################################bbcbb########################bb#######c##c##c#######b##############bb########s##s##########ss##s#########bbcb##############sss"
-    "nnnnnnnnnnnnnnnnnnnnn#############################################################################b###################################################ss##ss########sss##ss#########################ssss"
-    "nnnnnnnnnnnnnnnnnnnnn################################################################################################################################sss##sss######ssss##sss#######################sssss"
-    "######################m#######p####m####p######m#####p#####m###p########m######################m###########################################m########ssss##ssss####sssss##ssss###p####m#####p######ssssss";
+    "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
+    "nnnonnnnnnonnnnnnnnnnonnnnnnonnnnnnnnnnnnnnnnnnonnnnnnnnnnnnnnnoonnnnnonnnnnnnnnnnooonnnnnnnnnnnnnnnnonnnnnnonnnnnnnnnnnnnnoonnnnnnnnnnnnnonnnnnnnnnnonnnnnnnnnnoonnnnnnnnnnonnnnnnnnnnnnnonnnnnnnnnnonn"
+    "nnnnnnnnnnnnnnnnonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnonnnnnnnnnnnnnnnnonnnnnnnnnnnnnnnnnonnnonnnnnonnnnnnnnnnoononnnnnnnnnnnnnnnnonnnnnnnnonnnnnonnnnnnnnnnnnnoonnnnnnnnnnnnoonnnnnnns"
+    "nonnnnnnnnnonnnnnnnnnnnnnnnnnnnnonnnnnnoonnnnnnnnnnnnnnnnnnnnnnbnnnnnnnnnnnnonnnnnonnnnnnnnnnnnnnnnnnnnnonnnnnnnonnnnnnnnnnnnnnnnnnnnnnnnonnnnnnnnnnnnnnnnnnnnnnnnnnnnnooonnnnnnnnnnnnnnonnnnnnnnnnnnnns"
+    "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnbnnnnnnnnnnnbbnnnnnnnnnnnnnnnnnnnnonnnnbbbbbbnnnnnnnnnnnnnnnbnbnnnnnnnnnnnnnnnnnnnnnnbbnnnnnnnnnonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnns"
+    "nnnnnnnnnnnnnnnnnnnbbnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnbnbbnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnbbnnnnnnnnnnnnnnnnnnnbbnnnnnnnnnnnnnnnnnnnnnnbnnnnnnnnnnnnnnnnnnnbbnbnnnnnnnnnnnnnbbbnnnnnnnnnnnbnnnnnns"
+    "nnnnnnnnnnnnnnnnnnnnnnnnpnnnnnnmnnnnnnnnnmnnnnpnnnnnnmnnnnnnnnnnnnpnnnnnnnnmnnnnnnnpnnnnnnnnnnnnnnnnmnnnnnnnnnnpnnnnmnnnnnnnnnnpnnnnmnnnnpnnnmnnnnnnnnmnnnnnpnnnnnnnmnnnnnpnnnnnnmnnnnnnnpnnnnnmnnnnnnns"
+    "########################################################################################################################################################################################################";
 
 public:
 
   // for class score:
   std::vector<Block>GetBlocks();
-  void              Change_Block(size_t    x,
-                                 size_t    y,
-                                 MAP_TYPES type);
 };
 
 #endif // LEVELUPGAME2023_FEATURE_LEVEL_AND_ENTITY_GAME_INCLUDE_MAP_HPP_

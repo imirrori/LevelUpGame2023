@@ -48,7 +48,8 @@ Map::Map(std::shared_ptr<Visual::IMap>mapViz_)
 }
 
 void Map::onUpdate(std::chrono::nanoseconds)
-{}
+{
+}
 
 void Map::onRender()
 {
@@ -59,7 +60,8 @@ void Map::onRender()
 }
 
 void Map::onCollision()
-{}
+{
+}
 
 void Map::InitBlocks()
 {
@@ -108,13 +110,13 @@ void Map::InitBlocks()
           blocks_.push_back(Block{ Point{ static_cast<double>(x),
                                           static_cast<double>(height() - y - 1) },
                                    SKY });
-        break;
+          break;
 
         case 'o':
           blocks_.push_back(Block{ Point{ static_cast<double>(x),
                                           static_cast<double>(height() - y - 1) },
                                    CLOUD });
-        break;
+          break;
 
         default: break;
       }
@@ -125,22 +127,4 @@ void Map::InitBlocks()
 std::vector<Map::Block>Map::GetBlocks()
 {
   return blocks_;
-}
-
-void Map::Change_Block(size_t x, size_t y, MAP_TYPES type)
-{
-  // auto itr =
-  //  find_if(blocks_.begin(), blocks_.end(),
-  //          [x, y](decltype (blocks_[0])& element)
-  // {
-  //  if ((element.x == x) && (element.y == y))
-  //  {
-  //    return element.type;
-  //  }
-  //  else return 0;
-  // });
-
-  // int block_for_change = distance(blocks_.begin(), itr);
-
-  // blocks_[block_for_change].type = type;
 }
