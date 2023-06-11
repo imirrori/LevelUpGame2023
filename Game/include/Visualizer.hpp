@@ -9,6 +9,8 @@
 #include "interface/ISettings.hpp"
 
 #include "Texture.hpp"
+#include "Shader.hpp"
+#include "SpriteRenderer.hpp"
 
 #include <GLFW/glfw3.h>
 
@@ -76,6 +78,8 @@ private:
   std::shared_ptr<Settings::ISettings>settings_;
   GLFWwindow *window_;
   std::shared_ptr<KeyManager>keyManager_;
+  std::shared_ptr<Shader> shader_;
+  std::shared_ptr<SpriteRenderer> spriteRenderer_;
   std::map<std::string, Textures::Texture>textures_;
 };
 } // Visual

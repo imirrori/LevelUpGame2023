@@ -5,6 +5,8 @@
 #include <cmath>
 #include <stdexcept>
 
+#define M_PI 3.14
+
 namespace {
 Visual::Visualizer *rawPtr = nullptr;
 void KeyCatch(GLFWwindow *, int key, int scancode, int action, int mods)
@@ -46,6 +48,50 @@ void PrintTexture(Point  point,
 
   glDisable(GL_TEXTURE_2D);
 }
+
+void PrintTexture(Point  point,
+                  size_t width,
+                  size_t height,
+                  size_t field_pixel,
+                  GLuint textureID)
+{
+  glMatrixMode(GL_PROJECTION);
+  glPushMatrix();
+  glLoadIdentity();
+  //glOrtho(0.0,   std::get<int>(settings_->GetValue("visual","window_width")
+  //                             , 0.0,
+  //                             std::get<int>(settings_->GetValue("visual", "window_height"), -1.0, 1.0);
+  glMatrixMode(GL_MODELVIEW);
+  glPushMatrix();
+
+
+  glLoadIdentity();
+  glDisable(GL_LIGHTING);
+
+
+  glColor3f(1,1,1);
+  glEnable(GL_TEXTURE_2D);
+  glBindTexture(GL_TEXTURE_2D, textureID);
+
+
+  // Draw a textured quad
+  glBegin(GL_QUADS);
+  glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
+  glTexCoord2f(0, 1); glVertex3f(0, 100, 0);
+  glTexCoord2f(1, 1); glVertex3f(100, 100, 0);
+  glTexCoord2f(1, 0); glVertex3f(100, 0, 0);
+  glEnd();
+
+
+  glDisable(GL_TEXTURE_2D);
+  glPopMatrix();
+
+
+  glMatrixMode(GL_PROJECTION);
+  glPopMatrix();
+
+  glMatrixMode(GL_MODELVIEW);
+}
 }
 
 namespace Visual {
@@ -57,7 +103,6 @@ Visualizer::Visualizer(
   , player_vis_({ { 0, 0 }, 0 })
   ,  settings_(settings)
   , keyManager_(std::move(keyManager))
-
 {
   if (!glfwInit()) {
     throw std::exception{};
@@ -278,6 +323,8 @@ bool Visualizer::Show(const std::vector<std::shared_ptr<IEntity> >& dataToShow)
           1,
           0);
 
+  glClearColor(0.15f, 0.46f, 0.46f, 1.0f);
+
   for (const auto& el: dataToShow) {
     el->onRender();
   }
@@ -330,6 +377,10 @@ void Visualizer::LoeadTextures()
   textures_["ground"] = Textures::Texture(getPath("ground").c_str());
   textures_["sky"]    = Textures::Texture(getPath("sky").c_str());
   textures_["cloud"]  = Textures::Texture(getPath("cloud").c_str());
+  textures_["symbols"] =
+    Textures::Texture(getPath("symbols").c_str());
+  textures_["menu-bg"] =
+    Textures::Texture(getPath("menu-bg").c_str());
 }
 
 void Visualizer::func_print_char(const std::string name,
@@ -347,7 +398,6 @@ void Visualizer::func_print_char(const std::string name,
       if ((name[i] == 'a') || (name[i] == 'A'))
       {
         glBegin(GL_LINE_LOOP);
-
         float a1 = where_down;
         float a2 = where_right + float(i) + space;
         glVertex2f(0 +      a2,  0  +  (coord - 50 - a1));

@@ -11,12 +11,16 @@ SOURCES += \
        src/Player.cpp \
        src/Score.cpp \
        src/Settings.cpp \
+       src/Shader.cpp \
+       src/SpriteRenderer.cpp \
        src/Texture.cpp \
        src/Visualizer.cpp \
        App/main.cpp
 
 HEADERS += \
        include/Player.hpp \
+       include/Shader.hpp \
+       include/SpriteRenderer.hpp \
        include/interface/Player_state.hpp \
        include/interface/Point.h \
        libs/STBI/stbi_image.h \
@@ -50,3 +54,12 @@ win32: LIBS += -lopengl32
 win32: LIBS += -lglfw3
 
 linux: LIBS += -lglfw -lGL
+
+win32: LIBS += -L$$PWD/libs/glew-2.1.0/lib/Release/x64/ -lglew32
+else:unix: LIBS += -L$$PWD/libs/glew-2.1.0/lib/Release/x64/ -lglew32
+
+INCLUDEPATH += $$PWD/libs/glew-2.1.0/include
+DEPENDPATH += $$PWD/libs/glew-2.1.0/include
+
+INCLUDEPATH += $$PWD/libs/glm/
+DEPENDPATH += $$PWD/libs/glm/
