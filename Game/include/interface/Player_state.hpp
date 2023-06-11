@@ -11,8 +11,8 @@ enum class PLAYER_STATE_X
 enum class PLAYER_STATE_Y
 {
   STAND,
-  FALL,
-  FLY
+  FLY_RIGHT,
+  FLY_LEFT
 };
 
 
