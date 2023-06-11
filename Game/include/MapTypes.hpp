@@ -3,6 +3,7 @@
 
 enum MAP_TYPES
 {
+  UNKNOWN   = -1,
   BLOCK     = 0, // b
   COIN      = 1, // c
   PIPE      = 2, // p

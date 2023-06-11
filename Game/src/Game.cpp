@@ -6,6 +6,7 @@
 #include <optional>
 #include <ratio>
 #include <thread>
+#include <iostream>
 
 namespace {
 constexpr std::string_view SettingFileName = "settings.ini";
@@ -24,6 +25,7 @@ void Game::Run()
     auto new_time = std::chrono::steady_clock::now();
 
     player_->onUpdate(new_time - prev_time);
+    score_->AddScore();
 
     std::vector<KeyManager::Key> keysDown = keyManager_->GetKeysDown();
 
@@ -34,7 +36,6 @@ void Game::Run()
                              KeyManager::RELEASE,
                              key.mods);
     }
-    score_->AddScore();
 
     auto diff = new_time - prev_time;
     std::chrono::duration<int64_t, std::ratio<1, 30> > fps{ 1 };

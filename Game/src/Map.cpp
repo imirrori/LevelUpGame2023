@@ -6,6 +6,21 @@
 #include <algorithm>
 #include <fstream>
 
+namespace {
+std::vector<Map::Block>::iterator GetBlockItr(
+  std::vector<Map::Block>& blocks,
+  const Point              point)
+{
+  return std::find_if(
+    blocks.begin(),
+    blocks.end(),
+    [point](const auto& element)
+    {
+      return (element.point.x == point.x) && (element.point.y == point.y);
+    });
+}
+}
+
 Map::Map(const std::string& file_name, std::shared_ptr<Visual::IMap>mapViz_)
   : mapViz_(std::move(mapViz_))
 {
@@ -108,13 +123,13 @@ void Map::InitBlocks()
           blocks_.push_back(Block{ Point{ static_cast<double>(x),
                                           static_cast<double>(height() - y - 1) },
                                    SKY });
-        break;
+          break;
 
         case 'o':
           blocks_.push_back(Block{ Point{ static_cast<double>(x),
                                           static_cast<double>(height() - y - 1) },
                                    CLOUD });
-        break;
+          break;
 
         default: break;
       }
@@ -122,25 +137,19 @@ void Map::InitBlocks()
   }
 }
 
-std::vector<Map::Block>Map::GetBlocks()
+MAP_TYPES Map::GetBlock(const Point point)
 {
-  return blocks_;
+  auto itr = GetBlockItr(blocks_, point);
+
+  return itr == blocks_.end() ? UNKNOWN : static_cast<MAP_TYPES>(itr->type);
 }
 
-void Map::Change_Block(size_t x, size_t y, MAP_TYPES type)
+void Map::Change_Block(const Point point, const MAP_TYPES type)
 {
-  // auto itr =
-  //  find_if(blocks_.begin(), blocks_.end(),
-  //          [x, y](decltype (blocks_[0])& element)
-  // {
-  //  if ((element.x == x) && (element.y == y))
-  //  {
-  //    return element.type;
-  //  }
-  //  else return 0;
-  // });
+  auto itr = GetBlockItr(blocks_, point);
 
-  // int block_for_change = distance(blocks_.begin(), itr);
-
-  // blocks_[block_for_change].type = type;
+  if (itr != blocks_.end())
+  {
+    itr->type = type;
+  }
 }
